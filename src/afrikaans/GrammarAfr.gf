@@ -1,8 +1,8 @@
 --# -path=.:../abstract:../common:prelude
 
-concrete GrammarAfr of Grammar = 
-  NounAfr, 
-  VerbAfr, 
+concrete GrammarAfr of Grammar =
+  NounAfr,
+  VerbAfr,
   AdjectiveAfr,
   AdverbAfr,
   NumeralAfr,

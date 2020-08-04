@@ -1,5 +1,5 @@
---# -path=.:../abstract:../common:../prelude
+--# -path=.:../abstract:../common:../api:../prelude
 
-concrete LangAfr of Lang = 
+concrete LangAfr of Lang =
   GrammarAfr,
   LexiconAfr ;
