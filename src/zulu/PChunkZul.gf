@@ -43,6 +43,12 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     VP_Rel_Chunk temp pol pron vp = {
       s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!False
     } ;
+    VP_Main_Chunk temp pol pron vp = {
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!False
+    } ;
+    VP_Main_Short_Chunk temp pol pron vp = {
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!True
+    } ;
     V_Chunk v = {
       s = variants { v.s!R_a ; v.s!R_ile ; v.s!R_e ; v.s!R_i ; v.s!R_anga }
     } ;

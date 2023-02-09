@@ -50,6 +50,8 @@ fun
   QS_Chunk     : QS  -> Chunk_QS ;
   VP_RelYo_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
   VP_Rel_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
+  VP_Main_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
+  VP_Main_Short_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
   V_Chunk : V -> Chunk_V ;
   CN_Pl_Chunk  : CN -> Chunk_CN ;
   CN_Sg_Chunk  : CN -> Chunk_CN ;
