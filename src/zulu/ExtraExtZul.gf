@@ -24,7 +24,10 @@ concrete ExtraExtZul of ExtraExt =
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = np.s!NFull -- umfundi
         in
-          cp ++ cop_base ;
+          case np.proDrop of {
+            False => cp ++ cop_base ;
+            True => "*" ++ cp ++ cop_base 
+          }
     } ;
     GreetSg = {
       s = "sawubona"
