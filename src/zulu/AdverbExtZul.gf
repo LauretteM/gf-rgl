@@ -107,4 +107,9 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       -- asp = Null ;
       reqLocS = False
     } ;
+
+    -- IAdjIAdv np iadj = {
+    --   s = (np.s!Loc) ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
+    --   postIAdv = False
+    -- } ;
 }

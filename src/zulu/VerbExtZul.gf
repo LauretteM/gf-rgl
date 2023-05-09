@@ -442,4 +442,24 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       vptype = CopDescr
     } ;
 
+    -- ComplVAux vaux vp = {
+    --     s = vp.s ;
+    --     perfSuff = vp.perfSuff ;
+    --     suff = vp.suff ;
+    --     oc = vp.oc ;
+    --     comp = vp.comp ;
+    --     iadv = vp.iadv ;
+    --     advs = vp.advs ;
+    --     hasComp = vp.hasComp ;
+    --     r = vp.r ;
+    --     syl = vp.syl ;
+    --     asp = vp.asp ;
+    --     asp_pref = vp.asp_pref ;
+    --     vptype = vp.vptype ;
+    --     comp_agr = vp.comp_agr ;
+    --     ap_comp = vp.ap_comp ;
+    --     aux_root = vaux.s ;
+    --     hasAux = True
+    -- } ;
+
 }
