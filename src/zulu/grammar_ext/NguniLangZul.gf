@@ -3,18 +3,12 @@
 concrete NguniLangZul of NguniLang =
   NguniGrammarZul,
   BackwardZul[ComplV2,ComplV3,ComplV2V],
-  ExtraExtZul,
   NounExtZul,
+  PhraseExtZul,
   RelativeExtZul,
-  VerbExtZul,
-  PhraseExtZul
-  -- MonoLexZul,
-  -- ChunkZul,
-  -- SymbolZul - [Symb],
-  -- TempZul
-  -- ,ConstructionZul
-  -- ,DocumentationZul --# notpresent
-  -- ,MarkupZul - [stringMark]
+  SentenceExtZul,
+  StructuralExtZul,
+  VerbExtZul
   ** {
 
 

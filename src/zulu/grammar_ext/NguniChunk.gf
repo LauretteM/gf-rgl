@@ -3,17 +3,14 @@
 abstract NguniChunk =
   NguniGrammar,
   Backward[ComplV2,ComplV3,ComplV2V],
-  ExtraExt,
   NounExt,
-  RelativeExt,
-  VerbExt,
   PhraseExt,
-  -- MonoLexAbs,
+  RelativeExt,
+  SentenceExt,
+  StructuralExt,
+  VerbExt,
   PChunk,
   Symbol - [Symb]
-  -- ,Construction  --- could be compiled here, but not in concretes, as they call Syntax and Grammar
-  -- ,Documentation  --# notpresent
-  -- ,Markup - [stringMark]
   ** {
   flags startcat=Phr ;
   } ;

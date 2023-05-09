@@ -2,6 +2,8 @@ abstract NounExt = Cat,CatExt ** {
 
   fun
 
+    ProDrop : Pron -> Pron ;
+
     -- Quant is used for demonstratives, and QuantStem for all/only
 
     PronPostdetNP : Pron -> Postdet -> NP ;
@@ -48,5 +50,9 @@ abstract NounExt = Cat,CatExt ** {
     -- LocNPossNP : LocN -> NP -> LocN ;
 
     LocAdvLoc : LocAdv -> Loc ;
+
+    PossNPLoc : CN -> NP -> CN ; -- zasepulazini
+
+    ExtConjNP : NP -> Conj -> NP -> NP ;
 
 }

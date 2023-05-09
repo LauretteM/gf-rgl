@@ -2,6 +2,19 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
   lin
 
+    ProDrop pron = {
+      s = table {
+        NFull => case pron.proDrop of {
+          True => "*" ++ pron.s!NFull ;
+          False => pron.empty
+        } ;
+        nform => "*" ++ pron.s!nform
+      } ;
+      agr = pron.agr ;
+      empty = pron.empty ;
+      proDrop = True
+    } ;
+
     -- Quant is used for demonstratives, and QuantStem for all/only
 
     PronPostdetNP pron postdet = {
@@ -318,6 +331,22 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       }
     } ;
 
+    PossNPLoc cn np = {
+      empty = np.empty ;
+      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++"s"++BIND++ (loc_NP np);
+      c = cn.c ;
+      emph = False
+    } ;
+
+    ExtConjNP np1 conj np2 = {
+      s = \\nform => np1.s!nform ++ (link_conj conj np2.i) ++ np2.s!NReduced ;
+      agr = compAgr np1.agr np2.agr ;
+      i = np1.i ;
+      proDrop = andB np1.proDrop np2.proDrop ;
+      isPron = np1.isPron ;
+      heavy = orB np1.heavy np2.heavy ;
+      empty = np1.empty ++ np2.empty
+    } ;
 
 
 }

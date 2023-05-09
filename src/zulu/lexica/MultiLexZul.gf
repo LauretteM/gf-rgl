@@ -1,6 +1,8 @@
 concrete MultiLexZul of MultiLex = CatZul ** open ResZul,ParadigmsZul in {
 
   lin
+    big_Adv = mkAdv "kakhulu" ;
+
     -- adjectives
     big_A = mkA "khulu" ;
     bad_A = mkA "bi" ;
@@ -894,6 +896,7 @@ concrete MultiLexZul of MultiLex = CatZul ** open ResZul,ParadigmsZul in {
     pour_V2 = mkV2 "thel" ;
     prepare_V = mkV "lungis" ;
     prepare_V2 = mkV2 "lungis" ;
+    prepare_VV = mkVV "lungisel" ;
     pretend_V = mkV "zenzis" ;
     pretend_V2 = mkV2 "zenzis" ;
     prevent_1_V = mkV "vimbel" ;
@@ -1121,7 +1124,7 @@ concrete MultiLexZul of MultiLex = CatZul ** open ResZul,ParadigmsZul in {
     walk_V = mkV "hamb" ;
     want_V = mkV "fun" ;
     want_V2 = mkV2 "fun" ;
-    -- want_VS = mkVS "fun" SSub ;
+    want_VV = mkVV "fun" ;
     warm_V = mkV "fudumez" ;
     warm_V2 = mkV2 "fudumez" ;
     warn_V = mkV "xwayis" ;

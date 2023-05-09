@@ -6,6 +6,7 @@ abstract MonoLex = Cat ** {
    ningi_5_N : N ;
    lungu_1a_2a_N : N ;
    ingabe_Adv : Adv ;
+   kakhulu_Adv : Adv ;
 
    -- adjective stems
    bana_A : A ;

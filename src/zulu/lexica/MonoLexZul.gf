@@ -6,6 +6,7 @@ concrete MonoLexZul of MonoLex = CatZul ** open ResZul,ParadigmsZul in {
    ningi_5_N = mkN "ningi" C5_6 ;
    lungu_1a_2a_N = mkN "lungu" "abelungu" "elungwini" "ebelungwini" C1a_2a ;
    ingabe_Adv = mkAdv "ingabe" ;
+   kakhulu_Adv = mkAdv "kakhulu" ;
 
    -- AUTOMATED ADDITIONS --
 

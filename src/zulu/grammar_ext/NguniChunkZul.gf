@@ -3,18 +3,14 @@
 concrete NguniChunkZul of NguniChunk =
   NguniGrammarZul,
   BackwardZul[ComplV2,ComplV3,ComplV2V],
-  ExtraExtZul,
   NounExtZul,
-  RelativeExtZul,
-  VerbExtZul,
   PhraseExtZul,
-  -- MonoLexZul,
+  RelativeExtZul,
+  SentenceExtZul,
+  StructuralExtZul,
+  VerbExtZul,
   PChunkZul,
   SymbolZul - [Symb]
-  -- TempZul
-  -- ,ConstructionZul
-  -- ,DocumentationZul --# notpresent
-  -- ,MarkupZul - [stringMark]
   ** {
 
 

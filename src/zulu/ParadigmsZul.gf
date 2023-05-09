@@ -144,6 +144,10 @@ oper
     mkVA : (b : Str) -> VA  = \b -> lin VA (regVerb b) ;
   } ;
 
+  mkVV = overload {
+    mkVV : (f : Str) -> VV  = \f -> lin VV (regVerb f)
+  } ;
+
   mkVS = overload {
     mkVS : (cel : Str) -> SType -> VS  = \cel,st -> lin VS ((regVerb cel) ** { s_type = st } ) ;
     mkVS : (az,azi : Str) -> SType -> VS  = \az,azi,st -> lin VS ((th_Verb az azi) ** { s_type = st } ) ;

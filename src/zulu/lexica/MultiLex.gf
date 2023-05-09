@@ -1,6 +1,8 @@
 abstract MultiLex = Cat ** {
 
   fun
+    big_Adv : Adv ;
+
     big_A : A ;
     bad_A : A ;
     beautiful_A : A ;
@@ -892,6 +894,7 @@ abstract MultiLex = Cat ** {
     pour_V2 : V2 ;
     prepare_V : V ;
     prepare_V2 : V2 ;
+    prepare_VV : VV ;
     pretend_V : V ;
     pretend_V2 : V2 ;
     prevent_1_V : V ;
@@ -1119,7 +1122,7 @@ abstract MultiLex = Cat ** {
     walk_V : V ;
     want_V : V ;
     want_V2 : V2 ;
-    -- want_VS : VS ;
+    want_VV : VV ;
     warm_V : V ;
     warm_V2 : V2 ;
     warn_V : V ;

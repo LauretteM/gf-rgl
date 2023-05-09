@@ -26,4 +26,6 @@ abstract VerbExt = Cat,CatExt ** {
     PassV : V -> V ; -- w
     RecipV : V -> V ; -- an
 
+    -- IAdvVP : VP -> IAdv -> VP ; -- kushisa kangakanani eGoli
+
 }
