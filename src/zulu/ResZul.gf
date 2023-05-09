@@ -28,6 +28,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
     AType = AdjType | RelType ;
     LocAdvType = KwaAdv | NaAdv ;
+    SType = SInd | SSub ;
 
     AForm = AF1 | AF2 | AF3 ; -- two forms for implementing sound changes Poulos+Msimang p143, one for monosyllabic
     SCForm = SC | SCVow | SCNeg | SCNegVow | SCPS | SCPart | SCVowP | SCBe | SCRP ;
@@ -259,12 +260,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -----------
     -- VERBS --
     -----------
-    regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \root ->
+    regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
     {
       s = table {
         R_a => root ++BIND++ "a" ;
         R_ile => case root of {
           _+"el" => root ++BIND++ "e" ;
+          (#cons+"al") | (#cons+#cons+"al") | (#cons+#cons+#cons+"al") => root ++BIND ++ "e" ;
           _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
           _+"an" => (tk 2 root) + "en" ++BIND++ "e" ;
           _+"w" => root ++BIND ++ "e" ;
@@ -297,10 +299,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+#cons+#vowel+#cons+_ => SylMult ;
         _ => SylMono
       } ;
-      voice = Active
+      voice = Active ;
+      root = root
     } ;
 
-    th_Verb : Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \th,thi ->
+    th_Verb : Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \th,thi ->
     {
       s = table {
         R_a => thi ;
@@ -321,10 +324,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+#cons+#vowel+#cons+_ => SylMult ;
         _ => SylMono
       } ;
-      voice = Active
+      voice = Active ;
+      root = th
     } ;
 
-    three_Verb : Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \root,r_a,r_ile -> {
+    three_Verb : Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile -> {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
@@ -344,10 +348,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+#cons+#vowel+#cons+_ => SylMult ;
         _ => SylMono
       } ;
-      voice = Active
+      voice = Active ;
+      root = root
     } ;
 
-    four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \root,r_a,r_ile,r_e -> {
+    four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile,r_e -> {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
@@ -367,7 +372,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+#cons+#vowel+#cons+_ => SylMult ;
         _ => SylMono
       } ;
-      voice = Active
+      voice = Active ;
+      root = root
     } ;
 
     -- irregVerb : Str -> Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \hamba,hambile,hambe,hambi,hambanga -> {
@@ -393,7 +399,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --   voice = Active
     -- } ;
 
-    passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \root ->
+    passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
     {
       s = table {
         R_a => root ++BIND++ "a" ;
@@ -414,7 +420,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _+#cons+#vowel+#cons+_ => SylMult ;
         _ => SylMono
       } ;
-      voice = Passive
+      voice = Passive ;
+      root = root
     } ;
 
     -- Determine which form of the verb root to use

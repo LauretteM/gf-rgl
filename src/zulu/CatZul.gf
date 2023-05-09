@@ -139,11 +139,20 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 --     CAdv = {s : Polarity => Str; p : Str} ;
 
 -- Open lexical classes, e.g. Lexicon
-    V,V2,VA,VS,V3,VV = {
+    V,V2,VA,V3,VV,V2V = {
       s : RForm => Str ;
       r : RInit ;
       syl : Syl ;
-      voice : Voice
+      voice : Voice ;
+      root : Str
+    } ;
+    VS = {
+      s : RForm => Str ;
+      r : RInit ;
+      syl : Syl ;
+      voice : Voice ;
+      s_type : SType ;
+      root : Str
     } ;
     -- VQ = Verb ;
     -- V2Q, V2S = Verb ** {c2 : Str} ;

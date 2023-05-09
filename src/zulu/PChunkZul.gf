@@ -3,6 +3,8 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     Prelude, ResZul, ParamX,
     (R = ResZul), (P = ParadigmsZul) in {
 
+  -- Chunks are implemented without variants in order to enable recovery of the linearisation
+
   lincat
     Chunks = {s : Str} ;
     Chunk = {s : Str};
@@ -32,25 +34,42 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
 
     Phr_Chunk p = {s = p.s } ;
     Adv_Chunk a = { s = a.s } ;
-    Imp_Sg_Chunk i = { s = variants { i.s!Sg!Pos ; i.s!Sg!Neg} } ;
-    Imp_Pl_Chunk i = { s = variants { i.s!Pl!Pos ; i.s!Pl!Neg} } ;
+    Imp_Sg_Pos_Chunk i = { s = i.s!Sg!Pos } ;
+    Imp_Sh_Neg_Chunk i = { s = i.s!Sg!Neg } ;
+    Imp_Pl_Pos_Chunk i = { s = i.s!Pl!Pos } ;
+    Imp_Pl_Neg_Chunk i = { s = i.s!Pl!Neg } ;
     S_Chunk s = { s = s.s } ;
     RS_Chunk pron rs = { s = pron.s!NFull ++ rs.s!pron.agr } ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
     VP_RelYo_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!True
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!True ++ vp.comp ++ vp.advs
     } ;
     VP_Rel_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!False
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!False ++ vp.comp ++ vp.advs
     } ;
     VP_Main_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!False
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!False ++ vp.comp ++ vp.advs
     } ;
     VP_Main_Short_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!True
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!True ++ vp.comp ++ vp.advs
     } ;
-    V_Chunk v = {
-      s = variants { v.s!R_a ; v.s!R_ile ; v.s!R_e ; v.s!R_i ; v.s!R_anga }
+    VP_Inf_Chunk pol vp = {
+      s = pol.s ++ vp.inf_s!NFull!pol.p ++ vp.comp ++ vp.advs
+    } ;
+    V_a_Chunk v = {
+      s = v.s!R_a
+    } ;
+    V_ile_Chunk v = {
+      s = v.s!R_ile
+    } ;
+    V_e_Chunk v = {
+      s = v.s!R_e
+    } ;
+    V_i_Chunk v = {
+      s = v.s!R_i
+    } ;
+    V_anga_Chunk v = {
+      s = v.s!R_anga
     } ;
     CN_Sg_Chunk cn = {
       s = cn.s!Sg!NFull
@@ -59,16 +78,22 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
       s = cn.s!Pl!NFull
     } ;
     NP_Nom_Chunk np = {
-      s = variants {
-          np.s!NFull ;
+      s = np.s!NFull
+    } ;
+    NP_Nom_Reduced_Chunk np = {
+      s =
           np.s!NReduced
-      }
     } ;
     NP_Loc_Chunk np = {
       s = np.s!NLoc
     } ;
-    NP_Gen_Chunk pron np = {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!np.i ++BIND++ np.s!NPoss
+    NP_Gen_Chunk pron np = let
+    i = case np.agr of {
+      (First Pl) | (Second Pl) => RI ;
+      (First _ | Second _ | Third _ _ ) => np.i
+    }
+    in {
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr!i ++BIND++ np.s!NPoss
     } ;
     -- NP_Gen_Chunk np = {
     --   s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!NPoss
@@ -78,6 +103,12 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     } ;
     Postdet_Chunk pron postdet = {
       s = pron.s!NFull ++ postdet.s!pron.agr
+    } ;
+    N_Sg_Chunk n = {
+      s = n.s!Sg!NFull
+    } ;
+    N_Pl_Chunk n = {
+      s = n.s!Pl!NFull
     } ;
 
   -- for unknown words that are not names
@@ -97,32 +128,6 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     oper
 
       sbSS : Str -> SS = \s -> ss (SOFT_BIND ++ s) ;
-
-      agr_vars : Agr = variants {
-        Third C1_2 Sg ;
-        Third C1_2 Pl ;
-        Third C1a_2a Sg ;
-        Third C1a_2a Pl ;
-        Third C3_4 Sg ;
-        Third C3_4 Pl ;
-        Third C5_6 Sg ;
-        Third C5_6 Pl ;
-        Third C7_8 Sg ;
-        Third C7_8 Pl ;
-        Third C9_10 Sg ;
-        Third C9_10 Pl ;
-        Third C11_10 Sg ;
-        Third C11_10 Pl ;
-        Third C9_6 Sg ;
-        Third C9_6 Pl ;
-        Third C14 Sg ;
-        Third C15 Sg ;
-        Third C17 Sg ;
-        First Sg ;
-        First Pl ;
-        Second Sg ;
-        Second Pl
-      } ;
 
       bool_vars : Bool = variants { True | False } ;
 

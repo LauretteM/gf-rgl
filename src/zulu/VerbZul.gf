@@ -118,23 +118,80 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       vptype = VNPCompl
     } ;
 
-    -- ComplVS vs s = vs ** {
-    --   -- s = vs.s ;
-    --   oc = [] ;
-    --   comp = s.subjs ;
-    --   iadv = [] ;
-    --   advs = [] ;
-    --   hasComp = True ;
-    --   -- r = vs.r ;
-    --   -- syl = vs.syl ;
-    --   asp = Null ;
-    --   asp_pref = \\_ => [] ;
-    --   vptype = VSCompl ;
-    --   comp_agr = First Sg ; -- this could be anything...
-    --   ap_comp = \\_ => [] ;
-    --   aux_root = [] ;
-    --   hasAux = False
+    -- {
+    --   s : CType => Agr => Polarity => BasicTense => Bool => Str ; --
+    --   imp_s : Number => Polarity => Str ;
+    --   inf_s : NForm => Polarity => Str ;
+    --   comp : Str ;
+    --   iadv : Str ;
+    --   advs : Str ;
+    --   hasComp : Bool ; -- indicates whether to use long form
+    --   r : RInit ;
+    --   syl : Syl ;
+    --   vptype : VPType ;
     -- } ;
+
+    ComplVS v s = {
+      s = table {
+        MainCl => \\a,p,t,l => let
+          vform = VFIndic MainCl p t ;
+          vpref = verb_prefix_no_oc vform l v.r a ;
+          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          r = v.s!(rform vform l) -- hamba
+          -- rest of verb prefix built later (eg no "ya" with certain question words)
+        in vpref ++ tp ++ r ;
+        RelCl => \\a,p,t,l => let
+          vform = VFIndic RelCl p t ;
+          rc = relConc vform a v.r ; -- o-
+          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          r = v.s!(rform vform l) ; -- hamba
+          suf = case l of {
+            True => relSuf vform ;
+            False => []
+          } ;
+        in rc ++ tp ++ r ++ suf
+      } ;
+      imp_s = table {
+        Sg => table {
+          Pos => case v.syl of {
+            SylMono => "yi"++BIND++v.s!R_a ;
+            SylMult => v.s!R_a
+          } ;
+          Neg => "unga" ++BIND++ v.s!R_i
+        } ;
+        Pl => table {
+          Pos => case v.syl of {
+            SylMono => "yi"++BIND++v.s!R_a ++BIND++"ni" ;
+            SylMult => v.s!R_a ++BIND++"ni"
+          } ;
+          Neg => "ninga" ++BIND++ v.s!R_i
+        }
+      } ;
+      inf_s = table {
+        NFull => table {
+          Pos => "uku" ++BIND++ v.s!R_a ;
+          Neg => "uku" ++BIND++ "nga" ++BIND++ v.s!R_i
+        } ;
+        NReduced | NPoss => table {
+          Pos => "ku" ++BIND++ v.s!R_a ;
+          Neg => "ku" ++BIND++ "nga" ++BIND++ v.s!R_i
+        } ;
+        NLoc => table {
+          Pos => "e" ++BIND++ "ku"++BIND++v.s!R_e ++BIND++ "ni" ;
+          Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
+        }
+      } ;
+      iadv, advs = [] ;
+      comp = case v.s_type of {
+        SInd => s.s ;
+        _ => s.s
+      } ;
+      -- ap_comp = \\_ => [] ;
+      hasComp = True ;
+      r = v.r ;
+      syl = v.syl ;
+      vptype = NoComp
+    } ;
 
 -- ---    ComplVS v s  = insertObj (variants {\\_ => conjThat ++ s.s; \\_ => s.s}) (predV v) ;
 --     ComplVQ v q  = insertExtra (q.s ! QIndir) (predV v) ;

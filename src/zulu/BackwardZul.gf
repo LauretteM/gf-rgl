@@ -28,7 +28,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           --   True => False ;
           --   False => True
           -- } ;
-          r = v2.s!(rform (VFIndic MainCl p t) longform) ; -- bona / boni
+          r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
           -- obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
           True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ;
@@ -43,11 +43,15 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           --   True => False ;
           --   False => True
           -- } ;
-          r = v2.s!(rform vform longform) ; -- bona / boni
+          r = v2.s!(rform vform l) ; -- bona / boni
+          suf = case l of {
+            True => relSuf vform ;
+            False => []
+          } ;
           -- obj = np.s!NFull -- [] / inkomo
         in case np.proDrop of {
-          True => rc ++ tp ++ oc ++ r ++ obj ;
-          False => rc ++ tp ++ r ++ obj
+          True => rc ++ tp ++ oc ++ r ++ suf ++ obj ;
+          False => rc ++ tp ++ r ++ suf ++ obj
         }
       } ;
       imp_s = table {
@@ -100,36 +104,189 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       vptype = VNPCompl
     } ;
 
-    -- ComplV3 v3 np1 np2 = v3 ** {
-    --   -- s = v3.s ;
-    --   oc = case np1.proDrop of {
-    --     True => objConc np1.agr v3.r v3.syl ;
-    --     False => []
-    --   } ;
-    --   comp = case np1.proDrop of {
-    --     True => case v3.voice of {
-    --       Active => np2.s ! NFull ++ np2.desc ;
-    --       Passive => (cop_pref np2.agr) ++BIND++ np2.s ! NFull ++ np2.desc
-    --     } ;
-    --     False => case v3.voice of {
-    --       Active => np1.s ! NFull ++ np1.desc ++ np2.s ! NFull ++ np2.desc ;
-    --       Passive => (cop_pref np1.agr) ++BIND++ np1.s ! NFull ++ np1.desc ++ np2.s ! NFull ++ np2.desc
-    --     }
-    --   } ;
-    --   iadv = [] ;
-    --   advs = [] ;
-    --   hasComp = True ;
-    --   -- r = v3.r ;
-    --   -- syl = v3.syl ;
-    --   asp = Null ;
-    --   asp_pref = \\_ => [] ;
-    --   vptype = VNPCompl ;
-    --   comp_agr = np1.agr ; -- this could be anything...
-    --   ap_comp = \\_ => [] ;
-    --   ap_bool = False ;
-    --   aux_root = [] ;
-    --   hasAux = False
-    -- } ;
+    ComplV3 v2 np1 np2 = let
+      oc = objConc np1.agr v2.r v2.syl ;
+      longform = case np1.heavy of {
+        True => False ;
+        False => True
+      } ;
+      obj1 = np1.s!NFull ;
+      obj2 = case np2.proDrop of {
+        False => np2.s!NFull ;
+        True => "*" ++ np2.s!NFull
+      } ;
+    in {
+      s = table {
+        MainCl => \\a,p,t,l => let
+          vform = (VFIndic MainCl p t) ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
+          vpref_with_oc = verb_prefix_with_oc vform l a ;
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
+          r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
+          -- obj = np.s!NFull -- [] / inkomo
+        in case np1.proDrop of {
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj1 ++ obj2 ;
+          False => vpref_no_oc ++ tp ++ r ++ obj1 ++ obj2
+        } ;
+        RelCl => \\a,p,t,l => let
+          vform = (VFIndic RelCl p t) ;
+          rc = relConc vform a v2.r ; -- o- / onga-
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
+          r = v2.s!(rform vform l) ; -- bona / boni
+          -- obj = np.s!NFull -- [] / inkomo
+        in case np1.proDrop of {
+          True => rc ++ tp ++ oc ++ r ++ obj1 ++ obj2 ;
+          False => rc ++ tp ++ r ++ obj1 ++ obj2
+        }
+      } ;
+      imp_s = table {
+        Sg => table {
+          Pos => case np1.proDrop of {
+            True => oc ++ v2.s!R_e ++ obj1 ++ obj2 ;
+            False => v2.s!R_a ++ obj1 ++ obj2
+          } ;
+          Neg => case np1.proDrop of {
+            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj1 ++ obj2 ;
+            False => "unga" ++BIND++ v2.s!R_i ++ obj1 ++ obj2
+          }
+        } ;
+        Pl => table {
+          Pos => case np1.proDrop of {
+            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj1 ++ obj2 ;
+            False => v2.s!R_a ++BIND++"ni" ++ obj1 ++ obj2
+          } ;
+          Neg => case np1.proDrop of {
+            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj1 ++ obj2 ;
+            False => "ninga" ++BIND++ v2.s!R_i ++ obj1 ++ obj2
+          }
+        }
+      } ;
+      inf_s = let
+        inf_oc = case np1.proDrop of {
+          True => oc ;
+          False => []
+        }
+      in
+      table {
+        NFull => table {
+          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
+          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj1 ++ obj2
+        } ;
+        NReduced | NPoss => table {
+          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
+          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj1 ++ obj2
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2
+        }
+      } ;
+      iadv, advs, comp = [] ;
+      ap_comp = \\_ => [] ;
+      hasComp = True ;
+      r = v2.r ;
+      syl = v2.syl ;
+      vptype = VNPCompl
+    } ;
+
+    ComplV2V v2 np vp = let
+      oc = objConc np.agr v2.r v2.syl ;
+      longform = False ;
+      obj = np.s!NFull
+    in {
+      s = table {
+        MainCl => \\a,p,t,l => let
+          vform = (VFIndic MainCl p t) ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
+          vpref_with_oc = verb_prefix_with_oc vform l a ;
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
+          r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
+          -- obj = np.s!NFull -- [] / inkomo
+        in case np.proDrop of {
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;
+          False => vpref_no_oc ++ tp ++ r ++ obj ++ vp.inf_s!NFull!Pos
+        } ;
+        RelCl => \\a,p,t,l => let
+          vform = (VFIndic RelCl p t) ;
+          rc = relConc vform a v2.r ; -- o- / onga-
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
+          r = v2.s!(rform vform l) ; -- bona / boni
+          -- obj = np.s!NFull -- [] / inkomo
+        in case np.proDrop of {
+          True => rc ++ tp ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;
+          False => rc ++ tp ++ r ++ obj ++ vp.inf_s!NFull!Pos
+        }
+      } ;
+      imp_s = table {
+        Sg => table {
+          Pos => case np.proDrop of {
+            True => oc ++ v2.s!R_e ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos
+          } ;
+          Neg => case np.proDrop of {
+            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => "unga" ++BIND++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+          }
+        } ;
+        Pl => table {
+          Pos => case np.proDrop of {
+            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => v2.s!R_a ++BIND++"ni" ++ obj ++ vp.inf_s!NFull!Pos
+          } ;
+          Neg => case np.proDrop of {
+            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => "ninga" ++BIND++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+          }
+        }
+      } ;
+      inf_s = let
+        inf_oc = case np.proDrop of {
+          True => oc ;
+          False => []
+        }
+      in
+      table {
+        NFull => table {
+          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
+          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+        } ;
+        NReduced | NPoss => table {
+          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
+          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+        } ;
+        NLoc => table {
+          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
+          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos
+        }
+      } ;
+      iadv, advs, comp = [] ;
+      ap_comp = \\_ => [] ;
+      hasComp = True ;
+      r = v2.r ;
+      syl = v2.syl ;
+      vptype = VNPCompl
+    } ;
+
 --     ComplV2V v np vp =
 --       insertObj (\\a => infVP v.isAux vp False Simul CPos a)
 --         (insertObj (\\_ => v.c2 ++ np.s ! Acc) (predV v)) ;

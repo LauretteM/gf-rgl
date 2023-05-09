@@ -18,4 +18,12 @@ abstract VerbExt = Cat,CatExt ** {
     UseVStative : V -> VP ;
     ComplV2Nonspec : V2 -> NP -> VP ;
 
+    ApplV : V -> V ; -- el
+    CausV : V -> V ; -- is
+    IntensV : V -> V ; -- isis
+    ComplV : V -> V ; -- elel
+    NeutV : V -> V ; -- ek
+    PassV : V -> V ; -- w
+    RecipV : V -> V ; -- an
+
 }

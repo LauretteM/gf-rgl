@@ -702,6 +702,7 @@ abstract MultiLex = Cat ** {
     feed_1_V2 : V2 ;
     feed_2_V : V ;
     feed_2_V2 : V2 ;
+    feel_VS : VS ;
     fight_V : V ;
     fill_V : V ;
     fill_V2 : V2 ;
@@ -797,6 +798,7 @@ abstract MultiLex = Cat ** {
     knock_V : V ;
     know_V : V ;
     know_V2 : V2 ;
+    know_VS : VS ;
     laugh_V : V ;
     lead_V : V ;
     lead_V2 : V2 ;
@@ -866,6 +868,7 @@ abstract MultiLex = Cat ** {
     pay_something_V2 : V2 ;
     peel_V : V ;
     peel_V2 : V2 ;
+    perceive_VS : VS ;
     permit_V : V ;
     permit_V2 : V2 ;
     perspire_V : V ;
@@ -982,6 +985,7 @@ abstract MultiLex = Cat ** {
     scrub_V2 : V2 ;
     see_V : V ;
     see_V2 : V2 ;
+    see_VS : VS ;
     sell_1_V : V ;
     sell_1_V2 : V2 ;
     sell_2_V : V ;
@@ -1115,6 +1119,7 @@ abstract MultiLex = Cat ** {
     walk_V : V ;
     want_V : V ;
     want_V2 : V2 ;
+    -- want_VS : VS ;
     warm_V : V ;
     warm_V2 : V2 ;
     warn_V : V ;

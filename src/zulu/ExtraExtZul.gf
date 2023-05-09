@@ -26,7 +26,7 @@ concrete ExtraExtZul of ExtraExt =
         in
           case np.proDrop of {
             False => cp ++ cop_base ;
-            True => "*" ++ cp ++ cop_base 
+            True => "*" ++ cp ++ cop_base
           }
     } ;
     GreetSg = {

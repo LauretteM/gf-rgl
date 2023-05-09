@@ -103,6 +103,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = cn.empty ;
       s = \\num,nform => case np.agr of {
         Third C1a_2a Sg => cn.s!num!nform ++ poss_concord_c1a!cn.c!num ++BIND++ np.s!NPoss ;
+        (First Pl | Second Pl ) => cn.s!num!nform ++ poss_concord!cn.c!num!RI ++BIND++ np.s!NPoss ;
         (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss
       }  ;
       -- mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
