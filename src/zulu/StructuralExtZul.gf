@@ -173,6 +173,9 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
     emuva_LocAdv = { s = "emuva" ; reqLocS = False } ;
     ecaleni_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
     ngaphezu_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
+    ngaphezulu_LocAdv = { s = "ngaphezulu" ; reqLocS = False } ;
+    ngaphandle_LocAdv = { s = "ngaphandle" ; reqLocS = False } ;
+    ngaphansi_LocAdv = { s = "ngaphansi" ; reqLocS = False } ;
 
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 

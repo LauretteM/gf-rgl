@@ -3,6 +3,7 @@
 abstract NguniLang =
   NguniGrammar,
   Backward[ComplV2,ComplV3,ComplV2V],
+  AdverbExt,
   NounExt,
   PhraseExt,
   RelativeExt,

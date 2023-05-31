@@ -40,6 +40,9 @@ abstract StructuralExt = Cat, CatExt ** {
     emuva_LocAdv : LocAdv ;
     ecaleni_LocAdv : LocAdv ;
     ngaphezu_LocAdv : LocAdv ;
+    ngaphezulu_LocAdv : LocAdv ;
+    ngaphandle_LocAdv : LocAdv ;
+    ngaphansi_LocAdv : LocAdv ;
 
     much_Adv : Adv ;
 
