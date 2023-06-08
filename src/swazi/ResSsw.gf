@@ -103,7 +103,7 @@ resource ResSsw = open Prelude,Predef,ParamX in {
 
     pron_stem : Agr => Str = table {
       First Sg => "mi" ;
-      First Pl => "thi" ;
+      First Pl => "tsi" ;
       Second Sg => "we" ;
       Second Pl => "ni" ;
       Third C1_2 Sg => "ye" ;
@@ -115,21 +115,21 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       Third C5_6 Sg => "lo" ;
       Third C5_6 Pl => "wo" ;
       Third C7_8 Sg => "so" ;
-      Third C7_8 Pl => "zo" ;
+      Third C7_8 Pl => "to" ;
       Third C9_10 Sg => "yo" ;
-      Third C9_10 Pl => "zo" ;
+      Third C9_10 Pl => "to" ;
       Third C11_10 Sg => "lo" ;
-      Third C11_10 Pl => "zo" ;
+      Third C11_10 Pl => "to" ;
       Third C9_6 Sg => "yo" ;
       Third C9_6 Pl => "wo" ;
       Third C14 _ => "bo" ;
-      Third C15 _ => "kho" ;
-      Third C17 _ => "kho"
+      Third C15 _ => "ko" ;
+      Third C17 _ => "ko"
     } ;
 
     poss_pron_stem : Agr => Str = table {
       First Sg => "mi" ;
-      First Pl => "thu" ;
+      First Pl => "tsi" ;
       Second Sg => "kho" ;
       Second Pl => "nu" ;
       Third C1_2 Sg => "khe" ;
@@ -141,11 +141,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       Third C5_6 Sg => "lo" ;
       Third C5_6 Pl => "wo" ;
       Third C7_8 Sg => "so" ;
-      Third C7_8 Pl => "zo" ;
+      Third C7_8 Pl => "to" ;
       Third C9_10 Sg => "yo" ;
-      Third C9_10 Pl => "zo" ;
+      Third C9_10 Pl => "to" ;
       Third C11_10 Sg => "lo" ;
-      Third C11_10 Pl => "zo" ;
+      Third C11_10 Pl => "to" ;
       Third C9_6 Sg => "yo" ;
       Third C9_6 Pl => "wo" ;
       Third C14 _ => "bo" ;
@@ -168,11 +168,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => "leli" ;
         Third C5_6 Pl => "la" ;
         Third C7_8 Sg => "lesi" ;
-        Third C7_8 Pl => "lezi" ;
+        Third C7_8 Pl => "leti" ;
         Third C9_10 Sg => "le" ;
-        Third C9_10 Pl => "lezi" ;
+        Third C9_10 Pl => "leti" ;
         Third C11_10 Sg => "lolu" ;
-        Third C11_10 Pl => "lezi" ;
+        Third C11_10 Pl => "leti" ;
         Third C9_6 Sg => "le" ;
         Third C9_6 Pl => "la" ;
         Third C14 _ => "lobu" ;
@@ -193,11 +193,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => "lelo" ;
         Third C5_6 Pl => "lawo" ;
         Third C7_8 Sg => "leso" ;
-        Third C7_8 Pl => "lezo" ;
+        Third C7_8 Pl => "leto" ;
         Third C9_10 Sg => "leyo" ;
-        Third C9_10 Pl => "lezo" ;
+        Third C9_10 Pl => "leto" ;
         Third C11_10 Sg => "lolo" ;
-        Third C11_10 Pl => "lezo" ;
+        Third C11_10 Pl => "leto" ;
         Third C9_6 Sg => "leyo" ;
         Third C9_6 Pl => "lawo" ;
         Third C14 _ => "lobo" ;
@@ -206,28 +206,28 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       } ;
       Dem3 => table {
         First Sg => "loya" ;
-        First Pl => "labaya" ;
+        First Pl => "laba" ;
         Second Sg => "loya" ;
-        Second Pl => "labaya" ;
+        Second Pl => "laba" ;
         Third C1_2 Sg => "loya" ;
-        Third C1_2 Pl => "labaya" ;
+        Third C1_2 Pl => "laba" ;
         Third C1a_2a Sg => "loya" ;
-        Third C1a_2a Pl => "labaya" ;
-        Third C3_4 Sg => "loya" ;
+        Third C1a_2a Pl => "laba" ;
+        Third C3_4 Sg => "lowa" ;
         Third C3_4 Pl => "leya" ;
-        Third C5_6 Sg => "leliya" ;
-        Third C5_6 Pl => "lawaya" ;
-        Third C7_8 Sg => "lesiya" ;
-        Third C7_8 Pl => "leziya" ;
+        Third C5_6 Sg => "lela" ;
+        Third C5_6 Pl => "lawa" ;
+        Third C7_8 Sg => "lesa" ;
+        Third C7_8 Pl => "leta" ;
         Third C9_10 Sg => "leya" ;
-        Third C9_10 Pl => "leziya" ;
-        Third C11_10 Sg => "loluya" ;
-        Third C11_10 Pl => "leziya" ;
+        Third C9_10 Pl => "leta" ;
+        Third C11_10 Sg => "lolwa" ;
+        Third C11_10 Pl => "leta" ;
         Third C9_6 Sg => "leya" ;
-        Third C9_6 Pl => "lawaya" ;
-        Third C14 _ => "lobuya" ;
-        Third C15 _ => "lokhuya" ;
-        Third C17 _ => "laphaya"
+        Third C9_6 Pl => "lawa" ;
+        Third C14 _ => "loba" ;
+        Third C15 _ => "lokwa" ;
+        Third C17 _ => "lapha"
       }
     } ;
 
@@ -461,7 +461,7 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       VFIndic MainCl Pos PresTense => subjConcLookup!agr!SC ++BIND ;
       VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
       VFIndic MainCl Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
-      VFIndic MainCl Pos FutTense => subjConcLookup!agr!SC ++BIND++ "zo" ++BIND ;
+      VFIndic MainCl Pos FutTense => subjConcLookup!agr!SC ++BIND++ "to" ++BIND ;
       VFIndic MainCl Pos RemFutTense => subjConcLookup!agr!SC ++BIND++ "yo" ++BIND ;
 
       VFIndic MainCl Neg PresTense => "a" ++BIND++ subjConcLookup!agr!SCVowP ++BIND ;
@@ -566,11 +566,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
     -- tense prefix
     tensePref : VForm -> RInit -> Syl -> Str = \vform,r,syl ->
       case <r,vform,syl> of {
-        <RC,VFIndic _ Pos FutTense,SylMono> => "zoku" ++BIND ;
-        <RC,VFIndic _ Pos FutTense,_> => "zo" ++BIND ;
-        <_,VFIndic _ Pos FutTense,_> => "zokw" ++BIND ;
-        <RC,VFIndic _ Neg FutTense,_> => "zuku" ++BIND ;
-        <_,VFIndic _ Neg FutTense,_> => "zukw" ++BIND ;
+        <RC,VFIndic _ Pos FutTense,SylMono> => "toku" ++BIND ;
+        <RC,VFIndic _ Pos FutTense,_> => "to" ++BIND ;
+        <_,VFIndic _ Pos FutTense,_> => "tokw" ++BIND ;
+        <RC,VFIndic _ Neg FutTense,_> => "tuku" ++BIND ;
+        <_,VFIndic _ Neg FutTense,_> => "tukw" ++BIND ;
 
         <RC,VFIndic _ Pos RemFutTense,SylMono> => "yoku" ++BIND ;
         <RC,VFIndic _ Pos RemFutTense,_> => "yo" ++BIND ;
@@ -803,7 +803,7 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => table { VFIndic _ _ _ => "li"++BIND } ;
         Third C5_6 Pl => table { VFIndic _ _ _ => "ma"++BIND } ;
         Third C7_8 Sg => table { VFIndic _ _ _ => "si"++BIND } ;
-        Third C7_8 Pl => table { VFIndic _ _ _ => "zi"++BIND } ; -- nasal for 8,9,10 assumed to be fixed to root
+        Third C7_8 Pl => table { VFIndic _ _ _ => "ti"++BIND } ; -- nasal for 8,9,10 assumed to be fixed to root
         Third C9_10 Sg => table {
           VFIndic MainCl Pos PresTense => "yi" ++BIND ;
           VFIndic _ Pos PresTense => [] ;
@@ -814,9 +814,9 @@ resource ResSsw = open Prelude,Predef,ParamX in {
           VFIndic _ _ RemPastTense => "yi" ++BIND ;
           VFIndic _ _ _ => "i"++BIND
         } ;
-        Third C9_10 Pl => table { VFIndic _ _ _ => "zi"++BIND } ;
+        Third C9_10 Pl => table { VFIndic _ _ _ => "ti"++BIND } ;
         Third C11_10 Sg => table { VFIndic _ _ _ => "lu"++BIND } ;
-        Third C11_10 Pl => table { VFIndic _ _ _ => "zi"++BIND } ;
+        Third C11_10 Pl => table { VFIndic _ _ _ => "ti"++BIND } ;
         Third C9_6 Sg => table {
           VFIndic MainCl Pos PresTense => "yi" ++BIND ;
           VFIndic _ Pos PresTense => [] ;
@@ -858,11 +858,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => "li" ;
         Third C5_6 Pl => "ma" ;
         Third C7_8 Sg => "si" ;
-        Third C7_8 Pl => "zi" ;
+        Third C7_8 Pl => "ti" ;
         Third C9_10 Sg => "yi" ;
-        Third C9_10 Pl => "zi" ;
+        Third C9_10 Pl => "ti" ;
         Third C11_10 Sg => "lu" ;
-        Third C11_10 Pl => "zi" ;
+        Third C11_10 Pl => "ti" ;
         Third C9_6 Sg => "yi" ;
         Third C9_6 Pl => "ma" ;
         Third C14 _ => "bu" ;
@@ -1012,20 +1012,20 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         _ => "esi"+root
       } ; -- is for roots starting with vowel
       <C7_8,Pl> => case root of {
-        (#vowel|#vowel_cap)+_ => "ez"+root ;
-        _ => "ezi"+root  -- iz for roots starting with vowel
+        (#vowel|#vowel_cap)+_ => "et"+root ;
+        _ => "eti"+root  -- iz for roots starting with vowel
       } ;
       <C9_10,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
-      <C9_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+      <C9_10,Pl> => "eti"+(prefix_nasal root) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
       <C11_10,Sg> => case root of {
         (#vowel|#vowel_cap)+_ => "olw" + root ;
         ("w"|"W")+_ => "ol"+root ;
         _ => "o"+root
       } ;
       <C11_10,Pl> => case root of {
-        (#vowel|#vowel_cap)+_ => "ezilw" + root ;
-        ("w"|"W")+_ => "ezil" + root ;
-        _ => "ezi"+(prefix_nasal root)
+        (#vowel|#vowel_cap)+_ => "etilw" + root ;
+        ("w"|"W")+_ => "etil" + root ;
+        _ => "eti"+(prefix_nasal root)
       } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
       <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
@@ -1098,7 +1098,7 @@ resource ResSsw = open Prelude,Predef,ParamX in {
           _ => "aba"+root  -- abe for tribes or guilds
         } ;
         <C1a_2a,Sg> => "u"+root ;
-        <C1a_2a,Pl> => "o"+root ;
+        <C1a_2a,Pl> => "bo"+root ;
         <C3_4,Sg> => case root of {
           ("m"|"M")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
           _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um"+root ;
@@ -1107,47 +1107,47 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         } ; -- umu for single syllables, um for the rest
         <C3_4,Pl> => "imi"+root ;
         <C5_6,Sg> => case root of {
-          ("i"|"I")+_ => root ;
-          (#vowel|#vowel_cap)+_ => "il"+root ;
-          _ => "i"+root  -- ili long form (not used?)
+          -- ("i"|"I")+_ => root ;
+          -- (#vowel|#vowel_cap)+_ => "il"+root ;
+          _ => "li"+root  -- ili long form (not used?)
         } ;
         <C5_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame"+(drop 1 root) ;
-          (#vowel|#vowel_cap)+_ => "am"+root ;
-          _ => "ama"+root
+          ("i"|"I")+_ => "eme"+(drop 1 root) ;
+          (#vowel|#vowel_cap)+_ => "em"+root ;
+          _ => "ema"+root
         } ; -- ame for roots starting with i
         <C7_8,Sg> => case root of {
-          (#vowel|#vowel_cap)+_ => "is"+root ;
-          _ => "isi"+root
+          (#vowel|#vowel_cap)+_ => "s"+root ;
+          _ => "si"+root
         } ; -- is for roots starting with vowel
         <C7_8,Pl> => case root of {
-          (#vowel|#vowel_cap)+_ => "iz"+root ;
-          _ => "izi" + root
+          (#vowel|#vowel_cap)+_ => "t"+root ;
+          _ => "ti" + root
         } ;
         <C9_10,Sg> => "i" + prefix_nasal root ;
-        <C9_10,Pl> => "izi" + prefix_nasal root ;
+        <C9_10,Pl> => "ti" + prefix_nasal root ;
         <C11_10,Sg> => case root of {
-          (#vowel|#vowel_cap)+_ => "ulw"+root ;
-          ("w"|"W")+_ => "ul"+root ;
-          _ => "u"+root
+          (#vowel|#vowel_cap)+_ => "lw"+root ;
+          ("w"|"W")+_ => "l"+root ;
+          _ => "lu"+root
         } ;
         <C11_10,Pl> => case root of {
-          (#vowel|#vowel_cap)+_ => "izilw"+root ;
-          ("w"|"W")+_ => "izil"+root ;
-          _ => "izi" + prefix_nasal root
+          (#vowel|#vowel_cap)+_ => "tilw"+root ;
+          ("w"|"W")+_ => "til"+root ;
+          _ => "ti" + prefix_nasal root
         } ;
         <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame"+root ;
-          _ => "ama"+root
+          ("i"|"I")+_ => "eme"+root ;
+          _ => "ema"+root
         } ; -- ame for roots starting with i
-        <C14,_> => "ubu"+root ;
+        <C14,_> => "bu"+root ;
         <C15,_> => case root of {
-          ("a"|"e"|"A"|"E")+_ => "ukw"+root ;
-          (#cons|#cons_cap|"y"|"Y")+_ => "uku"+root ;
-          _ => "uk"+root
+          ("a"|"e"|"A"|"E")+_ => "kw"+root ;
+          (#cons|#cons_cap|"y"|"Y")+_ => "ku"+root ;
+          _ => "k"+root
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
-        <C17,_> => "uku"+root  -- sometimes ukw
+        <C17,_> => "ku"+root  -- sometimes ukw
       } ;
 
     locNoun : Str -> Number -> ClassGender -> Str = \root,n,cg ->
@@ -1184,20 +1184,20 @@ resource ResSsw = open Prelude,Predef,ParamX in {
             _ => "esi"+(addLocSuffix root)
           } ; -- is for roots starting with vowel
           <C7_8,Pl> => case root of {
-            (#vowel|#vowel_cap)+_ => "ez"+(addLocSuffix root) ;
-            _ => "ezi"+(addLocSuffix root)  -- iz for roots starting with vowel
+            (#vowel|#vowel_cap)+_ => "et"+(addLocSuffix root) ;
+            _ => "eti"+(addLocSuffix root)  -- iz for roots starting with vowel
           } ;
           <C9_10,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
-          <C9_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+          <C9_10,Pl> => "eti"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
           <C11_10,Sg> => case root of {
             (#vowel|#vowel_cap)+_ => "olw"+(addLocSuffix root) ;
             ("w"|"W")+_ => "ol"+(addLocSuffix root) ;
             _ => "o"+(addLocSuffix root)
           } ;
           <C11_10,Pl> => case root of {
-            (#vowel|#vowel_cap)+_ => "ezilw"+(addLocSuffix root) ;
-            ("w"|"W")+_ => "ezil"+(addLocSuffix root) ;
-            _ => "ezi"+(addLocSuffix (prefix_nasal root)) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+            (#vowel|#vowel_cap)+_ => "etilw"+(addLocSuffix root) ;
+            ("w"|"W")+_ => "etil"+(addLocSuffix root) ;
+            _ => "eti"+(addLocSuffix (prefix_nasal root)) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
           } ;
           <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
@@ -1326,12 +1326,12 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg =>    table {SC => "li" ;   SCVow => "l"++BIND ;   SCNeg => "li" ;  SCNegVow => "l" ; SCPart => "li" ;  SCPS => "li" ;  SCVowP => "li" ;  SCBe => "beli" ;   SCRP => "lali" } ;
         Third C5_6 Pl =>    table {SC => "a" ;    SCVow => [] ;          SCNeg => "wa" ;  SCNegVow => "w" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" ;    SCRP => "aye" } ;
         Third C7_8 Sg =>    table {SC => "si" ;   SCVow => "s"++BIND ;   SCNeg => "si" ;  SCNegVow => "s" ; SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ;  SCBe => "besi" ;   SCRP => "sasi" } ;
-        Third C7_8 Pl =>    table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCNegVow => "z" ; SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" ;   SCRP => "zazi" } ;
+        Third C7_8 Pl =>    table {SC => "ti" ;   SCVow => "t"++BIND ;   SCNeg => "ti" ;  SCNegVow => "t" ; SCPart => "ti" ;  SCPS => "ti" ;  SCVowP => "ti" ;  SCBe => "beti" ;   SCRP => "tati" } ;
         Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCNegVow => "y" ; SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" ;    SCRP => "yayi" } ;
         -- Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "i"++BIND ;   SCNeg => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
-        Third C9_10 Pl =>   table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCNegVow => "z" ; SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" ;   SCRP => "zazi" } ;
+        Third C9_10 Pl =>   table {SC => "ti" ;   SCVow => "t"++BIND ;   SCNeg => "ti" ;  SCNegVow => "t" ; SCPart => "ti" ;  SCPS => "ti" ;  SCVowP => "ti" ;  SCBe => "beti" ;   SCRP => "tati" } ;
         Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "lw"++BIND ;  SCNeg => "lu" ;  SCNegVow => "l" ; SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" ;  SCBe => "belu" ;   SCRP => "lwalu" } ;
-        Third C11_10 Pl =>  table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCNegVow => "z" ; SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" ;   SCRP => "zazi" } ;
+        Third C11_10 Pl =>  table {SC => "ti" ;   SCVow => "t"++BIND ;   SCNeg => "ti" ;  SCNegVow => "t" ; SCPart => "ti" ;  SCPS => "ti" ;  SCVowP => "ti" ;  SCBe => "beti" ;   SCRP => "tati" } ;
         Third C9_6 Sg =>    table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCNegVow => "y" ; SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" ;    SCRP => "yayi" } ;
         Third C9_6 Pl =>    table {SC => "a" ;    SCVow => [] ;          SCNeg => "wa" ;  SCNegVow => "w" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" ;    SCRP => "aye" } ;
         Third C14 _ =>      table {SC => "bu" ;   SCVow => "b"++BIND ;   SCNeg => "bu" ;  SCNegVow => "b" ; SCPart => "bu" ;  SCPS => "bu" ;  SCVowP => "bu" ;  SCBe => "bebu" ;   SCRP => "babu" } ;
@@ -1362,14 +1362,14 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       VFIndic _ Pos PresTense => subjConcLookup ! agr ! SC ++BIND ;
       VFIndic _ Pos PastTense => [] ;
       VFIndic _ Pos RemPastTense => subjConcLookup ! agr ! SC ++BIND++ "be" ++ subjConcLookup ! agr ! SCBe ++BIND ;
-      VFIndic _ Pos FutTense => subjConcLookup ! agr ! SC ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SC ++BIND ;
+      VFIndic _ Pos FutTense => subjConcLookup ! agr ! SC ++BIND ++ "tobe" ++ subjConcLookup ! agr ! SC ++BIND ;
       VFIndic _ Pos RemFutTense => subjConcLookup ! agr ! SC ++BIND ++ "yobe" ++ subjConcLookup ! agr ! SC ++BIND ;
 
       -- might have to add an SCNegBe to the table
       VFIndic _ Neg PresTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ neg2 ;
       VFIndic _ Neg PastTense => "nga" ; -- neg1 ++ "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
       VFIndic _ Neg RemPastTense => neg1 ++ subjConcLookup ! agr ! SC ++BIND++ "be" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
-      VFIndic _ Neg FutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg FutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "tobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
       VFIndic _ Neg RemFutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "yobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2
     } ;
 
@@ -1390,11 +1390,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg =>    table {OC => "li" ;   OCAE => "l" ;   OCIOU => "l" ;  OCMono => "li" ;  OCThing => "li" } ;
         Third C5_6 Pl =>    table {OC => "wa" ;   OCAE => "w" ;   OCIOU => "w" ;  OCMono => "wa" ;  OCThing => "wa" } ;
         Third C7_8 Sg =>    table {OC => "si" ;   OCAE => "s" ;   OCIOU => "s" ;  OCMono => "si" ;  OCThing => "si" } ;
-        Third C7_8 Pl =>    table {OC => "zi" ;   OCAE => "z" ;   OCIOU => "z" ;  OCMono => "zi" ;  OCThing => "zi" } ;
+        Third C7_8 Pl =>    table {OC => "ti" ;   OCAE => "t" ;   OCIOU => "t" ;  OCMono => "ti" ;  OCThing => "ti" } ;
         Third C9_10 Sg =>   table {OC => "yi" ;   OCAE => "y" ;   OCIOU => "y" ;  OCMono => "yi" ;  OCThing => "yi" } ;
-        Third C9_10 Pl =>   table {OC => "zi" ;   OCAE => "z" ;   OCIOU => "z" ;  OCMono => "zi" ;  OCThing => "zi" } ;
+        Third C9_10 Pl =>   table {OC => "ti" ;   OCAE => "t" ;   OCIOU => "t" ;  OCMono => "ti" ;  OCThing => "ti" } ;
         Third C11_10 Sg =>  table {OC => "lu" ;   OCAE => "lw" ;  OCIOU => "l" ;  OCMono => "lu" ;  OCThing => "lu" } ;
-        Third C11_10 Pl =>  table {OC => "zi" ;   OCAE => "z" ;   OCIOU => "z" ;  OCMono => "zi" ;  OCThing => "zi" } ;
+        Third C11_10 Pl =>  table {OC => "ti" ;   OCAE => "t" ;   OCIOU => "t" ;  OCMono => "ti" ;  OCThing => "ti" } ;
         Third C9_6 Sg =>    table {OC => "yi" ;   OCAE => "y" ;   OCIOU => "y" ;  OCMono => "yi" ;  OCThing => "yi" } ;
         Third C9_6 Pl =>    table {OC => "wa" ;   OCAE => "w" ;   OCIOU => "w" ;  OCMono => "wa" ;  OCThing => "wa" } ;
         Third C14 _ =>      table {OC => "bu" ;   OCAE => "bw" ;  OCIOU => "b" ;  OCMono => "bu" ;  OCThing => "bu" } ;
@@ -1500,83 +1500,83 @@ resource ResSsw = open Prelude,Predef,ParamX in {
 
     relConcLookup : Agr => RInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1_2 Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C3_4 Pl => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
-        Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Third C7_8 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C9_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C11_10 Sg => table { RC => "olu"++BIND ; (RA|RE) => "olw" ; _ => "ol"++BIND } ;
-        Third C11_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey" ; _ => "e"++BIND } ;
-        Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
-        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
-        First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
-        Second Pl => table { RC => "eni"++BIND ; _ => "en"++BIND }
+        Third C1_2 Sg => table { RO => "l" ; (RA|RE) => "low"++BIND ; _ => "lo"++BIND } ;
+        Third C1_2 Pl => table { RC => "laba"++BIND ; _ => "lab"++BIND } ;
+        Third C1a_2a Sg => table { RO => "l" ; (RA|RE) => "low"++BIND ; _ => "lo"++BIND } ;
+        Third C1a_2a Pl => table { RC => "laba"++BIND ; _ => "lab"++BIND } ;
+        Third C3_4 Sg  => table { RO => "l" ; (RA|RE) => "low"++BIND ; _ => "lo"++BIND } ;
+        Third C3_4 Pl => table { RE => "l" ; (RA|RO) => "ley" ++BIND ; _ => "le"++BIND } ;
+        Third C5_6 Sg => table { RC => "leli"++BIND ; _ => "lel"++BIND } ;
+        Third C5_6 Pl => table { RC => "la"++BIND ; _ => "l" } ;
+        Third C7_8 Sg => table { RC => "lesi"++BIND ; _ => "les"++BIND } ;
+        Third C7_8 Pl => table { RC => "leti"++BIND ; _ => "let"++BIND } ;
+        Third C9_10 Sg => table { RE => "l" ; (RA|RO) => "ley" ++BIND ; _ => "le"++BIND } ;
+        Third C9_10 Pl => table { RC => "leti"++BIND ; _ => "let"++BIND } ;
+        Third C11_10 Sg => table { RC => "lolu"++BIND ; (RA|RE) => "lolw" ; _ => "lol"++BIND } ;
+        Third C11_10 Pl => table { RC => "leti"++BIND ; _ => "let"++BIND } ;
+        Third C9_6 Sg => table { RE => "l" ; (RA|RO) => "ley" ; _ => "le"++BIND } ;
+        Third C9_6 Pl => table { RC => "la"++BIND ; _ => "l" } ;
+        Third C14 _ => table { RC => "lobu"++BIND ; _ => "lob"++BIND } ;
+        Third C15 _ => table { RC => "loku"++BIND ; (RA|RE) => "lokw" ; _ => "lok"++BIND } ;
+        Third C17 _ => table { RC => "loku"++BIND ; (RA|RE) => "lokw" ; _ => "lok"++BIND } ;
+        First Sg => table { RC => "lengi"++BIND ; _ => "leng"++BIND } ;
+        First Pl => table { RC => "lesi"++BIND ; _ => "les"++BIND } ;
+        Second Sg  => table { RE => "low"++BIND ; _ => "lo"++BIND } ;
+        Second Pl => table { RC => "leni"++BIND ; _ => "len"++BIND }
     } ;
 
     adjConcLookup : Agr => RInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1_2 Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C3_4 Pl => table { RC => "emi"++BIND ; _ => "em"++BIND } ;
-        Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
-        Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Third C7_8 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C9_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C11_10 Sg => table { RC => "olu"++BIND ; (RA|RE) => "olw" ; _ => "ol"++BIND } ;
-        Third C11_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey" ; _ => "e"++BIND } ;
-        Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
-        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
-        First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
-        Second Pl => table { RC => "eni"++BIND ; _ => "en"++BIND }
+        Third C1_2 Sg => table { RO => "l" ; (RA|RE) => "low"++BIND ; _ => "lo"++BIND } ;
+        Third C1_2 Pl => table { RC => "laba"++BIND ; _ => "lab"++BIND } ;
+        Third C1a_2a Sg => table { RO => "l" ; (RA|RE) => "low"++BIND ; _ => "lo"++BIND } ;
+        Third C1a_2a Pl => table { RC => "laba"++BIND ; _ => "lab"++BIND } ;
+        Third C3_4 Sg  => table { RO => "l" ; (RA|RE) => "low"++BIND ; _ => "lo"++BIND } ;
+        Third C3_4 Pl => table { RC => "lemi"++BIND ; _ => "lem"++BIND } ;
+        Third C5_6 Sg => table { RC => "leli"++BIND ; _ => "lel"++BIND } ;
+        Third C5_6 Pl => table { RC => "la"++BIND ; _ => "l" } ;
+        Third C7_8 Sg => table { RC => "lesi"++BIND ; _ => "les"++BIND } ;
+        Third C7_8 Pl => table { RC => "leti"++BIND ; _ => "let"++BIND } ;
+        Third C9_10 Sg => table { RE => "l" ; (RA|RO) => "ley" ++BIND ; _ => "le"++BIND } ;
+        Third C9_10 Pl => table { RC => "leti"++BIND ; _ => "let"++BIND } ;
+        Third C11_10 Sg => table { RC => "lolu"++BIND ; (RA|RE) => "lolw" ; _ => "lol"++BIND } ;
+        Third C11_10 Pl => table { RC => "leti"++BIND ; _ => "let"++BIND } ;
+        Third C9_6 Sg => table { RE => "l" ; (RA|RO) => "ley" ; _ => "le"++BIND } ;
+        Third C9_6 Pl => table { RC => "la"++BIND ; _ => "l" } ;
+        Third C14 _ => table { RC => "lobu"++BIND ; _ => "lob"++BIND } ;
+        Third C15 _ => table { RC => "loku"++BIND ; (RA|RE) => "lokw" ; _ => "lok"++BIND } ;
+        Third C17 _ => table { RC => "loku"++BIND ; (RA|RE) => "lokw" ; _ => "lok"++BIND } ;
+        First Sg => table { RC => "lengi"++BIND ; _ => "leng"++BIND } ;
+        First Pl => table { RC => "lesi"++BIND ; _ => "les"++BIND } ;
+        Second Sg  => table { RE => "low"++BIND ; _ => "lo"++BIND } ;
+        Second Pl => table { RC => "leni"++BIND ; _ => "len"++BIND }
     } ;
 
     relCopConcBeLookup : Agr => Str =
       table {
-        Third C1_2 Sg => "obe"++BIND ;
-        Third C1_2 Pl => "ababe"++BIND ;
-        Third C1a_2a Sg => "obe"++BIND ;
-        Third C1a_2a Pl => "ababe"++BIND ;
-        Third C3_4 Sg  => "obu"++BIND ;
-        Third C3_4 Pl => "ebi"++BIND ;
-        Third C5_6 Sg => "ebeli"++BIND ;
-        Third C5_6 Pl => "abe"++BIND ;
-        Third C7_8 Sg => "ebesi"++BIND ;
-        Third C7_8 Pl => "ebezi"++BIND ;
-        Third C9_10 Sg => "ebi"++BIND ;
-        Third C9_10 Pl => "ebezi"++BIND ;
-        Third C11_10 Sg => "obelu"++BIND ;
-        Third C11_10 Pl => "ebezi"++BIND ;
-        Third C9_6 Sg => "ebi"++BIND ;
-        Third C9_6 Pl => "abe"++BIND ;
-        Third C14 _ => "obebu"++BIND ;
-        Third C15 _ => "obeku"++BIND ;
-        Third C17 _ => "obeku"++BIND ;
-        First Sg => "ebengi"++BIND ;
-        First Pl => "ebesi"++BIND ;
-        Second Sg  => "obu"++BIND ;
-        Second Pl => "ebeni"++BIND
+        Third C1_2 Sg => "lobe"++BIND ;
+        Third C1_2 Pl => "lababe"++BIND ;
+        Third C1a_2a Sg => "lobe"++BIND ;
+        Third C1a_2a Pl => "lababe"++BIND ;
+        Third C3_4 Sg  => "lobu"++BIND ;
+        Third C3_4 Pl => "lebi"++BIND ;
+        Third C5_6 Sg => "lebeli"++BIND ;
+        Third C5_6 Pl => "labe"++BIND ;
+        Third C7_8 Sg => "lebesi"++BIND ;
+        Third C7_8 Pl => "lebeti"++BIND ;
+        Third C9_10 Sg => "lebi"++BIND ;
+        Third C9_10 Pl => "lebeti"++BIND ;
+        Third C11_10 Sg => "lobelu"++BIND ;
+        Third C11_10 Pl => "lebeti"++BIND ;
+        Third C9_6 Sg => "lebi"++BIND ;
+        Third C9_6 Pl => "labe"++BIND ;
+        Third C14 _ => "lobebu"++BIND ;
+        Third C15 _ => "lobeku"++BIND ;
+        Third C17 _ => "lobeku"++BIND ;
+        First Sg => "lebengi"++BIND ;
+        First Pl => "lebesi"++BIND ;
+        Second Sg  => "lobu"++BIND ;
+        Second Pl => "lebeni"++BIND
     } ;
 
     -- relCopConcBeLookup : Agr => RInit => Str =
@@ -1590,11 +1590,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
     --     Third C5_6 Sg => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebeli"++BIND } ;
     --     Third C5_6 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "abe"++BIND } ;
     --     Third C7_8 Sg => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebesi"++BIND } ;
-    --     Third C7_8 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebezi"++BIND } ;
+    --     Third C7_8 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebeti"++BIND } ;
     --     Third C9_10 Sg => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebi"++BIND } ;
-    --     Third C9_10 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebezi"++BIND } ;
+    --     Third C9_10 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebeti"++BIND } ;
     --     Third C11_10 Sg => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "obelu"++BIND } ;
-    --     Third C11_10 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebezi"++BIND } ;
+    --     Third C11_10 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebeti"++BIND } ;
     --     Third C9_6 Sg => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "ebi"++BIND } ;
     --     Third C9_6 Pl => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "abe"++BIND } ;
     --     Third C14 _ => table { (RA|RE|RI|RO|RU) => "ob"++BIND ; _ => "obebu"++BIND } ;
@@ -1608,29 +1608,29 @@ resource ResSsw = open Prelude,Predef,ParamX in {
 
     relCopConcRemPastLookup : Agr => Str =
       table {
-        Third C1_2 Sg => "owaye"++BIND ;
-        Third C1_2 Pl => "ababe"++BIND ;
-        Third C1a_2a Sg => "owaye"++BIND ;
-        Third C1a_2a Pl => "ababe"++BIND ;
-        Third C3_4 Sg  => "owawu"++BIND ;
-        Third C3_4 Pl => "eyayi"++BIND ;
-        Third C5_6 Sg => "elali"++BIND ;
-        Third C5_6 Pl => "aye"++BIND ;
-        Third C7_8 Sg => "esasi"++BIND ;
-        Third C7_8 Pl => "ezazi"++BIND ;
-        Third C9_10 Sg => "eyayi"++BIND ;
-        Third C9_10 Pl => "ezazi"++BIND ;
-        Third C11_10 Sg => "olwalu"++BIND ;
-        Third C11_10 Pl => "ezazi"++BIND ;
-        Third C9_6 Sg => "eyayi"++BIND ;
-        Third C9_6 Pl => "aye"++BIND ;
-        Third C14 _ => "obabu"++BIND ;
-        Third C15 _ => "okwaku"++BIND ;
-        Third C17 _ => "okwaku"++BIND ;
-        First Sg => "engangi"++BIND ;
-        First Pl => "esasi"++BIND ;
-        Second Sg  => "owawu"++BIND ;
-        Second Pl => "enani"++BIND
+        Third C1_2 Sg => "lowaye"++BIND ;
+        Third C1_2 Pl => "lababe"++BIND ;
+        Third C1a_2a Sg => "lowaye"++BIND ;
+        Third C1a_2a Pl => "lababe"++BIND ;
+        Third C3_4 Sg  => "lowawu"++BIND ;
+        Third C3_4 Pl => "leyayi"++BIND ;
+        Third C5_6 Sg => "lelali"++BIND ;
+        Third C5_6 Pl => "laye"++BIND ;
+        Third C7_8 Sg => "lesasi"++BIND ;
+        Third C7_8 Pl => "letati"++BIND ;
+        Third C9_10 Sg => "leyayi"++BIND ;
+        Third C9_10 Pl => "letati"++BIND ;
+        Third C11_10 Sg => "lolwalu"++BIND ;
+        Third C11_10 Pl => "letati"++BIND ;
+        Third C9_6 Sg => "leyayi"++BIND ;
+        Third C9_6 Pl => "laye"++BIND ;
+        Third C14 _ => "lobabu"++BIND ;
+        Third C15 _ => "lokwaku"++BIND ;
+        Third C17 _ => "lokwaku"++BIND ;
+        First Sg => "lengangi"++BIND ;
+        First Pl => "lesasi"++BIND ;
+        Second Sg  => "lowawu"++BIND ;
+        Second Pl => "lenani"++BIND
     } ;
 
     -- relCopConcBeLookup : Agr => RInit => Str =
@@ -1644,11 +1644,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
     --     Third C5_6 Sg => table { _ => "beli"++BIND } ;
     --     Third C5_6 Pl => table { _ => "abe"++BIND } ;
     --     Third C7_8 Sg => table { _ => "ebesi"++BIND } ;
-    --     Third C7_8 Pl => table { _ => "ebezi"++BIND } ;
+    --     Third C7_8 Pl => table { _ => "ebeti"++BIND } ;
     --     Third C9_10 Sg => table { _ => "ebi"++BIND } ;
-    --     Third C9_10 Pl => table { _ => "ebezi"++BIND } ;
+    --     Third C9_10 Pl => table { _ => "ebeti"++BIND } ;
     --     Third C11_10 Sg => table { _ => "obelu"++BIND } ;
-    --     Third C11_10 Pl => table { _ => "ebezi"++BIND } ;
+    --     Third C11_10 Pl => table { _ => "ebeti"++BIND } ;
     --     Third C9_6 Sg => table { _ => "ebi"++BIND } ;
     --     Third C9_6 Pl => table { _ => "abe"++BIND } ;
     --     Third C14 _ => table { _ => "obebu"++BIND } ;
@@ -1678,11 +1678,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => "li" ;
         Third C5_6 Pl => "ma" ;
         Third C7_8 Sg => "si" ;
-        Third C7_8 Pl => "zi" ;
+        Third C7_8 Pl => "ti" ;
         Third C9_10 Sg => "yi" ;
-        Third C9_10 Pl => "zi" ;
+        Third C9_10 Pl => "ti" ;
         Third C11_10 Sg => "lu" ;
-        Third C11_10 Pl => "zi" ;
+        Third C11_10 Pl => "ti" ;
         Third C9_6 Sg => "yi" ;
         Third C9_6 Pl => "ma" ;
         Third C14 _ => "bu" ;
@@ -1693,29 +1693,29 @@ resource ResSsw = open Prelude,Predef,ParamX in {
 
     shortRelConc : Agr => Str =
       table {
-        Third C1_2 Sg => "o" ++BIND ;
-        Third C1_2 Pl => "a" ++BIND ;
-        Third C1a_2a Sg => "o" ++BIND ;
-        Third C1a_2a Pl => "a" ++BIND ;
-        Third C3_4 Sg  => "o" ++BIND ;
-        Third C3_4 Pl => "e" ++BIND ;
-        Third C5_6 Sg => "e" ++BIND ;
-        Third C5_6 Pl => "a" ++BIND ;
-        Third C7_8 Sg => "e" ++BIND ;
-        Third C7_8 Pl => "e" ++BIND ;
-        Third C9_10 Sg => "e" ++BIND ;
-        Third C9_10 Pl => "e" ++BIND ;
-        Third C11_10 Sg => "o" ++BIND ;
-        Third C11_10 Pl => "e" ++BIND ;
-        Third C9_6 Sg => "e" ++BIND ;
-        Third C9_6 Pl => "a" ++BIND ;
-        Third C14 _ => "o" ++BIND ;
-        Third C15 _ => "o" ++BIND ;
-        Third C17 _ => "o" ++BIND ;
-        First Sg => "e" ++BIND ;
-        First Pl => "e" ++BIND ;
-        Second Sg  => "o" ++BIND ;
-        Second Pl => "e" ++BIND
+        Third C1_2 Sg => "lo" ++BIND ;
+        Third C1_2 Pl => "la" ++BIND ;
+        Third C1a_2a Sg => "lo" ++BIND ;
+        Third C1a_2a Pl => "la" ++BIND ;
+        Third C3_4 Sg  => "lo" ++BIND ;
+        Third C3_4 Pl => "le" ++BIND ;
+        Third C5_6 Sg => "le" ++BIND ;
+        Third C5_6 Pl => "la" ++BIND ;
+        Third C7_8 Sg => "le" ++BIND ;
+        Third C7_8 Pl => "le" ++BIND ;
+        Third C9_10 Sg => "le" ++BIND ;
+        Third C9_10 Pl => "le" ++BIND ;
+        Third C11_10 Sg => "lo" ++BIND ;
+        Third C11_10 Pl => "le" ++BIND ;
+        Third C9_6 Sg => "le" ++BIND ;
+        Third C9_6 Pl => "la" ++BIND ;
+        Third C14 _ => "lo" ++BIND ;
+        Third C15 _ => "lo" ++BIND ;
+        Third C17 _ => "lo" ++BIND ;
+        First Sg => "le" ++BIND ;
+        First Pl => "le" ++BIND ;
+        Second Sg  => "lo" ++BIND ;
+        Second Pl => "le" ++BIND
       } ;
 
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
@@ -1735,11 +1735,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         Third C5_6 Sg => table {(RA|RC) => "la" ; (RE|RI) => "le" ; (RO|RU) => "lo" } ;
         Third C5_6 Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" } ;
         Third C7_8 Sg => table {(RA|RC) => "sa" ; (RE|RI) => "se" ; (RO|RU) => "so" } ;
-        Third C7_8 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
+        Third C7_8 Pl => table {(RA|RC) => "ta" ; (RE|RI) => "te" ; (RO|RU) => "to" } ;
         Third C9_10 Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-        Third C9_10 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
+        Third C9_10 Pl => table {(RA|RC) => "ta" ; (RE|RI) => "te" ; (RO|RU) => "to" } ;
         Third C11_10 Sg => table {(RA|RC) => "lwa" ; (RE|RI) => "lwe" ; (RO|RU) => "lo" } ;
-        Third C11_10 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
+        Third C11_10 Pl => table {(RA|RC) => "ta" ; (RE|RI) => "te" ; (RO|RU) => "to" } ;
         Third C9_6 Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
         Third C9_6 Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" } ;
         Third C14 _ => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
@@ -1767,15 +1767,15 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         } ;
         C7_8 => table {
           Sg => table {(RA|RC) => "sa" ; (RE|RI) => "se" ; (RO|RU) => "so" } ;
-          Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
+          Pl => table {(RA|RC) => "ta" ; (RE|RI) => "te" ; (RO|RU) => "to" }
         } ;
         C9_10 => table {
           Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-          Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
+          Pl => table {(RA|RC) => "ta" ; (RE|RI) => "te" ; (RO|RU) => "to" }
         } ;
         C11_10 => table {
           Sg => table {(RA|RC) => "lwa" ; (RE|RI) => "lwe" ; (RO|RU) => "lo" } ;
-          Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
+          Pl => table {(RA|RC) => "ta" ; (RE|RI) => "te" ; (RO|RU) => "to" }
         } ;
         C9_6 => table {
           Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
@@ -1812,15 +1812,15 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         } ;
         C7_8 => table {
           Sg => "sika" ;
-          Pl => "zika"
+          Pl => "tika"
         } ;
         C9_10 => table {
           Sg => "ka" ;
-          Pl => "zika"
+          Pl => "tika"
         } ;
         C11_10 => table {
           Sg => "luka" ;
-          Pl => "zika"
+          Pl => "tika"
         } ;
         C9_6 => table {
           Sg => "ka" ;
@@ -1858,11 +1858,11 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       Third C5_6 Sg => "lo" ;
       Third C5_6 Pl => "o" ;
       Third C7_8 Sg => "so" ;
-      Third C7_8 Pl => "zo" ;
+      Third C7_8 Pl => "to" ;
       Third C9_10 Sg => "yo" ;
-      Third C9_10 Pl => "zo" ;
+      Third C9_10 Pl => "to" ;
       Third C11_10 Sg => "lo" ;
-      Third C11_10 Pl => "zo" ;
+      Third C11_10 Pl => "to" ;
       Third C9_6 Sg => "yo" ;
       Third C9_6 Pl => "o" ;
       Third C14 _ => "bo" ;
@@ -1945,10 +1945,10 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         VFIndic RelCl Pos PresTense => [] ;
         VFIndic RelCl Neg PresTense => "nge" ++BIND ;
 
-        VFIndic MainCl Pos FutTense => sc ++ "zoba" ;
-        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ "zukuba" ;
-        VFIndic RelCl Pos FutTense => "zoba" ;
-        VFIndic RelCl Neg FutTense => "nge" ++BIND++ "zukuba" ;
+        VFIndic MainCl Pos FutTense => sc ++ "toba" ;
+        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ "tukuba" ;
+        VFIndic RelCl Pos FutTense => "toba" ;
+        VFIndic RelCl Neg FutTense => "nge" ++BIND++ "tukuba" ;
 
         VFIndic MainCl Pos RemFutTense => sc ++ "yoba" ;
         VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ "yukuba" ;
@@ -1972,10 +1972,10 @@ resource ResSsw = open Prelude,Predef,ParamX in {
         VFIndic RelCl Pos PresTense => [] ;
         VFIndic RelCl Neg PresTense => "nge"++BIND ;
 
-        VFIndic MainCl Pos FutTense => sc ++ "zoba" ;
-        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ "zukuba" ;
-        VFIndic RelCl Pos FutTense => "zoba" ;
-        VFIndic RelCl Neg FutTense => "nge" ++BIND++ "zukuba" ;
+        VFIndic MainCl Pos FutTense => sc ++ "toba" ;
+        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ "tukuba" ;
+        VFIndic RelCl Pos FutTense => "toba" ;
+        VFIndic RelCl Neg FutTense => "nge" ++BIND++ "tukuba" ;
 
         VFIndic MainCl Pos RemFutTense => sc ++ "yoba" ;
         VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ "yukuba" ;

@@ -2,52 +2,49 @@ concrete DevLexSsw of DevLex = CatSsw ** open ResSsw,ParadigmsSsw in {
 
    lin
    -- adjective stems
-   bana_A = mkA "bana" ;
-   bi_A = mkA "bi" ;
-   bili_A = mkA "bili" ;
-   dala_A = mkA "dala" ;
-   hle_A = mkA "hle" ;
-   khulu_A = mkA "khulu" ;
-   ningi_A = mkA "ningi" ;
-   de_A = mkA "de" ;
+   ugly_A = mkA "bana[zul]" ;
+   bad_A = mkA "bi" ;
+   two_A = mkA "bili" ;
+   old_A = mkA "dzala" ;
+   pretty_A = mkA "hle" ;
+   big_A = mkA "khulu" ;
+   many_A = mkA "nengi" ;
+   tall_A = mkA "dze" ;
 
    -- relative stems
-   mnandi_R = mkRelA "mnandi" ;
-   nzima_R = mkRelA "nzima" ;
-   mbalwa_R = mkRelA "mbalwa" ;
-   qotho_R = mkRelA "qotho" ;
-   mhlophe_R = mkRelA "mhlophe" ;
-   mbe_R = mkRelA "mbe" ;
-   mnyama_R = mkRelA "mnyama" ;
+   tasty_A = mkRelA "mnandzi" ;
+   heavy_A = mkRelA "ndzima[zul]" ;
+   few_A = mkRelA "mbalwa" ;
+   honest_A = mkRelA "cotfo" ;
+   white_A = mkRelA "mhlophe" ;
+   black_A = mkRelA "mnyama" ;
 
    -- enumerative stems
-   mbe_E = mkA "mbe" ;
-   nye_E = mkA "nye" ;
+   different_A = mkA "mbe[zul]" ;
+   some_A = mkA "nye" ;
 
    -- noun stems
-   ntu_1_2_N = mkN "ntu" C1_2 ;
-   fana_1_2_N = mkN "fana" C1_2 ;
-   fundi_1_2_N = mkN "fundi" C1_2 ;
-   bhubesi_5_6_N = mkN "bhubesi" C5_6 ;
-   phoyisa_5_6_N = mkN "phoyisa" C5_6 ;
-   jele_5_6_N = mkN "jele" "ejele" "emajele" C5_6 ;
-   hlahla_7_8_N = mkN "hlahla" C7_8 ;
-   ncwadi_9_10_N = mkN "ncwadi" C9_10 ;
-   ndlu_9_10_N = mkN "ndlu" C9_10 ;
-   komo_9_10_N = mkN "komo" C9_10 ;
-   taba_9_10_N = mkN "taba" C9_10 ;
-   ngane_9_10_N = mkN "ngane" C9_10 ;
-   doda_9_10_N = mkN "doda" C9_10 ;
-   moto_9_10_N = mkN "moto" C9_10 ;
+   person_N = mkN "ntfu" C1_2 ;
+   boy_N = mkN "fana" C1_2 ;
+   student_N = mkN "fundzi" C1_2 ;
+   lion_N = mkN "bhubesi" C5_6 ;
+   policeman_N = mkN "phoyisa" C5_6 ;
+   jail_N = mkN "jele" "ejele" "emajele" C5_6 ;
+   branch_N = mkN "hlahla" C7_8 ;
+   book_N = mkN "bhuku" C5_6 ;
+   house_N = mkELocN "khaya" C5_6 ;
+   cow_N = mkN "khomo" C9_10 ;
+   mountain_N = mkN "ntsaba" C9_10 ;
+   friend_N = mkN "ngani" C1_2 ;
+   man_N = mkN "doda[zul]" C9_10 ;
+   car_N = mkN "moti" C9_10 ;
    John_PN = mkPN "John" C1a_2a ;
-   John_1a_2a_N = mkN "John" C1a_2a ;
-   Goli_PN = mkPN "Goli" C5_6 ;
-   nkonyana_5_6_N = mkN "nkonyana" C5_6 ;
-   lwane_7_8_N = mkN "lwane" C7_8 ;
-   sila_3_4_N = mkN "sila" C3_4 ;
-   khova_7_8_N = mkN "khova" C7_8 ;
-   tombi_9_10_N = mkN "tombi" C9_10 ;
-   khaya_5_6_N = mkELocN "khaya" C5_6 ;
+   calf_N = mkN "nkhonyane" C5_6 ;
+   animal_N = mkN "lwane" C7_8 ;
+   tail_N = mkN "sila" C3_4 ;
+   owl_N = mkN "khova" C7_8 ;
+   girl_N = mkN "ntfombatane" C9_10 ;
+   home_N = mkELocN "khaya" C5_6 ;
 
    Tatjana_PN = mkPN "Tatjana" C1a_2a ;
    medal_N = mkN "dondo" C9_10 ;
@@ -57,25 +54,26 @@ concrete DevLexSsw of DevLex = CatSsw ** open ResSsw,ParadigmsSsw in {
    majority_N = mkN "ningi" C5_6 ;
 
    -- verb roots
-   ab_V = mkV "ab" ;
-   ab_V2 = mkV2 "ab" ;
-   aban_V = mkV "aban" ;
-   aban_V2 = mkV2 "aban" ;
-   bon_V2 = mkV2 "bon" ;
-   hamb_V = mkV "hamb" ;
-   sh_V = mkV "sh" ;
-   eq_V = mkV "eq" ;
-   ehl_V = mkV "ehl" ;
-   f_V = mkV "f" ;
+   share_V = mkV "abelan" ;
+   share_V2 = mkV2 "abelan" ;
+   -- aban_V = mkV "aban" ;
+   -- aban_V2 = mkV2 "aban" ;
+   see_V2 = mkV2 "bon" ;
+   walk_V = mkV "hamb" ;
+   burn_V = mkV "sh" ;
+   say_VS = mkVS "ts" "tsi" ;
+   jump_V = mkV "zub" ;
+   descend_V = mkV "ehl[zul]" ;
+   die_V = mkV "f[zul]" ;
 
-   be_hot_V = mkV "shis" ;
-   be_healthy_V = mkV "phil" ;
-   be_fast_V = mkV "shes" ;
+   be_hot_V = mkV "shis[zul]" ;
+   be_healthy_V = mkV "phil[zul]" ;
+   be_fast_V = mkV "shes[zul]" ;
 
-   win_V2 = mkV2 "zuz" ;
+   win_V2 = mkV2 "phumelel" ;
 
-   ngaphezu_Adv = mkAdv "ngaphezu" ;
-   -- kakhulu_AdA = { s = "kakhulu" } ;
+   above_Adv = mkAdv "ngetulu" ;
+   very_AdA = { s = "kakhulu" } ;
 
-   lapho_Adv = mkAdv "lapho" ;
+   there_Adv = mkAdv "lapho" ;
 }

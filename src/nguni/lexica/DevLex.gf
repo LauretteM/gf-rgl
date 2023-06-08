@@ -2,52 +2,50 @@ abstract DevLex = Cat ** {
 
    fun
    -- adjective stems
-   bana_A : A ;
-   bi_A : A ;
-   bili_A : A ;
-   dala_A : A ;
-   hle_A : A ;
-   khulu_A : A ;
-   ningi_A : A ;
-   de_A : A ;
+   ugly_A : A ; -- bana
+   bad_A : A ; -- bi
+   two_A : A ; -- bili
+   old_A : A ; -- dala
+   pretty_A : A ; -- hle
+   big_A : A ; -- khulu
+   many_A : A ; -- many
+   tall_A : A ; -- de
 
    -- relative stems
-   mnandi_R : A ;
-   nzima_R : A ;
-   mbalwa_R : A ;
-   qotho_R : A ;
-   mhlophe_R : A ;
-   mbe_R : A ;
-   mnyama_R : A ;
+   tasty_A : A ; -- mnandi
+   heavy_A : A ; -- nzima
+   few_A : A ; -- mbalwa
+   honest_A : A ; -- qotho
+   white_A : A ; -- mhlophe
+   black_A : A ; -- mnyama
 
    -- enumerative stems
-   mbe_E : A ;
-   nye_E : A ;
+   different_A : A ; -- mbe
+   some_A : A ; -- nye
 
    -- noun stems
 
-   ntu_1_2_N : N ;
-   fana_1_2_N : N ;
-   fundi_1_2_N : N ;
-   bhubesi_5_6_N : N ;
-   phoyisa_5_6_N : N ;
-   jele_5_6_N : N ;
-   hlahla_7_8_N : N ;
-   ncwadi_9_10_N : N ;
-   ndlu_9_10_N : N ;
-   komo_9_10_N : N ;
-   taba_9_10_N : N ;
-   ngane_9_10_N : N ;
-   doda_9_10_N : N ;
-   moto_9_10_N : N ;
+   person_N : N ; -- ntu 1 2
+   boy_N : N ; -- fana 1 2
+   student_N : N ; -- fundi 1 2
+   lion_N : N ; -- bhubesi_5_6
+   policeman_N : N ; -- phoyisa_5_6
+   jail_N : N ; -- jele_5_6
+   branch_N : N ; -- hlahla_7_8
+   book_N : N ; -- ncwadi_9_10
+   house_N : N ; -- ndlu_9_10
+   cow_N : N ; -- komo_9_10
+   mountain_N : N ; -- taba_9_10
+   friend_N : N ; -- ngane_9_10
+   man_N : N ; -- doda_9_10
+   car_N : N ; -- moto_9_10
    John_PN : PN ;
-   John_1a_2a_N : N ;
-   nkonyana_5_6_N : N ;
-   lwane_7_8_N : N ;
-   sila_3_4_N : N ;
-   khova_7_8_N : N ;
-   tombi_9_10_N : N ;
-   khaya_5_6_N : N ;
+   calf_N : N ; -- nkonyana_5_6
+   animal_N : N ; -- lwane_7_8
+   tail_N : N ; -- sila_3_4
+   owl_N : N ; -- khova_7_8
+   girl_N : N ; -- tombi_9_10
+   home_N : N ; -- khaya_5_6
 
    Tatjana_PN : PN ;
    medal_N : N ;
@@ -57,27 +55,26 @@ abstract DevLex = Cat ** {
    majority_N : N ;
 
    -- verb roots
-   ab_V : V ;
-   ab_V2 : V2 ;
-   aban_V : V ;
-   aban_V2 : V2 ;
-   bon_V2 : V2 ;
-   hamb_V : V ;
-   sh_V : V ;
-   -- th_V : V ;
-   eq_V : V ;
-   ehl_V : V ;
-   f_V : V ;
+   share_V : V ; -- ab
+   share_V2 : V2 ;
+   -- aban_V : V ;
+   -- aban_V2 : V2 ;
+   see_V2 : V2 ; -- bon
+   walk_V : V ; -- hamb
+   burn_V : V ; -- sh
+   say_VS : VS ;
+   jump_V : V ; -- eq
+   descend_V : V ; -- ehl
+   die_V : V ; -- f
 
-   be_hot_V : V ;
    be_healthy_V : V ;
    be_fast_V : V ;
 
    win_V2 : V2 ;
 
-   ngaphezu_Adv : Adv ;
-   -- kakhulu_AdA : AdA ;
+   above_Adv : Adv ; -- ngaphezu
+   very_AdA : AdA ; -- kakhulu
 
-   lapho_Adv : Adv ;
+   there_Adv : Adv ; -- lapho
 
 }
