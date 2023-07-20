@@ -65,10 +65,11 @@ concrete VerbSsw of Verb = CatSsw ** open ResSsw, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t,l => let
           vform = VFIndic MainCl p t ;
+          vpref = verb_prefix_no_oc vform l v.r a ;
           tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform (VFIndic MainCl p t) l) -- hamba
           -- rest of verb prefix built later (eg no "ya" with certain question words)
-        in tp ++ r ++ "uku" ++ BIND ++ vp.s!MainCl!(First Sg)!Pos!PresTense!False ;
+        in vpref ++ tp ++ r ++ "uku" ++ BIND ++ vp.s!MainCl!(First Sg)!Pos!PresTense!False ;
         RelCl => \\a,p,t,l => let
           vform = VFIndic RelCl p t ;
           rc = relConc vform a v.r ; -- o-
