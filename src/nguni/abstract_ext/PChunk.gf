@@ -67,6 +67,7 @@ fun
   NP_Nom_Reduced_Chunk : NP -> Chunk_NP ;
   NP_Loc_Chunk : NP -> Chunk_NP ;
   NP_Gen_Chunk : Pron -> NP -> Chunk_NP ;
+  NP_PossLoc_Chunk : Pron -> NP -> Chunk_NP ;
   -- NP_Gen_Chunk : NP -> Chunk_NP ;
   Predet_Chunk : Pron -> Predet -> Chunk_Predet ;
   Postdet_Chunk : Pron -> Postdet -> Chunk_Postdet ;
