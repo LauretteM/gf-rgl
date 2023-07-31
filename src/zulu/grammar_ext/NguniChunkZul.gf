@@ -2,6 +2,7 @@
 
 concrete NguniChunkZul of NguniChunk =
   NguniGrammarZul,
+  AdverbExtZul,
   BackwardZul[ComplV2,ComplV3,ComplV2V],
   NounExtZul,
   PhraseExtZul,

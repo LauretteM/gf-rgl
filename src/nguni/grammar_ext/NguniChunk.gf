@@ -2,6 +2,7 @@
 
 abstract NguniChunk =
   NguniGrammar,
+  AdverbExt,
   Backward[ComplV2,ComplV3,ComplV2V],
   NounExt,
   PhraseExt,
