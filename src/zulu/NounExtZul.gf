@@ -19,7 +19,14 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     PronPostdetNP pron postdet = {
       empty = pron.empty ;
-      s = \\nform => pron.s!nform ++ postdet.s!pron.agr ;
+      s = \\nform => 
+      let
+        pron_str = case pron.proDrop of {
+          True => pron.empty;
+          False => pron.s!nform
+        }
+      in
+        pron_str ++ postdet.s!pron.agr ;
       agr = pron.agr ;
       i = RC ;
       proDrop = pron.proDrop ;
