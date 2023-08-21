@@ -18,10 +18,10 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       obj = np.s!NFull
     in {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
-          vpref_with_oc = verb_prefix_with_oc vform l a ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l a s ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           -- longform = case np.heavy of {
@@ -34,7 +34,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ;
           False => vpref_no_oc ++ tp ++ r ++ obj
         } ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ; -- o- / onga-
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
@@ -45,7 +45,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           -- } ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
-            True => relSuf vform ;
+            True => relSuf vform s ;
             False => []
           } ;
           -- obj = np.s!NFull -- [] / inkomo
@@ -117,10 +117,10 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       } ;
     in {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
-          vpref_with_oc = verb_prefix_with_oc vform l a ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l a s ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           -- longform = case np.heavy of {
@@ -133,7 +133,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           True => vpref_with_oc ++ tp ++ oc ++ r ++ obj1 ++ obj2 ;
           False => vpref_no_oc ++ tp ++ r ++ obj1 ++ obj2
         } ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ; -- o- / onga-
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
@@ -205,10 +205,10 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       obj = np.s!NFull
     in {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
-          vpref_with_oc = verb_prefix_with_oc vform l a ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l a s ;
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
           -- oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           -- longform = case np.heavy of {
@@ -221,7 +221,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;
           False => vpref_no_oc ++ tp ++ r ++ obj ++ vp.inf_s!NFull!Pos
         } ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ; -- o- / onga-
           tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-

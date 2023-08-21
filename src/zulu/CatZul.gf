@@ -17,7 +17,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Sentence
 
     Cl = {
-      s : Polarity => BasicTense => Str
+      s : Polarity => BasicTense => Aspect => Str
     } ;
 --     ClSlash = {
 --       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
@@ -28,7 +28,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Question
 
     QCl = {
-      s : Polarity => BasicTense => Str ;
+      s : Polarity => BasicTense => Aspect => Str ;
       -- potqcl : Polarity => Str ;
       qword_pre : Str ;
       qword_post : Str
@@ -40,15 +40,16 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
 -- Relative
 
-    RCl = { s : Agr => Polarity => BasicTense => Str } ;
+    RCl = { s : Agr => Polarity => BasicTense => Aspect => Str } ;
     RP = { s : Str } ;
 
 -- Verb
 
     VP = {
-      s : CType => Agr => Polarity => BasicTense => Bool => Str ; -- TODO: mood
+      s : CType => Agr => Polarity => BasicTense => Aspect => Bool => Str ; -- TODO: mood
       imp_s : Number => Polarity => Str ;
       inf_s : NForm => Polarity => Str ;
+      -- pot_s : Agr => Polarity => Aspect => Str ;
       -- oc : Str ;
       comp : Str ;
       iadv : Str ;

@@ -24,7 +24,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
     QuestIAdv iadv cl = qcl_iadv cl iadv ;
 
     QuestIComp icomp np = {
-      s = \\p,t =>
+      s = \\p,t,s =>
       let
         vform = VFIndic MainCl p t ;
         pre_icomp = case icomp.postIComp of {
@@ -95,8 +95,8 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
     --   qword_post = []
     -- } ;
 
-    qcl_iadv : Cl -> CatZul.IAdv -> {s : Polarity => BasicTense => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
-      s = \\p,t => cl.s!p!t ;
+    qcl_iadv : Cl -> CatZul.IAdv -> {s : Polarity => BasicTense => Aspect => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
+      s = \\p,t,s => cl.s!p!t!s ;
       qword_pre = case iadv.postIAdv of {
         True => [] ;
         False => iadv.s

@@ -43,7 +43,8 @@ abstract NounExt = Cat,CatExt ** {
     Deverb15 : Pol -> VP -> NP ;
     -- DeverbV215 : Pol -> V2 -> NP -> NP ;
 
-    -- LocNP : NP -> Loc ;
+    LocNNP : LocN -> NP ;
+    PossLocN : LocN -> NP -> LocN ; -- phezu kwamahora...
 
     -- LocNLoc : LocN -> Loc ;
 

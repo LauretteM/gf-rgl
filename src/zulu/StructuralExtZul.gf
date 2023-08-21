@@ -83,6 +83,7 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
     phambi_LocN = { s = "phambi" ; empty = [] } ;
     phakade_LocN = { s = "phakade" ; empty = [] } ;
     phezulu_LocN = { s = "phezulu" ; empty = [] } ;
+    phezu_LocN = { s = "phezulu" ; empty = [] } ;
 
     lapha_Loc = {
       s = table {

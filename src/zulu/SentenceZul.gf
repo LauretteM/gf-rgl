@@ -19,7 +19,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           False => True
         }
       in {
-        s = \\p,t => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        s = \\p,t,s => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
       } ;
       _ => cl_with_verb_predicate np vp
     } ;
@@ -94,16 +94,16 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 --     EmbedVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
     UseCl t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t
+      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null
     } ;
     UseQCl t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t  ;
+      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null  ;
       -- potqs = t.s ++ p.s ++ cl.potqcl ! p.p ! Princ ;
       qword_pre = cl.qword_pre ;
       qword_post = cl.qword_post
     } ;
     UseRCl temp pol rcl = {
-      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t ;
+      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Null ;
     } ;
 --     UseSlash t p cl = {
 --       s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p  ! oDir ;
@@ -123,13 +123,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
   oper
 
-    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+      s = \\p,t,s =>
         let
           subj = np.s!NFull
         in
           subj ++
-          vp.s!MainCl!np.agr!p!t!False
+          vp.s!MainCl!np.agr!p!t!s!False
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 
@@ -140,7 +140,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           vform_main = VFIndic MainCl p t ;
         in
           impPref p
-          ++ vp.s!MainCl!np.agr!p!t!False
+          ++ vp.s!MainCl!np.agr!p!t!Null!False
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs
@@ -172,8 +172,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     --    -- ++ (tensePref vform)
     -- ;
 
-    cl_with_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    cl_with_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+      s = \\p,t,s =>
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
@@ -184,7 +184,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         in
           subj
           -- ++ (verb_prefix vp p t np.agr)
-          ++ vp.s!MainCl!np.agr!p!t!longform_suffix
+          ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs
@@ -221,8 +221,8 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     -- ;
 
     -- TODO: aspect
-    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+      s = \\p,t,s =>
         let
           vform_main = VFIndic MainCl p t ;
           subj = np.s!NFull ;
@@ -231,12 +231,12 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         in
           subj ++
           -- pcp ++
-          vp.s!MainCl!np.agr!p!t!False
+          vp.s!MainCl!np.agr!p!t!s!False
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 
-    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+      s = \\p,t,s =>
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
@@ -262,7 +262,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- ++ lfya
           -- -- ++ (tensePref vform_main)
           -- ++ vp.comp
-          vp.s!MainCl!np.agr!p!t!False
+          vp.s!MainCl!np.agr!p!t!s!False
           ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
 

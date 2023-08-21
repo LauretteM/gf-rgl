@@ -19,6 +19,22 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
       s = "sanibonani"
     } ;
 
+    UseClProg t p cl = {
+      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Prog
+    } ;
+
+    UseClExcl t p cl = {
+      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Excl
+    } ;
+
+    UseRClProg temp pol rcl = {
+      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Prog ;
+    } ;
+
+    UseRClExcl temp pol rcl = {
+      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Excl ;
+    } ;
+
     -- IAdvQS np iadv = {
     --   s = case np.proDrop of {
     --     True => np.empty ;

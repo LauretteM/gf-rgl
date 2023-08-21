@@ -42,16 +42,16 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     RS_Chunk pron rs = { s = pron.s!NFull ++ rs.s!pron.agr } ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
     VP_RelYo_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!True ++ vp.comp ++ vp.advs
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!Null!True ++ vp.comp ++ vp.advs
     } ;
     VP_Rel_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!False ++ vp.comp ++ vp.advs
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!RelCl!pron.agr!pol.p!temp.t!Null!False ++ vp.comp ++ vp.advs
     } ;
     VP_Main_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!False ++ vp.comp ++ vp.advs
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!Null!False ++ vp.comp ++ vp.advs
     } ;
     VP_Main_Short_Chunk temp pol pron vp = {
-      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!True ++ vp.comp ++ vp.advs
+      s = temp.s ++ pol.s ++ pron.s!NFull ++ vp.s!MainCl!pron.agr!pol.p!temp.t!Null!True ++ vp.comp ++ vp.advs
     } ;
     VP_Inf_Chunk pol vp = {
       s = pol.s ++ vp.inf_s!NFull!pol.p ++ vp.comp ++ vp.advs

@@ -11,20 +11,20 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       reqLocS = False
     } ;
 
-    InstrAdvNPAdv adv np =
-    let
-      pref = instrPref!(initNP np.isPron np.agr)
-    in {
-      s = adv.s ++ pref ++BIND++ (np.s!NReduced) ;
-      -- asp = adv.asp ;
-      reqLocS = False
-    } ;
+    -- InstrAdvNPAdv adv np =
+    -- let
+    --   pref = instrPref!(initNP np.isPron np.agr)
+    -- in {
+    --   s = adv.s ++ pref ++BIND++ (np.s!NReduced) ;
+    --   -- asp = adv.asp ;
+    --   reqLocS = False
+    -- } ;
 
-    LocAdvNPAdv adv np = {
-      s = adv.s ++ (np.s!NLoc) ;
-      -- asp = adv.asp ;
-      reqLocS = False
-    } ;
+    -- LocAdvNPAdv adv np = {
+    --   s = adv.s ++ (np.s!NLoc) ;
+    --   -- asp = adv.asp ;
+    --   reqLocS = False
+    -- } ;
 
     -- locative kwa
     KwaNPAdv np = {
@@ -49,21 +49,21 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       reqLocS = False
     } ;
 
-    KuAdvNPAdv adv np = {
-      s = adv.s ++
-        case np.proDrop of {
-          True => "ki" ;
-          False => case (initNP np.isPron np.agr) of {
-            RI  => "ki" ;
-            RO  => "ko" ;
-            RA  => "kw" ;
-            _   => "ku"
-          }
-        }
-      ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
-      reqLocS = False
-    } ;
+    -- KuAdvNPAdv adv np = {
+    --   s = adv.s ++
+    --     case np.proDrop of {
+    --       True => "ki" ;
+    --       False => case (initNP np.isPron np.agr) of {
+    --         RI  => "ki" ;
+    --         RO  => "ko" ;
+    --         RA  => "kw" ;
+    --         _   => "ku"
+    --       }
+    --     }
+    --   ++BIND++ (np.s!NReduced) ;
+    --   -- asp = Null ;
+    --   reqLocS = False
+    -- } ;
 
     NaNPAdv np = {
       s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!NReduced) ;

@@ -5,23 +5,24 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
   lin
     UseV v = {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a ;
-          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform vform l) -- hamba
           -- rest of verb prefix built later (eg no "ya" with certain question words)
-        in vpref ++ tp ++ r ;
-        RelCl => \\a,p,t,l => let
+        in vpref ++ r ;
+        RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rc = relConc vform a v.r ; -- o-
-          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          -- rc = relConc vform a v.r ; -- o-
+          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform vform l) ; -- hamba
           suf = case l of {
-            True => relSuf vform ;
+            True => relSuf vform s ;
             False => []
           } ;
-        in rc ++ tp ++ r ++ suf
+        in vpref ++ r ++ suf
       } ;
       imp_s = table {
         Sg => table {
@@ -63,23 +64,24 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 
     ComplVV v vp = {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a ;
-          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform (VFIndic MainCl p t) l) -- hamba
           -- rest of verb prefix built later (eg no "ya" with certain question words)
-        in vpref ++ tp ++ r ++ "uku" ++ BIND ++ vp.s!MainCl!(First Sg)!Pos!PresTense!False ;
-        RelCl => \\a,p,t,l => let
+        in vpref ++ r ++ "uku" ++ BIND ++ vp.s!MainCl!(First Sg)!Pos!PresTense!Null!False ;
+        RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rc = relConc vform a v.r ; -- o-
-          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          -- rc = relConc vform a v.r ; -- o-
+          -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
           r = v.s!(rform vform l) ; -- hamba
           suf = case l of {
-            True => relSuf vform ;
+            True => relSuf vform s ;
             False => []
           } ;
-        in rc ++ tp ++ r ++ vp.inf_s!NFull!Pos
+        in vpref ++ r ++ vp.inf_s!NFull!Pos
       } ;
       imp_s = table {
         Sg => table {
@@ -134,23 +136,24 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
 
     ComplVS v s = {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a ;
-          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform vform l) -- hamba
           -- rest of verb prefix built later (eg no "ya" with certain question words)
-        in vpref ++ tp ++ r ;
-        RelCl => \\a,p,t,l => let
+        in vpref ++ r ;
+        RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rc = relConc vform a v.r ; -- o-
-          tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          -- rc = relConc vform a v.r ; -- o-
+          -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
+          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
           r = v.s!(rform vform l) ; -- hamba
           suf = case l of {
-            True => relSuf vform ;
+            True => relSuf vform s ;
             False => []
           } ;
-        in rc ++ tp ++ r ++ suf
+        in vpref ++ r ++ suf
       } ;
       imp_s = table {
         Sg => table {

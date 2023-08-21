@@ -5,14 +5,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     CopAP ap = {
       s = case ap.t of {
         AdjType => table {
-          MainCl => \\a,p,t,l => let
+          MainCl => \\a,p,t,s,l => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a AdjType ; -- u- / uzoba / ube- / waye- / wayenge-
             adjpref =  adjPref a vform ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
           in
             pcp ++ adjpref ++ cop_base ;
-          RelCl => \\a,p,t,l => let
+          RelCl => \\a,p,t,s,l => let
             vform = VFIndic RelCl p t ;
             rcp = (adjConcCop vform a RC) ; -- o-
             pcp = ap_cop_pref vform a AdjType ; -- [] / -nge- / zoba / -be- / -benge- -waye- / -wayenge-
@@ -22,13 +22,13 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             rcp ++ pcp ++ adjpref ++ cop_base
         } ;
         RelType => table {
-          MainCl => \\a,p,t,l => let
+          MainCl => \\a,p,t,s,l => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a RelType ; -- u-
             cop_base = ap.s!AF1 -- qotho
           in
             pcp ++ cop_base ;
-          RelCl => \\a,p,t,l => let
+          RelCl => \\a,p,t,s,l => let
             vform = VFIndic RelCl p t ;
             rcp = (relConcCop vform a RC) ; -- o-
             pcp = ap_cop_pref vform a RelType ; -- [] / -nge- / zoba / -benge-
@@ -74,14 +74,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     CopNP np = {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = np.s!NFull -- umfundi
         in
           pcp ++ cp ++ cop_base ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
@@ -123,14 +123,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     CopNPAssoc np = {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           pcp = (assoc_pre_cop_pref vform a) ; -- u- / uzoba
           cp = (assoc_cop_pref p np.agr) ; -- ne-
           cop_base = np.s!NReduced -- moto
         in
           pcp ++ cp ++ cop_base ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
@@ -173,12 +173,12 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     } ;
 
     UseVStative v = {
-      s = \\c,a,p,t,l => let
+      s = \\c,a,p,t,s,l => let
           vform = VFIndic c p t ;
           vpref = verb_prefix_stative vform a v.r v.syl ;
           r = v.s!(rform_stative vform) ;
           yo = case l of {
-            True => relSuf vform ;
+            True => relSuf vform s ;
             False => []
           }
         in vpref ++ r ++ yo ;
@@ -228,10 +228,10 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       }
     in {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref_no_oc = verb_prefix_no_oc vform l v2.r a ;
-          vpref_with_oc = verb_prefix_with_oc vform l a ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l a s ;
           tp = tensePref vform v2.r v2.syl ;
           -- oc = objConc np.agr v2.r v2.syl ;
           -- longform = case np.heavy of {
@@ -247,7 +247,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ;
           False => vpref_no_oc ++ tp ++ r ++ obj
         } ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           rc = relConc vform a v2.r ;
           tp = tensePref vform v2.r v2.syl ;
@@ -322,7 +322,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     } ;
 
     CopLocative loc = {
-      s = \\c,a,p,t,l => loc.s!c!a!p!t ;
+      s = \\c,a,p,t,s,l => loc.s!c!a!p!t ;
       imp_s = loc.imp_s ;
       inf_s = loc.inf_s ;
       comp,advs,iadv = [] ;
@@ -334,14 +334,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     CopPoss np = {
       s = table {
-        MainCl => \\a,p,t,l => let
+        MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
           -- cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
         in
           pcp ++ cop_base ;
-        RelCl => \\a,p,t,l => let
+        RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
@@ -387,13 +387,13 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
 
     CopQuant qs = {
       s = table {
-          MainCl => \\a,p,t,l => let
+          MainCl => \\a,p,t,s,l => let
             vform = VFIndic MainCl p t ;
             pcp = ap_cop_pref vform a RelType ; -- u-
             cop_base = qs.s!a -- qotho
           in
             pcp ++ cop_base ;
-          RelCl => \\a,p,t,l => let
+          RelCl => \\a,p,t,s,l => let
             vform = VFIndic RelCl p t ;
             rcp = (quantConcCop vform a) ; -- o-
             pcp = ap_cop_pref vform a RelType ; -- [] / -nge- / zoba / -benge-

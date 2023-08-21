@@ -28,6 +28,7 @@ abstract StructuralExt = Cat, CatExt ** {
     phambi_LocN : LocN ;
     phakade_LocN : LocN ;
     phezulu_LocN : LocN ;
+    phezu_LocN : LocN ;
 
     lapha_Loc : Loc ;
     khona_Loc : Loc ;

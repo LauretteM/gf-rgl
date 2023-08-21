@@ -14,8 +14,8 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
 
     oper
 
-      rcl_with_verb_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
-        s = \\a,p,t =>
+      rcl_with_verb_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
+        s = \\a,p,t,s =>
           let
             vform = VFIndic RelCl p t ;
             vow = case <vp.r,p,t> of {
@@ -29,14 +29,14 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
           in
             -- naively only took out the subject
             rp.s
-            ++ vp.s!RelCl!a!p!t!False
+            ++ vp.s!RelCl!a!p!t!s!False
             ++ vp.iadv
             ++ vp.comp
             ++ vp.advs
       } ;
 
-      rcl_with_ass_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
-        s = \\a,p,t =>
+      rcl_with_ass_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
+        s = \\a,p,t,s =>
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND;
@@ -51,13 +51,13 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
             "*" ++
             rp.s ++
             -- pcp ++
-            vp.s!RelCl!a!p!t!False ++
+            vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
       } ;
 
-      rcl_with_id_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
-        s = \\a,p,t =>
+      rcl_with_id_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
+        s = \\a,p,t,s =>
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND ;
@@ -68,13 +68,13 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
             "*" ++
             rp.s ++
             -- pcp ++
-            vp.s!RelCl!a!p!t!False ++
+            vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
       } ;
 
-      rcl_with_ass_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
-        s = \\a,p,t =>
+      rcl_with_ass_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
+        s = \\a,p,t,s =>
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND;
@@ -89,13 +89,13 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
             "*" ++
             rp.s ++
             -- pcp ++
-            vp.s!RelCl!a!p!t!False ++
+            vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
       } ;
 
-      rcl_with_eq_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
-        s = \\a,p,t =>
+      rcl_with_eq_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
+        s = \\a,p,t,s =>
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND;
@@ -105,13 +105,13 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
             "*" ++
             rp.s ++
             pcp ++
-            vp.s!RelCl!a!p!t!False ++
+            vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
       } ;
 
-      rcl_with_descr_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Str } = \rp,vp -> {
-      s = \\a,p,t =>
+      rcl_with_descr_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
+      s = \\a,p,t,s =>
         let
           vform_main = VFIndic RelCl p t ;
           pcp = pre_cop_pref vform_main a ;
@@ -122,7 +122,7 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
           "*" ++
           rp.s ++
           -- adjpref ++
-          vp.s!RelCl!a!p!t!False
+          vp.s!RelCl!a!p!t!s!False
           ++ vp.iadv ++ vp.advs
         } ;
 
