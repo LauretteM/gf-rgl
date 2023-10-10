@@ -6,7 +6,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
     SemanticType = Human | Animate | Misc ;
     NForm = NFull | NReduced | NPoss | NLoc ;
-    Agr = First Number | Second Number | Third ClassGender Number | LocAgr ;
+    Agr = First Number | Second Number | Third ClassGender Number ; -- | LocAgr ;
 
     -- SMood = SIndic | SPot | SSubj ; -- | SConsec ;
     -- DMood = Princ | Part ; -- mood dimension that depends on grammatical context: principal and participial
