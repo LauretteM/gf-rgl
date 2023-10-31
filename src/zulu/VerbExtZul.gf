@@ -78,7 +78,10 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
           cp = (id_cop_pref np.agr) ; -- ng-
-          cop_base = np.s!NFull -- umfundi
+          cop_base = case np.isPron of {
+            False => np.s!NFull ; -- umfundi 
+            True => "*" ++ np.s!NFull
+          } 
         in
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t,l => let
@@ -86,7 +89,10 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
           cp = (id_cop_pref np.agr) ; -- ng-
-          cop_base = np.s!NFull -- umfundi
+          cop_base = case np.isPron of {
+            False => np.s!NFull ; -- umfundi 
+            True => "*" ++ np.s!NFull
+          } 
         in
           rcp ++ pcp ++ cp ++ cop_base
       } ;

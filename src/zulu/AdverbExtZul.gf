@@ -94,14 +94,6 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       } ;
     } ;
 
-    NPAdv np = {
-      s = case np.proDrop of {
-        False => np.s!NFull ;
-        True => "*" ++ np.s!NFull
-      } ;
-      reqLocS = False
-    } ;
-
     ConjNAdv conj s = {
       s = conj.s ++ s.s;
       -- asp = Null ;

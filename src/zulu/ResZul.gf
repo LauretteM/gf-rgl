@@ -10,7 +10,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     -- SMood = SIndic | SPot | SSubj ; -- | SConsec ;
     -- DMood = Princ | Part ; -- mood dimension that depends on grammatical context: principal and participial
-    CType = MainCl | RelCl ;
+    CType = MainCl | RelCl ; -- | SitCl ;
+    -- DMType = SubjCl | ConsecCl ;
     Aspect = Null | Prog | Excl ;
     BasicTense = PresTense | FutTense | PastTense | RemFutTense | RemPastTense ;
     -- ImpForm = Imper | Polite ;

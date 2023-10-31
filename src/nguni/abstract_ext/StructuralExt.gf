@@ -47,6 +47,7 @@ abstract StructuralExt = Cat, CatExt ** {
     much_Adv : Adv ;
 
     with_Conj : Conj ;
+    and_then_Conj: Conj ;
 
     where_ConjN : ConjN ;
 

@@ -19,6 +19,13 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
       s = "sanibonani"
     } ;
 
+    ExtConjS s1 conj s2 = {
+      s = case conj.fix of {
+        False => s1.s ++ conj.s!RC ++ s2.s ;
+        True => s1.s ++ conj.s!RC ++BIND++ s2.s -- this selection of RC is a short cut
+      }
+    } ;
+
     -- IAdvQS np iadv = {
     --   s = case np.proDrop of {
     --     True => np.empty ;

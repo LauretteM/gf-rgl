@@ -5,4 +5,6 @@ abstract SentenceExt = Cat,CatExt ** {
     ExistNP : NP -> S ;
     GreetSg : Utt ;
     GreetPl : Utt ;
+
+    ExtConjS : S -> Conj -> S -> S ;
 }
