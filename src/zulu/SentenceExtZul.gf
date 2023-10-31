@@ -19,6 +19,7 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
       s = "sanibonani"
     } ;
 
+<<<<<<< HEAD
     UseClProg t p cl = {
       s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Prog
     } ;
@@ -33,6 +34,13 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
 
     UseRClExcl temp pol rcl = {
       s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Excl ;
+=======
+    ExtConjS s1 conj s2 = {
+      s = case conj.fix of {
+        False => s1.s ++ conj.s!RC ++ s2.s ;
+        True => s1.s ++ conj.s!RC ++BIND++ s2.s -- this selection of RC is a short cut
+      }
+>>>>>>> grammar_check
     } ;
 
     -- IAdvQS np iadv = {

@@ -185,6 +185,11 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
       fix = True
     } ;
 
+    and_then_Conj = {
+      s = \\_ => "bese" ;
+      fix = False
+    } ;
+
     where_ConjN = { s = "lapho" } ;
 
     how_IComp = { s = "njani" ; postIComp = False } ; -- -njani

@@ -49,21 +49,19 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       s : CType => Agr => Polarity => BasicTense => Aspect => Bool => Str ; -- TODO: mood
       imp_s : Number => Polarity => Str ;
       inf_s : NForm => Polarity => Str ;
+<<<<<<< HEAD
       -- pot_s : Agr => Polarity => Aspect => Str ;
       -- oc : Str ;
+=======
+      -- consubj_s : DMType => Agr => Polarity => Str ;
+>>>>>>> grammar_check
       comp : Str ;
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ; -- indicates whether to use long form
       r : RInit ;
       syl : Syl ;
-      -- asp : Aspect ;
-      -- asp_pref : VForm => Str ;
-      vptype : VPType ;
-      -- comp_agr : Agr ;
-      -- ap_comp : AForm => Str -- ;
-      -- aux_root : Str ;
-      -- hasAux : Bool
+      vptype : VPType 
     } ;
 
     -- VPSlash = {

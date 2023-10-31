@@ -94,6 +94,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       } ;
     } ;
 
+<<<<<<< HEAD
     -- NPAdv np = {
     --   s = case np.proDrop of {
     --     False => np.s!NFull ;
@@ -102,6 +103,8 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     --   reqLocS = False
     -- } ;
 
+=======
+>>>>>>> grammar_check
     ConjNAdv conj s = {
       s = conj.s ++ s.s;
       -- asp = Null ;
