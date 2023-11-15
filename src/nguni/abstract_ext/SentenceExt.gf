@@ -6,13 +6,10 @@ abstract SentenceExt = Cat,CatExt ** {
     GreetSg : Utt ;
     GreetPl : Utt ;
 
-<<<<<<< HEAD
     UseClProg : Temp -> Pol -> Cl -> S ;
     UseClExcl : Temp -> Pol -> Cl -> S ;
 
     UseRClProg : Temp -> Pol -> RCl -> RS ;
     UseRClExcl : Temp -> Pol -> RCl -> RS ;
-=======
     ExtConjS : S -> Conj -> S -> S ;
->>>>>>> grammar_check
 }
