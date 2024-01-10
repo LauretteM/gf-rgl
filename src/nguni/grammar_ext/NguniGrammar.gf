@@ -5,7 +5,7 @@ abstract NguniGrammar =
   Verb [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   Adjective [PositA, AdAP],
   Adverb [PositAdvAdj, SubjS],
-  -- Numeral,
+  NumeralExt [NumeralAP,NumeralNP],
   Sentence [PredVP, ImpVP, UseCl, UseQCl, UseRCl,AdvS],
   Question [QuestCl, QuestIAdv, QuestIComp],
   Relative [RelVP, IdRP],

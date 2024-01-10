@@ -1,4 +1,4 @@
-concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
+concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
   open ResZul, Prelude, ParamX in {
 
   flags optimize=all_subs ;
@@ -9,7 +9,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     Temp = { s : Str ; t : BasicTense } ;
 
 -- Tensed/Untensed
-    S = { s : Str } ;
+    S = { s : SType => Str } ;
     QS = { s : Str ; qword_pre : Str ; qword_post : Str } ;
     RS = { s : Agr => Str } ;
 --     SSlash = {s : Str ; c2 : Str} ;
@@ -17,7 +17,9 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Sentence
 
     Cl = {
-      s : Polarity => BasicTense => Aspect => Str
+      s : Polarity => BasicTense => Aspect => Str ;
+      consubj_s : DMType => Polarity => Str ;
+      rinit : RInit
     } ;
 --     ClSlash = {
 --       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
@@ -49,7 +51,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       s : CType => Agr => Polarity => BasicTense => Aspect => Bool => Str ; -- TODO: mood
       imp_s : Number => Polarity => Str ;
       inf_s : NForm => Polarity => Str ;
-      -- consubj_s : DMType => Agr => Polarity => Str ;
+      consubj_s : DMType => Agr => Polarity => Str ;
       comp : Str ;
       iadv : Str ;
       advs : Str ;
@@ -95,7 +97,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       -- mod : Number => Str ;
       c : ClassGender ;
       empty : Str ;
-      emph : Bool
+      predet : Bool
     } ;
 
     NP = {

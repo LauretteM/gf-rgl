@@ -1,6 +1,10 @@
 concrete PhraseExtZul of PhraseExt = CatZul,CatExtZul ** open ResZul, Prelude, ParamX in {
 
   lin
+
+    ConsecS sent = { s = sent.s!SConsec } ;
+    SubjunctS sent = { s = sent.s!SSub } ;
+
     DirectSpeech phr t v np = {
       s = let
         vform = case t.t of {

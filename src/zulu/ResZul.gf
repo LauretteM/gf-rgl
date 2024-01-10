@@ -6,12 +6,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
     ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
     SemanticType = Human | Animate | Misc ;
     NForm = NFull | NReduced | NPoss | NLoc ;
+    -- ClForm = ClFull | ClReduced ;
     Agr = First Number | Second Number | Third ClassGender Number ; -- | LocAgr ;
 
     -- SMood = SIndic | SPot | SSubj ; -- | SConsec ;
     -- DMood = Princ | Part ; -- mood dimension that depends on grammatical context: principal and participial
     CType = MainCl | RelCl ; -- | SitCl ;
-    -- DMType = SubjCl | ConsecCl ;
+    DMType = SubjCl | ConsecCl ;
     Aspect = Null | Prog | Excl ;
     BasicTense = PresTense | FutTense | PastTense | RemFutTense | RemPastTense ;
     -- ImpForm = Imper | Polite ;
@@ -24,12 +25,12 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- replacing BasicTense with Tense, just for now
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
     -- VForm = VFIndic DMood Polarity BasicTense Aspect | VFPot DMood Polarity Aspect | VFSubj Polarity ;
-    VForm = VFIndic CType Polarity BasicTense ;
+    VForm = VFIndic CType Polarity BasicTense | VFConsec Polarity | VFSubjunct Polarity ;
     VPType = CopIdent | CopAssoc | CopDescr | CopEq | VNPCompl | NoComp | VSCompl | AdvComp | CopLoc ; -- VACompl |
     AuxType = PartAux ; -- TODO: add SubjAux, InfAux, ConsecAux etc (p327)
     AType = AdjType | RelType ;
     LocAdvType = KwaAdv | NaAdv ;
-    SType = SInd | SSub ;
+    SType = SInd | SSub | SConsec ;
 
     AForm = AF1 | AF2 | AF3 ; -- two forms for implementing sound changes Poulos+Msimang p143, one for monosyllabic
     SCForm = SC | SCVow | SCNeg | SCNegVow | SCPS | SCPart | SCVowP | SCBe | SCRP | SCSe ;
@@ -438,7 +439,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
         VFIndic _ Pos PastTense => R_ile ;
         VFIndic _ Neg PastTense => R_anga ;
         VFIndic _ Pos RemPastTense => R_a ;
-        VFIndic _ Neg RemPastTense => R_anga
+        VFIndic _ Neg RemPastTense => R_anga ;
+        VFConsec _ => R_a ;
+        VFSubjunct Pos => R_e ;
+        VFSubjunct Neg => R_i
       } ;
       False => case vform of {
         VFIndic _ Pos PresTense => R_a ;
@@ -449,14 +453,20 @@ resource ResZul = open Prelude,Predef,ParamX in {
         VFIndic _ Pos PastTense => R_e ;
         VFIndic _ Neg PastTense => R_anga ;
         VFIndic _ Pos RemPastTense => R_a ;
-        VFIndic _ Neg RemPastTense => R_anga
-      }
+        VFIndic _ Neg RemPastTense => R_anga ;
+        VFConsec _ => R_a ;
+        VFSubjunct Pos => R_e ;
+        VFSubjunct Neg => R_i
+      } 
     } ;
 
-    longform_ya : VForm -> Bool -> RInit -> Aspect -> Str = \vform,longform,rinit,aspect -> case <vform,longform,rinit,aspect> of {
+    longform_ya : VForm -> Bool -> RInit -> Aspect -> Str =
+    \vform,longform,rinit,aspect -> case <vform,longform,rinit,aspect> of {
       <VFIndic _ Pos PresTense,True,RC,(Null|Excl)> => "ya"++BIND ;
       <VFIndic _ Pos PresTense,True,_,(Null|Excl)>  => "y"++BIND ;
-      <VFIndic _ _ _,_,_,_> => []
+      <VFIndic _ _ _,_,_,_> => [] ;
+      <VFConsec _,_,_,_> => [] ;
+      <VFSubjunct _,_,_,_> => [] 
     } ;
 
     verb_prefix_stative : VForm -> Agr -> RInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
@@ -482,7 +492,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic RelCl Neg PastTense => relCopConcBeLookup!agr ++ "nga" ++BIND ;
       VFIndic RelCl Neg RemPastTense => relCopConcRemPastLookup!agr ++ "nga" ++BIND ;
       VFIndic RelCl Neg FutTense => relConcLookup!agr!RC ++ "nga" ++BIND++ (tensePref vform rinit syl) ;
-      VFIndic RelCl Neg RemFutTense => relConcLookup!agr!RC ++ "nga" ++BIND++ (tensePref vform rinit syl)
+      VFIndic RelCl Neg RemFutTense => relConcLookup!agr!RC ++ "nga" ++BIND++ (tensePref vform rinit syl) ;
+      VFConsec Pos => "*consec" ++ subjConcLookup!agr!SCRP ++BIND ;
+      VFConsec Neg => "*consec" ++ subjConcLookup!agr!SCRP ++BIND++ "nga" ++BIND ;
+      VFSubjunct Pos => "*subjunct" ++ subjConcLookup!agr!SC ++BIND ;
+      VFSubjunct Neg => "*subjunct" ++ "a" ++BIND++ subjConcLookup!agr!SCVowP ++BIND
     } ;
 
     rform_stative : VForm -> RForm = \vform -> case vform of {
@@ -490,7 +504,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ _ PastTense => R_ile ;
       VFIndic _ _ RemPastTense => R_ile ;
       VFIndic _ _ FutTense => R_a ;
-      VFIndic _ _ RemFutTense => R_a
+      VFIndic _ _ RemFutTense => R_a ;
+      VFConsec _ => R_a ;
+      VFSubjunct Pos => R_e ;
+      VFSubjunct Neg => R_i
     } ;
 
     verb_prefix_no_oc : VForm -> Bool -> RInit -> Agr -> Aspect -> Syl -> Str = \vform,longform,rinit,agr,aspect,syl -> let
@@ -596,7 +613,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         <VFIndic RelCl Neg RemPastTense,_,_,Excl> => "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNegVow ++BIND++ "k" ++ BIND ;
 
         <VFIndic RelCl Pos _,_,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
-        <VFIndic RelCl Neg _,_,_,Excl> => (relConc vform agr rinit) ++ "ka" ++BIND++ (tensePref vform rinit syl)
+        <VFIndic RelCl Neg _,_,_,Excl> => (relConc vform agr rinit) ++ "ka" ++BIND++ (tensePref vform rinit syl) ;
+        <VFConsec _,_,RC,_> => (subjConc vform agr False) ++ (negPrefNga vform False) ;
+        <VFConsec _,_,_,_> => (subjConc vform agr True) ++ (negPrefNga vform True) ;
+        <VFSubjunct _,_,RC,_> => (subjConc vform agr False) ++ (negPrefNga vform False) ;
+        <VFSubjunct _,_,_,_> => (subjConc vform agr True) ++ (negPrefNga vform True)  
       } ;
       ya = longform_ya vform longform rinit aspect ;
     in
@@ -604,16 +625,17 @@ resource ResZul = open Prelude,Predef,ParamX in {
       ya ;
 
     verb_prefix_with_oc : VForm -> Bool -> Agr -> Aspect -> Str = \vform,longform,agr,aspect -> let
-      sc = case <vform,longform> of {
-        <VFIndic MainCl Pos PresTense> => subjConcLookup!agr!SC ++BIND ;
-        <VFIndic MainCl Pos RemPastTense> => subjConcLookup!agr!SCVow ;
-        <VFIndic _ Pos _> => subjConcLookup!agr!SC ++BIND ;
-        <VFIndic _ Neg _> => subjConcLookup!agr!SCNeg ++BIND
+      pre_pref = case vform of {
+        VFIndic MainCl Pos PresTense => (negPref vform) ++ subjConcLookup!agr!SC ++BIND ;
+        VFIndic MainCl Pos RemPastTense => (negPref vform) ++ subjConcLookup!agr!SCVow ;
+        VFIndic _ Pos _ => (negPref vform) ++ subjConcLookup!agr!SC ++BIND ;
+        VFIndic _ Neg _ => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
+        VFConsec _ => (subjConc vform agr False) ++ (negPrefNga vform False);
+        VFSubjunct _ => (subjConc vform agr False) ++ (negPrefNga vform False)
       } ;
       ya = longform_ya vform longform RC aspect
     in
-      (negPref vform) ++
-      sc ++
+      pre_pref ++
       ya ;
 
     -- rform : VForm -> Bool -> RInit -> RForm = \vform,longform,rinit -> case longform of {
@@ -663,16 +685,19 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
         <(RA|RE),VFIndic _ _ RemPastTense> => [] ;
         <_,VFIndic _ Pos RemPastTense> => "a" ++BIND ;
-        <_,VFIndic _ _ _,_> => [] --;
-        -- VFPot _ _ _ => [] ;
-        -- VFSubj _ => []
+        <_,VFIndic _ _ _,_> => [] ;
+        <_,VFConsec _,_> => [] ;
+        <_,VFSubjunct Pos,_> => [] ;
+        <_,VFSubjunct Neg,_> => []
       } ;
 
     -- negative prefix
     negPref : VForm -> Str = \vform ->
       case vform of {
         VFIndic _ Neg _ => "a"++BIND ;
-        VFIndic _ _ _ => []
+        VFIndic _ _ _ => [] ;
+        VFConsec _ => [] ;
+        VFSubjunct _ => []
       } ;
 
       -- TODO : sound rules to choose between nge and nga
@@ -687,24 +712,46 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --     VFSubj Pos => []
     --   } ;
 
-    negPrefNga : VForm -> Str = \vform -> case vform of {
-      VFIndic _ Neg _ => "nga" ;
-      VFIndic _ Pos _ => []
+    negPrefNga : VForm -> Bool -> Str = \vform,vow -> case <vform,vow> of {
+      <VFIndic _ Neg _,False> => "nga" ++BIND ;
+      <VFIndic _ Neg _,_> => "ng" ++BIND ;
+      <VFConsec Neg,False> => "nga" ++BIND ;
+      <VFConsec Neg,_> => "ng" ++BIND ;
+      <VFIndic _ Pos _,_> => [] ;
+      <VFConsec Pos,_> => [] ;
+      <VFSubjunct Neg,False> => "nga" ++BIND ;
+      <VFSubjunct Neg,_> => "ng" ++BIND ;
+      <VFSubjunct Pos,_> => []
     } ;
 
-    negPrefNge : VForm -> Str = \vform -> case vform of {
-      VFIndic _ Neg _ => "nge" ;
-      VFIndic _ Pos _ => []
+    negPrefNge : VForm -> Bool -> Str = \vform,vow -> case <vform,vow> of {
+      <VFIndic _ Neg _,False> => "nge" ++BIND ;
+      <VFIndic _ Neg _,_> => "ng" ++BIND ;
+      <VFConsec Neg,False> => "nge" ++BIND ;
+      <VFConsec Neg,_> => "ng" ++BIND ;
+      <VFIndic _ Pos _,_> => [] ;
+      <VFConsec Pos,_> => [] ;
+      <VFSubjunct Neg,False> => "nge" ++BIND ;
+      <VFSubjunct Neg,_> => "ng" ++BIND ;
+      <VFSubjunct Pos,_> => []
     } ;
 
     icompNeg1 : VForm -> Str = \vform -> case vform of {
       VFIndic _ Neg PresTense => "a"++BIND ;
-      VFIndic _ _ _ => []
+      VFIndic _ _ _ => [] ;
+      VFConsec Neg => "a" ;
+      VFConsec Pos => [] ;
+      VFSubjunct Neg => "a" ;
+      VFSubjunct Pos => []
     } ;
 
     icompNeg2 : VForm -> Str = \vform -> case vform of {
       VFIndic _ Neg _ => "nga"++BIND ;
-      VFIndic _ _ _ => []
+      VFIndic _ _ _ => [] ;
+      VFConsec Neg => "nga" ;
+      VFConsec Pos => [] ;
+      VFSubjunct Neg => "nga" ;
+      VFSubjunct Pos => []
     } ;
 
     -- -- progressive prefix
@@ -857,7 +904,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     relSuf : VForm -> Aspect -> Str = \vform,aspect -> case <vform,aspect> of {
       <VFIndic RelCl Pos PresTense,(Null|Prog)> => rel_yo_2 ;
       <VFIndic RelCl Pos PastTense,(Null|Prog)> => rel_yo_2 ;
-      <VFIndic _ _ _,_> => []
+      <VFIndic _ _ _,_> => [] ;
+      <VFConsec Neg,_> => [] ;
+      <VFConsec Pos,_> => [] ;
+      <VFSubjunct Neg,_> => [] ;
+      <VFSubjunct Pos,_> => []
     } ;
 
     -- chooses the form of the root to use for N-prefixes
@@ -877,16 +928,16 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- TODO: check ; RInit is used to indicate what precedes the adj pref
     adjPrefLookup : Agr => VForm => Str =
       table {
-        Third C1_2 Sg => table { VFIndic _ _ _ => "m"++BIND } ;
-        Third C1_2 Pl => table { VFIndic _ _ _ => "ba"++BIND } ;
-        Third C1a_2a Sg => table { VFIndic _ _ _ => "m"++BIND } ;
-        Third C1a_2a Pl => table { VFIndic _ _ _ => "ba"++BIND } ;
-        Third C3_4 Sg  => table { VFIndic _ _ _ => "m"++BIND } ;
-        Third C3_4 Pl => table { VFIndic _ _ _ => "mi"++BIND } ;
-        Third C5_6 Sg => table { VFIndic _ _ _ => "li"++BIND } ;
-        Third C5_6 Pl => table { VFIndic _ _ _ => "ma"++BIND } ;
-        Third C7_8 Sg => table { VFIndic _ _ _ => "si"++BIND } ;
-        Third C7_8 Pl => table { VFIndic _ _ _ => "zi"++BIND } ; -- nasal for 8,9,10 assumed to be fixed to root
+        Third C1_2 Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "m"++BIND } ;
+        Third C1_2 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ba"++BIND } ;
+        Third C1a_2a Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "m"++BIND } ;
+        Third C1a_2a Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ba"++BIND } ;
+        Third C3_4 Sg  => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "m"++BIND } ;
+        Third C3_4 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "mi"++BIND } ;
+        Third C5_6 Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "li"++BIND } ;
+        Third C5_6 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ma"++BIND } ;
+        Third C7_8 Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "si"++BIND } ;
+        Third C7_8 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "zi"++BIND } ; -- nasal for 8,9,10 assumed to be fixed to root
         Third C9_10 Sg => table {
           VFIndic MainCl Pos PresTense => "yi" ++BIND ;
           VFIndic _ Pos PresTense => [] ;
@@ -895,11 +946,13 @@ resource ResZul = open Prelude,Predef,ParamX in {
           VFIndic _ _ RemFutTense => "yi"++BIND ;
           VFIndic _ _ PastTense => "yi" ++BIND ;
           VFIndic _ _ RemPastTense => "yi" ++BIND ;
-          VFIndic _ _ _ => "i"++BIND
+          VFIndic _ _ _ => "i"++BIND ;
+          VFConsec _ => "yi" ;
+          VFSubjunct _ => "yi"
         } ;
-        Third C9_10 Pl => table { VFIndic _ _ _ => "zi"++BIND } ;
-        Third C11_10 Sg => table { VFIndic _ _ _ => "lu"++BIND } ;
-        Third C11_10 Pl => table { VFIndic _ _ _ => "zi"++BIND } ;
+        Third C9_10 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "zi"++BIND } ;
+        Third C11_10 Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "lu"++BIND } ;
+        Third C11_10 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "zi"++BIND } ;
         Third C9_6 Sg => table {
           VFIndic MainCl Pos PresTense => "yi" ++BIND ;
           VFIndic _ Pos PresTense => [] ;
@@ -908,16 +961,18 @@ resource ResZul = open Prelude,Predef,ParamX in {
           VFIndic _ _ RemFutTense => "yi"++BIND ;
           VFIndic _ _ PastTense => "yi" ++BIND ;
           VFIndic _ _ RemPastTense => "yi" ++BIND ;
-          VFIndic _ _ _ => "i"++BIND
+          VFIndic _ _ _ => "i"++BIND ;
+          VFConsec _ => "yi" ;
+          VFSubjunct _ => "yi"
         } ;
-        Third C9_6 Pl => table { VFIndic _ _ _ => "ma"++BIND } ;
-        Third C14 _ => table { VFIndic _ _ _ => "bu"++BIND } ;
-        Third C15 _ => table { VFIndic _ _ _ => "ku"++BIND } ;
-        Third C17 _ => table { VFIndic _ _ _ => "ku"++BIND } ;
-        First Sg => table { VFIndic _ _ _ => "m"++BIND } ;
-        First Pl => table { VFIndic _ _ _ => "ba"++BIND } ;
-        Second Sg => table { VFIndic _ _ _ => "m"++BIND } ;
-        Second Pl => table { VFIndic _ _ _ => "om"++BIND }
+        Third C9_6 Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ma"++BIND } ;
+        Third C14 _ => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "bu"++BIND } ;
+        Third C15 _ => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ku"++BIND } ;
+        Third C17 _ => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ku"++BIND } ;
+        First Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "m"++BIND } ;
+        First Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "ba"++BIND } ;
+        Second Sg => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "m"++BIND } ;
+        Second Pl => table { VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => "om"++BIND }
       } ;
 
       adjPref : Agr -> VForm -> Str = \agr,vform -> case vform of {
@@ -927,7 +982,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         --   -- (First Pl | Second Pl | Third _ _) => []
         --   relAdjPrefLookup!agr
         -- } ;
-        VFIndic _ _ _ => adjPrefLookup!agr!vform
+        VFIndic _ _ _ | VFConsec _ | VFSubjunct _ => adjPrefLookup!agr!vform
       } ;
 
     atwhichPhiPref : Agr => Str =
@@ -1184,6 +1239,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         <C1a_2a,Pl> => "o"+root ;
         <C3_4,Sg> => case root of {
           ("m"|"M")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
+          ("n"|"N")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
           _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um"+root ;
           ("o"|"O")+_ => "um"+root ;
           _ => "umu"+root
@@ -1249,6 +1305,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <C1a_2a,Pl> => "ko"+root ;
           <C3_4,Sg> => case root of {
             ("m"|"M")+_ => "e"+(addLocSuffix root) ;
+            ("n"|"N")+_ => "e"+(addLocSuffix root) ;
             _ => "em"+(addLocSuffix root)
           } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
@@ -1318,7 +1375,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
         isPron : Bool ;
         } -> VForm -> Str = \np,vform -> case vform of {
         VFIndic _ Neg PresTense => np.s!NLoc ;
-        VFIndic _ _ _ => locS!np.agr ++ np.s!NLoc
+        VFIndic _ _ _ => locS!np.agr ++ np.s!NLoc ;
+        VFConsec _ => np.s!NLoc ;
+        VFSubjunct _ => np.s!NLoc
       } ;
 
       lin_NP : {
@@ -1428,7 +1487,25 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <True,VFIndic _ Neg _> => subjConcLookup ! agr ! SCNegVow ++BIND ;
           <True,VFIndic _ _ _> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ RemPastTense> => subjConcLookup ! agr ! SCVow ;
-          <_,VFIndic _ _ _>   => subjConcLookup ! agr ! SC ++BIND
+          <_,VFIndic _ _ _>   => subjConcLookup ! agr ! SC ++BIND ;
+          <False,VFConsec _ > => subjConcLookup ! agr ! SCVow ++ "a" ++BIND ;
+          <True,VFConsec Pos > => subjConcLookup ! agr ! SCVow ;
+          <True,VFConsec Neg > => subjConcLookup ! agr ! SCVow ++ "a" ++BIND ;
+          <False,VFSubjunct _> => case agr of {
+            Third C1_2 Sg => "a" ++BIND ;
+            Third C1a_2a Sg => "a" ++BIND ;
+            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SC ++BIND
+          } ;
+          <True,VFSubjunct Pos> => case agr of {
+            Third C1_2 Sg => [] ;
+            Third C1a_2a Sg => [] ;
+            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SCVow
+          } ;
+          <True,VFSubjunct Neg> => case agr of {
+            Third C1_2 Sg => "a" ++BIND ;
+            Third C1a_2a Sg => "a" ++BIND ;
+            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SC ++BIND
+          }
       } ;
 
     impPref : Polarity -> Str = \pol -> case pol of {
@@ -1453,7 +1530,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ Neg PastTense => "nga" ; -- neg1 ++ "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
       VFIndic _ Neg RemPastTense => neg1 ++ subjConcLookup ! agr ! SC ++BIND++ "be" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
       VFIndic _ Neg FutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "zobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
-      VFIndic _ Neg RemFutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "yobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2
+      VFIndic _ Neg RemFutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ "yobe" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFConsec _ => "*consec" ;
+      VFSubjunct _ => "*subjunct"
     } ;
 
     -- OBJECT AGREEMENT MORPHEME --
@@ -1544,7 +1623,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       } ;
       VFIndic RelCl Neg FutTense => relConcLookup!a!RC ++ "nga" ++BIND ;
       VFIndic RelCl Neg RemFutTense => relConcLookup!a!RC ++ "nga" ++BIND ;
-      VFIndic _ _ _ => []
+      VFIndic _ _ _ => [] ;
+      VFConsec _ => [] ;
+      VFSubjunct _ => []
     } ;
 
     relConcCop : VForm -> Agr -> RInit ->Str = \vform,a,r -> case vform of {
@@ -1555,7 +1636,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ _ RemPastTense => case a of {
         Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
         (First _ | Second _ | Third _ _ ) => shortRelConc!a
-      }
+      } ;
+      VFConsec _ => [] ;
+      VFSubjunct _ => []
     } ;
 
     quantConcCop : VForm -> Agr -> Str = \vform,a -> case vform of {
@@ -1566,7 +1649,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ _ RemPastTense => case a of {
         Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
         (First _ | Second _ | Third _ _ ) => shortRelConc!a
-      }
+      } ;
+      VFConsec _ => [] ;
+      VFSubjunct _ => []
     } ;
 
     adjConcCop : VForm -> Agr -> RInit ->Str = \vform,a,r -> case vform of {
@@ -1578,7 +1663,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       VFIndic _ _ RemPastTense => case a of {
         Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
         (First _ | Second _ | Third _ _ ) => shortRelConc!a
-      }
+      } ;
+      VFConsec _ => [] ;
+      VFSubjunct _ => []
     } ;
 
     relConcLookup : Agr => RInit => Str =
@@ -1973,7 +2060,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
         VFIndic _ Neg PresTense => "a" ++BIND++ subjConcLookup!agr!SCNeg ++BIND ;
         VFIndic _ _ FutTense => sc ++ (tensePref vform RC SylMult) ++ "ba" ;
         VFIndic _ _ RemFutTense => sc ++ (tensePref vform RC SylMult) ++ "ba" ;
-        VFIndic _ _ _ => []
+        VFIndic _ _ _ => [] ;
+        VFConsec _ => [] ;
+        VFSubjunct _ => []
     } ;
 
     ap_cop_pref : VForm -> Agr -> AType -> Str = \vform,agr,atype ->
@@ -1994,8 +2083,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <(Third C9_10 Sg | Third C9_6 Sg),_> => "a" ++BIND++ subjConcLookup!agr!SCNeg ++BIND ;
           <(Third _ _ | First _ | Second _),_> => "a" ++BIND++ subjConcLookup!agr!SCNeg ++BIND
         } ;
-        VFIndic RelCl Pos PresTense => [] ;
-        VFIndic RelCl Neg PresTense => "nge" ++BIND ;
+        VFIndic RelCl _ PresTense => (negPrefNge vform False) ;
 
         VFIndic MainCl Pos (FutTense|RemFutTense) => case agr of {
           -- Third C9_10 Sg | Third C9_6 Sg => sc ++ (tensePref vform RC SylMult) ++ "b" ; -- ++BIND ;
@@ -2009,15 +2097,23 @@ resource ResZul = open Prelude,Predef,ParamX in {
           -- Third C9_10 Sg | Third C9_6 Sg => "a" ++BIND++ sc ++ (tensePref vform RC SylMult) ++ "b" ;
           Third _ _ | First _ | Second _ => "a" ++BIND++ sc ++ (tensePref vform RC SylMult) ++ "ba"
         } ;
-        VFIndic RelCl Neg (FutTense|RemFutTense) => "nge" ++BIND++ (tensePref vform RC SylMult) ++ "ba" ;
+        VFIndic RelCl Neg (FutTense|RemFutTense) => (negPrefNge vform False) ++ (tensePref vform RC SylMult) ++ "ba" ;
 
         VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
-        VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++BIND++ "nge" ++BIND ;
-        VFIndic RelCl Pos PastTense  => [] ;
-        VFIndic RelCl Neg PastTense  => "nge" ++BIND ;
+        VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++BIND++ (negPrefNge vform False) ;
+        VFIndic RelCl _ PastTense  => (negPrefNge vform False) ;
 
         VFIndic _ Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
-        VFIndic _ Neg RemPastTense => subjConcLookup!agr!SCRP ++BIND++ "nge" ++BIND
+        VFIndic _ Neg RemPastTense => subjConcLookup!agr!SCRP ++BIND++ (negPrefNge vform False) ;
+        VFConsec _ => subjConcLookup ! agr ! SCRP ++BIND++ (negPrefNge vform False) ;
+        VFSubjunct Pos => case agr of {
+          Third C1_2 Sg | Third C1a_2a Sg => "abe" ++BIND ;
+          Third _ _ | First _ | Second _ => subjConcLookup!agr!SCBe ++ BIND 
+        } ;
+        VFSubjunct Neg => case agr of {
+          Third C1_2 Sg | Third C1a_2a Sg => "a" ++BIND++ (negPrefNga vform False)++ "bi" ;
+          Third _ _ | First _ | Second _ => subjConcLookup!agr!SC ++BIND++ (negPrefNga vform False) ++ "bi"
+        }
     } ;
 
       id_pre_cop_pref : VForm -> Agr -> Str = \vform,agr -> let
@@ -2025,26 +2121,26 @@ resource ResZul = open Prelude,Predef,ParamX in {
       in case vform of {
         VFIndic MainCl Pos PresTense => sc ;
         VFIndic MainCl Neg PresTense => "a" ++BIND++ sc ; -- "aku" ++BIND ;
-        VFIndic RelCl Pos PresTense => [] ;
-        VFIndic RelCl Neg PresTense => "nge" ++BIND ;
+        VFIndic RelCl _ PresTense => (negPrefNge vform False) ;
 
         VFIndic MainCl Pos FutTense => sc ++ "zoba" ;
         VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ "zukuba" ;
         VFIndic RelCl Pos FutTense => "zoba" ;
-        VFIndic RelCl Neg FutTense => "nge" ++BIND++ "zukuba" ;
+        VFIndic RelCl Neg FutTense => (negPrefNge vform False) ++ "zukuba" ;
 
         VFIndic MainCl Pos RemFutTense => sc ++ "yoba" ;
         VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ "yukuba" ;
         VFIndic RelCl Pos RemFutTense => "yoba" ;
-        VFIndic RelCl Neg RemFutTense => "nge" ++BIND++ "yukuba" ;
+        VFIndic RelCl Neg RemFutTense => (negPrefNge vform False) ++ "yukuba" ;
 
-        VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
-        VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++ BIND ++ "nge" ++BIND ;
-        VFIndic RelCl Pos PastTense => [] ;
-        VFIndic RelCl Neg PastTense => "nge" ++BIND ;
+        VFIndic MainCl _ PastTense => subjConcLookup!agr!SCBe ++ BIND ++ (negPrefNge vform False) ;
+        VFIndic RelCl _ PastTense => (negPrefNge vform False) ;
 
-        VFIndic _ Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
-        VFIndic _ Neg RemPastTense => subjConcLookup!agr!SCRP ++BIND++ "nge" ++BIND
+        VFIndic _ _ RemPastTense => subjConcLookup!agr!SCRP ++BIND++ (negPrefNge vform False) ;
+        VFConsec Pos => (subjConc vform agr False) ++ "ba" ;
+        VFConsec Neg => (subjConc vform agr False) ++ (negPrefNga vform False) ++ "bi" ;
+        VFSubjunct Pos => (subjConc vform agr False) ++ "be" ;
+        VFSubjunct Neg => (subjConc vform agr False) ++ (negPrefNga vform False) ++ "bi"
       } ;
 
       assoc_pre_cop_pref : VForm -> Agr -> Str = \vform,agr -> let
@@ -2052,26 +2148,26 @@ resource ResZul = open Prelude,Predef,ParamX in {
       in case vform of {
         VFIndic MainCl Pos PresTense => sc ;
         VFIndic MainCl Neg PresTense => "a" ++BIND++ sc ;
-        VFIndic RelCl Pos PresTense => [] ;
-        VFIndic RelCl Neg PresTense => "nge"++BIND ;
+        VFIndic RelCl _ PresTense => (negPrefNge vform False) ;
 
         VFIndic MainCl Pos FutTense => sc ++ "zoba" ;
         VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ "zukuba" ;
         VFIndic RelCl Pos FutTense => "zoba" ;
-        VFIndic RelCl Neg FutTense => "nge" ++BIND++ "zukuba" ;
+        VFIndic RelCl Neg FutTense => (negPrefNge vform False) ++ "zukuba" ;
 
         VFIndic MainCl Pos RemFutTense => sc ++ "yoba" ;
         VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ "yukuba" ;
         VFIndic RelCl Pos RemFutTense => "yoba" ;
-        VFIndic RelCl Neg RemFutTense => "nge" ++BIND++ "yukuba" ;
+        VFIndic RelCl Neg RemFutTense => (negPrefNge vform False) ++ "yukuba" ;
 
-        VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
-        VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++BIND++ "nge" ++BIND ;
-        VFIndic RelCl Pos PastTense => [] ;
-        VFIndic RelCl Neg PastTense => "nge" ++BIND ;
+        VFIndic MainCl _ PastTense => subjConcLookup!agr!SCBe ++BIND++ (negPrefNge vform False) ;
+        VFIndic RelCl _ PastTense => (negPrefNge vform False) ;
 
-        VFIndic _ Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
-        VFIndic _ Neg RemPastTense => subjConcLookup!agr!SCRP ++BIND++ "nge" ++BIND
+        VFIndic _ _ RemPastTense => subjConcLookup!agr!SCRP ++BIND++ (negPrefNge vform False) ;
+        VFConsec Pos => (subjConc vform agr False) ++ "ba" ;
+        VFConsec Neg => (subjConc vform agr False) ++ (negPrefNga vform False) ++ "bi" ;
+        VFSubjunct Pos => (subjConc vform agr False) ++ "be" ;
+        VFSubjunct Neg => (subjConc vform agr False) ++ (negPrefNga vform False) ++ "bi"
       } ;
 
       -- REF: Poulos & Msimang p355
@@ -2147,7 +2243,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
         VFIndic MainCl Neg PresTense => neg_kho_cop_pref agr ++ "kho";
         VFIndic RelCl Neg PresTense => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl Neg PresTense) agr RelType) ++ "kho" ;
         VFIndic RelCl p t => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl p t) agr RelType) ++ "khona" ;
-        VFIndic MainCl p t => (ap_cop_pref (VFIndic MainCl p t) agr RelType) ++ "khona"
+        VFIndic MainCl p t => (ap_cop_pref (VFIndic MainCl p t) agr RelType) ++ "khona" ;
+        VFConsec p => (ap_cop_pref (VFIndic MainCl p PastTense) agr RelType) ++ "khona" ;
+        VFSubjunct Neg => neg_kho_cop_pref agr ++ "kho" ;
+        VFSubjunct Pos => (ap_cop_pref (VFIndic MainCl Pos PresTense) agr RelType) ++ "khona"
       } ;
 
       neg_kho_cop_pref : Agr -> Str = \agr ->

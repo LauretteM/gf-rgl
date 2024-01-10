@@ -94,7 +94,9 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => pcp ++ cop_base
+            VFIndic _ _ _ => pcp ++ cop_base ;
+            VFConsec _ => "*consec" ;
+            VFSubjunct _ => "*subjunct"
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
@@ -104,7 +106,9 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
         in
         case vform of {
           VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-          VFIndic _ _ _ => rcp ++ pcp ++ cop_base
+          VFIndic _ _ _ => rcp ++ pcp ++ cop_base ;
+            VFConsec _ => "*consec" ;
+            VFSubjunct _ => "*subjunct"
         }
       } ;
       imp_s = table {
@@ -130,7 +134,21 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
           Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "lapha" ;
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "lapha"
         }
-      }
+      } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = ap_cop_pref vform a RelType ; -- u-
+          cop_base = "lapha"
+        in
+          case vform of {
+            VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
+            VFIndic _ _ _ => pcp ++ cop_base ;
+            VFConsec _ => "*consec" ;
+            VFSubjunct _ => "*subjunct"
+          } 
     } ;
 
     khona_Loc = {
@@ -158,7 +176,14 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
           Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "khona" ;
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "khona"
         }
-      }
+      } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } 
+        in
+          kho_cop vform a
     } ;
 
     at_which_IAdv np = {
@@ -185,8 +210,28 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
       fix = True
     } ;
 
+    together_with_Conj = {
+      s = \\ri => "kanye" ++ withPref!ri ;
+      fix = True
+    } ;
+
     and_then_Conj = {
       s = \\_ => "bese" ;
+      fix = False
+    } ;
+
+    but_also_Conj = {
+      s = \\ri => "kodwa" ++ withPref!ri ;
+      fix = True
+    } ;
+
+    in_comparison_with_Conj = {
+      s = \\ri => "ku" ++BIND++ withPref!ri ;
+      fix = True
+    } ;
+
+    while_Conj = {
+      s = \\_ => "kanti" ;
       fix = False
     } ;
 

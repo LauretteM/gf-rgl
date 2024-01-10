@@ -4,7 +4,8 @@ concrete CatExtZul of CatExt = open ResZul,Prelude,ParamX in {
     Loc = {
       s : CType => Agr => Polarity => BasicTense => Str ;
       imp_s : Number => Polarity => Str ;
-      inf_s : NForm => Polarity => Str
+      inf_s : NForm => Polarity => Str ;
+      consubj_s : DMType => Agr => Polarity => Str
     } ;
     LocN = { s : Str } ;
     LocAdv = { s : Str ; reqLocS : Bool } ;

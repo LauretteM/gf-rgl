@@ -96,6 +96,20 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          r = v2.s!(rform vform False) ; -- bona / boni
+          -- obj = np.s!NFull -- [] / inkomo
+        in case np.proDrop of {
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ;
+          False => vpref_no_oc ++ tp ++ r ++ obj
+        } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = np.heavy ;
@@ -191,6 +205,19 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          r = v2.s!(rform vform False) ; -- bona / boni
+        in case np1.proDrop of {
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj1 ++ obj2 ;
+          False => vpref_no_oc ++ tp ++ r ++ obj1 ++ obj2
+        } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = True ;
@@ -279,6 +306,19 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          tp = tensePref vform v2.r v2.syl ; -- [] / zo- / zuku-
+          r = v2.s!(rform vform False) ; -- bona / boni
+        in case np.proDrop of {
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;
+          False => vpref_no_oc ++ tp ++ r ++ obj ++ vp.inf_s!NFull!Pos
+        } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = True ;

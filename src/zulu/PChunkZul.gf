@@ -35,10 +35,10 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     Phr_Chunk p = {s = p.s } ;
     Adv_Chunk a = { s = a.s } ;
     Imp_Sg_Pos_Chunk i = { s = i.s!Sg!Pos } ;
-    Imp_Sh_Neg_Chunk i = { s = i.s!Sg!Neg } ;
+    Imp_Sg_Neg_Chunk i = { s = i.s!Sg!Neg } ;
     Imp_Pl_Pos_Chunk i = { s = i.s!Pl!Pos } ;
     Imp_Pl_Neg_Chunk i = { s = i.s!Pl!Neg } ;
-    S_Chunk s = { s = s.s } ;
+    S_Chunk s = { s = s.s!SInd } ;
     RS_Chunk pron rs = { s = pron.s!NFull ++ rs.s!pron.agr } ;
     QS_Chunk s = { s = s.qword_pre ++ s.s ++ s.qword_post } ;
     VP_RelYo_Chunk temp pol pron vp = {
@@ -103,7 +103,6 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     --   empty = np.empty ;
     --   s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++"s"++BIND++ (loc_NP np);
     --   c = cn.c ;
-    --   emph = False
     -- } ;
     -- NP_Gen_Chunk np = {
     --   s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!NPoss

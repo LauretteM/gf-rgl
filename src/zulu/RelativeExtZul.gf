@@ -18,13 +18,6 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
         s = \\a,p,t,s =>
           let
             vform = VFIndic RelCl p t ;
-            vow = case <vp.r,p,t> of {
-              <RC,Pos,PresTense> => False ;
-              <_,Pos,PresTense> => True ;
-              <RC,_,PastTense> => False ;
-              <_,_,PastTense> => True ;
-              <_,_,_> => False
-            } ;
             rcform = RelC ;
           in
             -- naively only took out the subject
@@ -40,17 +33,10 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND;
-            -- cp = (assoc_cop_pref vp.comp_agr) ;
-            -- cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
-            -- asp = case vp.asp of {
-            --   Prog => progPref vform_main ;
-            --   _ => []
-            -- } ;
           in
             -- naively removed subject
             "*" ++
             rp.s ++
-            -- pcp ++
             vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
@@ -61,13 +47,11 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND ;
-            -- cp = id_cop_pref vp.comp_agr ;
             cb = vp.comp ;
           in
             -- naively removed subject
             "*" ++
             rp.s ++
-            -- pcp ++
             vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
@@ -78,17 +62,10 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND;
-            -- cp = (assoc_cop_pref vp.comp_agr) ;
-            -- cb = (withPref ! vp.r) ++ BIND ++ vp.comp ;
-            -- asp = case vp.asp of {
-            --   Prog => progPref vform_main ;
-            --   _ => []
-            -- } ;
           in
             -- naively removed subject
             "*" ++
             rp.s ++
-            -- pcp ++
             vp.s!RelCl!a!p!t!s!False ++
             vp.iadv ++
             vp.advs
@@ -99,7 +76,6 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
           let
             vform_main = VFIndic RelCl p t ;
             pcp = relConcLookup!a!vp.r ++BIND;
-            -- cb = (eqPref ! vp.r) ++ BIND ++ vp.comp ;
           in
             -- naively removed subject
             "*" ++
@@ -115,13 +91,9 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
         let
           vform_main = VFIndic RelCl p t ;
           pcp = pre_cop_pref vform_main a ;
-          -- adjf = aformN a ;
-          -- adjpref =  relAdjAgrLookup!p!a ++BIND ;
-          -- comp = vp.ap_comp!adjf ++ vp.comp
         in
           "*" ++
           rp.s ++
-          -- adjpref ++
           vp.s!RelCl!a!p!t!s!False
           ++ vp.iadv ++ vp.advs
         } ;

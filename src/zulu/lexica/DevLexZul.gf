@@ -2,27 +2,26 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
 
    lin
    -- adjective stems
-   bana_A = mkA "bana" ;
-   bi_A = mkA "bi" ;
-   bili_A = mkA "bili" ;
-   dala_A = mkA "dala" ;
-   hle_A = mkA "hle" ;
-   khulu_A = mkA "khulu" ;
-   ningi_A = mkA "ningi" ;
-   de_A = mkA "de" ;
+   ugly_A = mkA "bana" ;
+   bad_A = mkA "bi" ;
+   two_A = mkA "bili" ;
+   old_A = mkA "dala" ;
+   pretty_A = mkA "hle" ;
+   big_A = mkA "khulu" ;
+   many_A = mkA "ningi" ;
+   tall_A = mkA "de" ;
 
    -- relative stems
-   mnandi_R = mkRelA "mnandi" ;
-   nzima_R = mkRelA "nzima" ;
-   mbalwa_R = mkRelA "mbalwa" ;
-   qotho_R = mkRelA "qotho" ;
-   mhlophe_R = mkRelA "mhlophe" ;
-   mbe_R = mkRelA "mbe" ;
-   mnyama_R = mkRelA "mnyama" ;
+   tasty_R = mkRelA "mnandi" ;
+   heavy_R = mkRelA "nzima" ;
+   few_R = mkRelA "mbalwa" ;
+   honest_R = mkRelA "qotho" ;
+   white_R = mkRelA "mhlophe" ;
+   black_R = mkRelA "mnyama" ;
 
    -- enumerative stems
-   mbe_E = mkA "mbe" ;
-   nye_E = mkA "nye" ;
+   different_A = mkA "mbe" ;
+   some_A = mkA "nye" ;
 
    -- noun stems
    person_N = mkN "ntu" C1_2 ;
@@ -62,7 +61,8 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
    see_V2 = mkV2 "bon" ;
    walk_V = mkV "hamb" ;
    burn_V = mkV "sh" ;
-   say_VS = mkVS "th" "thi" ;
+   say_VS = mkVS "th" "thi" SInd ;
+   see_VS = mkVS "bon" SInd ;
    jump_V = mkV "eq" ;
    descend_V = mkV "ehl" ;
    die_V = mkV "f" ;

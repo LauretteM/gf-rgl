@@ -3,6 +3,7 @@ abstract SentenceExt = Cat,CatExt ** {
   fun
     
     ExistNP : NP -> S ;
+    ExistAppos : NP -> NP -> S ;
     GreetSg : Utt ;
     GreetPl : Utt ;
 

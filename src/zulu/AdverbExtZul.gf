@@ -80,6 +80,12 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
 
     LocNAdv locn = locn ** { reqLocS = False } ;
 
+    LocNPNgaAdv np = {
+      s = "nga" ++BIND++ "s" ++BIND++ np.s!NLoc ;
+      -- asp = Null ;
+      reqLocS = False
+    } ;
+
     LocNNgaAdv locn = {
       s = "nga" ++BIND++ locn.s ;
       reqLocS = False
@@ -103,7 +109,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     } ;
 
     ConjNAdv conj s = {
-      s = conj.s ++ s.s;
+      s = conj.s ++ s.s!SInd; -- TODO: this should probably depend on the stype field of conj
       -- asp = Null ;
       reqLocS = False
     } ;

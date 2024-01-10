@@ -3,15 +3,33 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
   lin
 
     ExistNP np = {
-      s = let
+      s = table {
+        SInd => let
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = np.s!NFull -- umfundi
         in
           case np.proDrop of {
             False => cp ++ cop_base ;
             True => "*" ++ cp ++ cop_base
-          }
+          } ;
+        _ => "* exist consec/subjunct"
+      }
     } ;
+
+    ExistAppos np1 np2 = {
+      s = table {
+        SInd => let
+          cp = (id_cop_pref np1.agr) ; -- ng-
+          cop_base = np2.s!NFull -- umfundi
+        in
+          case np2.proDrop of {
+            False => np1.s!NFull ++ cp ++ cop_base ;
+            True => "*" ++ np1.s!NFull ++ cp ++ cop_base
+          } ;
+        _ => "* exist consec/subjunct"
+      }
+    } ;
+
     GreetSg = {
       s = "sawubona"
     } ;
@@ -20,11 +38,31 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
     } ;
 
     UseClProg t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Prog
+      s = table {
+        SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Prog ;
+        SSub => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
+          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+        } ;
+        SConsec => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
+          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+        } 
+      }
     } ;
 
     UseClExcl t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Excl
+      s = table {
+        SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Excl ;
+        SSub => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
+          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+        } ;
+        SConsec => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
+          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+        } 
+      }
     } ;
 
     UseRClProg temp pol rcl = {
@@ -36,9 +74,9 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
     } ;
 
     ExtConjS s1 conj s2 = {
-      s = case conj.fix of {
-        False => s1.s ++ conj.s!RC ++ s2.s ;
-        True => s1.s ++ conj.s!RC ++BIND++ s2.s -- this selection of RC is a short cut
+      s = \\st => case conj.fix of {
+        False => s1.s!st ++ conj.s!RC ++ s2.s!st ;
+        True => s1.s!st ++ conj.s!RC ++BIND++ s2.s!st -- this selection of RC is a short cut
       }
     } ;
 

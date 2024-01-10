@@ -20,8 +20,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         }
       in {
         s = \\p,t,s => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        consubj_s = \\m,p => np.s!NFull ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
       } ;
-      _ => cl_with_verb_predicate np vp
+      _ => cl_with_verb_predicate np vp 
     } ;
 
 --     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
@@ -94,7 +99,17 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 --     EmbedVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
     UseCl t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null
+      s = table {
+        SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null ;
+        SSub => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
+          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+        } ;
+        SConsec => case t.t of {
+          PastTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
+          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+        } 
+      }
     } ;
     UseQCl t p cl = {
       s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null  ;
@@ -110,7 +125,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 --       c2 = cl.c2
 --     } ;
 --
-    AdvS a s = {s = a.s ++ s.s} ;
+    AdvS a s = {s = \\st => a.s ++ s.s!st } ;
 --     ExtAdvS a s = {s = a.s ++ frontComma ++ s.s} ;
 --
 --     SSubjS a s b = {s = a.s ++ frontComma ++ s.s ++ b.s} ;
@@ -123,14 +138,24 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
   oper
 
-    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str ; consubj_s : DMType => Polarity => Str ; rinit : RInit } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull
         in
           subj ++
           vp.s!MainCl!np.agr!p!t!s!False
-          ++ vp.comp ++ vp.iadv ++ vp.advs
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      
+      consubj_s = \\m,p =>
+        let
+          subj = np.s!NFull
+        in 
+          subj ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
     imp_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
@@ -172,7 +197,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     --    -- ++ (tensePref vform)
     -- ;
 
-    cl_with_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+    cl_with_verb_predicate :
+      NP ->
+      VP -> {
+          s : Polarity => BasicTense => Aspect => Str ;
+          consubj_s : DMType => Polarity => Str ;
+          rinit : RInit
+      } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull ;
@@ -187,7 +218,25 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix
           ++ vp.iadv
           ++ vp.comp
-          ++ vp.advs
+          ++ vp.advs ;
+      consubj_s = \\m,p =>
+        let
+          subj = np.s!NFull ;
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p
+          }
+        in
+          subj
+          -- ++ (verb_prefix vp p t np.agr)
+          ++ vp.consubj_s!m!np.agr!p
+          ++ vp.iadv
+          ++ vp.comp
+          ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
     -- verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
@@ -221,7 +270,13 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     -- ;
 
     -- TODO: aspect
-    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+    cl_with_eq_cop_predicate :
+      NP ->
+      VP -> {
+        s : Polarity => BasicTense => Aspect => Str ;
+        consubj_s : DMType => Polarity => Str ;
+        rinit : RInit
+      } = \np,vp -> {
       s = \\p,t,s =>
         let
           vform_main = VFIndic MainCl p t ;
@@ -232,10 +287,32 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj ++
           -- pcp ++
           vp.s!MainCl!np.agr!p!t!s!False
-          ++ vp.comp ++ vp.iadv ++ vp.advs
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      consubj_s = \\m,p =>
+        let
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p
+          } ;
+          subj = np.s!NFull ;
+          pcp = pre_cop_pref vform np.agr ;
+        in
+          subj ++
+          vp.consubj_s!m!np.agr!p
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
-    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str } = \np,vp -> {
+    cl_with_adv_comp_predicate :
+      NP ->
+      VP -> {
+        s : Polarity => BasicTense => Aspect => Str ;
+        consubj_s : DMType => Polarity => Str ;
+        rinit : RInit
+      } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull ;
@@ -263,7 +340,22 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           -- -- ++ (tensePref vform_main)
           -- ++ vp.comp
           vp.s!MainCl!np.agr!p!t!s!False
-          ++ vp.comp ++ vp.iadv ++ vp.advs
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      consubj_s = \\m,p => 
+        let
+          subj = np.s!NFull ;
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p
+          } 
+        in
+          subj ++
+          vp.consubj_s!m!np.agr!p
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
 }

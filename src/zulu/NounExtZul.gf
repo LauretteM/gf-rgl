@@ -72,7 +72,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       s = \\num,nform => rs.s!(Third n.c num) ++ n.s!num!nform ;
       -- mod = \\_ => [] ;
       c = n.c ;
-      emph = False
+      predet = False
     } ;
 
     -- TODO : check mod
@@ -81,7 +81,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
       c = cn.c ; -- takes agr of cn
       empty = cn.empty ;
-      emph = cn.emph
+      predet = cn.predet
     } ;
 
     -- TODO : check mod
@@ -90,7 +90,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       -- mod = \\num => n.s!num!Full ++ cn.mod!num ;
       c = n.c ; -- takes agr of n
       empty = cn.empty ;
-      emph = cn.emph
+      predet = cn.predet
     } ;
 
     PredetN predet n = {
@@ -104,7 +104,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       -- mod = \\_ => [] ;
       c = n.c ;
       empty = n.empty ;
-      emph = False
+      predet = True
     };
 
     QuantPredet q = {
@@ -132,7 +132,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       -- mod = cn.mod ;
       c = cn.c ;
       empty = cn.empty ;
-      emph = True
+      predet = True
     } ;
 
     ContrastCN cn = {
@@ -140,8 +140,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       -- mod = \\num => pron_stem!(Third cn.c num) ++BIND++ "na" ++ cn.mod!num ;
       c = cn.c ;
       empty = cn.empty ;
-      emph = cn.emph ;
-      emph = cn.emph
+      predet = cn.predet
     } ;
 
     UsePNPl pn = let
@@ -194,30 +193,6 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       in
       {
         s = \\nform => vp.inf_s!nform!pol.p ++ pol.s ;
-        -- s = table {
-        --   NFull => case <pol.p,vp.r> of {
-        --     <Neg,_ > => "uku"++BIND++"nga"++BIND++v.s!R_i ;
-        --     <_,RC> => "uku"++BIND++v.s!R_a ;
-        --     <_,(RA|RE)> => "ukw"++BIND++v.s!R_a ;
-        --     <_,_> => "uk"++BIND++v.s!R_a
-        --   } ;
-        --   NReduced => case <pol.p,vp.r> of {
-        --     <Neg,_ > => "ku"++BIND++"nga"++BIND++v.s!R_i ;
-        --     <_,RC> => "ku"++BIND++v.s!R_a ;
-        --     <_,(RA|RE)> => "kw"++BIND++v.s!R_a ;
-        --     <_,_> => "k"++BIND++v.s!R_a
-        --   } ;
-        --   NPoss => case <pol.p,vp.r> of {
-        --     <Neg,_ > => "ku"++BIND++"nga"++BIND++v.s!R_i ;
-        --     <_,RC> => "ku"++BIND++v.s!R_a ;
-        --     <_,(RA|RE)> => "kw"++BIND++v.s!R_a ;
-        --     <_,_> => "k"++BIND++v.s!R_a
-        --   } ;
-        --   NLoc => case <pol.p,vp.r> of {
-        --     <Neg,_ > => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++v.s!R_i ;
-        --     <_,_> => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++v.s!R_a
-        --   }
-        -- } ;
         agr = agr ;
         i = RU ;
         proDrop = False ;
@@ -291,7 +266,9 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => pcp ++ s ++ cop_base
+            VFIndic _ _ _ => pcp ++ s ++ cop_base ;
+            VFConsec _ => "*consec" ;
+            VFSubjunct _ => "*subjunct"
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
@@ -305,7 +282,9 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => rcp ++ pcp ++ s ++ cop_base
+            VFIndic _ _ _ => rcp ++ pcp ++ s ++ cop_base ;
+            VFConsec _ => "*consec" ;
+            VFSubjunct _ => "*subjunct"
           }
       } ;
       imp_s = table {
@@ -335,14 +314,35 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "s"++BIND++ locadv.s ;
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "s"++BIND++ locadv.s
         }
-      }
+      } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
+          s = case locadv.reqLocS of {
+            True => "s"++BIND ;
+            False => []
+          } ;
+          cop_base = locadv.s
+        in
+          case vform of {
+            VFIndic _ Neg PresTense => "*indic";
+            VFConsec Neg => (kho_cop vform a) ++ cop_base;
+            VFSubjunct Neg => (kho_cop vform a) ++ cop_base;
+
+            VFIndic _ _ _ => "*indic" ;
+            VFConsec _ => pcp ++ s ++ cop_base ;
+            VFSubjunct _ => pcp ++ s ++ cop_base 
+          } ;
     } ;
 
     PossNPLoc cn np = {
       empty = np.empty ;
       s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++"s"++BIND++ (loc_NP np);
       c = cn.c ;
-      emph = False
+      predet = cn.predet
     } ;
 
     ExtConjNP np1 conj np2 = {

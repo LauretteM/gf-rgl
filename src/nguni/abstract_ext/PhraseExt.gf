@@ -7,4 +7,7 @@ abstract PhraseExt = Cat,CatExt ** {
     DirectSpeechNP : NP -> Temp -> V -> NP -> Phr ;
     DirectSpeechAdv : Adv -> Temp -> V -> NP -> Phr ;
     ExtPhrConj : Phr -> Phr -> Phr ;
+
+    ConsecS : S -> Utt ;
+    SubjunctS : S -> Utt ;
 }

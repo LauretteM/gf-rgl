@@ -65,6 +65,19 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ ap.s!AF1
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+            pcp = ap_cop_pref vform a AdjType ; -- u- / uzoba / ube- / waye- / wayenge-
+            adjpref =  case ap.t of {
+              AdjType => adjPref a vform ; -- m-
+              RelType => []
+            } ;
+            cop_base = ap.s!(aformN a) -- khulu
+          in
+            pcp ++ adjpref ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = True ;
       r = RC ; -- should not be used
@@ -120,6 +133,19 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ np.s!NFull
           }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+            pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
+          cp = (id_cop_pref np.agr) ; -- ng-
+          cop_base = case np.isPron of {
+            False => np.s!NFull ; -- umfundi 
+            True => "*" ++ np.s!NFull
+          } 
+        in
+          pcp ++ cp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
       r = RC ; -- should not be used
@@ -171,6 +197,16 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = (assoc_pre_cop_pref vform a) ; -- u- / uzoba
+          cp = (assoc_cop_pref p np.agr) ; -- ne-
+          cop_base = np.s!NReduced -- moto
+        in
+          pcp ++ cp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
       r = RC ; -- should not be used
@@ -218,6 +254,14 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref = verb_prefix_stative vform a v.r v.syl ;
+          r = v.s!(rform vform False)
+        in vpref ++ r ;
       iadv, advs, comp = [] ;
       -- ap_comp = \\_ => [] ;
       hasComp = False ;
@@ -319,6 +363,28 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj_red
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          tp = tensePref vform v2.r v2.syl ;
+          -- oc = objConc np.agr v2.r v2.syl ;
+          -- longform = case np.heavy of {
+          --   True => False ;
+          --   False => True
+          -- } ;
+          r = v2.s!(rform vform False) ;
+          obj = case p of {
+            Pos => np.s!NFull ;
+            Neg => np.s!NReduced
+          } ;
+        in case np.proDrop of {
+          True => vpref_with_oc ++ tp ++ oc ++ r ++ obj ;
+          False => vpref_no_oc ++ tp ++ r ++ obj
+        } ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = np.heavy ;
@@ -331,6 +397,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       s = \\c,a,p,t,s,l => loc.s!c!a!p!t ;
       imp_s = loc.imp_s ;
       inf_s = loc.inf_s ;
+      consubj_s = loc.consubj_s ;
       comp,advs,iadv = [] ;
       hasComp = True ;
       r = RC ;
@@ -384,6 +451,16 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ cop
           }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
+          -- cp = (id_cop_pref np.agr) ; -- ng-
+          cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
+        in
+          pcp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
       r = RC ; -- should not be used
@@ -441,6 +518,15 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ qs.s!(Third C15 Sg)
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = ap_cop_pref vform a RelType ; -- u-
+            cop_base = qs.s!a -- qotho
+          in
+            pcp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = True ;
       r = RC ; -- should not be used

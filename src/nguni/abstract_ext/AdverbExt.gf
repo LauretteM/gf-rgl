@@ -15,6 +15,7 @@ abstract AdverbExt = Cat,CatExt ** {
     LocAdvNP : LocAdv -> NP -> LocAdv ; -- ngaphezu kwamahora amabili adlule
     -- LocNAdv : LocN -> LocAdv ;
     LocNNgaAdv : LocN -> LocAdv ;
+    LocNPNgaAdv : NP -> LocAdv ; -- ngasekhaya
     LocNPAdv : NP -> LocAdv ;   -- emahoreni
 
     NPAdv : NP -> Adv ; -- sonke lesi sikhathi

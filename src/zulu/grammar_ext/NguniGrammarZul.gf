@@ -5,7 +5,7 @@ concrete NguniGrammarZul of NguniGrammar =
   VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveZul [PositA, AdAP],
   AdverbZul [PositAdvAdj, SubjS],
-  -- Numeral,
+  NumeralExtZul [NumeralAP,NumeralNP],
   SentenceZul [PredVP, ImpVP, UseCl, UseQCl, UseRCl,AdvS],
   QuestionZul [QuestCl, QuestIAdv, QuestIComp],
   RelativeZul [RelVP, IdRP],

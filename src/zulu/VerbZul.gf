@@ -54,6 +54,14 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
           Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref = verb_prefix_no_oc vform False v.r a Null v.syl ;
+          r = v.s!(rform vform False)
+        in vpref ++ r ;
       iadv, advs, comp = [] ;
       -- ap_comp = \\_ => [] ;
       hasComp = False ;
@@ -70,7 +78,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
           -- tp = tensePref vform v.r v.syl ; -- [] / zo- / zuku-
           r = v.s!(rform (VFIndic MainCl p t) l) -- hamba
           -- rest of verb prefix built later (eg no "ya" with certain question words)
-        in vpref ++ r ++ "uku" ++ BIND ++ vp.s!MainCl!(First Sg)!Pos!PresTense!Null!False ;
+        in vpref ++ r ++ vp.inf_s!NFull!Pos ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
           -- rc = relConc vform a v.r ; -- o-
@@ -113,6 +121,14 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
           Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++v.s!R_i ++ vp.inf_s!NFull!Pos
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref = verb_prefix_no_oc vform False v.r a Null v.syl ;
+          r = v.s!(rform vform False)
+        in vpref ++ r ++ vp.inf_s!NFull!Pos ;
       iadv, advs, comp = [] ;
       -- ap_comp = \\_ => [] ;
       hasComp = True ;
@@ -185,11 +201,16 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
           Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
         }
       } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          vpref = verb_prefix_no_oc vform False v.r a Null v.syl ;
+          r = v.s!(rform vform False)
+        in vpref ++ r ;
       iadv, advs = [] ;
-      comp = case v.s_type of {
-        SInd => s.s ;
-        _ => s.s
-      } ;
+      comp = s.s!v.s_type ;
       -- ap_comp = \\_ => [] ;
       hasComp = True ;
       r = v.r ;

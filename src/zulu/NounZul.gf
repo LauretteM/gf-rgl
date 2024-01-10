@@ -10,7 +10,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = cn.empty ;
       s = \\nform => det.s ++ cn.s ! det.n ! nform ;
       agr = agr ;
-      i = case cn.emph of {
+      i = case cn.predet of {
         False => nominit!agr ;
         True => RC
       } ;
@@ -91,7 +91,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     -- DefArt, IndefArt, MassNP, PossPron : not implemented
 
     -- TODO: check refactor (no change?)
-    UseN n = n ** { emph = False } ;
+    UseN n = n ** { predet = False } ;
 
     -- ComplN2, ComplN3, UseN2, Use2N3, Use3N3 : not implemented
 
@@ -108,7 +108,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       }  ;
       -- mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
       c = cn.c ;
-      emph = cn.emph
+      predet = cn.predet
     } ;
 
     -- PartNP, CountNP, AdjDAP, DetDAP : not implemented
