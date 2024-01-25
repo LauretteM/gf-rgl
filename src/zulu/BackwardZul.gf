@@ -61,18 +61,18 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             False => v2.s!R_a ++ obj
           } ;
           Neg => case np.proDrop of {
-            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj ;
-            False => "unga" ++BIND++ v2.s!R_i ++ obj
+            True => IMP_NEG_PREF_SG ++BIND++ oc ++ v2.s!R_i ++ obj ;
+            False => IMP_NEG_PREF_SG ++BIND++ v2.s!R_i ++ obj
           }
         } ;
         Pl => table {
           Pos => case np.proDrop of {
-            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj ;
-            False => v2.s!R_a ++BIND++"ni" ++ obj
+            True => oc ++ v2.s!R_e ++BIND++PL_NI ++ obj ;
+            False => v2.s!R_a ++BIND++PL_NI ++ obj
           } ;
           Neg => case np.proDrop of {
-            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj ;
-            False => "ninga" ++BIND++ v2.s!R_i ++ obj
+            True => IMP_NEG_PREF_PL ++BIND++ oc ++ v2.s!R_i ++ obj ;
+            False => IMP_NEG_PREF_PL ++BIND++ v2.s!R_i ++ obj
           }
         }
       } ;
@@ -84,16 +84,16 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       in
       table {
         NFull => table {
-          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj
+          Pos => INF_PREF_FULL ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj
+          Pos => INF_PREF_REDUCED ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj
+          Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -170,18 +170,18 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             False => v2.s!R_a ++ obj1 ++ obj2
           } ;
           Neg => case np1.proDrop of {
-            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj1 ++ obj2 ;
-            False => "unga" ++BIND++ v2.s!R_i ++ obj1 ++ obj2
+            True => IMP_NEG_PREF_SG ++BIND++ oc ++ v2.s!R_i ++ obj1 ++ obj2 ;
+            False => IMP_NEG_PREF_SG ++BIND++ v2.s!R_i ++ obj1 ++ obj2
           }
         } ;
         Pl => table {
           Pos => case np1.proDrop of {
-            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj1 ++ obj2 ;
-            False => v2.s!R_a ++BIND++"ni" ++ obj1 ++ obj2
+            True => oc ++ v2.s!R_e ++BIND++PL_NI ++ obj1 ++ obj2 ;
+            False => v2.s!R_a ++BIND++PL_NI ++ obj1 ++ obj2
           } ;
           Neg => case np1.proDrop of {
-            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj1 ++ obj2 ;
-            False => "ninga" ++BIND++ v2.s!R_i ++ obj1 ++ obj2
+            True => IMP_NEG_PREF_PL ++BIND++ oc ++ v2.s!R_i ++ obj1 ++ obj2 ;
+            False => IMP_NEG_PREF_PL ++BIND++ v2.s!R_i ++ obj1 ++ obj2
           }
         }
       } ;
@@ -193,16 +193,16 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       in
       table {
         NFull => table {
-          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj1 ++ obj2
+          Pos => INF_PREF_FULL ++BIND++ inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj1 ++ obj2
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj1 ++ obj2
+          Pos => INF_PREF_REDUCED ++BIND++ inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj1 ++ obj2
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2
+          Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2 ;
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj1 ++ obj2
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -271,18 +271,18 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             False => v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos
           } ;
           Neg => case np.proDrop of {
-            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos ;
-            False => "unga" ++BIND++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+            True => IMP_NEG_PREF_SG ++BIND++ oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => IMP_NEG_PREF_SG ++BIND++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
           }
         } ;
         Pl => table {
           Pos => case np.proDrop of {
-            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj ++ vp.inf_s!NFull!Pos ;
-            False => v2.s!R_a ++BIND++"ni" ++ obj ++ vp.inf_s!NFull!Pos
+            True => oc ++ v2.s!R_e ++BIND++PL_NI ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => v2.s!R_a ++BIND++PL_NI ++ obj ++ vp.inf_s!NFull!Pos
           } ;
           Neg => case np.proDrop of {
-            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos ;
-            False => "ninga" ++BIND++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+            True => IMP_NEG_PREF_PL ++BIND++ oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos ;
+            False => IMP_NEG_PREF_PL ++BIND++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
           }
         }
       } ;
@@ -294,16 +294,16 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       in
       table {
         NFull => table {
-          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+          Pos => INF_PREF_FULL ++BIND++ inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
+          Pos => INF_PREF_REDUCED ++BIND++ inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj ++ vp.inf_s!NFull!Pos
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos
+          Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos ;
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj ++ vp.inf_s!NFull!Pos
         }
       } ;
       consubj_s = \\m,a,p => let 

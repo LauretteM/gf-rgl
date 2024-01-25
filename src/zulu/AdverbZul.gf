@@ -2,7 +2,7 @@ concrete AdverbZul of Adverb = CatZul ** open ResZul, Prelude in {
 
   lin
     PositAdvAdj a = {
-      s = "ka" ++BIND++ a.s!AF1 ;
+      s = ADV_KA ++BIND++ a.s!AF1 ;
       reqLocS = False
     } ;
     -- ComparAdvAdj cadv a np = {

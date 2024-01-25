@@ -103,11 +103,11 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null ;
         SSub => case t.t of {
           PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
-          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
         } ;
         SConsec => case t.t of {
           PastTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
-          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
         } 
       }
     } ;
@@ -323,7 +323,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
             <_,_,_> => False
           } ;
           lfya = case <vp.hasComp,p,t> of {
-            <False,Pos,PresTense> => "ya" ++BIND ;
+            <False,Pos,PresTense> => LONG_YA ++BIND ;
             <_,_,_> => []
           } ;
           reqLF = case vp.hasComp of {

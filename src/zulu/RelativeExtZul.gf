@@ -29,73 +29,23 @@ concrete RelativeExtZul of RelativeExt = CatZul ** open ResZul,Prelude,ParamX in
       } ;
 
       rcl_with_ass_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
-        s = \\a,p,t,s =>
-          let
-            vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!vp.r ++BIND;
-          in
-            -- naively removed subject
-            "*" ++
-            rp.s ++
-            vp.s!RelCl!a!p!t!s!False ++
-            vp.iadv ++
-            vp.advs
+        s = \\a,p,t,s => nonExist
       } ;
 
       rcl_with_id_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
-        s = \\a,p,t,s =>
-          let
-            vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!vp.r ++BIND ;
-            cb = vp.comp ;
-          in
-            -- naively removed subject
-            "*" ++
-            rp.s ++
-            vp.s!RelCl!a!p!t!s!False ++
-            vp.iadv ++
-            vp.advs
+        s = \\a,p,t,s => nonExist
       } ;
 
       rcl_with_ass_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
-        s = \\a,p,t,s =>
-          let
-            vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!vp.r ++BIND;
-          in
-            -- naively removed subject
-            "*" ++
-            rp.s ++
-            vp.s!RelCl!a!p!t!s!False ++
-            vp.iadv ++
-            vp.advs
+        s = \\a,p,t,s => nonExist
       } ;
 
       rcl_with_eq_cop_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
-        s = \\a,p,t,s =>
-          let
-            vform_main = VFIndic RelCl p t ;
-            pcp = relConcLookup!a!vp.r ++BIND;
-          in
-            -- naively removed subject
-            "*" ++
-            rp.s ++
-            pcp ++
-            vp.s!RelCl!a!p!t!s!False ++
-            vp.iadv ++
-            vp.advs
+        s = \\a,p,t,s => nonExist
       } ;
 
       rcl_with_descr_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
-      s = \\a,p,t,s =>
-        let
-          vform_main = VFIndic RelCl p t ;
-          pcp = pre_cop_pref vform_main a ;
-        in
-          "*" ++
-          rp.s ++
-          vp.s!RelCl!a!p!t!s!False
-          ++ vp.iadv ++ vp.advs
+      s = \\a,p,t,s => nonExist
         } ;
 
 }

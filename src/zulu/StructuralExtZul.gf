@@ -90,49 +90,49 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
           pcp = ap_cop_pref vform a RelType ; -- u-
-          cop_base = "lapha"
+          cop_base = ADV_LAPHA
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
             VFIndic _ _ _ => pcp ++ cop_base ;
-            VFConsec _ => "*consec" ;
-            VFSubjunct _ => "*subjunct"
+            VFConsec _ => nonExist ; -- "*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- [] / zoba
-          cop_base = "lapha" -- lapha
+          cop_base = ADV_LAPHA -- lapha
         in
         case vform of {
           VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
           VFIndic _ _ _ => rcp ++ pcp ++ cop_base ;
-            VFConsec _ => "*consec" ;
-            VFSubjunct _ => "*subjunct"
+            VFConsec _ => nonExist ; -- "*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
         }
       } ;
       imp_s = table {
         Sg => table {
-          Pos => "yiba" ++ "lapha" ;
-          Neg => "ungabi" ++ "lapha"
+          Pos => COP_YI++BIND++BA ++ ADV_LAPHA ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ ADV_LAPHA
         } ;
         Pl => table {
-          Pos => "yibani" ++ "lapha" ;
-          Neg => "ningabi" ++ "lapha"
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ ADV_LAPHA ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ ADV_LAPHA
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "ukuba" ++ "lapha" ;
-          Neg => "ukungabi" ++ "lapha"
+          Pos => INF_PREF_FULL++BIND++BA ++ ADV_LAPHA ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_LAPHA
         } ;
         NReduced | NPoss => table {
-          Pos => "kuba" ++ "lapha" ;
-          Neg => "kungabi" ++ "lapha"
+          Pos => INF_PREF_REDUCED++BIND++BA ++ ADV_LAPHA ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ ADV_LAPHA
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "lapha" ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "lapha"
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ ADV_LAPHA ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_LAPHA
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -141,13 +141,13 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
             SubjCl => VFSubjunct p 
           } ;
           pcp = ap_cop_pref vform a RelType ; -- u-
-          cop_base = "lapha"
+          cop_base = ADV_LAPHA
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
             VFIndic _ _ _ => pcp ++ cop_base ;
-            VFConsec _ => "*consec" ;
-            VFSubjunct _ => "*subjunct"
+            VFConsec _ => nonExist ; --"*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
           } 
     } ;
 
@@ -155,26 +155,26 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
       s = \\c,a,p,t => kho_cop (VFIndic c p t) a ;
       imp_s = table {
         Sg => table {
-          Pos => "yiba" ++ "khona" ;
-          Neg => "ungabi" ++ "khona" -- this is a guess
+          Pos => COP_YI++BIND++BA ++ ADV_KHONA ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ ADV_KHONA -- this is a guess
         } ;
         Pl => table {
-          Pos => "yibani" ++ "khona" ;
-          Neg => "ningabi" ++ "khona"
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ ADV_KHONA ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ ADV_KHONA
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "ukuba" ++ "khona" ;
-          Neg => "ukungabi" ++ "khona"
+          Pos => INF_PREF_FULL++BIND++BA ++ ADV_KHONA ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_KHONA
         } ;
         NReduced | NPoss => table {
-          Pos => "kuba" ++ "khona" ;
-          Neg => "kungabi" ++ "khona"
+          Pos => INF_PREF_REDUCED++BIND++BA ++ ADV_KHONA ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ ADV_KHONA
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "khona" ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "khona"
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ ADV_KHONA ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_KHONA
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -187,11 +187,11 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
     } ;
 
     at_which_IAdv np = {
-      s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (np.s!NFull) ;
+      s = ADV_NGA ++BIND++ atwhichPhiPref!np.agr ++BIND++ ADV_PHI ++ (np.s!NFull) ;
       postIAdv = False
     } ;
 
-    what_IAdv = {s = BIND++"ni" ; postIAdv = True } ;
+    what_IAdv = {s = BIND++ADV_NI ; postIAdv = True } ;
 
     how_many_IAdj = regAdj "ngaki" ;
 

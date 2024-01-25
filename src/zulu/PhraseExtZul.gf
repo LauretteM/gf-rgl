@@ -10,10 +10,10 @@ concrete PhraseExtZul of PhraseExt = CatZul,CatExtZul ** open ResZul, Prelude, P
         vform = case t.t of {
           PastTense => v.s!R_e ;
           PresTense => v.s!R_a ;
-          _ => v.s!R_a ++ "*"
+          _ => nonExist -- v.s!R_a ++ "*"
         } ;
       in
-        phr.s ++ "ku" ++ BIND ++ vform ++ np.s!NFull ++ t.s
+        phr.s ++ SC_17 ++ BIND ++ vform ++ np.s!NFull ++ t.s
     } ;
 
     DirectSpeechNP np1 t v np2 = {
@@ -24,7 +24,7 @@ concrete PhraseExtZul of PhraseExt = CatZul,CatExtZul ** open ResZul, Prelude, P
           _ => v.s!R_a ++ "*"
         } ;
       in
-        np1.s!NFull ++ "ku" ++ BIND ++ vform ++ np2.s!NFull ++ t.s
+        np1.s!NFull ++ SC_17 ++ BIND ++ vform ++ np2.s!NFull ++ t.s
     } ;
 
     DirectSpeechAdv adv t v np = {
@@ -32,10 +32,10 @@ concrete PhraseExtZul of PhraseExt = CatZul,CatExtZul ** open ResZul, Prelude, P
         vform = case t.t of {
           PastTense => v.s!R_e ;
           PresTense => v.s!R_a ;
-          _ => v.s!R_a ++ "*"
+          _ => nonExist -- v.s!R_a ++ "*"
         } ;
       in
-        adv.s ++ "ku" ++ BIND ++ vform ++ np.s!NFull ++ t.s
+        adv.s ++ SC_17 ++ BIND ++ vform ++ np.s!NFull ++ t.s
     } ;
 
     ExtPhrConj p1 p2 = {

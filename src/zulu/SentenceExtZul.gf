@@ -10,9 +10,9 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
         in
           case np.proDrop of {
             False => cp ++ cop_base ;
-            True => "*" ++ cp ++ cop_base
+            True => nonExist -- "*" ++ cp ++ cop_base
           } ;
-        _ => "* exist consec/subjunct"
+        _ => nonExist -- "* exist consec/subjunct"
       }
     } ;
 
@@ -24,9 +24,9 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
         in
           case np2.proDrop of {
             False => np1.s!NFull ++ cp ++ cop_base ;
-            True => "*" ++ np1.s!NFull ++ cp ++ cop_base
+            True => nonExist -- "*" ++ np1.s!NFull ++ cp ++ cop_base
           } ;
-        _ => "* exist consec/subjunct"
+        _ => nonExist -- "* exist consec/subjunct"
       }
     } ;
 
@@ -42,11 +42,11 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
         SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Prog ;
         SSub => case t.t of {
           PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
-          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
         } ;
         SConsec => case t.t of {
           PresTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
-          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
         } 
       }
     } ;
@@ -56,11 +56,11 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
         SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Excl ;
         SSub => case t.t of {
           PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
-          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
         } ;
         SConsec => case t.t of {
           PresTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
-          _ => "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
         } 
       }
     } ;

@@ -36,12 +36,12 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     -- locative ku
     KuNPAdv np = {
       s = case np.isPron of {
-        True => "ki" ;
+        True => LOC_KI ;
         False => case (initNP np.isPron np.agr) of {
           -- RI  => "ki" ;
-          RO  => "ko" ;
-          RA  => "kw" ;
-          _   => "ku"
+          RO  => LOC_KO ;
+          RA  => LOC_KW ;
+          _   => LOC_KU
         }
       }
       ++BIND++ (np.s!NReduced) ;
@@ -81,13 +81,13 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     LocNAdv locn = locn ** { reqLocS = False } ;
 
     LocNPNgaAdv np = {
-      s = "nga" ++BIND++ "s" ++BIND++ np.s!NLoc ;
+      s = ADV_NGA ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
       -- asp = Null ;
       reqLocS = False
     } ;
 
     LocNNgaAdv locn = {
-      s = "nga" ++BIND++ locn.s ;
+      s = ADV_NGA ++BIND++ locn.s ;
       reqLocS = False
     } ;
 
@@ -103,7 +103,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     NPAdv np = {
       s = case np.proDrop of {
         False => np.s!NFull ;
-        True => "*" ++ np.s!NFull
+        True => nonExist -- "*" ++ np.s!NFull
       } ;
       reqLocS = False
     } ;

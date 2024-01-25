@@ -27,31 +27,31 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case v.syl of {
-            SylMono => "yi"++BIND++v.s!R_a ;
+            SylMono => COP_YI++BIND++v.s!R_a ;
             SylMult => v.s!R_a
           } ;
-          Neg => "unga" ++BIND++ v.s!R_i
+          Neg => IMP_NEG_PREF_SG ++BIND++ v.s!R_i
         } ;
         Pl => table {
           Pos => case v.syl of {
-            SylMono => "yi"++BIND++v.s!R_a ++BIND++"ni" ;
-            SylMult => v.s!R_a ++BIND++"ni"
+            SylMono => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
+            SylMult => v.s!R_a ++BIND++PL_NI
           } ;
-          Neg => "ninga" ++BIND++ v.s!R_i
+          Neg => IMP_NEG_PREF_PL ++BIND++ v.s!R_i
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "uku" ++BIND++ v.s!R_a ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ v.s!R_i
+          Pos => INF_PREF_FULL ++BIND++ v.s!R_a ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ v.s!R_i
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ v.s!R_a ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ v.s!R_i
+          Pos => INF_PREF_REDUCED ++BIND++ v.s!R_a ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ v.s!R_i
         } ;
         NLoc => table {
-          Pos => "e" ++BIND++ "ku"++BIND++v.s!R_e ++BIND++ "ni" ;
-          Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
+          Pos => LOC_KU ++BIND++ INF_PREF_REDUCED++BIND++v.s!R_e ++BIND++ ADV_NI ;
+          Neg => LOC_KU ++BIND++ INF_PREF_REDUCED++BIND++NEG_NGA++BIND++v.s!R_e ++BIND++ ADV_NI
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -94,31 +94,31 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case v.syl of {
-            SylMono => "yi"++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
+            SylMono => COP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
             SylMult => v.s!R_a
           } ;
-          Neg => "unga" ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
+          Neg => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
         } ;
         Pl => table {
           Pos => case v.syl of {
-            SylMono => "yi"++BIND++v.s!R_a ++BIND++"ni" ++ vp.inf_s!NFull!Pos ;
-            SylMult => v.s!R_a ++BIND++"ni" ++ vp.inf_s!NFull!Pos
+            SylMono => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
+            SylMult => v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos
           } ;
-          Neg => "ninga" ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
+          Neg => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "uku" ++BIND++ v.s!R_a ++ vp.inf_s!NFull!Pos ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
+          Pos => INF_PREF_FULL ++BIND++ v.s!R_a ++ vp.inf_s!NFull!Pos ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ v.s!R_a ++ vp.inf_s!NFull!Pos ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
+          Pos => INF_PREF_REDUCED ++BIND++ v.s!R_a ++ vp.inf_s!NFull!Pos ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++v.s!R_i ++ vp.inf_s!NFull!Pos
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++v.s!R_i ++ vp.inf_s!NFull!Pos
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -174,31 +174,31 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case v.syl of {
-            SylMono => "yi"++BIND++v.s!R_a ;
+            SylMono => COP_YI++BIND++v.s!R_a ;
             SylMult => v.s!R_a
           } ;
-          Neg => "unga" ++BIND++ v.s!R_i
+          Neg => IMP_NEG_PREF_SG ++BIND++ v.s!R_i
         } ;
         Pl => table {
           Pos => case v.syl of {
-            SylMono => "yi"++BIND++v.s!R_a ++BIND++"ni" ;
-            SylMult => v.s!R_a ++BIND++"ni"
+            SylMono => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
+            SylMult => v.s!R_a ++BIND++PL_NI
           } ;
-          Neg => "ninga" ++BIND++ v.s!R_i
+          Neg => IMP_NEG_PREF_PL ++BIND++ v.s!R_i
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "uku" ++BIND++ v.s!R_a ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ v.s!R_i
+          Pos => INF_PREF_FULL ++BIND++ v.s!R_a ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA++BIND++ v.s!R_i
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ v.s!R_a ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ v.s!R_i
+          Pos => INF_PREF_REDUCED ++BIND++ v.s!R_a ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA++BIND++ v.s!R_i
         } ;
         NLoc => table {
-          Pos => "e" ++BIND++ "ku"++BIND++v.s!R_e ++BIND++ "ni" ;
-          Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
+          Pos => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++v.s!R_e ++BIND++ ADV_NI ;
+          Neg => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++NEG_NGA++BIND++v.s!R_e ++BIND++ ADV_NI
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -471,7 +471,7 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         <_,_,_> => False
       } ;
       lfya = case <c,p,t> of {
-        <False,Pos,PresTense> => "ya" ++BIND ;
+        <False,Pos,PresTense> => LONG_YA ++BIND ;
         <_,_,_> => []
       } ;
       vform_main = VFIndic MainCl p t

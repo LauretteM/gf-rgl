@@ -41,28 +41,28 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         Sg => let
           agr = (Second Sg)
         in table {
-          Pos => "yiba" ++ ap.s!AF1 ;
-          Neg => "ungabi" ++ ap.s!AF1
+          Pos => COP_YI++BIND++BA ++ ap.s!AF1 ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ ap.s!AF1
         } ;
         Pl => let
           agr = (Second Pl)
         in table {
-          Pos => "yibani" ++ ap.s!AF1 ;
-          Neg => "ningabi" ++ ap.s!AF1
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ ap.s!AF1 ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ ap.s!AF1
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "ukuba" ++ ap.s!AF1 ;
-          Neg => "ukungabi" ++ ap.s!AF1
+          Pos => INF_PREF_FULL++BIND++BA ++ ap.s!AF1 ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ ap.s!AF1
         } ;
         NReduced | NPoss => table {
-          Pos => "kuba" ++ ap.s!AF1 ;
-          Neg => "kungabi" ++ ap.s!AF1
+          Pos => INF_PREF_REDUCED++BIND++BA ++ ap.s!AF1 ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ ap.s!AF1
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ ap.s!AF1 ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ ap.s!AF1
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ ap.s!AF1 ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ ap.s!AF1
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -111,26 +111,26 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       } ;
       imp_s = table {
         Sg => table {
-          Pos => "yiba" ++ (id_cop_pref np.agr) ++ np.s!NFull ;
-          Neg => "ungabi" ++ (id_cop_pref np.agr) ++ np.s!NFull
+          Pos => COP_YI++BIND++BA ++ (id_cop_pref np.agr) ++ np.s!NFull ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ (id_cop_pref np.agr) ++ np.s!NFull
         } ;
         Pl => table {
-          Pos => "yibani" ++ (id_cop_pref np.agr) ++ np.s!NFull ;
-          Neg => "ningabi" ++ (id_cop_pref np.agr) ++ np.s!NFull
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ (id_cop_pref np.agr) ++ np.s!NFull ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ (id_cop_pref np.agr) ++ np.s!NFull
         }
       } ;
       inf_s = table {
           NFull => table {
-            Pos => "ukuba" ++ np.s!NFull ;
-            Neg => "ukungabi" ++ np.s!NFull
+            Pos => INF_PREF_FULL++BIND++BA ++ np.s!NFull ;
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ np.s!NFull
           } ;
           NReduced | NPoss => table {
-            Pos => "kuba" ++ np.s!NFull ;
-            Neg => "kungabi" ++ np.s!NFull
+            Pos => INF_PREF_REDUCED++BIND++BA ++ np.s!NFull ;
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ np.s!NFull
           } ;
           NLoc => table {
-            Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ np.s!NFull ;
-            Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ np.s!NFull
+            Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ np.s!NFull ;
+            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ np.s!NFull
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -142,7 +142,7 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = case np.isPron of {
             False => np.s!NFull ; -- umfundi 
-            True => "*" ++ np.s!NFull
+            True => nonExist -- "*" ++ np.s!NFull
           } 
         in
           pcp ++ cp ++ cop_base ;
@@ -175,26 +175,26 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         cop = (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
       in table {
         Sg => table {
-          Pos => "yiba" ++ cop ;
-          Neg => "ungabi" ++ cop
+          Pos => COP_YI++BIND++BA ++ cop ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ cop
         } ;
         Pl => table {
-          Pos => "yibani" ++ cop ;
-          Neg => "ningabi" ++ cop
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ cop ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ cop
         }
       } ;
       inf_s = table {
           NFull => table {
-            Pos => "ukuba" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => "ukungabi" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Pos => INF_PREF_FULL++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NReduced | NPoss => table {
-            Pos => "kuba" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => "kungabi" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Pos => INF_PREF_REDUCED++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NLoc => table {
-            Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
+            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -227,31 +227,31 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       imp_s = table {
         Sg => table {
           Pos => case v.syl of {
-            SylMono => "*" ++ "yi"++BIND++v.s!R_a ;
-            SylMult => "*" ++ v.s!R_a
+            SylMono => nonExist ; -- "*" ++ "yi"++BIND++v.s!R_a ;
+            SylMult => nonExist -- "*" ++ v.s!R_a
           } ;
-          Neg => "*" ++ "unga" ++BIND++ v.s!R_i
+          Neg => nonExist --"*" ++ IMP_NEG_PREF_SG ++BIND++ v.s!R_i
         } ;
         Pl => table {
           Pos => case v.syl of {
-            SylMono => "*" ++ "yi"++BIND++v.s!R_a ++BIND++"ni" ;
-            SylMult => "*" ++ v.s!R_a ++BIND++"ni"
+            SylMono => nonExist ; --"*" ++ "yi"++BIND++v.s!R_a ++BIND++"ni" ;
+            SylMult => nonExist --"*" ++ v.s!R_a ++BIND++"ni"
           } ;
-          Neg => "*" ++ "ninga" ++BIND++ v.s!R_i
+          Neg => nonExist --"*" ++ IMP_NEG_PREF_PL ++BIND++ v.s!R_i
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "uku" ++BIND++ v.s!R_ile ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ v.s!R_i
+          Pos => INF_PREF_FULL ++BIND++ v.s!R_ile ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ v.s!R_i
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ v.s!R_ile ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ v.s!R_i
+          Pos => INF_PREF_REDUCED ++BIND++ v.s!R_ile ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ v.s!R_i
         } ;
         NLoc => table {
-          Pos => "e" ++BIND++ "ku"++BIND++v.s!R_e ++BIND++ "ni" ;
-          Neg => "e" ++BIND++ "ku"++BIND++"nga"++BIND++v.s!R_e ++BIND++ "ni"
+          Pos => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++v.s!R_e ++BIND++ ADV_NI ;
+          Neg => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++NEG_NGA++BIND++v.s!R_e ++BIND++ ADV_NI
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -326,18 +326,18 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
             False => v2.s!R_a ++ obj_full
           } ;
           Neg => case np.proDrop of {
-            True => "unga" ++BIND++ oc ++ v2.s!R_i ++ obj_red ;
-            False => "unga" ++BIND++ v2.s!R_i ++ obj_red
+            True => IMP_NEG_PREF_SG ++BIND++ oc ++ v2.s!R_i ++ obj_red ;
+            False => IMP_NEG_PREF_SG ++BIND++ v2.s!R_i ++ obj_red
           }
         } ;
         Pl => table {
           Pos => case np.proDrop of {
-            True => oc ++ v2.s!R_e ++BIND++"ni" ++ obj_full ;
-            False => v2.s!R_a ++BIND++"ni" ++ obj_full
+            True => oc ++ v2.s!R_e ++BIND++PL_NI ++ obj_full ;
+            False => v2.s!R_a ++BIND++PL_NI ++ obj_full
           } ;
           Neg => case np.proDrop of {
-            True => "ninga" ++BIND++ oc ++ v2.s!R_i ++ obj_red ;
-            False => "ninga" ++BIND++ v2.s!R_i ++ obj_red
+            True => IMP_NEG_PREF_PL ++BIND++ oc ++ v2.s!R_i ++ obj_red ;
+            False => IMP_NEG_PREF_PL ++BIND++ v2.s!R_i ++ obj_red
           }
         }
       } ;
@@ -351,16 +351,16 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       in
       table {
         NFull => table {
-          Pos => "uku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj_full ;
-          Neg => "uku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj_red
+          Pos => INF_PREF_FULL ++BIND++ inf_oc ++ v2.s!R_a ++ obj_full ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj_red
         } ;
         NReduced | NPoss => table {
-          Pos => "ku" ++BIND++ inf_oc ++ v2.s!R_a ++ obj_full ;
-          Neg => "ku" ++BIND++ "nga" ++BIND++ inf_oc ++ v2.s!R_i ++ obj_red
+          Pos => INF_PREF_REDUCED ++BIND++ inf_oc ++ v2.s!R_a ++ obj_full ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj_red
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++inf_oc ++ v2.s!R_a ++ obj_full ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++ "uku"++BIND++"nga"++BIND++inf_oc ++ v2.s!R_a ++ obj_red
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj_full ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj_red
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -427,28 +427,28 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         cop = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss
       in table {
         Sg => table {
-          Pos => "yiba" ++ cop ;
-          Neg => "ungabi" ++ cop
+          Pos => COP_YI++BIND++BA ++ cop ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ cop
         } ;
         Pl => table {
-          Pos => "yibani" ++ cop ;
-          Neg => "ningabi" ++ cop
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ cop ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ cop
         }
       } ;
       inf_s = let
         cop = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss
       in table {
           NFull => table {
-            Pos => "ukuba" ++ cop ;
-            Neg => "ukungabi" ++ cop
+            Pos => INF_PREF_FULL++BIND++BA ++ cop ;
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ cop
           } ;
           NReduced | NPoss => table {
-            Pos => "kuba" ++ cop ;
-            Neg => "kungabi" ++ cop
+            Pos => INF_PREF_REDUCED++BIND++BA ++ cop ;
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ cop
           } ;
           NLoc => table {
-            Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ cop ;
-            Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ cop
+            Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ cop ;
+            Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ cop
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -490,32 +490,32 @@ concrete VerbExtZul of VerbExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         Sg => let
           agr = (Second Sg)
         in table {
-          Pos => "yiba" ++ qs.s!agr ;
-          Neg => "ungabi" ++ qs.s!agr
+          Pos => COP_YI++BIND++BA ++ qs.s!agr ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ qs.s!agr
         } ;
         Pl => let
           agr = (Second Pl)
         in table {
-          Pos => "yibani" ++ qs.s!agr ;
-          Neg => "ningabi" ++ qs.s!agr
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ qs.s!agr ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ qs.s!agr
         }
       } ;
       -- inf_s = table {
-      --   Pos => "ukuba" ++ qs.s!(Third C15 Sg) ; -- this agr doesn't really make sense
-      --   Neg => "ukungabi" ++ qs.s!(Third C15 Sg)
+      --   Pos => INF_PREF_FULL++BIND++BA ++ qs.s!(Third C15 Sg) ; -- this agr doesn't really make sense
+      --   Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
       -- } ;
       inf_s = table {
         NFull => table {
-          Pos => "ukuba" ++ qs.s!(Third C15 Sg) ;
-          Neg => "ukungabi" ++ qs.s!(Third C15 Sg)
+          Pos => INF_PREF_FULL++BIND++BA ++ qs.s!(Third C15 Sg) ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
         } ;
         NReduced | NPoss => table {
-          Pos => "kuba" ++ qs.s!(Third C15 Sg) ;
-          Neg => "kungabi" ++ qs.s!(Third C15 Sg)
+          Pos => INF_PREF_REDUCED++BIND++BA ++ qs.s!(Third C15 Sg) ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ qs.s!(Third C15 Sg) ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ qs.s!(Third C15 Sg)
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ qs.s!(Third C15 Sg) ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
         }
       } ;
       consubj_s = \\m,a,p => let 

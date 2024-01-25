@@ -8,7 +8,7 @@ concrete QuestionZul of Question = CatZul ** open ResZul, Prelude, ParamX in {
       s = \\p,t => cl.s!p!t ;
       -- potqcl = cl.potcl ;
       qword_pre = [] ;
-      qword_post = variants { "na" ; [] } ;
+      qword_post = variants { QUESTION_NA ; [] } ;
     } ; -- guessing this will work...
 
   --   QuestVP qp vp =

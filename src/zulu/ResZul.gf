@@ -50,6 +50,50 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
   oper
 
+    ADV_KA : Str = "ka" ;
+    ADV_NGA : Str = "nga" ;
+    ADV_KHONA : Str = "khona" ;
+    ADV_LAPHA : Str = "lapha" ;
+    ADV_NI : Str = "ni" ;
+    ADV_PHI : Str = "phi" ;
+
+    BA : Str = "ba" ;
+    BI : Str = "bi" ;
+    COP_YI : Str = "yi" ;
+
+    IMP_NEG_PREF_SG : Str = "unga" ;
+    IMP_NEG_PREF_PL : Str = "ninga" ;
+
+    INF_PREF_FULL : Str = "uku" ;
+    INF_PREF_REDUCED : Str = "ku" ;
+
+    LOC_IMP_SG_POS : Str = "yiba" ;
+    LOC_IMP_SG_NEG : Str = "ungabi" ;
+    LOC_IMP_PL_POS : Str = "yibani" ;
+    LOC_IMP_PL_NEG : Str = "ningabi" ;
+
+    LOC_E : Str = "e" ;
+
+    LOC_KI : Str = "ki" ;
+    LOC_KO : Str = "ko" ;
+    LOC_KW : Str = "kw" ;
+    LOC_KU : Str = "ku" ;
+
+    LOC_S : Str = "s" ;
+
+    LONG_YA : Str = "ya" ;
+
+    NEG_NGA : Str = "nga" ;
+
+    PL_NI : Str = "ni" ;
+    PRON_NA : Str = "na" ;
+
+    QUESTION_NA : Str = "na" ;
+
+    SC_17 : Str = "ku" ;
+
+    
+
     prefix_nasal : Str -> Str = \r -> case r of {
       "ph"+x => "mp" + x ;
       "Ph"+x => "mP" + x ;
