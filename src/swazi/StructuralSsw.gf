@@ -121,10 +121,10 @@ concrete StructuralSsw of Structural = CatSsw **
     youSg_Pron = mkPron (Second Sg) ;
     youPl_Pron = mkPron (Second Pl) ;
 
-    he_Pron = mkPron (Third C1_2 Sg) ;
+    he_Pron = mkPron (Third C1a_2a Sg) ;
     it_Pron = mkPron (Third C3_4 Sg) ;
-    she_Pron = mkPron (Third C1_2 Sg) ;
-    they_Pron = mkPron (Third C1_2 Pl) ;
+    she_Pron = mkPron (Third C1a_2a Sg) ;
+    they_Pron = mkPron (Third C1a_2a Pl) ;
 
     --   youPol_Pron = mkPron "you" "you" "your" "yours" singular P2 human ;
 
