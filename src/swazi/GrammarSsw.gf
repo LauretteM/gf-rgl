@@ -9,11 +9,9 @@ concrete GrammarSsw of Grammar =
   SentenceSsw,
   QuestionSsw,
   RelativeSsw,
-  ConjunctionSsw,
   PhraseSsw,
   TextX - [Temp,Adv,IAdv],
   StructuralSsw,
-  IdiomSsw,
   TenseX [PPos,PNeg] -- - [Temp,Adv]
   ** open ResSsw, Prelude in {
 

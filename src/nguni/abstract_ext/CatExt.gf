@@ -7,7 +7,8 @@ abstract CatExt = {
     QuantStem ;
     RelStem ;
     VAux ;
-    ConjN ; -- Nguni conjunction
+    -- ConjN ; -- conjunction for noun phrases
+    ConjAdv ; -- conjunction for forming adverbs
     IAdj ;   -- how many
     -- INAdv ; -- which/-phi?
 

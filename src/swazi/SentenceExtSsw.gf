@@ -3,20 +3,83 @@ concrete SentenceExtSsw of SentenceExt = CatSsw,CatExtSsw ** open ResSsw, Prelud
   lin
 
     ExistNP np = {
-      s = let
+      s = table {
+        SInd => let
           cp = (id_cop_pref np.agr) ; -- ng-
-          cop_base = np.s!NFull -- umfundi
+          cop_base = case np.isPron of {
+            True => np.s!NReduced ;
+            False => np.s!NFull -- umfundi
+          }
         in
           case np.proDrop of {
             False => cp ++ cop_base ;
-            True => "*" ++ cp ++ cop_base
-          }
+            True => nonExist -- "*" ++ cp ++ cop_base
+          } ;
+        _ => nonExist -- "* exist consec/subjunct"
+      }
     } ;
+
+    ExistAppos np1 np2 = {
+      s = table {
+        SInd => let
+          -- cp = (id_cop_pref np1.agr) ; -- ng-
+          cop_base = np2.s!NFull -- umfundi
+        in
+          case np2.proDrop of {
+            False => np1.s!NFull ++ cop_base ;
+            True => nonExist -- "*" ++ np1.s!NFull ++ cp ++ cop_base
+          } ;
+        _ => nonExist -- "* exist consec/subjunct"
+      }
+    } ;
+
     GreetSg = {
       s = "sawubona"
     } ;
     GreetPl = {
       s = "sanibonani"
+    } ;
+
+    UseClProg t p cl = {
+      s = table {
+        SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Prog ;
+        SSub => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+        } ;
+        SConsec => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+        } 
+      }
+    } ;
+
+    UseClExcl t p cl = {
+      s = table {
+        SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Excl ;
+        SSub => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+        } ;
+        SConsec => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+        } 
+      }
+    } ;
+
+    UseRClProg temp pol rcl = {
+      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Prog ;
+    } ;
+
+    UseRClExcl temp pol rcl = {
+      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Excl 
+    } ;
+
+    ExtConjS s1 conj s2 = let
+      conj_agr = Third C5_6 Sg ; -- TODO: get from s2
+    in {
+      s = \\st => s1.s!st ++ conj.s!conj_agr ++ s2.s!st 
     } ;
 
     -- IAdvQS np iadv = {

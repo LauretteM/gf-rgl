@@ -75,15 +75,15 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
       dist = Dem3
     } ;
 
-    phakathi_LocN = { s = "phakathi" ; empty = [] } ;
-    phansi_LocN = { s = "phansi" ; empty = [] } ;
-    phesheya_LocN = { s = "phesheya" ; empty = [] } ;
-    phandle_LocN = { s = "phandle" ; empty = [] } ;
-    phambili_LocN = { s = "phambili" ; empty = [] } ;
-    phambi_LocN = { s = "phambi" ; empty = [] } ;
-    phakade_LocN = { s = "phakade" ; empty = [] } ;
-    phezulu_LocN = { s = "phezulu" ; empty = [] } ;
-    phezu_LocN = { s = "phezulu" ; empty = [] } ;
+    inside_LocN = { s = "phakathi" ; empty = [] } ;
+    below_LocN = { s = "phansi" ; empty = [] } ;
+    on_the_other_side_LocN = { s = "phesheya" ; empty = [] } ;
+    outside_LocN = { s = "phandle" ; empty = [] } ;
+    in_front_LocN = { s = "phambili" ; empty = [] } ;
+    ahead_LocN = { s = "phambi" ; empty = [] } ;
+    forever_LocN = { s = "phakade" ; empty = [] } ;
+    above_LocN = { s = "phezulu" ; empty = [] } ;
+    on_top_LocN = { s = "phezulu" ; empty = [] } ;
 
     lapha_Loc = {
       s = table {
@@ -206,38 +206,42 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
     with_Conj = {
-      s = withPref ;
-      fix = True
+      s = \\r => withPref!r ++BIND
     } ;
 
     together_with_Conj = {
-      s = \\ri => "kanye" ++ withPref!ri ;
-      fix = True
+      s = \\ri => "kanye" ++ withPref!ri ++BIND
     } ;
 
     and_then_Conj = {
-      s = \\_ => "bese" ;
-      fix = False
+      s = \\_ => "bese"
     } ;
 
     but_also_Conj = {
-      s = \\ri => "kodwa" ++ withPref!ri ;
-      fix = True
+      s = \\ri => "kodwa" ++ withPref!ri ++BIND
     } ;
 
     in_comparison_with_Conj = {
-      s = \\ri => "ku" ++BIND++ withPref!ri ;
-      fix = True
+      s = \\ri => "ku" ++BIND++ withPref!ri ++BIND
     } ;
 
     while_Conj = {
-      s = \\_ => "kanti" ;
-      fix = False
+      s = \\_ => "kanti" 
     } ;
 
-    where_ConjN = { s = "lapho" } ;
+    however_Conj = {
+      s = \\_ => "kodwa" 
+    } ;
+
+    where_ConjAdv = { s = "lapho" } ;
 
     how_IComp = { s = "njani" ; postIComp = False } ; -- -njani
     where_IComp = { s = "phi" ; postIComp = True } ; -- -phi
     how_much_IComp = { s = "ngakanani" ; postIComp = False } ; -- -ngakanani
+
+    one_Enum = {
+      s = \\_ => "nye" ;
+      empty = [] ;
+      t = EnumType
+    } ;
 }

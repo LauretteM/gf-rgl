@@ -85,7 +85,7 @@ oper
     } ;
 
   mkKwaPN = overload {
-    mkKwaPN : (Sswu : Str) -> ClassGender -> PN = \n,c -> lin PN (kwaProperName n c) ;
+    mkKwaPN : (Swati : Str) -> ClassGender -> PN = \n,c -> lin PN (kwaProperName n c) ;
   } ;
 
   mkAdA = overload {

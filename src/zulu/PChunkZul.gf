@@ -99,14 +99,6 @@ concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
     NP_PossLoc_Chunk pron np = {
       s = pron.s!NFull ++ poss_concord_agr!pron.agr!RC ++BIND++"s"++BIND++ (loc_NP np)
     } ;
-    -- PossNPLoc cn np = {
-    --   empty = np.empty ;
-    --   s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++"s"++BIND++ (loc_NP np);
-    --   c = cn.c ;
-    -- } ;
-    -- NP_Gen_Chunk np = {
-    --   s = poss_concord_agr!agr_vars!np.i ++BIND++ np.s!NPoss
-    -- } ;
     Predet_Chunk pron predet = {
       s = pron.s!NFull ++ predet.s!pron.agr
     } ;

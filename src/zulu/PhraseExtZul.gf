@@ -21,7 +21,7 @@ concrete PhraseExtZul of PhraseExt = CatZul,CatExtZul ** open ResZul, Prelude, P
         vform = case t.t of {
           PastTense => v.s!R_e ;
           PresTense => v.s!R_a ;
-          _ => v.s!R_a ++ "*"
+          _ => nonExist -- v.s!R_a ++ "*"
         } ;
       in
         np1.s!NFull ++ SC_17 ++ BIND ++ vform ++ np2.s!NFull ++ t.s

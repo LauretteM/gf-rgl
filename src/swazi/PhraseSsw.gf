@@ -1,9 +1,9 @@
 concrete PhraseSsw of Phrase = CatSsw ** open Prelude, ParamX, ResSsw in {
 
   lin
-    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
+    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ opt_comma ++ voc.s} ;
   --
-    UttS sent = { s = sent.s } ;
+    UttS sent = { s = sent.s!SInd } ;
     UttQS sent = { s = sent.qword_pre ++ sent.s ++ sent.qword_post } ;
     UttImpSg pol imp = { s = pol.s ++ imp.s!Sg!pol.p } ;
     UttImpPl pol imp = {s = pol.s ++ imp.s!Pl!pol.p } ;
@@ -24,5 +24,8 @@ concrete PhraseSsw of Phrase = CatSsw ** open Prelude, ParamX, ResSsw in {
 
     NoVoc = {s = []} ;
     VocNP np = {s = np.s ! NReduced } ;
+
+    oper
+      opt_comma : Str = variants { [] ; SOFT_BIND++"," } ;
 
 }

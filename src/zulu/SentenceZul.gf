@@ -29,52 +29,6 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       _ => cl_with_verb_predicate np vp 
     } ;
 
---     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
-
-    -- ImpVP vp = let
-    --   np = {
-    --     empty = [] ;
-    --     s = table {NFull|NReduced|NPoss|NLoc => []} ;
-    --     -- loc = [] ;
-    --     -- desc = [] ;
-    --     -- det = [] ;
-    --     agr = Second Sg ;
-    --     i = nominit!(Second Sg) ;
-    --     proDrop = True ;
-    --     isPron = True ;
-    --     heavy = False
-    --     -- reqLocS = True ;
-    --     -- qdef = Article Spec
-    --   } ;
-    --   impTense = PresTense
-    -- in case vp.vptype of {
-    --   NoComp => let
-    --     yi = case vp.syl of {
-    --       SylMono => "yi"++BIND ;
-    --       _ => []
-    --     }
-    --   in {
-    --     s = table {
-    --       Pos => yi ++ vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
-    --       Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
-    --     }
-    --   } ;
-    --   VNPCompl => {
-    --     s = table {
-    --       Pos => vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
-    --       Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
-    --     }
-    --   } ;
-    --
-    --   CopIdent => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-    --   CopAssoc => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-    --   CopDescr => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-    --   CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense } ;
-    --   -- VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
-    --   AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense } ;
-    --   _ => {s = \\pol => (imp_verb_predicate np vp).s!pol!impTense }
-    -- } ;
-
     ImpVP vp = {
       s = \\n,p => vp.imp_s!n!p ++ vp.comp ++ vp.iadv ++ vp.advs
     } ;
@@ -156,19 +110,6 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
         False => np.i ;
         True => vp.r
       }
-    } ;
-
-    imp_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
-        let
-          subj = np.s!NFull ;
-          vform_main = VFIndic MainCl p t ;
-        in
-          impPref p
-          ++ vp.s!MainCl!np.agr!p!t!Null!False
-          ++ vp.iadv
-          ++ vp.comp
-          ++ vp.advs
     } ;
 
     -- imp_verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
@@ -269,7 +210,6 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
     --    -- ++ (tensePref vform)
     -- ;
 
-    -- TODO: aspect
     cl_with_eq_cop_predicate :
       NP ->
       VP -> {
@@ -332,13 +272,6 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           }
         in
           subj ++
-          -- ++ (negPref vform_main)
-          -- -- ++ (exclSePref vform_main)
-          -- ++ (subjConc vform_main np.agr vow)
-          -- -- ++ (negPref2 vform_main)
-          -- ++ lfya
-          -- -- ++ (tensePref vform_main)
-          -- ++ vp.comp
           vp.s!MainCl!np.agr!p!t!s!False
           ++ vp.comp ++ vp.iadv ++ vp.advs ;
       consubj_s = \\m,p => 

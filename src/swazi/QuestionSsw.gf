@@ -6,25 +6,14 @@ concrete QuestionSsw of Question = CatSsw ** open ResSsw, Prelude, ParamX in {
 
     QuestCl cl = {
       s = \\p,t => cl.s!p!t ;
-      -- potqcl = cl.potcl ;
       qword_pre = [] ;
       qword_post = variants { "na" ; [] } ;
     } ; -- guessing this will work...
 
-  --   QuestVP qp vp =
-  --     let cl = mkClause (qp.s ! npNom) (agrP3 qp.n) vp
-  --     in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! oDir} ; ----
-  --
-  --   QuestSlash ip slash =
-  --     {s = \\t,a,b,q =>
-  --        (mkQuestion (ss (ip.s ! NPAcc)) slash).s ! t ! a ! b ! q ++ slash.c2
-  --     } ;
-  --     --- changed AR 5/6/2016: uses stranding; pied-piping in ExtraSsw
-
     QuestIAdv iadv cl = qcl_iadv cl iadv ;
 
     QuestIComp icomp np = {
-      s = \\p,t =>
+      s = \\p,t,s =>
       let
         vform = VFIndic MainCl p t ;
         pre_icomp = case icomp.postIComp of {
@@ -40,46 +29,6 @@ concrete QuestionSsw of Question = CatSsw ** open ResSsw, Prelude, ParamX in {
       qword_pre = [] ;
       qword_post = []
     } ;
-      -- mkQuestion icomp (mkClause (np.s ! npNom) np.a (predAux auxBe)) ;
-
-
-  --   PrepIP p ip = {s = p.s ++ ip.s ! NPAcc} ;
-  --
-  --   AdvIP ip adv = {
-  --     s = \\c => ip.s ! c ++ adv.s ;
-  --     n = ip.n
-  --     } ;
-  --
-  --   IdetCN idet cn = {
-  --     s = \\c => idet.s ++ cn.s ! idet.n ! npcase2case c ;
-  --     n = idet.n
-  --     } ;
-  --
-  --   IdetIP idet = {
-  --     s = \\c => idet.s ;
-  --     n = idet.n
-  --     } ;
-  --
-  --   IdetQuant idet num = {
-  --     s = idet.s ! num.n ++ num.s ! False ! Nom ;
-  --     n = num.n
-  --     } ;
-  --
-  --   AdvIAdv i a = ss (i.s ++ a.s) ;
-  --
-  --   CompIAdv a = a ;
-  --   CompIP p = ss (p.s ! npNom) ;
-  --
-  -- lincat
-  --   QVP = ResSsw.VP ;
-  -- lin
-  --   ComplSlashIP vp np = insertObjPre (\\_ => vp.c2 ++ np.s ! NPAcc) vp ;
-  --   AdvQVP vp adv = insertObj (\\_ => adv.s) vp ;
-  --   AddAdvQVP vp adv = insertObj (\\_ => adv.s) vp ;
-  --
-  --   QuestQVP qp vp =
-  --     let cl = mkClause (qp.s ! npNom) (agrP3 qp.n) vp
-  --     in {s = \\t,a,b,_ => cl.s ! t ! a ! b ! oDir} ; ----
 
   oper
     -- qcl_iadv : Cl -> CatSsw.IAdv -> {s : Polarity => ZTense => DMood => Str ; potqcl : Polarity => DMood => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
@@ -95,8 +44,8 @@ concrete QuestionSsw of Question = CatSsw ** open ResSsw, Prelude, ParamX in {
     --   qword_post = []
     -- } ;
 
-    qcl_iadv : Cl -> CatSsw.IAdv -> {s : Polarity => BasicTense => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
-      s = \\p,t => cl.s!p!t ;
+    qcl_iadv : Cl -> CatSsw.IAdv -> {s : Polarity => BasicTense => Aspect => Str ; qword_pre : Str ; qword_post : Str } = \cl,iadv -> {
+      s = \\p,t,s => cl.s!p!t!s ;
       qword_pre = case iadv.postIAdv of {
         True => [] ;
         False => iadv.s

@@ -29,7 +29,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         pron_str ++ postdet.s!pron.agr ;
       agr = pron.agr ;
       i = RC ;
-      proDrop = pron.proDrop ;
+      proDrop = False ;
       isPron = True ;
       heavy = True
     } ;
@@ -105,7 +105,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
       c = n.c ;
       empty = n.empty ;
       predet = True
-    };
+    } ;
 
     QuantPredet q = {
       s = \\a => q.s!a ;
@@ -199,6 +199,26 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
         isPron = False ;
         heavy = True ;
         empty = []
+    } ;
+
+    LocNNP locn = {
+      empty = [] ;
+      s = \\_ => locn.s ;
+      agr = Third C17 Sg ;
+      i = RC ;
+      proDrop = False ;
+      isPron = False ;
+      heavy = True
+    } ;
+
+    LocNNgaNP locn = {
+      empty = [] ;
+      s = \\_ => ADV_NGA++BIND++locn.s ;
+      agr = Third C17 Sg ;
+      i = RC ;
+      proDrop = False ;
+      isPron = False ;
+      heavy = True
     } ;
 
     LocNP np = {
@@ -346,7 +366,7 @@ concrete NounExtZul of NounExt = CatZul,CatExtZul ** open ResZul, Prelude, Param
     } ;
 
     ExtConjNP np1 conj np2 = {
-      s = \\nform => np1.s!nform ++ (link_conj conj np2.i) ++ np2.s!NReduced ;
+      s = \\nform => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NReduced ;
       agr = compAgr np1.agr np2.agr ;
       i = np1.i ;
       proDrop = andB np1.proDrop np2.proDrop ;

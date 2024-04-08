@@ -4,14 +4,15 @@ concrete CatExtSsw of CatExt = open ResSsw,Prelude,ParamX in {
     Loc = {
       s : CType => Agr => Polarity => BasicTense => Str ;
       imp_s : Number => Polarity => Str ;
-      inf_s : NForm => Polarity => Str
+      inf_s : NForm => Polarity => Str ;
+      consubj_s : DMType => Agr => Polarity => Str
     } ;
     LocN = { s : Str } ;
     LocAdv = { s : Str ; reqLocS : Bool } ;
     QuantStem = { s : Agr => Str } ;
     RelStem = { s : Str } ;
     VAux = { s : Str ; at : AuxType } ;
-    ConjN = { s : Str } ;
+    ConjN = { s : RInit => Str ; fix : Bool } ;
     IAdj = { s : AForm => Str } ;
     -- INAdv = { s : Str ; postIAdv : Bool } ;
 

@@ -1,4 +1,4 @@
-concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
+concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
   open ResSsw, Prelude, ParamX in {
 
   flags optimize=all_subs ;
@@ -9,7 +9,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
     Temp = { s : Str ; t : BasicTense } ;
 
 -- Tensed/Untensed
-    S = { s : Str } ;
+    S = { s : SType => Str } ;
     QS = { s : Str ; qword_pre : Str ; qword_post : Str } ;
     RS = { s : Agr => Str } ;
 --     SSlash = {s : Str ; c2 : Str} ;
@@ -17,7 +17,9 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Sentence
 
     Cl = {
-      s : Polarity => BasicTense => Str
+      s : Polarity => BasicTense => Aspect => Str ;
+      consubj_s : DMType => Polarity => Str ;
+      rinit : RInit
     } ;
 --     ClSlash = {
 --       s : ResSsw.Tense => Anteriority => CPolarity => Order => Str ;
@@ -28,7 +30,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 -- Question
 
     QCl = {
-      s : Polarity => BasicTense => Str ;
+      s : Polarity => BasicTense => Aspect => Str ;
       -- potqcl : Polarity => Str ;
       qword_pre : Str ;
       qword_post : Str
@@ -40,29 +42,23 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
 -- Relative
 
-    RCl = { s : Agr => Polarity => BasicTense => Str } ;
+    RCl = { s : Agr => Polarity => BasicTense => Aspect => Str } ;
     RP = { s : Str } ;
 
 -- Verb
 
     VP = {
-      s : CType => Agr => Polarity => BasicTense => Bool => Str ; -- TODO: mood
+      s : CType => Agr => Polarity => BasicTense => Aspect => Bool => Str ; -- TODO: mood
       imp_s : Number => Polarity => Str ;
       inf_s : NForm => Polarity => Str ;
-      -- oc : Str ;
+      consubj_s : DMType => Agr => Polarity => Str ;
       comp : Str ;
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ; -- indicates whether to use long form
       r : RInit ;
       syl : Syl ;
-      -- asp : Aspect ;
-      -- asp_pref : VForm => Str ;
-      vptype : VPType ;
-      -- comp_agr : Agr ;
-      -- ap_comp : AForm => Str -- ;
-      -- aux_root : Str ;
-      -- hasAux : Bool
+      vptype : VPType 
     } ;
 
     -- VPSlash = {
@@ -101,7 +97,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
       -- mod : Number => Str ;
       c : ClassGender ;
       empty : Str ;
-      emph : Bool
+      predet : Bool
     } ;
 
     NP = {
@@ -132,8 +128,8 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv] **
 
 -- Structural
 
-    Conj = { s : RInit => Str ; fix : Bool } ;
-    Subj = {s : Str} ;
+    Conj = { s : Agr => Str } ;
+    Subj = { s : SType => Str } ;
     -- Adv = { s : Str ; asp : Aspect ; reqLocS : Bool } ;
 --     Prep = {s : Str; isPre : Bool} ;
 --     CAdv = {s : Polarity => Str; p : Str} ;

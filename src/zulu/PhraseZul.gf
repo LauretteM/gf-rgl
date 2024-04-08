@@ -1,7 +1,7 @@
 concrete PhraseZul of Phrase = CatZul ** open Prelude, ParamX, ResZul in {
 
   lin
-    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ voc.s} ;
+    PhrUtt pconj utt voc = {s = pconj.s ++ utt.s ++ opt_comma ++ voc.s} ;
   --
     UttS sent = { s = sent.s!SInd } ;
     UttQS sent = { s = sent.qword_pre ++ sent.s ++ sent.qword_post } ;
@@ -24,5 +24,8 @@ concrete PhraseZul of Phrase = CatZul ** open Prelude, ParamX, ResZul in {
 
     NoVoc = {s = []} ;
     VocNP np = {s = np.s ! NReduced } ;
+
+    oper
+      opt_comma : Str = variants { [] ; SOFT_BIND++"," } ;
 
 }

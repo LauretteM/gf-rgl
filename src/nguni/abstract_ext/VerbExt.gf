@@ -5,7 +5,15 @@ abstract VerbExt = Cat,CatExt ** {
     CopAP : AP -> VP ;
     CopNP : NP -> VP ;
     CopNPAssoc : NP -> VP ;
+    CopNPEq : NP -> VP ;
+    CopNPEqSize : NP -> VP ;
     CopLocative : Loc -> VP ;
+
+    UseVRefl : V -> VP ;
+
+    ComplV2Light : V2 -> NP -> VP ; -- Amadoda ayawubona umuzi.
+    ComplV2Refl : V2 -> NP -> VP ; -- Ngizishaya umunwe.
+    AdvVPLight : VP -> Adv -> VP ; -- Phandle komile namuhla.
 
     CopPoss : NP -> VP ;
     CopQuant : QuantStem -> VP ;

@@ -6,7 +6,10 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
       s = table {
         SInd => let
           cp = (id_cop_pref np.agr) ; -- ng-
-          cop_base = np.s!NFull -- umfundi
+          cop_base = case np.isPron of {
+            True => np.s!NReduced ;
+            False => np.s!NFull -- umfundi
+          }
         in
           case np.proDrop of {
             False => cp ++ cop_base ;
@@ -74,10 +77,7 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
     } ;
 
     ExtConjS s1 conj s2 = {
-      s = \\st => case conj.fix of {
-        False => s1.s!st ++ conj.s!RC ++ s2.s!st ;
-        True => s1.s!st ++ conj.s!RC ++BIND++ s2.s!st -- this selection of RC is a short cut
-      }
+      s = \\st => s1.s!st ++ conj.s!RC ++ s2.s!st 
     } ;
 
     -- IAdvQS np iadv = {

@@ -4,112 +4,91 @@ concrete AdverbExtSsw of AdverbExt = CatSsw,CatExtSsw ** open ResSsw, Prelude, P
 
     InstrNPAdv np =
     let
-      pref = instrPref!(initNP np.isPron np.agr)
+      pref = instrPref!np.agr
     in {
       s = pref ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
       reqLocS = False
     } ;
 
-    InstrAdvNPAdv adv np =
+    JustLikeNPAdv np =
     let
-      pref = instrPref!(initNP np.isPron np.agr)
+      pref = eqPref!np.agr
     in {
-      s = adv.s ++ pref ++BIND++ (np.s!NReduced) ;
-      -- asp = adv.asp ;
-      reqLocS = False
-    } ;
-
-    LocAdvNPAdv adv np = {
-      s = adv.s ++ (np.s!NLoc) ;
-      -- asp = adv.asp ;
+      s = pref ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
     -- locative kwa
     KwaNPAdv np = {
-      s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
+      s = (poss_concord_agr!(Third C17 Sg)!np.agr) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
     -- locative ku
     KuNPAdv np = {
       s = case np.isPron of {
-        True => "ki" ;
+        True => LOC_KI ;
         False => case (initNP np.isPron np.agr) of {
-          -- RI  => "ki" ;
-          RO  => "ko" ;
-          RA  => "kw" ;
-          _   => "ku"
+          RO  => LOC_KO ;
+          RA  => LOC_KW ;
+          _   => LOC_KU
         }
       }
       ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
-      reqLocS = False
-    } ;
-
-    KuAdvNPAdv adv np = {
-      s = adv.s ++
-        case np.proDrop of {
-          True => "ki" ;
-          False => case (initNP np.isPron np.agr) of {
-            RI  => "ki" ;
-            RO  => "ko" ;
-            RA  => "kw" ;
-            _   => "ku"
-          }
-        }
-      ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
       reqLocS = False
     } ;
 
     NaNPAdv np = {
-      s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
+      s = withPref ! np.agr ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
     LocAdvAdv l = l ** { reqLocS = False } ;
 
     LocAdvNP adv np = {
-      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.agr) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ; -- ngaphezu kwamahora amabili adlule
 
     LocNAdv locn = locn ** { reqLocS = False } ;
 
+    LocNPNgaAdv np = {
+      s = ADV_NGA ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
+      reqLocS = False
+    } ;
+
+    LocNPJustLikeAdv np = let
+      tmp_agr = Third C1a_2a Sg
+    in {
+      s = eqPref!tmp_agr ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
+      reqLocS = False
+    } ;
+
     LocNNgaAdv locn = {
-      s = "nga" ++BIND++ locn.s ;
+      s = ADV_NGA ++BIND++ locn.s ;
       reqLocS = False
     } ;
 
     LocNPAdv np = {
       s = np.s!NLoc ;
-      -- asp = Null ;
-      reqLocS = case np.isPron of {
-        False => True ;
-        True => False -- ki-
+      reqLocS = case <np.isPron,np.agr> of {
+        <False,Third C1a_2a _> => False ;
+        <False,Third C1_2 _> => False ;
+        <False,_> => True ;
+        <True,_> => False -- ki-
       } ;
     } ;
 
     NPAdv np = {
       s = case np.proDrop of {
         False => np.s!NFull ;
-        True => "*" ++ np.s!NFull
+        True => nonExist -- "*" ++ np.s!NFull
       } ;
       reqLocS = False
     } ;
 
     ConjNAdv conj s = {
-      s = conj.s ++ s.s;
-      -- asp = Null ;
+      s = conj.s ++ s.s!SInd;
       reqLocS = False
     } ;
-
-    -- IAdjIAdv np iadj = {
-    --   s = (np.s!Loc) ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
-    --   postIAdv = False
-    -- } ;
 }

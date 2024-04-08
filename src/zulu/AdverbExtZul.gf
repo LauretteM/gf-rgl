@@ -7,29 +7,20 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       pref = instrPref!(initNP np.isPron np.agr)
     in {
       s = pref ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
       reqLocS = False
     } ;
 
-    -- InstrAdvNPAdv adv np =
-    -- let
-    --   pref = instrPref!(initNP np.isPron np.agr)
-    -- in {
-    --   s = adv.s ++ pref ++BIND++ (np.s!NReduced) ;
-    --   -- asp = adv.asp ;
-    --   reqLocS = False
-    -- } ;
-
-    -- LocAdvNPAdv adv np = {
-    --   s = adv.s ++ (np.s!NLoc) ;
-    --   -- asp = adv.asp ;
-    --   reqLocS = False
-    -- } ;
+    JustLikeNPAdv np =
+    let
+      pref = eqPref!(initNP np.isPron np.agr)
+    in {
+      s = pref ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ;
 
     -- locative kwa
     KwaNPAdv np = {
       s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
       reqLocS = False
     } ;
 
@@ -38,36 +29,17 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       s = case np.isPron of {
         True => LOC_KI ;
         False => case (initNP np.isPron np.agr) of {
-          -- RI  => "ki" ;
           RO  => LOC_KO ;
           RA  => LOC_KW ;
           _   => LOC_KU
         }
       }
       ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
       reqLocS = False
     } ;
 
-    -- KuAdvNPAdv adv np = {
-    --   s = adv.s ++
-    --     case np.proDrop of {
-    --       True => "ki" ;
-    --       False => case (initNP np.isPron np.agr) of {
-    --         RI  => "ki" ;
-    --         RO  => "ko" ;
-    --         RA  => "kw" ;
-    --         _   => "ku"
-    --       }
-    --     }
-    --   ++BIND++ (np.s!NReduced) ;
-    --   -- asp = Null ;
-    --   reqLocS = False
-    -- } ;
-
     NaNPAdv np = {
       s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!NReduced) ;
-      -- asp = Null ;
       reqLocS = False
     } ;
 
@@ -82,7 +54,11 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
 
     LocNPNgaAdv np = {
       s = ADV_NGA ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
-      -- asp = Null ;
+      reqLocS = False
+    } ;
+
+    LocNPJustLikeAdv np = {
+      s = eqPref!RC ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
       reqLocS = False
     } ;
 
@@ -93,10 +69,11 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
 
     LocNPAdv np = {
       s = np.s!NLoc ;
-      -- asp = Null ;
-      reqLocS = case np.isPron of {
-        False => True ;
-        True => False -- ki-
+      reqLocS = case <np.isPron,np.agr> of {
+        <False,Third C1a_2a _> => False ;
+        <False,Third C1_2 _> => False ;
+        <False,_> => True ;
+        <True,_> => False -- ki-
       } ;
     } ;
 
@@ -109,13 +86,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     } ;
 
     ConjNAdv conj s = {
-      s = conj.s ++ s.s!SInd; -- TODO: this should probably depend on the stype field of conj
-      -- asp = Null ;
+      s = conj.s ++ s.s!SInd;
       reqLocS = False
     } ;
-
-    -- IAdjIAdv np iadj = {
-    --   s = (np.s!Loc) ++ adjConcLookup!np.agr ++BIND++ iadj.s!(aformN np.agr) ;
-    --   postIAdv = False
-    -- } ;
 }

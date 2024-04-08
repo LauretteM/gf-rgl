@@ -19,12 +19,12 @@ concrete StructuralZul of Structural = CatZul **
 
   -- Adv
   --   everywhere_Adv = mkAdv "everywhere" ;
-  --   here_Adv = mkAdv "here" ;
+    here_Adv = mkAdv "lapha" ;
   --   here7to_Adv = mkAdv ["to here"] ;
   --   here7from_Adv = mkAdv ["from here"] ;
   --   quite_Adv = mkAdv "quite" ;
   --   somewhere_Adv = mkAdv "somewhere" ;
-  --   there_Adv = mkAdv "there" ;
+    there_Adv = mkAdv "khona" ;
   --   there7to_Adv = mkAdv "there" ;
   --   there7from_Adv = mkAdv ["from there"] ;
 

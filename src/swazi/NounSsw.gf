@@ -10,7 +10,7 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
       empty = cn.empty ;
       s = \\nform => det.s ++ cn.s ! det.n ! nform ;
       agr = agr ;
-      i = case cn.emph of {
+      i = case cn.predet of {
         False => nominit!agr ;
         True => RC
       } ;
@@ -91,7 +91,7 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
     -- DefArt, IndefArt, MassNP, PossPron : not implemented
 
     -- TODO: check refactor (no change?)
-    UseN n = n ** { emph = False } ;
+    UseN n = n ** { predet = False } ;
 
     -- ComplN2, ComplN3, UseN2, Use2N3, Use3N3 : not implemented
 
@@ -102,13 +102,13 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
     PossNP cn np = {
       empty = cn.empty ;
       s = \\num,nform => case np.agr of {
-        Third C1a_2a Sg => cn.s!num!nform ++ poss_concord_c1a!cn.c!num ++BIND++ np.s!NPoss ;
-        (First Pl | Second Pl ) => cn.s!num!nform ++ poss_concord!cn.c!num!RI ++BIND++ np.s!NPoss ;
-        (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss
+        -- Third C1a_2a Sg => cn.s!num!nform ++ poss_concord_c1a!cn.c!num ++BIND++ np.s!NPoss ;
+        (First Pl | Second Pl ) => cn.s!num!nform ++ poss_concord!cn.c!num!np.agr ++BIND++ np.s!NPoss ;
+        (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.agr ++BIND++ np.s!NPoss
       }  ;
       -- mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
       c = cn.c ;
-      emph = cn.emph
+      predet = cn.predet
     } ;
 
     -- PartNP, CountNP, AdjDAP, DetDAP : not implemented

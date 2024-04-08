@@ -4,11 +4,6 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
 
   lin
 
---     RelCl cl = {
---       s = \\t,a,p,_ => "such" ++ "that" ++ cl.s ! t ! a ! p ! oDir ;
---       c = npNom
---       } ;
-
     RelVP rp vp = case vp.vptype of {
       CopIdent => rcl_with_id_cop_predicate rp vp ;
       CopAssoc => rcl_with_ass_cop_predicate rp vp ;
@@ -16,21 +11,6 @@ concrete RelativeZul of Relative = CatZul ** open ResZul,Prelude,ParamX in {
       CopDescr => rcl_with_descr_predicate rp vp ;
       _ => rcl_with_verb_predicate rp vp
     } ;
-
--- -- Pied piping: "that we are looking at". Pied piping and empty
--- -- relative are defined in $ExtraZul.gf$ ("at which we are looking",
--- -- "we are looking at").
---
---     RelSlash rp slash = {
---       s = \\t,a,p,ag =>
---         rp.s ! RC (fromAgr ag).g NPAcc ++ slash.s ! t ! a ! p ! oDir ++ slash.c2 ;
---       c = NPAcc
---       } ;
---
---     FunRP p np rp = {
---       s = \\c => np.s ! NPAcc ++ p.s ++ rp.s ! RPrep (fromAgr np.a).g ;
---       a = RAg np.a
---       } ;
 
     IdRP = { s = [] } ;
 

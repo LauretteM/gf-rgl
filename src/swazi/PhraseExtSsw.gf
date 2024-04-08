@@ -1,15 +1,18 @@
 concrete PhraseExtSsw of PhraseExt = CatSsw,CatExtSsw ** open ResSsw, Prelude, ParamX in {
 
   lin
+    ConsecS sent = { s = sent.s!SConsec } ;
+    SubjunctS sent = { s = sent.s!SSub } ;
+
     DirectSpeech phr t v np = {
       s = let
         vform = case t.t of {
           PastTense => v.s!R_e ;
           PresTense => v.s!R_a ;
-          _ => v.s!R_a ++ "*"
+          _ => nonExist -- v.s!R_a ++ "*"
         } ;
       in
-        phr.s ++ "ku" ++ BIND ++ vform ++ np.s!NFull ++ t.s
+        phr.s ++ SC_17 ++ BIND ++ vform ++ np.s!NFull ++ t.s
     } ;
 
     DirectSpeechNP np1 t v np2 = {
@@ -17,10 +20,10 @@ concrete PhraseExtSsw of PhraseExt = CatSsw,CatExtSsw ** open ResSsw, Prelude, P
         vform = case t.t of {
           PastTense => v.s!R_e ;
           PresTense => v.s!R_a ;
-          _ => v.s!R_a ++ "*"
+          _ => nonExist -- v.s!R_a ++ "*"
         } ;
       in
-        np1.s!NFull ++ "ku" ++ BIND ++ vform ++ np2.s!NFull ++ t.s
+        np1.s!NFull ++ SC_17 ++ BIND ++ vform ++ np2.s!NFull ++ t.s
     } ;
 
     DirectSpeechAdv adv t v np = {
@@ -28,10 +31,10 @@ concrete PhraseExtSsw of PhraseExt = CatSsw,CatExtSsw ** open ResSsw, Prelude, P
         vform = case t.t of {
           PastTense => v.s!R_e ;
           PresTense => v.s!R_a ;
-          _ => v.s!R_a ++ "*"
+          _ => nonExist -- v.s!R_a ++ "*"
         } ;
       in
-        adv.s ++ "ku" ++ BIND ++ vform ++ np.s!NFull ++ t.s
+        adv.s ++ SC_17 ++ BIND ++ vform ++ np.s!NFull ++ t.s
     } ;
 
     ExtPhrConj p1 p2 = {

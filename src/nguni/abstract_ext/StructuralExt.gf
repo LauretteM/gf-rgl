@@ -20,15 +20,15 @@ abstract StructuralExt = Cat, CatExt ** {
 
     yonder_Quant : Quant ;
 
-    phakathi_LocN : LocN ;
-    phansi_LocN : LocN ;
-    phesheya_LocN : LocN ;
-    phandle_LocN : LocN ;
-    phambili_LocN : LocN ;
-    phambi_LocN : LocN ;
-    phakade_LocN : LocN ;
-    phezulu_LocN : LocN ;
-    phezu_LocN : LocN ;
+    inside_LocN : LocN ;
+    below_LocN : LocN ;
+    on_the_other_side_LocN : LocN ;
+    outside_LocN : LocN ;
+    in_front_LocN : LocN ;
+    ahead_LocN : LocN ;
+    forever_LocN : LocN ;
+    above_LocN : LocN ;
+    on_top_LocN : LocN ;
 
     lapha_Loc : Loc ;
     khona_Loc : Loc ;
@@ -53,11 +53,14 @@ abstract StructuralExt = Cat, CatExt ** {
     but_also_Conj : Conj ;
     in_comparison_with_Conj : Conj ;
     while_Conj : Conj ;
+    however_Conj : Conj ;
 
-    where_ConjN : ConjN ;
+    where_ConjAdv : ConjAdv ;
 
     how_IComp : IComp ; -- -njani
     where_IComp : IComp ; -- -phi
     how_much_IComp : IComp ; -- -ngakanani
+
+    one_Enum : A ;
 
 }

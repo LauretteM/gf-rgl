@@ -5,6 +5,8 @@ abstract AdverbExt = Cat,CatExt ** {
     InstrNPAdv : NP -> Adv ; -- ngokuhlinzwa
     -- InstrAdvNPAdv : Adv -> NP -> Adv ; -- cishe ngehora
 
+    JustLikeNPAdv : NP -> Adv ;
+
     -- LocAdvNPAdv : Adv -> NP -> Adv ;   -- cishe emahoreni amabili
     KwaNPAdv : NP -> Adv ; -- kwa-Laurette
     KuNPAdv : NP -> Adv ; -- kwixesha [elingangeyure enye egqithileyo]
@@ -16,10 +18,14 @@ abstract AdverbExt = Cat,CatExt ** {
     -- LocNAdv : LocN -> LocAdv ;
     LocNNgaAdv : LocN -> LocAdv ;
     LocNPNgaAdv : NP -> LocAdv ; -- ngasekhaya
+    LocNPJustLikeAdv : NP -> LocAdv ; -- njengasekhaya
     LocNPAdv : NP -> LocAdv ;   -- emahoreni
 
     NPAdv : NP -> Adv ; -- sonke lesi sikhathi
 
-    ConjNAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
+    -- ConjNAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
+
+    
+
 
 }

@@ -75,97 +75,123 @@ concrete StructuralExtSsw of StructuralExt = CatSsw,CatExtSsw ** open ResSsw, Pr
       dist = Dem3
     } ;
 
-    phakathi_LocN = { s = "phakathi" ; empty = [] } ;
-    phansi_LocN = { s = "phansi" ; empty = [] } ;
-    phesheya_LocN = { s = "phesheya" ; empty = [] } ;
-    phandle_LocN = { s = "phandle" ; empty = [] } ;
-    phambili_LocN = { s = "phambili" ; empty = [] } ;
-    phambi_LocN = { s = "phambi" ; empty = [] } ;
-    phakade_LocN = { s = "phakade" ; empty = [] } ;
-    pheSswu_LocN = { s = "pheSswu" ; empty = [] } ;
+    inside_LocN = { s = "phakathi" ; empty = [] } ;
+    below_LocN = { s = "phansi" ; empty = [] } ;
+    on_the_other_side_LocN = { s = "phesheya" ; empty = [] } ;
+    outside_LocN = { s = "phandle" ; empty = [] } ;
+    in_front_LocN = { s = "phambili" ; empty = [] } ;
+    ahead_LocN = { s = "phambi" ; empty = [] } ;
+    forever_LocN = { s = "phakade" ; empty = [] } ;
+    above_LocN = { s = "phezulu" ; empty = [] } ;
+    on_top_LocN = { s = "phezulu" ; empty = [] } ;
 
     lapha_Loc = {
       s = table {
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
           pcp = ap_cop_pref vform a RelType ; -- u-
-          cop_base = "lapha"
+          cop_base = ADV_LAPHA
         in
           case vform of {
             VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => pcp ++ cop_base
+            VFIndic _ _ _ => pcp ++ cop_base ;
+            VFConsec _ => nonExist ; -- "*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- [] / zoba
-          cop_base = "lapha" -- lapha
+          cop_base = ADV_LAPHA -- lapha
         in
         case vform of {
           VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-          VFIndic _ _ _ => rcp ++ pcp ++ cop_base
+          VFIndic _ _ _ => rcp ++ pcp ++ cop_base ;
+            VFConsec _ => nonExist ; -- "*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
         }
       } ;
       imp_s = table {
         Sg => table {
-          Pos => "yiba" ++ "lapha" ;
-          Neg => "ungabi" ++ "lapha"
+          Pos => COP_YI++BIND++BA ++ ADV_LAPHA ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ ADV_LAPHA
         } ;
         Pl => table {
-          Pos => "yibani" ++ "lapha" ;
-          Neg => "ningabi" ++ "lapha"
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ ADV_LAPHA ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ ADV_LAPHA
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "ukuba" ++ "lapha" ;
-          Neg => "ukungabi" ++ "lapha"
+          Pos => INF_PREF_FULL++BIND++BA ++ ADV_LAPHA ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_LAPHA
         } ;
         NReduced | NPoss => table {
-          Pos => "kuba" ++ "lapha" ;
-          Neg => "kungabi" ++ "lapha"
+          Pos => INF_PREF_REDUCED++BIND++BA ++ ADV_LAPHA ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ ADV_LAPHA
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "lapha" ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "lapha"
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ ADV_LAPHA ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_LAPHA
         }
-      }
+      } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = ap_cop_pref vform a RelType ; -- u-
+          cop_base = ADV_LAPHA
+        in
+          case vform of {
+            VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
+            VFIndic _ _ _ => pcp ++ cop_base ;
+            VFConsec _ => nonExist ; --"*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
+          } 
     } ;
 
     khona_Loc = {
       s = \\c,a,p,t => kho_cop (VFIndic c p t) a ;
       imp_s = table {
         Sg => table {
-          Pos => "yiba" ++ "khona" ;
-          Neg => "ungabi" ++ "khona" -- this is a guess
+          Pos => COP_YI++BIND++BA ++ ADV_KHONA ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ ADV_KHONA -- this is a guess
         } ;
         Pl => table {
-          Pos => "yibani" ++ "khona" ;
-          Neg => "ningabi" ++ "khona"
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ ADV_KHONA ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ ADV_KHONA
         }
       } ;
       inf_s = table {
         NFull => table {
-          Pos => "ukuba" ++ "khona" ;
-          Neg => "ukungabi" ++ "khona"
+          Pos => INF_PREF_FULL++BIND++BA ++ ADV_KHONA ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_KHONA
         } ;
         NReduced | NPoss => table {
-          Pos => "kuba" ++ "khona" ;
-          Neg => "kungabi" ++ "khona"
+          Pos => INF_PREF_REDUCED++BIND++BA ++ ADV_KHONA ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ ADV_KHONA
         } ;
         NLoc => table {
-          Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukuba" ++ "khona" ;
-          Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++"ukungabi" ++ "khona"
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ ADV_KHONA ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ ADV_KHONA
         }
-      }
+      } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } 
+        in
+          kho_cop vform a
     } ;
 
     at_which_IAdv np = {
-      s = "nga" ++BIND++ atwhichPhiPref!np.agr ++BIND++ "phi" ++ (np.s!NFull) ;
+      s = ADV_NGA ++BIND++ atwhichPhiPref!np.agr ++BIND++ ADV_PHI ++ (np.s!NFull) ;
       postIAdv = False
     } ;
 
-    what_IAdv = {s = BIND++"ni" ; postIAdv = True } ;
+    what_IAdv = {s = BIND++ADV_NI ; postIAdv = True } ;
 
     how_many_IAdj = regAdj "ngaki" ;
 
@@ -173,20 +199,49 @@ concrete StructuralExtSsw of StructuralExt = CatSsw,CatExtSsw ** open ResSsw, Pr
     emuva_LocAdv = { s = "emuva" ; reqLocS = False } ;
     ecaleni_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
     ngaphezu_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
-    ngapheSswu_LocAdv = { s = "ngapheSswu" ; reqLocS = False } ;
+    ngaphezulu_LocAdv = { s = "ngaphezulu" ; reqLocS = False } ;
     ngaphandle_LocAdv = { s = "ngaphandle" ; reqLocS = False } ;
     ngaphansi_LocAdv = { s = "ngaphansi" ; reqLocS = False } ;
 
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
     with_Conj = {
-      s = withPref ;
-      fix = True
+      s = \\a => withPref!a ++BIND 
     } ;
 
-    where_ConjN = { s = "lapho" } ;
+    together_with_Conj = {
+      s = \\a => "kanye" ++ withPref!a ++BIND
+    } ;
+
+    and_then_Conj = {
+      s = \\_ => "bese"
+    } ;
+
+    but_also_Conj = {
+      s = \\a => "kodvwa" ++ withPref!a ++BIND
+    } ;
+
+    in_comparison_with_Conj = {
+      s = \\a => "ku" ++BIND++ withPref!a ++BIND
+    } ;
+
+    while_Conj = {
+      s = \\_ => "kanti" 
+    } ;
+
+    however_Conj = {
+      s = \\_ => "kodvwa" 
+    } ;
+
+    where_ConjAdv = { s = "lapho" } ;
 
     how_IComp = { s = "njani" ; postIComp = False } ; -- -njani
     where_IComp = { s = "phi" ; postIComp = True } ; -- -phi
     how_much_IComp = { s = "ngakanani" ; postIComp = False } ; -- -ngakanani
+
+    one_Enum = {
+      s = \\_ => "nye" ;
+      empty = [] ;
+      t = EnumType
+    } ;
 }

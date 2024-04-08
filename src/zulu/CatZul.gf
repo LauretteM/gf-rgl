@@ -128,8 +128,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 
 -- Structural
 
-    Conj = { s : RInit => Str ; fix : Bool } ;
-    Subj = {s : Str} ;
+    Conj = { s : RInit => Str } ;
+    Subj = { s : SType => Str } ;
     -- Adv = { s : Str ; asp : Aspect ; reqLocS : Bool } ;
 --     Prep = {s : Str; isPre : Bool} ;
 --     CAdv = {s : Polarity => Str; p : Str} ;

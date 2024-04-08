@@ -153,12 +153,12 @@ oper
     mkVS : (az,azi : Str) -> SType -> VS  = \az,azi,st -> lin VS ((th_Verb az azi) ** { s_type = st } ) ;
   } ;
 
-  mkVAux = overload {
-    mkVAux : (hlale : Str) -> VAux  = \hlale -> lin VAux {
-      s = hlale ;
-      at = PartAux
-    }
-  } ;
+  -- mkVAux = overload {
+  --   mkVAux : (hlale : Str) -> VAux  = \hlale -> lin VAux {
+  --     s = hlale ;
+  --     at = PartAux
+  --   }
+  -- } ;
 
   -- yourPl_Det = overload {
   --   yourPl_Det : Det = lin Det { s = "jou" ; n = Pl ; p = TPos } ;

@@ -2,6 +2,7 @@
 
 concrete NguniChunkSsw of NguniChunk =
   NguniGrammarSsw,
+  AdverbExtSsw,
   BackwardSsw[ComplV2,ComplV3,ComplV2V],
   NounExtSsw,
   PhraseExtSsw,

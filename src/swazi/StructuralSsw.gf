@@ -19,12 +19,12 @@ concrete StructuralSsw of Structural = CatSsw **
 
   -- Adv
   --   everywhere_Adv = mkAdv "everywhere" ;
-  --   here_Adv = mkAdv "here" ;
+    here_Adv = mkAdv "lapha" ;
   --   here7to_Adv = mkAdv ["to here"] ;
   --   here7from_Adv = mkAdv ["from here"] ;
   --   quite_Adv = mkAdv "quite" ;
   --   somewhere_Adv = mkAdv "somewhere" ;
-  --   there_Adv = mkAdv "there" ;
+    there_Adv = mkAdv "khona" ;
   --   there7to_Adv = mkAdv "there" ;
   --   there7from_Adv = mkAdv ["from there"] ;
 
@@ -153,7 +153,7 @@ concrete StructuralSsw of Structural = CatSsw **
   -- Utt
   --   no_Utt = ss "no" ;
   --   yes_Utt = ss "yes" ;
-    language_title_Utt = ss "Sswu" ;
+    language_title_Utt = ss "Swazi" ;
 
   -- Voc
   --   please_Voc = ss "please" ;

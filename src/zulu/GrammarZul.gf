@@ -9,7 +9,6 @@ concrete GrammarZul of Grammar =
   SentenceZul,
   QuestionZul,
   RelativeZul,
-  ConjunctionZul,
   PhraseZul,
   TextX - [Temp,Adv,IAdv],
   StructuralZul,

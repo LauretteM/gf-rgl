@@ -12,7 +12,7 @@ concrete CatExtZul of CatExt = open ResZul,Prelude,ParamX in {
     QuantStem = { s : Agr => Str } ;
     RelStem = { s : Str } ;
     VAux = { s : Str ; at : AuxType } ;
-    ConjN = { s : Str } ;
+    ConjN = { s : RInit => Str ; fix : Bool } ;
     IAdj = { s : AForm => Str } ;
     -- INAdv = { s : Str ; postIAdv : Bool } ;
 

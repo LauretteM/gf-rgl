@@ -19,56 +19,15 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
           False => True
         }
       in {
-        s = \\p,t => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        s = \\p,t,s => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        consubj_s = \\m,p => np.s!NFull ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
+        rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
       } ;
-      _ => cl_with_verb_predicate np vp
+      _ => cl_with_verb_predicate np vp 
     } ;
-
---     PredSCVP sc vp = mkClause sc.s (agrP3 Sg) vp ;
-
-    -- ImpVP vp = let
-    --   np = {
-    --     empty = [] ;
-    --     s = table {NFull|NReduced|NPoss|NLoc => []} ;
-    --     -- loc = [] ;
-    --     -- desc = [] ;
-    --     -- det = [] ;
-    --     agr = Second Sg ;
-    --     i = nominit!(Second Sg) ;
-    --     proDrop = True ;
-    --     isPron = True ;
-    --     heavy = False
-    --     -- reqLocS = True ;
-    --     -- qdef = Article Spec
-    --   } ;
-    --   impTense = PresTense
-    -- in case vp.vptype of {
-    --   NoComp => let
-    --     yi = case vp.syl of {
-    --       SylMono => "yi"++BIND ;
-    --       _ => []
-    --     }
-    --   in {
-    --     s = table {
-    --       Pos => yi ++ vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
-    --       Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
-    --     }
-    --   } ;
-    --   VNPCompl => {
-    --     s = table {
-    --       Pos => vp.s!MainCl!np.agr!Pos!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs ;
-    --       Neg => "unga" ++ vp.s!MainCl!np.agr!Neg!impTense!False ++ vp.comp ++ vp.iadv ++ vp.advs
-    --     }
-    --   } ;
-    --
-    --   CopIdent => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-    --   CopAssoc => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-    --   CopDescr => {s = \\pol => (comp_pred np vp).s!pol!impTense } ;
-    --   CopEq => {s = \\pol => (cl_with_eq_cop_predicate np vp).s!pol!impTense } ;
-    --   -- VACompl => {s = \\pol => (cl_with_ap_comp_predicate np vp).s!pol!impTense!Princ } ;
-    --   AdvComp => {s = \\pol => (cl_with_adv_comp_predicate np vp).s!pol!impTense } ;
-    --   _ => {s = \\pol => (imp_verb_predicate np vp).s!pol!impTense }
-    -- } ;
 
     ImpVP vp = {
       s = \\n,p => vp.imp_s!n!p ++ vp.comp ++ vp.iadv ++ vp.advs
@@ -94,23 +53,33 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
 --     EmbedVP vp = {s = infVP VVInf vp False Simul CPos (agrP3 Sg)} ;
 
     UseCl t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t
+      s = table {
+        SInd => t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null ;
+        SSub => case t.t of {
+          PresTense => t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p ;
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! SubjCl ! p.p
+        } ;
+        SConsec => case t.t of {
+          PastTense => t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p ;
+          _ => nonExist -- "*" ++ t.s ++ p.s ++ cl.consubj_s ! ConsecCl ! p.p
+        } 
+      }
     } ;
     UseQCl t p cl = {
-      s = t.s ++ p.s ++ cl.s ! p.p ! t.t  ;
+      s = t.s ++ p.s ++ cl.s ! p.p ! t.t ! Null  ;
       -- potqs = t.s ++ p.s ++ cl.potqcl ! p.p ! Princ ;
       qword_pre = cl.qword_pre ;
       qword_post = cl.qword_post
     } ;
     UseRCl temp pol rcl = {
-      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t ;
+      s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Null ;
     } ;
 --     UseSlash t p cl = {
 --       s = t.s ++ p.s ++ cl.s ! t.t ! t.a ! ctr p.p  ! oDir ;
 --       c2 = cl.c2
 --     } ;
 --
-    AdvS a s = {s = a.s ++ s.s} ;
+    AdvS a s = {s = \\st => a.s ++ s.s!st } ;
 --     ExtAdvS a s = {s = a.s ++ frontComma ++ s.s} ;
 --
 --     SSubjS a s b = {s = a.s ++ frontComma ++ s.s ++ b.s} ;
@@ -123,27 +92,24 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
 
   oper
 
-    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str ; consubj_s : DMType => Polarity => Str ; rinit : RInit } = \np,vp -> {
+      s = \\p,t,s =>
         let
           subj = np.s!NFull
         in
           subj ++
-          vp.s!MainCl!np.agr!p!t!False
-          ++ vp.comp ++ vp.iadv ++ vp.advs
-    } ;
-
-    imp_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+          vp.s!MainCl!np.agr!p!t!s!False
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      
+      consubj_s = \\m,p =>
         let
-          subj = np.s!NFull ;
-          vform_main = VFIndic MainCl p t ;
-        in
-          impPref p
-          ++ vp.s!MainCl!np.agr!p!t!False
-          ++ vp.iadv
-          ++ vp.comp
-          ++ vp.advs
+          subj = np.s!NFull
+        in 
+          subj ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
     -- imp_verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
@@ -172,8 +138,14 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
     --    -- ++ (tensePref vform)
     -- ;
 
-    cl_with_verb_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    cl_with_verb_predicate :
+      NP ->
+      VP -> {
+          s : Polarity => BasicTense => Aspect => Str ;
+          consubj_s : DMType => Polarity => Str ;
+          rinit : RInit
+      } = \np,vp -> {
+      s = \\p,t,s =>
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
@@ -184,10 +156,28 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
         in
           subj
           -- ++ (verb_prefix vp p t np.agr)
-          ++ vp.s!MainCl!np.agr!p!t!longform_suffix
+          ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix
           ++ vp.iadv
           ++ vp.comp
-          ++ vp.advs
+          ++ vp.advs ;
+      consubj_s = \\m,p =>
+        let
+          subj = np.s!NFull ;
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p
+          }
+        in
+          subj
+          -- ++ (verb_prefix vp p t np.agr)
+          ++ vp.consubj_s!m!np.agr!p
+          ++ vp.iadv
+          ++ vp.comp
+          ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
     -- verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
@@ -220,9 +210,14 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
     --    -- ++ (tensePref vform)
     -- ;
 
-    -- TODO: aspect
-    cl_with_eq_cop_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    cl_with_eq_cop_predicate :
+      NP ->
+      VP -> {
+        s : Polarity => BasicTense => Aspect => Str ;
+        consubj_s : DMType => Polarity => Str ;
+        rinit : RInit
+      } = \np,vp -> {
+      s = \\p,t,s =>
         let
           vform_main = VFIndic MainCl p t ;
           subj = np.s!NFull ;
@@ -231,12 +226,34 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
         in
           subj ++
           -- pcp ++
-          vp.s!MainCl!np.agr!p!t!False
-          ++ vp.comp ++ vp.iadv ++ vp.advs
+          vp.s!MainCl!np.agr!p!t!s!False
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      consubj_s = \\m,p =>
+        let
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p
+          } ;
+          subj = np.s!NFull ;
+          pcp = pre_cop_pref vform np.agr ;
+        in
+          subj ++
+          vp.consubj_s!m!np.agr!p
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
-    cl_with_adv_comp_predicate : NP -> VP -> { s : Polarity => BasicTense => Str } = \np,vp -> {
-      s = \\p,t =>
+    cl_with_adv_comp_predicate :
+      NP ->
+      VP -> {
+        s : Polarity => BasicTense => Aspect => Str ;
+        consubj_s : DMType => Polarity => Str ;
+        rinit : RInit
+      } = \np,vp -> {
+      s = \\p,t,s =>
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
@@ -246,7 +263,7 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
             <_,_,_> => False
           } ;
           lfya = case <vp.hasComp,p,t> of {
-            <False,Pos,PresTense> => "ya" ++BIND ;
+            <False,Pos,PresTense> => LONG_YA ++BIND ;
             <_,_,_> => []
           } ;
           reqLF = case vp.hasComp of {
@@ -255,15 +272,23 @@ concrete SentenceSsw of Sentence = CatSsw ** open Prelude,ResSsw,ParamX in {
           }
         in
           subj ++
-          -- ++ (negPref vform_main)
-          -- -- ++ (exclSePref vform_main)
-          -- ++ (subjConc vform_main np.agr vow)
-          -- -- ++ (negPref2 vform_main)
-          -- ++ lfya
-          -- -- ++ (tensePref vform_main)
-          -- ++ vp.comp
-          vp.s!MainCl!np.agr!p!t!False
-          ++ vp.comp ++ vp.iadv ++ vp.advs
+          vp.s!MainCl!np.agr!p!t!s!False
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      consubj_s = \\m,p => 
+        let
+          subj = np.s!NFull ;
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p
+          } 
+        in
+          subj ++
+          vp.consubj_s!m!np.agr!p
+          ++ vp.comp ++ vp.iadv ++ vp.advs ;
+      rinit = case np.proDrop of {
+        False => np.i ;
+        True => vp.r
+      }
     } ;
 
 }
