@@ -3,13 +3,13 @@
 abstract SBantuLang =
   SBantuGrammar,
   Backward[ComplV2,ComplV3,ComplV2V],
-  AdverbExt,
-  NounExt,
-  PhraseExt,
-  RelativeExt,
-  SentenceExt,
-  StructuralExt,
-  VerbExt
+  AdverbSBantu,
+  NounSBantu,
+  PhraseSBantu,
+  RelativeSBantu,
+  SentenceSBantu,
+  StructuralSBantu,
+  VerbSBantu
   ** {
   flags startcat=Phr ;
   } ;

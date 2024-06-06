@@ -1,4 +1,4 @@
-concrete PChunkZul of PChunk = CatZul, CatExtZul, SymbolZul [Symb] **
+concrete PChunkZul of PChunk = CatZul, CatSBantuZul, SymbolZul [Symb] **
   open
     Prelude, ResZul, ParamX,
     (R = ResZul), (P = ParadigmsZul) in {

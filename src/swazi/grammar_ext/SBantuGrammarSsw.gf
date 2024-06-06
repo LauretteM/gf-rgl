@@ -5,7 +5,7 @@ concrete SBantuGrammarSsw of SBantuGrammar =
   VerbSsw [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveSsw [PositA, AdAP],
   AdverbSsw [PositAdvAdj, SubjS],
-  NumeralExtSsw [NumeralAP,NumeralNP],
+  NumeralSBantuSsw [NumeralAP,NumeralNP],
   SentenceSsw [PredVP, ImpVP, UseCl, UseQCl, UseRCl,AdvS],
   QuestionSsw [QuestCl, QuestIAdv, QuestIComp],
   RelativeSsw [RelVP, IdRP],
@@ -16,7 +16,7 @@ concrete SBantuGrammarSsw of SBantuGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempExtSsw -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantuSsw -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ** open ResSsw, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

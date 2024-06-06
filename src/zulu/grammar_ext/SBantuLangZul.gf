@@ -3,13 +3,13 @@
 concrete SBantuLangZul of SBantuLang =
   SBantuGrammarZul,
   BackwardZul[ComplV2,ComplV3,ComplV2V],
-  AdverbExtZul,
-  NounExtZul,
-  PhraseExtZul,
-  RelativeExtZul,
-  SentenceExtZul,
-  StructuralExtZul,
-  VerbExtZul
+  AdverbSBantuZul,
+  NounSBantuZul,
+  PhraseSBantuZul,
+  RelativeSBantuZul,
+  SentenceSBantuZul,
+  StructuralSBantuZul,
+  VerbSBantuZul
   ** {
 
 

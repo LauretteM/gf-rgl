@@ -5,7 +5,7 @@ resource ParadigmsNso = open
   Prelude,
   ResNso,
   CatNso,
-  CatExtNso,
+  CatSBantuNso,
   ParamX
   in {
 

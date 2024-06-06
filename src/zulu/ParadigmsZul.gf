@@ -7,7 +7,7 @@ resource ParadigmsZul = open
   -- MorphoZul,
   ResZul,
   CatZul,
-  CatExtZul,
+  CatSBantuZul,
   ParamX
   in {
 

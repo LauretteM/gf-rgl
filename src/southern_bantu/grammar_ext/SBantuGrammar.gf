@@ -5,7 +5,7 @@ abstract SBantuGrammar =
   Verb [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   Adjective [PositA, AdAP],
   Adverb [PositAdvAdj, SubjS],
-  NumeralExt [NumeralAP,NumeralNP],
+  NumeralSBantu [NumeralAP,NumeralNP],
   Sentence [PredVP, ImpVP, UseCl, UseQCl, UseRCl,AdvS],
   Question [QuestCl, QuestIAdv, QuestIComp],
   Relative [RelVP, IdRP],
@@ -16,5 +16,5 @@ abstract SBantuGrammar =
   -- Idiom,
   Tense [PPos, PNeg],
   -- Transfer ,
-  TempExt -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantu -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ;

@@ -1,4 +1,4 @@
-concrete PChunkSsw of PChunk = CatSsw, CatExtSsw, SymbolSsw [Symb] **
+concrete PChunkSsw of PChunk = CatSsw, CatSBantuSsw, SymbolSsw [Symb] **
   open
     Prelude, ResSsw, ParamX,
     (R = ResSsw), (P = ParadigmsSsw) in {

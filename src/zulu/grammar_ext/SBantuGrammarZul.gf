@@ -5,7 +5,7 @@ concrete SBantuGrammarZul of SBantuGrammar =
   VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveZul [PositA, AdAP],
   AdverbZul [PositAdvAdj, SubjS],
-  NumeralExtZul [NumeralAP,NumeralNP],
+  NumeralSBantuZul [NumeralAP,NumeralNP],
   SentenceZul [PredVP, ImpVP, UseCl, UseQCl, UseRCl,AdvS],
   QuestionZul [QuestCl, QuestIAdv, QuestIComp],
   RelativeZul [RelVP, IdRP],
@@ -16,7 +16,7 @@ concrete SBantuGrammarZul of SBantuGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempExtZul -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantuZul -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ** open ResZul, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

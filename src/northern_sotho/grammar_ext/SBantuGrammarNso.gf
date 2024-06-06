@@ -5,7 +5,7 @@ concrete SBantuGrammarNso of SBantuGrammar =
   VerbNso [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveNso [PositA, AdAP],
   AdverbNso [PositAdvAdj, SubjS],
-  NumeralExtNso [NumeralAP,NumeralNP],
+  NumeralSBantuNso [NumeralAP,NumeralNP],
   SentenceNso [PredVP, ImpVP, UseCl, UseQCl, UseRCl,AdvS],
   QuestionNso [QuestCl, QuestIAdv, QuestIComp],
   RelativeNso [RelVP, IdRP],
@@ -16,7 +16,7 @@ concrete SBantuGrammarNso of SBantuGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempExtNso -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantuNso -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ** open ResNso, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

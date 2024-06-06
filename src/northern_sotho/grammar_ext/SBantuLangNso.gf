@@ -3,13 +3,13 @@
 concrete SBantuLangNso of SBantuLang =
   SBantuGrammarNso,
   BackwardNso[ComplV2,ComplV3,ComplV2V],
-  AdverbExtNso,
-  NounExtNso,
-  PhraseExtNso,
-  RelativeExtNso,
-  SentenceExtNso,
-  StructuralExtNso,
-  VerbExtNso
+  AdverbSBantuNso,
+  NounSBantuNso,
+  PhraseSBantuNso,
+  RelativeSBantuNso,
+  SentenceSBantuNso,
+  StructuralSBantuNso,
+  VerbSBantuNso
   ** {
 
 

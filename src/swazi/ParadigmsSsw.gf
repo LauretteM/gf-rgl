@@ -6,7 +6,7 @@ resource ParadigmsSsw = open
   -- MorphoSsw,
   ResSsw,
   CatSsw,
-  CatExtSsw,
+  CatSBantuSsw,
   ParamX
   in {
 
