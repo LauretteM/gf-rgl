@@ -530,7 +530,7 @@ param
     case cb of {CPos => ""; _ => "not"} ++
     case ant of {
       Simul => case typ of {
-                 VVAux => vp.ad ! a ++ vp.inf ;
+                 VVAux => vp.ad ! a ++ "to" ++ vp.inf ;
                  VVInf => case ad_pos of {            ---- this is the "split infinitive"
                             True  => vp.ad ! a ++ "to" ++ vp.inf ;
                             False => "to" ++ vp.ad ! a ++ vp.inf
