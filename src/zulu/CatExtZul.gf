@@ -9,8 +9,7 @@ concrete CatExtZul of CatExt = open ResZul,Prelude,ParamX in {
     } ;
     LocN = { s : Str } ;
     LocAdv = { s : Str ; reqLocS : Bool } ;
-    QuantStem = { s : Agr => Str } ;
-    RelStem = { s : Str } ;
+    QuantPron = { s : Agr => Str } ;
     VAux = { s : Str ; at : AuxType } ;
     ConjN = { s : RInit => Str ; fix : Bool } ;
     IAdj = { s : AForm => Str } ;

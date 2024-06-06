@@ -76,7 +76,7 @@ concrete SentenceExtZul of SentenceExt = CatZul,CatExtZul ** open ResZul, Prelud
       s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Excl 
     } ;
 
-    ExtConjS s1 conj s2 = {
+    SConjS s1 conj s2 = {
       s = \\st => s1.s!st ++ conj.s!RC ++ s2.s!st 
     } ;
 

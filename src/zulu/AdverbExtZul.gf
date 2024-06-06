@@ -2,7 +2,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
 
   lin
 
-    InstrNPAdv np =
+    InstrAdv np =
     let
       pref = instrPref!(initNP np.isPron np.agr)
     in {
@@ -10,7 +10,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       reqLocS = False
     } ;
 
-    JustLikeNPAdv np =
+    JustLikeAdv np =
     let
       pref = eqPref!(initNP np.isPron np.agr)
     in {
@@ -19,13 +19,13 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
     } ;
 
     -- locative kwa
-    KwaNPAdv np = {
+    PlaceLocAdv np = {
       s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
     -- locative ku
-    KuNPAdv np = {
+    PersonLocAdv np = {
       s = case np.isPron of {
         True => LOC_KI ;
         False => case (initNP np.isPron np.agr) of {
@@ -38,7 +38,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       reqLocS = False
     } ;
 
-    NaNPAdv np = {
+    AssocAdv np = {
       s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
@@ -67,7 +67,7 @@ concrete AdverbExtZul of AdverbExt = CatZul,CatExtZul ** open ResZul, Prelude, P
       reqLocS = False
     } ;
 
-    LocNPAdv np = {
+    LocativisedNounAdv np = {
       s = np.s!NLoc ;
       reqLocS = case <np.isPron,np.agr> of {
         <False,Third C1a_2a _> => False ;

@@ -2,7 +2,7 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
 
   lin
 
-    only_QuantStem = {
+    only_QuantPron = {
       s = table {
         Third C1_2 Sg => "yedwa" ;
         Third C1_2 Pl => "bodwa" ;
@@ -29,7 +29,7 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
         Second Pl => "nodwa"
       }
     } ;
-    all_QuantStem = {
+    all_QuantPron = {
       s = table {
         Third C1_2 Sg => "wonke" ;
         Third C1_2 Pl => "bonke" ;
@@ -85,7 +85,7 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
     above_LocN = { s = "phezulu" ; empty = [] } ;
     on_top_LocN = { s = "phezulu" ; empty = [] } ;
 
-    lapha_Loc = {
+    here_Loc = {
       s = table {
         MainCl => \\a,p,t => let
           vform = VFIndic MainCl p t ;
@@ -151,7 +151,7 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
           } 
     } ;
 
-    khona_Loc = {
+    there_Loc = {
       s = \\c,a,p,t => kho_cop (VFIndic c p t) a ;
       imp_s = table {
         Sg => table {
@@ -195,13 +195,13 @@ concrete StructuralExtZul of StructuralExt = CatZul,CatExtZul ** open ResZul, Pr
 
     how_many_IAdj = regAdj "ngaki" ;
 
-    ngemuva_LocAdv = { s = "ngemuva" ; reqLocS = False } ;
-    emuva_LocAdv = { s = "emuva" ; reqLocS = False } ;
-    ecaleni_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
-    ngaphezu_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
-    ngaphezulu_LocAdv = { s = "ngaphezulu" ; reqLocS = False } ;
-    ngaphandle_LocAdv = { s = "ngaphandle" ; reqLocS = False } ;
-    ngaphansi_LocAdv = { s = "ngaphansi" ; reqLocS = False } ;
+    at_the_back_LocAdv = { s = "ngemuva" ; reqLocS = False } ;
+    behind_LocAdv = { s = "emuva" ; reqLocS = False } ;
+    on_the_side_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
+    above_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
+    above_2_LocAdv = { s = "ngaphezulu" ; reqLocS = False } ;
+    on_the_outside_LocAdv = { s = "ngaphandle" ; reqLocS = False } ;
+    below_LocAdv = { s = "ngaphansi" ; reqLocS = False } ;
 
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 

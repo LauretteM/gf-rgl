@@ -76,7 +76,7 @@ concrete SentenceExtSsw of SentenceExt = CatSsw,CatExtSsw ** open ResSsw, Prelud
       s = \\a => temp.s ++ pol.s ++ rcl.s!a!pol.p!temp.t!Excl 
     } ;
 
-    ExtConjS s1 conj s2 = let
+    SConjS s1 conj s2 = let
       conj_agr = Third C5_6 Sg ; -- TODO: get from s2
     in {
       s = \\st => s1.s!st ++ conj.s!conj_agr ++ s2.s!st 
