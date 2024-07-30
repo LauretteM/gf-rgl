@@ -64,5 +64,11 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
     } ;
 
     -- NPAdv : NP -> Adv ; -- sonke lesi sikhathi
+    NPAdv np = {
+      s = case np.proDrop of {
+        False => np.s!Absolute ;
+        True => nonExist -- "*" ++ np.s!NFull
+      }
+    } ;
 
 }
