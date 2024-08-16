@@ -1,7 +1,7 @@
 resource ResNso = open Prelude,ParamX in {
     
     param
-        ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C14_6 | C14 | C15 | C16 | C17 | C18 ;    -- nso noun classes, 23-05-2023
+        ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C14_6 | C14 | C15 | C16 | C17 | C18 ; -- | CLocGa | CLocN ;    -- nso noun classes, 23-05-2023
         -- Number = Sg | Pl ;
         Agr = First Number | Second Number | Third ClassGender Number ;
         NPForm = Absolute | Possessive | Locative ; 
@@ -12,7 +12,7 @@ resource ResNso = open Prelude,ParamX in {
         ReducedTensedCl = RedIndicCl | RedSitCl ;
         UntensedCl = SubjunctCl | ConsecCl ;
         -- Polarity = Pos | Neg ;
-        BasicTense = Past | Pres | Fut ;
+        BasicTense = PastTense | PresTense | FutTense ;
                 
         VForm = VFTensed TensedCl Polarity BasicTense | -- Indicative, situative and relative moods
                 VFUntensed UntensedCl Polarity ; -- Subjunctive and consecutive moods
@@ -31,7 +31,49 @@ resource ResNso = open Prelude,ParamX in {
         cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"y"|"z") ;
         labial_cons : pattern Str = #("p"|"b"|"f"|"m" ) ;
 
-        mkNounWC : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        mkNounExplicit : Str -> Str -> Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \abssg,locsg,abspl,locpl,cg -> let
+            ntype = case cg of {
+                (C1_2| C1a_2a) => HumanN ;
+                (C14_6 | C14) => AbstractN ;
+                _ => ConcreteN
+            }
+        in {
+            s = table {
+                Sg => table {
+                    Absolute => abssg ;
+                    Possessive => abssg ;
+                    Locative => locsg
+                } ;
+                Pl => table {
+                    Absolute => abspl ;
+                    Possessive => abspl ;
+                    Locative => locpl
+                }
+            } ;
+            c = cg ;
+            nt = ntype
+        } ;
+
+        mkNounWC : Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \stemsg, stempl, cg, nt -> {
+            s = table {
+                Sg => table {
+                    Absolute => (mkNPre cg Sg) + stemsg ;
+                    Possessive => (mkNPre cg Sg) + stemsg ;
+                    Locative => mkLoc nt ((mkNPre cg Sg) + stemsg)
+                } ;
+                Pl => table {
+                    Absolute => (mkNPre cg Pl) + stempl ;
+                    Possessive => (mkNPre cg Pl) + stempl ;
+                    Locative => mkLoc nt ((mkNPre cg Pl) + stempl)
+                }
+            } ;
+            c = cg ;
+            nt = nt
+        } ; 
+
+        mkTypedNoun : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg, nt -> {
             s = table {
                 Sg => table {
@@ -49,6 +91,15 @@ resource ResNso = open Prelude,ParamX in {
             nt = nt
         } ; 
 
+        mkIrregNoun : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \stemsg, stempl, cg -> let
+            ntype = case cg of {
+                (C1_2| C1a_2a) => HumanN ;
+                (C14_6 | C14) => AbstractN ;
+                _ => ConcreteN
+            }
+            in mkNounWC stemsg stempl cg ntype ;
+
         mkNoun : Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg -> let
             ntype = case cg of {
@@ -56,7 +107,7 @@ resource ResNso = open Prelude,ParamX in {
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-        in mkNounWC root cg ntype ;
+        in mkNounWC root root cg ntype ;
 
         mkLocClassNoun : Str -> ClassGender -> { s : Str ; c : ClassGender }
         = \n, lcg -> {
@@ -241,12 +292,12 @@ resource ResNso = open Prelude,ParamX in {
         subjConc : VForm -> Agr ->  Str = \vform,agr ->
             case vform of {
                 VFTensed IndicCl Pos _ => subjConcLookup ! agr ! SC1 ; 
-                VFTensed IndicCl Neg Pres => subjConcLookup ! agr ! SC1Alt ;
-                VFTensed IndicCl Neg Past => subjConcLookup ! agr ! SC2 ;
-                VFTensed IndicCl Neg Fut => subjConcLookup ! agr ! SC1AltPreKa ;
-                VFTensed RelCl Neg Fut => subjConcLookup ! agr ! SC1AltPreKa ;
+                VFTensed IndicCl Neg PresTense => subjConcLookup ! agr ! SC1Alt ;
+                VFTensed IndicCl Neg PastTense => subjConcLookup ! agr ! SC2 ;
+                VFTensed IndicCl Neg FutTense => subjConcLookup ! agr ! SC1AltPreKa ;
+                VFTensed RelCl Neg FutTense => subjConcLookup ! agr ! SC1AltPreKa ;
                 VFTensed RelCl _ _ => subjConcLookup ! agr ! SC1Alt ; 
-                VFTensed SitCl Neg Fut => subjConcLookup ! agr ! SC1AltPreKa ; 
+                VFTensed SitCl Neg FutTense => subjConcLookup ! agr ! SC1AltPreKa ; 
                 VFTensed SitCl _ _  => subjConcLookup ! agr ! SC1Alt ;
                 VFUntensed SubjunctCl _ => subjConcLookup ! agr ! SC1Alt ;
                 VFUntensed ConsecCl _ => subjConcLookup ! agr ! SC2 
@@ -289,29 +340,29 @@ resource ResNso = open Prelude,ParamX in {
 
         vRootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Str = \v,p,t ->
         case <p,t> of {
-                <Pos, Pres> => v.s!VPreReg!VS_a ;
-                <Pos, Past> => v.s!VPreReg!VS_ile ;
-                <Pos, Fut> => v.s!VPreReg!VS_a ;
-                <Neg, Pres> => v.s!VPreReg!VS_e ;
-                <Neg, Past> => v.s!VPreReg!VS_a ;
-                <Neg, Fut> => v.s!VPreReg!VS_e 
+                <Pos, PresTense> => v.s!VPreReg!VS_a ;
+                <Pos, PastTense> => v.s!VPreReg!VS_ile ;
+                <Pos, FutTense> => v.s!VPreReg!VS_a ;
+                <Neg, PresTense> => v.s!VPreReg!VS_e ;
+                <Neg, PastTense> => v.s!VPreReg!VS_a ;
+                <Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
         v2RootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Agr -> Str = \v,p,t,a ->
         case <a,p,t> of {
-                <First Sg, Pos, Pres> => v.s!VPreAlt!VS_a ;
-                <First Sg, Pos, Past> => v.s!VPreAlt!VS_ile ;
-                <First Sg, Pos, Fut> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, Pres> => v.s!VPreAlt!VS_e ;
-                <First Sg, Neg, Past> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, Fut> => v.s!VPreAlt!VS_e ;
+                <First Sg, Pos, PresTense> => v.s!VPreAlt!VS_a ;
+                <First Sg, Pos, PastTense> => v.s!VPreAlt!VS_ile ;
+                <First Sg, Pos, FutTense> => v.s!VPreAlt!VS_a ;
+                <First Sg, Neg, PresTense> => v.s!VPreAlt!VS_e ;
+                <First Sg, Neg, PastTense> => v.s!VPreAlt!VS_a ;
+                <First Sg, Neg, FutTense> => v.s!VPreAlt!VS_e ;
 
-                <_, Pos, Pres> => v.s!VPreReg!VS_a ;
-                <_, Pos, Past> => v.s!VPreReg!VS_ile ;
-                <_, Pos, Fut> => v.s!VPreReg!VS_a ;
-                <_, Neg, Pres> => v.s!VPreReg!VS_e ;
-                <_, Neg, Past> => v.s!VPreReg!VS_a ;
-                <_, Neg, Fut> => v.s!VPreReg!VS_e 
+                <_, Pos, PresTense> => v.s!VPreReg!VS_a ;
+                <_, Pos, PastTense> => v.s!VPreReg!VS_ile ;
+                <_, Pos, FutTense> => v.s!VPreReg!VS_a ;
+                <_, Neg, PresTense> => v.s!VPreReg!VS_e ;
+                <_, Neg, PastTense> => v.s!VPreReg!VS_a ;
+                <_, Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
         v2RootFormImp : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> Agr -> Str = \v,p,a ->
@@ -432,25 +483,25 @@ resource ResNso = open Prelude,ParamX in {
         pre1 : TensedCl -> Polarity -> BasicTense -> Str =\c,p,t ->
         case <c,p,t> of {
             <_, Pos, _> => [] ;
-            <IndicCl, Neg, Pres> => "ga" ;
-            <IndicCl, Neg, Past> => "ga" ++ "se" ;
+            <IndicCl, Neg, PresTense> => "ga" ;
+            <IndicCl, Neg, PastTense> => "ga" ++ "se" ;
             <_, _, _> => []
         } ;
         
         pre2 : TensedCl -> Polarity -> BasicTense -> Bool -> Str =\c,p,t,l->
         case <c,p,t,l> of {
-            <SitCl, Pos, Pres, _> => [] ;
-            <SitCl, Neg, Pres, _> => "sa" ;
-            <SitCl, Pos, Past, _> => [] ;
-            <SitCl, Neg, Past, _> => "sa" ;
-            <SitCl, Pos, Fut, _> => "tlo" ;
-            <SitCl, Neg, Fut, _> => "ka" ++ "se" ;
+            <SitCl, Pos, PresTense, _> => [] ;
+            <SitCl, Neg, PresTense, _> => "sa" ;
+            <SitCl, Pos, PastTense, _> => [] ;
+            <SitCl, Neg, PastTense, _> => "sa" ;
+            <SitCl, Pos, FutTense, _> => "tlo" ;
+            <SitCl, Neg, FutTense, _> => "ka" ++ "se" ;
 
-            <_, Pos, Fut,_> => "tlo" ;
-            <_, Neg, Fut, _> => "ka" ++ "se" ;
+            <_, Pos, FutTense,_> => "tlo" ;
+            <_, Neg, FutTense, _> => "ka" ++ "se" ;
             
-            <IndicCl, Pos, Pres, True> => "a" ;
-            <IndicCl, Pos, Pres, False> => [] ;
+            <IndicCl, Pos, PresTense, True> => "a" ;
+            <IndicCl, Pos, PresTense, False> => [] ;
             
             <RelCl, Neg, _, _> => "sa" ;
             <_, _, _, _> => [] 
@@ -486,75 +537,75 @@ resource ResNso = open Prelude,ParamX in {
 
         ident_cop : VForm -> Agr -> Str = \vform,a ->
             case vform of {
-            VFTensed IndicCl Pos Pres => case a of{
+            VFTensed IndicCl Pos PresTense => case a of{
                 Third _ _ => "ke" ;
                 _ => subjConcLookup!a!SC1                 
             } ;
-            VFTensed IndicCl Neg Pres => case a of {
+            VFTensed IndicCl Neg PresTense => case a of {
                 Third _ _ => "ga" ++ "se" ;
                 _ => "ga" ++ subjConcLookup!a!SC1Alt 
             } ;
-            VFTensed IndicCl Pos Past => case a of {
+            VFTensed IndicCl Pos PastTense => case a of {
                 Third _ _ => "e" ++ "be" ++ "e" ++"le" ;
                 _ => subjConcLookup!a!SC1 ++ "be" ++ subjConcLookup!a!SC1 ++"le"
             } ;
-            VFTensed IndicCl Neg Past => case a of{
+            VFTensed IndicCl Neg PastTense => case a of{
                 Third _ _ => "e" ++ "be" ++ "e" ++"se" ;
                 _ => subjConcLookup!a!SC1 ++ "be" ++ subjConcLookup!a!SC1Alt ++"se" 
             } ;
-            VFTensed IndicCl Pos Fut => case a of {
+            VFTensed IndicCl Pos FutTense => case a of {
                 Third _ _ => "e" ++ "tlo" ++ "ba" ;
                 _ => subjConcLookup!a!SC1 ++ "tlo" ++ "ba" 
             } ;
-             VFTensed IndicCl Neg Fut => case a of {
+             VFTensed IndicCl Neg FutTense => case a of {
                 Third _ _ => "e" ++ "ka" ++ "se" ++ "be" ;
                 _ => subjConcLookup!a!SC1AltPreKa ++ "ka" ++ "se" ++ "be" 
             } ;
-            VFTensed RelCl Pos Pres => case a of {
+            VFTensed RelCl Pos PresTense => case a of {
                 Third _ _ =>  "e" ++"lego" ;
                 _ => subjConcLookup!a!SC1  ++ "lego"
             } ;
-            VFTensed RelCl Neg Pres => case a of {
+            VFTensed RelCl Neg PresTense => case a of {
                 Third _ _ => "e" ++ "sego" ;
                 _ => subjConcLookup!a!SC1Alt ++ "sego"
             } ;
-            VFTensed RelCl Pos Past =>case a of {
+            VFTensed RelCl Pos PastTense =>case a of {
                 Third _ _ => "e" ++ "bego" ++ "e" ++ "le" ;
                 _ => subjConcLookup!a!SC1 ++ "bego" ++ subjConcLookup!a!SC1 ++ "le"
             } ;
-            VFTensed RelCl Neg Past => case a of {
+            VFTensed RelCl Neg PastTense => case a of {
                 Third _ _ => "e" ++ "bego" ++ "e" ++ "se" ;
                 _ => subjConcLookup!a!SC1 ++ "bego" ++ subjConcLookup!a!SC1Alt ++ "se" 
             } ; 
-            VFTensed RelCl Pos Fut => case a of {
+            VFTensed RelCl Pos FutTense => case a of {
                 Third _ _ => "e" ++ "tlo" ++ "bago" ;
                 _ => subjConcLookup!a!SC1 ++"tlo" ++ "bago"
             } ;
-            VFTensed RelCl Neg Fut => case a of {
+            VFTensed RelCl Neg FutTense => case a of {
                 Third _ _ => "e" ++ "ka" ++ "se" ++ "bego" ;
                 _ => subjConcLookup!a!SC1AltPreKa ++ "ka" ++ "se" ++ "bego" 
             } ;
-            VFTensed SitCl Pos Pres => case a of {
+            VFTensed SitCl Pos PresTense => case a of {
                 Third _ _ =>  "e" ++ "le" ;
                 _ => subjConcLookup!a!SC1  ++ "le"
             } ;
-            VFTensed SitCl Neg Pres => case a of {
+            VFTensed SitCl Neg PresTense => case a of {
                 Third _ _ => "e" ++ "se" ;
                 _ => subjConcLookup!a!SC1Alt ++ "se"
             } ;
-            VFTensed SitCl Pos Past =>case a of {
+            VFTensed SitCl Pos PastTense =>case a of {
                 Third _ _ => "e" ++ "be" ++ "e" ++ "le" ;
                 _ => subjConcLookup!a!SC1 ++ "be" ++ subjConcLookup!a!SC1 ++ "le"
             } ;
-            VFTensed SitCl Neg Past => case a of {
+            VFTensed SitCl Neg PastTense => case a of {
                 Third _ _ => "e" ++ "be" ++ "e" ++ "se" ;
                 _ => subjConcLookup!a!SC1 ++ "be" ++ subjConcLookup!a!SC1Alt ++ "se" 
             } ; 
-            VFTensed SitCl Pos Fut => case a of {
+            VFTensed SitCl Pos FutTense => case a of {
                 Third _ _ => "e" ++ "tlo" ++ "ba" ;
                 _ => subjConcLookup!a!SC1 ++"tlo" ++ "ba"
             } ;
-            VFTensed SitCl Neg Fut => case a of {
+            VFTensed SitCl Neg FutTense => case a of {
                 Third _ _ => "e" ++ "ka" ++ "se" ++ "be" ;
                 _ => subjConcLookup!a!SC1AltPreKa ++ "ka" ++ "se" ++ "be" 
             } ;
@@ -610,26 +661,26 @@ resource ResNso = open Prelude,ParamX in {
             sc2 = subjConcLookup!a!SC2 ;
             in
                 case vform of {
-                    VFTensed IndicCl Pos Pres => sc ;
-                    VFTensed IndicCl Neg Pres => "ga" ++ sca ;
-                    VFTensed IndicCl Pos Past => sc ++ "be" ++ sca ++ "le" ;
-                    VFTensed IndicCl Neg Past => sc ++ "be" ++ sca ++ "se" ;
-                    VFTensed IndicCl Pos Fut => sc ++ "tlo" ++ "ba" ;
-                    VFTensed IndicCl Neg Fut => sck ++ "ka" ++ "se" ++ "be" ;
+                    VFTensed IndicCl Pos PresTense => sc ;
+                    VFTensed IndicCl Neg PresTense => "ga" ++ sca ;
+                    VFTensed IndicCl Pos PastTense => sc ++ "be" ++ sca ++ "le" ;
+                    VFTensed IndicCl Neg PastTense => sc ++ "be" ++ sca ++ "se" ;
+                    VFTensed IndicCl Pos FutTense => sc ++ "tlo" ++ "ba" ;
+                    VFTensed IndicCl Neg FutTense => sck ++ "ka" ++ "se" ++ "be" ;
                     
-                    VFTensed RelCl Pos Pres => sca ++ "lego" ;
-                    VFTensed RelCl Neg Pres => sca ++ "sego" ;
-                    VFTensed RelCl Pos Past => sca ++ "bego" ++ sca ++ "le" ;
-                    VFTensed RelCl Neg Past => sca ++ "bego" ++ sca ++ "se" ; 
-                    VFTensed RelCl Pos Fut => sca ++ "tlogo" ++ "ba" ;
-                    VFTensed RelCl Neg Fut => sck ++ "ka" ++ "se" ++ "bego" ;
+                    VFTensed RelCl Pos PresTense => sca ++ "lego" ;
+                    VFTensed RelCl Neg PresTense => sca ++ "sego" ;
+                    VFTensed RelCl Pos PastTense => sca ++ "bego" ++ sca ++ "le" ;
+                    VFTensed RelCl Neg PastTense => sca ++ "bego" ++ sca ++ "se" ; 
+                    VFTensed RelCl Pos FutTense => sca ++ "tlogo" ++ "ba" ;
+                    VFTensed RelCl Neg FutTense => sck ++ "ka" ++ "se" ++ "bego" ;
                     
-                    VFTensed SitCl Pos Pres => sca ++ "le" ;
-                    VFTensed SitCl Neg Pres => sca ++ "se" ;
-                    VFTensed SitCl Pos Past => sca ++ "be" ++ sca ++ "le" ;
-                    VFTensed SitCl Neg Past => sca ++ "be" ++ sca ++ "se" ; 
-                    VFTensed SitCl Pos Fut => sca ++ "tlo" ++ "ba" ;
-                    VFTensed SitCl Neg Fut => sck ++ "ka" ++ "se" ++ "be" ;
+                    VFTensed SitCl Pos PresTense => sca ++ "le" ;
+                    VFTensed SitCl Neg PresTense => sca ++ "se" ;
+                    VFTensed SitCl Pos PastTense => sca ++ "be" ++ sca ++ "le" ;
+                    VFTensed SitCl Neg PastTense => sca ++ "be" ++ sca ++ "se" ; 
+                    VFTensed SitCl Pos FutTense => sca ++ "tlo" ++ "ba" ;
+                    VFTensed SitCl Neg FutTense => sck ++ "ka" ++ "se" ++ "be" ;
 
                     VFUntensed SubjunctCl Pos => sca ++ "be" ;
                     VFUntensed SubjunctCl Neg => sca ++ "se" ++ "be" ;
@@ -644,26 +695,26 @@ resource ResNso = open Prelude,ParamX in {
             sc2 = subjConcLookup!a!SC2 ;
             in
                 case vform of {
-                    VFTensed IndicCl Pos Pres => sc ++ "na" ++"le" ;
-                    VFTensed IndicCl Neg Pres => "ga" ++ sca ++ "na" ;
-                    VFTensed IndicCl Pos Past => sc ++ "be" ++ sca ++ "na" ++ "le" ; -- pattern 1 of 2
-                    VFTensed IndicCl Neg Past => sc ++ "be" ++ sca ++ "se" ++ "na" ;
-                    VFTensed IndicCl Pos Fut => sc ++ "tlo" ++ "ba" ++ sca ++ "na" ++ "le" ; -- pattern 2 of 2
-                    VFTensed IndicCl Neg Fut => sc ++ "tlo" ++ "ba" ++ sca ++ "se" ++ "na" ;
+                    VFTensed IndicCl Pos PresTense => sc ++ "na" ++"le" ;
+                    VFTensed IndicCl Neg PresTense => "ga" ++ sca ++ "na" ;
+                    VFTensed IndicCl Pos PastTense => sc ++ "be" ++ sca ++ "na" ++ "le" ; -- pattern 1 of 2
+                    VFTensed IndicCl Neg PastTense => sc ++ "be" ++ sca ++ "se" ++ "na" ;
+                    VFTensed IndicCl Pos FutTense => sc ++ "tlo" ++ "ba" ++ sca ++ "na" ++ "le" ; -- pattern 2 of 2
+                    VFTensed IndicCl Neg FutTense => sc ++ "tlo" ++ "ba" ++ sca ++ "se" ++ "na" ;
                     
-                    VFTensed RelCl Pos Pres => sca ++ "nago" ++ "le" ;
-                    VFTensed RelCl Neg Pres => sca ++ "se" ++ "nago" ;
-                    VFTensed RelCl Pos Past => sca ++ "be" ++ sca ++ "nago" ++ "le" ; -- pattern 1 of 2
-                    VFTensed RelCl Neg Past => sca ++ "be" ++ sca ++ "se" ++ "nago" ; 
-                    VFTensed RelCl Pos Fut => sca ++ "tlo" ++ "ba" ++ sca ++ "nago" ++ "le" ; -- pattern 2 of 2
-                    VFTensed RelCl Neg Fut => sca ++ "tlo" ++ "ba" ++ sca ++ "se" ++ "nago" ;
+                    VFTensed RelCl Pos PresTense => sca ++ "nago" ++ "le" ;
+                    VFTensed RelCl Neg PresTense => sca ++ "se" ++ "nago" ;
+                    VFTensed RelCl Pos PastTense => sca ++ "be" ++ sca ++ "nago" ++ "le" ; -- pattern 1 of 2
+                    VFTensed RelCl Neg PastTense => sca ++ "be" ++ sca ++ "se" ++ "nago" ; 
+                    VFTensed RelCl Pos FutTense => sca ++ "tlo" ++ "ba" ++ sca ++ "nago" ++ "le" ; -- pattern 2 of 2
+                    VFTensed RelCl Neg FutTense => sca ++ "tlo" ++ "ba" ++ sca ++ "se" ++ "nago" ;
                     
-                    VFTensed SitCl Pos Pres => sca ++ "na" ++ "le" ;
-                    VFTensed SitCl Neg Pres => sca ++ "se" ++ "na" ;
-                    VFTensed SitCl Pos Past => sca ++ "be" ++ sca ++ "na" ++ "le" ; -- pattern 1 of 2
-                    VFTensed SitCl Neg Past => sca ++ "be" ++ sca ++ "se" ++ "na" ; 
-                    VFTensed SitCl Pos Fut => sca ++ "tlo" ++ "ba" ++ sca ++ "na" ++ "le" ; -- pattern 2 of 2
-                    VFTensed SitCl Neg Fut => sca ++ "tlo" ++ "ba" ++ sca ++ "se" ++ "na" ;
+                    VFTensed SitCl Pos PresTense => sca ++ "na" ++ "le" ;
+                    VFTensed SitCl Neg PresTense => sca ++ "se" ++ "na" ;
+                    VFTensed SitCl Pos PastTense => sca ++ "be" ++ sca ++ "na" ++ "le" ; -- pattern 1 of 2
+                    VFTensed SitCl Neg PastTense => sca ++ "be" ++ sca ++ "se" ++ "na" ; 
+                    VFTensed SitCl Pos FutTense => sca ++ "tlo" ++ "ba" ++ sca ++ "na" ++ "le" ; -- pattern 2 of 2
+                    VFTensed SitCl Neg FutTense => sca ++ "tlo" ++ "ba" ++ sca ++ "se" ++ "na" ;
 
                     VFUntensed SubjunctCl Pos => sca ++ "be" ++ "le" ;
                     VFUntensed SubjunctCl Neg => sca ++ "se" ++ "be" ++ "le" ;

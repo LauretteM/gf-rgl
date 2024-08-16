@@ -58,8 +58,8 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                 } ;
                 in
                 table {
-                    Pos => "go" ++ oc ++ (v2RootForm v Pos Pres np.a) ++ np.s!Absolute ;
-                    Neg => "go" ++ "se" ++ oc ++ (v2RootForm v Neg Pres np.a) ++ np.s!Absolute
+                    Pos => "go" ++ oc ++ (v2RootForm v Pos PresTense np.a) ++ np.s!Absolute ;
+                    Neg => "go" ++ "se" ++ oc ++ (v2RootForm v Neg PresTense np.a) ++ np.s!Absolute
             } ;    
 
             imp_s = let 
@@ -94,7 +94,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         True => objConc v.initLab np.a ;
                         False => []
                     } ;
-                    r = v2RootForm v Neg Pres np.a;
+                    r = v2RootForm v Neg PresTense np.a;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ;
 
                 ConsecCl => \\a,p => let
@@ -109,8 +109,8 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         False => []
                     } ;
                     r = case p of {
-                        Pos => v2RootForm v Pos Pres np.a ;
-                        Neg => v2RootForm v Neg Pres np.a
+                        Pos => v2RootForm v Pos PresTense np.a ;
+                        Neg => v2RootForm v Neg PresTense np.a
                     } ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute
             }
@@ -164,8 +164,8 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                     in sc ++ p2 ++ stab_e ++ oc ++ r ++ np.s!Absolute ++ vp.inf_s!Pos
             } ;
             inf_s = table {
-                Pos => "go" ++ (v2RootForm v Pos Pres np.a) ++ np.s!Absolute ++ vp.inf_s!Pos ;
-                Neg => "go" ++ "se" ++ (v2RootForm v Neg Pres np.a) ++ np.s!Absolute ++ vp.inf_s!Pos
+                Pos => "go" ++ (v2RootForm v Pos PresTense np.a) ++ np.s!Absolute ++ vp.inf_s!Pos ;
+                Neg => "go" ++ "se" ++ (v2RootForm v Neg PresTense np.a) ++ np.s!Absolute ++ vp.inf_s!Pos
             } ;
             imp_s = let 
                 stab_e = case <v.syl, np.proDrop> of {
@@ -179,12 +179,12 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
             in
                 table {
                     Sg => table {
-                        Pos => stab_e ++ oc ++ (v2RootForm v Neg Pres np.a) ++ np.s!Absolute ++ vp.inf_s!Pos;
-                        Neg => "se" ++ oc ++ (v2RootForm v Neg Pres np.a) ++ np.s!Absolute ++ vp.inf_s!Pos
+                        Pos => stab_e ++ oc ++ (v2RootForm v Neg PresTense np.a) ++ np.s!Absolute ++ vp.inf_s!Pos;
+                        Neg => "se" ++ oc ++ (v2RootForm v Neg PresTense np.a) ++ np.s!Absolute ++ vp.inf_s!Pos
                     } ;    
                     Pl => table {
-                        Pos => stab_e ++ oc ++ (v2RootForm v Neg Pres np.a) ++BIND++ "ng" ++ np.s!Absolute ++ vp.inf_s!Pos;
-                        Neg => "se" ++ oc ++ (v2RootForm v Neg Pres np.a) ++BIND++ "ng" ++ np.s!Absolute  ++ vp.inf_s!Pos
+                        Pos => stab_e ++ oc ++ (v2RootForm v Neg PresTense np.a) ++BIND++ "ng" ++ np.s!Absolute ++ vp.inf_s!Pos;
+                        Neg => "se" ++ oc ++ (v2RootForm v Neg PresTense np.a) ++BIND++ "ng" ++ np.s!Absolute  ++ vp.inf_s!Pos
                     }   
             } ;
             consubj_s = table {
@@ -199,7 +199,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         True => objConc v.initLab np.a ;
                         False => []
                     } ;
-                    r = v2RootForm v Neg Pres np.a;
+                    r = v2RootForm v Neg PresTense np.a;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ++ vp.inf_s!Pos ;
 
                 ConsecCl => \\a,p => let
@@ -214,8 +214,8 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         False => []
                     } ;
                     r = case p of {
-                        Pos => v2RootForm v Pos Pres np.a;
-                        Neg => v2RootForm v Neg Pres np.a
+                        Pos => v2RootForm v Pos PresTense np.a;
+                        Neg => v2RootForm v Neg PresTense np.a
                     } ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ++ vp.inf_s!Pos 
             }
