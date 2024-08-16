@@ -152,9 +152,10 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
       }
     } ;
 
-
-    AdvVP vp adv = vp ** {
-      advs = vp.advs ++ adv.s ;
-      hasComp = True
+    AdvVP vp adv = {
+        s = \\c,a,p,t,b => vp.s!c!a!p!t!b ++ adv.s ;
+        inf_s = \\p => vp.inf_s!p ++ adv.s ;
+        imp_s = \\n,p => vp.imp_s!n!p ++ adv.s ;
+        consubj_s = \\c,a,p => vp.consubj_s!c!a!p ++ adv.s
     } ;
 }
