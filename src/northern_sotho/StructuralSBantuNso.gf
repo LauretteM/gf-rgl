@@ -8,6 +8,9 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     it5_Pron = mkPron "lona" "lona" (Third C5_6 Sg) ;
     it7_Pron = mkPron "sona" "sona" (Third C7_8 Sg) ;
     it9_Pron = mkPron "yona" "yona" (Third C9_10 Sg) ;
+    it11_Pron = {
+      s = \\f => nonExist ; a = (Third C15 Sg) ; empty = nonExist ; proDrop = False
+    } ;
     it14_Pron = mkPron "bjona" "bjona" (Third C14 Sg) ;
     it15_Pron = mkPron "gona" "gona" (Third C15 Sg) ;
     it16_Pron = mkPron "gona" "gona" (Third C16 Sg) ;
