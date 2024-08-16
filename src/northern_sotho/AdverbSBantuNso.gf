@@ -60,7 +60,7 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
     LocAdvAdv locadv = locadv ;
 
     LocAdvNP adv np = {
-        s = adv.s ++ (possConc C17 Sg) ++BIND++ (np.s!Absolute)
+        s = adv.s ++ (possConc C17 Sg) ++ (np.s!Absolute) -- removed BIND
     } ;
 
     -- NPAdv : NP -> Adv ; -- sonke lesi sikhathi

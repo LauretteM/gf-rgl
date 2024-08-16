@@ -28,6 +28,7 @@ abstract DevLex = Cat ** {
    book_N : N ; -- ncwadi_9_10
    boy_N : N ; -- fana 1 2
    branch_N : N ; -- hlahla_7_8
+   bridge_N : N ; -- leporogo
    calf_N : N ; -- nkonyana_5_6
    car_N : N ; -- moto_9_10
    cow_N : N ; -- komo_9_10

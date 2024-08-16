@@ -1,7 +1,7 @@
 resource ResNso = open Prelude,ParamX in {
     
     param
-        ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C14_6 | C14 | C15 | C16 | C17 | C18 ;    -- nso noun classes, 23-05-2023
+        ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C14_6 | C14 | C15 | C16 | C17 | C18 ; -- | CLocGa | CLocN ;    -- nso noun classes, 23-05-2023
         -- Number = Sg | Pl ;
         Agr = First Number | Second Number | Third ClassGender Number ;
         NPForm = Absolute | Possessive | Locative ; 
@@ -31,7 +31,49 @@ resource ResNso = open Prelude,ParamX in {
         cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"y"|"z") ;
         labial_cons : pattern Str = #("p"|"b"|"f"|"m" ) ;
 
-        mkNounWC : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        mkNounExplicit : Str -> Str -> Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \abssg,locsg,abspl,locpl,cg -> let
+            ntype = case cg of {
+                (C1_2| C1a_2a) => HumanN ;
+                (C14_6 | C14) => AbstractN ;
+                _ => ConcreteN
+            }
+        in {
+            s = table {
+                Sg => table {
+                    Absolute => abssg ;
+                    Possessive => abssg ;
+                    Locative => locsg
+                } ;
+                Pl => table {
+                    Absolute => abspl ;
+                    Possessive => abspl ;
+                    Locative => locpl
+                }
+            } ;
+            c = cg ;
+            nt = ntype
+        } ;
+
+        mkNounWC : Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \stemsg, stempl, cg, nt -> {
+            s = table {
+                Sg => table {
+                    Absolute => (mkNPre cg Sg) + stemsg ;
+                    Possessive => (mkNPre cg Sg) + stemsg ;
+                    Locative => mkLoc nt ((mkNPre cg Sg) + stemsg)
+                } ;
+                Pl => table {
+                    Absolute => (mkNPre cg Pl) + stempl ;
+                    Possessive => (mkNPre cg Pl) + stempl ;
+                    Locative => mkLoc nt ((mkNPre cg Pl) + stempl)
+                }
+            } ;
+            c = cg ;
+            nt = nt
+        } ; 
+
+        mkTypedNoun : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg, nt -> {
             s = table {
                 Sg => table {
@@ -49,6 +91,15 @@ resource ResNso = open Prelude,ParamX in {
             nt = nt
         } ; 
 
+        mkIrregNoun : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \stemsg, stempl, cg -> let
+            ntype = case cg of {
+                (C1_2| C1a_2a) => HumanN ;
+                (C14_6 | C14) => AbstractN ;
+                _ => ConcreteN
+            }
+            in mkNounWC stemsg stempl cg ntype ;
+
         mkNoun : Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg -> let
             ntype = case cg of {
@@ -56,7 +107,7 @@ resource ResNso = open Prelude,ParamX in {
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-        in mkNounWC root cg ntype ;
+        in mkNounWC root root cg ntype ;
 
         mkLocClassNoun : Str -> ClassGender -> { s : Str ; c : ClassGender }
         = \n, lcg -> {

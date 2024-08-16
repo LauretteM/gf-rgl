@@ -24,6 +24,7 @@ concrete DevLexNso of DevLex = CatNso ** open ResNso,ParadigmsNso in {
    -- some_A = mkA "nye" ;
 
    -- -- noun stems
+   bridge_N = mkN "porogo" C5_6 ;
    person_N = mkN "tho" C1_2 ;
    -- boy_N = mkN "fana" C1_2 ;
    -- student_N = mkN "fundi" C1_2 ;
