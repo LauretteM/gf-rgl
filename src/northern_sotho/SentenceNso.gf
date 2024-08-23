@@ -43,7 +43,7 @@ concrete SentenceNso of Sentence = CatNso ** open Prelude,ResNso,ParamX in {
           } ;
           ConsecMS => case t.t of {
               FutTense => nonExist ;
-              PastTense => nonExist ; 
+              PresTense => nonExist ; 
               _ => t.s ++ p.s ++ cl.consubj_s!ConsecCl!p.p 
           } 
       } ;
