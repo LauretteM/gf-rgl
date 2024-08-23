@@ -26,20 +26,22 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
       dist = Dem3
     } ;
 
-    -- inside_LocN 
     below_LocN = mkLocClassNoun "fase" C16 ;
-    -- on_the_other_side_LocN 
+    above_LocN = mkLocClassNoun "godimo" C17 ;
+    behind_LocN = mkLocClassNoun "morago" C18 ;
+    on_the_other_side_LocN = mkLocClassNoun "mošola" C18 ;
     -- outside_LocN 
     -- in_front_LocN 
     -- ahead_LocN 
     -- forever_LocN 
-    above_LocN = mkLocClassNoun "godimo" C17 ;
+    -- inside_LocN 
     -- on_top_LocN 
-    behind_LocN = mkLocClassNoun "morago" C18 ;
-
+    
     if_Conj = { s = "ge" ; mood = SitMS } ;
     so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;
     but_Conj = { s = "fela" ; mood = IndicMS } ;
     and_then_Conj = { s = "" ; mood = ConsecMS } ;
+
+    with_ConjN = { s = "le" } ;
 
 }

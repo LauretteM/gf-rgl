@@ -10,6 +10,5 @@ abstract PhraseSBantu = Cat,CatSBantu ** {
 
     ConsecS : S -> Utt ;
     SubjunctS : S -> Utt ;
-
-    ImpConjS : Imp -> Conj -> S -> S ; -- help the aunt before she cries 
+ 
 }

@@ -14,7 +14,7 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
     UsePron pron = { 
       s = pron.s ; 
       a = pron.a ; 
-      nt = ConcreteN ;
+      nt = HumanN ;
       isPron = True ;
       proDrop = pron.proDrop
     } ;

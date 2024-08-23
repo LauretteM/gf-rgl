@@ -177,7 +177,7 @@ resource ResNso = open Prelude,ParamX in {
         = \abs, poss, a -> {s = table { 
                                     Absolute => abs ; 
                                     Possessive => poss ;
-                                    Locative => "go" ++ abs
+                                    Locative => abs
                                 } ;
                                 a = a ;
                                 empty = [] ;

@@ -113,7 +113,11 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         Neg => v2RootForm v Neg PresTense np.a
                     } ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute
-            }
+            } ;
+            hasComp = case np.proDrop of {
+                True => False ;
+                False => True
+            } ;
         } ;
 
     ComplV2V v np vp = {
@@ -218,7 +222,8 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         Neg => v2RootForm v Neg PresTense np.a
                     } ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ++ vp.inf_s!Pos 
-            }
+            } ;
+            hasComp = True 
         } ;
 
     

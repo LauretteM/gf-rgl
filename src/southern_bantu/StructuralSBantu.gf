@@ -21,17 +21,18 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     it18_Pron : Pron ;
 
     yonder_Quant : Quant ;
-
-    inside_LocN : LocN ;
+    
     below_LocN : LocN ;
+    above_LocN : LocN ;
+    behind_LocN : LocN ;
     on_the_other_side_LocN : LocN ;
     outside_LocN : LocN ;
     in_front_LocN : LocN ;
     ahead_LocN : LocN ;
     forever_LocN : LocN ;
-    above_LocN : LocN ;
+    inside_LocN : LocN ;
     on_top_LocN : LocN ;
-    behind_LocN : LocN ;
+    
 
     here_Loc : Loc ;
     there_Loc : Loc ;
@@ -50,7 +51,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     much_Adv : Adv ;
 
-    with_Conj : Conj ;
+    with_ConjN : ConjN ; -- le
     together_with_Conj : Conj ;
     and_then_Conj: Conj ;
     but_also_Conj : Conj ;

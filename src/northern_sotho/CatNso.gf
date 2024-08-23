@@ -38,7 +38,8 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
         s : TensedCl => Agr => Polarity => BasicTense => Bool => Str ;
         inf_s : Polarity => Str ;
         imp_s : Number => Polarity => Str ;
-        consubj_s : UntensedCl => Agr => Polarity => Str 
+        consubj_s : UntensedCl => Agr => Polarity => Str ;
+        hasComp : Bool -- indicates whether to use long form
     } ;
 
 -- Adjective

@@ -74,7 +74,8 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Neg => vRootForm v Neg PresTense
               } ;
           in sc ++ pre1 ++ r 
-      }
+      } ;
+      hasComp = False
     } ;
 
     ComplVV vv vp = {
@@ -149,13 +150,15 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Neg => vRootForm vv Neg PresTense
               } ;
           in sc ++ pre1 ++ r ++ vp.inf_s!Pos 
-      }
+      } ;
+      hasComp = True
     } ;
 
     AdvVP vp adv = {
         s = \\c,a,p,t,b => vp.s!c!a!p!t!b ++ adv.s ;
         inf_s = \\p => vp.inf_s!p ++ adv.s ;
         imp_s = \\n,p => vp.imp_s!n!p ++ adv.s ;
-        consubj_s = \\c,a,p => vp.consubj_s!c!a!p ++ adv.s
+        consubj_s = \\c,a,p => vp.consubj_s!c!a!p ++ adv.s ;
+        hasComp = True
     } ;
 }

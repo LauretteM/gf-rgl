@@ -7,10 +7,13 @@ concrete SentenceNso of Sentence = CatNso ** open Prelude,ResNso,ParamX in {
     PredVP np vp = {
       s = table {
           RedIndicCl => \\p,t => let 
-              long_form = True ;
+              long_form = case vp.hasComp of {
+                  True => False ;
+                  False => True
+               }
               in np.s!Absolute ++ vp.s!IndicCl!np.a!p!t!long_form ;
           RedSitCl => \\p,t => let 
-              long_form = True ;
+              long_form = False ;
               in np.s!Absolute ++ vp.s!SitCl!np.a!p!t!long_form 
       } ;
       consubj_s = \\c,p => np.s!Absolute ++ vp.consubj_s!c!np.a!p        

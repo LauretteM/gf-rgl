@@ -49,6 +49,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
               compl = compl_ap ap a ;
           in cop ++ compl 
       } ;
+      hasComp = True
     } ;
 
     CopNP np = {
@@ -124,7 +125,8 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                   AbstractN => decop ++ compl ;
                   _ => idcop ++ compl
               } 
-      }
+      } ;
+      hasComp = True
     } ;
 
     CopNPAssoc np = {
@@ -173,14 +175,16 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
               ascop = assoc_cop vform a ;
               compl = np.s!Absolute ;
               in ascop ++ compl 
-      } 
+      } ;
+      hasComp = True
     } ;
 
     CopLocative loc = {
       s = \\c,a,p,t,l => loc.s!c!a!p!t ;
       inf_s = loc.inf_s ;
       imp_s = loc.imp_s ;
-      consubj_s = \\c,a,p => loc.consubj_s!c!a!p         
+      consubj_s = \\c,a,p => loc.consubj_s!c!a!p ;
+      hasComp = True        
     } ;
 
 }
