@@ -37,14 +37,12 @@ concrete SentenceNso of Sentence = CatNso ** open Prelude,ResNso,ParamX in {
           IndicMS => t.s ++ p.s ++ cl.s!RedIndicCl!p.p!t.t ;
           SitMS => t.s ++ p.s ++ cl.s!RedSitCl!p.p!t.t ;
           SubjunctMS => case t.t of {
-              FutTense => nonExist ;
-              PastTense => nonExist ; 
-              _ => t.s ++ p.s ++ cl.consubj_s!SubjunctCl!p.p 
+              PresTense => t.s ++ p.s ++ cl.consubj_s!SubjunctCl!p.p ;
+              _ => nonExist
           } ;
           ConsecMS => case t.t of {
-              FutTense => nonExist ;
-              PresTense => nonExist ; 
-              _ => t.s ++ p.s ++ cl.consubj_s!ConsecCl!p.p 
+              PastTense => t.s ++ p.s ++ cl.consubj_s!ConsecCl!p.p ;
+              _ => nonExist
           } 
       } ;
     } ;
