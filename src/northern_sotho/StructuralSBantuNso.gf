@@ -36,6 +36,10 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- forever_LocN 
     -- inside_LocN 
     -- on_top_LocN 
+
+    much_Adv = {
+      s = "kudu"
+    } ;
     
     if_Conj = { s = "ge" ; mood = SitMS } ;
     so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;

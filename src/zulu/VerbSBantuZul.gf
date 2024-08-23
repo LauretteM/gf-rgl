@@ -604,43 +604,49 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
-          r = v2.s!(rform (VFIndic MainCl p t) True) ; -- bona / boni
-        in
-          vpref_with_oc ++ oc ++ r ++ obj ;
+          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
+        in vpref_with_oc ++ oc ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
-          r = v2.s!(rform vform True) ; -- bona / boni
+          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          longform = case np.heavy of {
+            True => False ;
+            False => True
+          } ;
+          r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
             False => []
           } ;
-        in
-          vpref_with_oc ++ oc ++ r ++ suf ++ obj
+        in vpref_with_oc ++ oc ++ r ++ suf ++ obj 
       } ;
       imp_s = table {
         Sg => table {
           Pos => oc ++ v2.s!R_e ++ obj ;
-          Neg => IMP_NEG_PREF_SG ++BIND++ oc ++ v2.s!R_i ++ obj
+          Neg => IMP_NEG_PREF_SG ++BIND++ oc ++ v2.s!R_i ++ obj 
         } ;
         Pl => table {
           Pos => oc ++ v2.s!R_e ++BIND++PL_NI ++ obj ;
           Neg => IMP_NEG_PREF_PL ++BIND++ oc ++ v2.s!R_i ++ obj
         }
       } ;
-      inf_s = table {
+      inf_s = let
+        inf_oc = oc 
+      in
+      table {
         NFull => table {
-          Pos => INF_PREF_FULL ++BIND++ oc ++ v2.s!R_a ++ obj ;
-          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ oc ++ v2.s!R_i ++ obj
+          Pos => INF_PREF_FULL ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => INF_PREF_FULL ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj
         } ;
         NReduced | NPoss => table {
-          Pos => INF_PREF_REDUCED ++BIND++ oc ++ v2.s!R_a ++ obj ;
-          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ oc ++ v2.s!R_i ++ obj
+          Pos => INF_PREF_REDUCED ++BIND++ inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => INF_PREF_REDUCED ++BIND++ NEG_NGA ++BIND++ inf_oc ++ v2.s!R_i ++ obj
         } ;
         NLoc => table {
-          Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++oc ++ v2.s!R_a ++ obj ;
-          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++oc ++ v2.s!R_a ++ obj
+          Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj ;
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -648,14 +654,12 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
           vpref_with_oc = verb_prefix_with_oc vform False a Null ;
-          r = v2.s!(rform vform True) ; -- bona / boni
-        in
-          vpref_with_oc ++ oc ++ r ++ obj ;
+          r = v2.s!(rform vform False) ; -- bona / boni
+        in vpref_with_oc ++ oc ++ r ++ obj ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
-      hasComp = np.heavy ;
+      hasComp = False ;
       r = v2.r ;
       syl = v2.syl ;
       vptype = VNPCompl
