@@ -73,6 +73,8 @@ concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
 
    win_V2 = mkV2 "zuz" ;
 
+   write_V3 = mkV3 "bhal" ;
+
    above_Adv = mkAdv "ngaphezu" ;
    very_AdA = { s = "kakhulu" } ;
 
