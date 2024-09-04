@@ -51,7 +51,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     much_Adv : Adv ;
 
-    with_ConjN : ConjN ; -- le
+    -- with_ConjN : ConjN ; -- le
     together_with_Conj : Conj ;
     and_then_Conj: Conj ;
     but_also_Conj : Conj ;
