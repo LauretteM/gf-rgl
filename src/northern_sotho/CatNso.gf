@@ -30,7 +30,7 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 -- Relative
 
     RCl = {s : Agr => Polarity => BasicTense => Str } ;
-    RP = { s : Agr => Str ; dist : Distance } ;
+    RP = { s : Agr => Str } ;
 
 -- Verb
 
@@ -71,7 +71,7 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Conj = {s : Str ; mood : MoodS } ;
 
 -- Open lexical classes, e.g. Lexicon
-    V, V2, VV, V2V, VS = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl } ;
+    V, V2, V3, VV, V2V, VS = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl } ;
 
     A = { s : AForm => Str } ;
 

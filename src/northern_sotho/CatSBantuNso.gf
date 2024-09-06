@@ -10,7 +10,12 @@ concrete CatSBantuNso of CatSBantu = open ResNso,Prelude,ParamX in {
     LocN = {s : Str ; c : ClassGender } ;
     LocAdv = { s : Str } ;
     QuantPron = { s : Agr => Str } ;
+    -- VAux 
+    ConjN = {s : Str } ;
+    -- ConjAdv
+    -- IAdv
 
     Postdet = { s : Agr => Str } ;
-
+    -- SubCl
+    
 }

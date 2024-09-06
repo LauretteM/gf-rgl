@@ -37,6 +37,8 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
         s = "ga" ++ np.s!Locative 
     } ;
 
+    --  PlaceCapLocAdv : NP -> LocAdv ; -- gaMdjadji
+
     --  mo ntlong
     SurfaceLocAdv locadv = {
         s = "mo" ++ locadv.s
@@ -57,12 +59,18 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
         s = locn.s
     } ;
 
+    --  JustLikeAdv : NP -> Adv ;
+
     LocAdvAdv locadv = locadv ;
 
     LocAdvNP adv np = {
         s = adv.s ++ (possConc C17 Sg) ++ (np.s!Absolute) -- removed BIND
     } ;
 
+    --  LocNNgaAdv : LocN -> LocAdv ;
+    --  LocNPNgaAdv : NP -> LocAdv ; -- ngasekhaya
+    --  LocNPJustLikeAdv : NP -> LocAdv ; -- njengasekhaya
+    
     -- NPAdv : NP -> Adv ; -- sonke lesi sikhathi
     NPAdv np = {
       s = case np.proDrop of {

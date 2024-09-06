@@ -6,7 +6,7 @@ abstract CatSBantu = {
     LocAdv ;
     QuantPron ;
     VAux ;
-    -- ConjN ; -- conjunction for noun phrases
+    ConjN ; -- conjunction for noun phrases
     ConjAdv ; -- conjunction for forming adverbs
     IAdj ;   -- how many
     -- INAdv ; -- which/-phi?
