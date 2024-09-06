@@ -423,7 +423,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) longform) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -436,7 +436,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform vform longform) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -500,7 +500,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -536,13 +536,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
+          vpref_with_oc = verb_prefix_with_oc vform True v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r  ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
+          vpref_with_oc = verb_prefix_with_oc vform True v2.r a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
@@ -581,7 +581,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ;
@@ -604,12 +604,12 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in vpref_with_oc ++ oc ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           longform = case np.heavy of {
             True => False ;
@@ -654,7 +654,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in vpref_with_oc ++ oc ++ r ++ obj ;
       iadv, advs, comp = [] ;
@@ -675,13 +675,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
@@ -720,7 +720,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ obj ;
