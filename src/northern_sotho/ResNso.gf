@@ -59,19 +59,28 @@ resource ResNso = open Prelude,ParamX in {
         = \stemsg, stempl, cg, nt -> {
             s = table {
                 Sg => table {
-                    Absolute => (mkNPre cg Sg) + stemsg ;
-                    Possessive => (mkNPre cg Sg) + stemsg ;
-                    Locative => mkLoc nt ((mkNPre cg Sg) + stemsg)
+                    Absolute => stemsg ;
+                    Possessive => stemsg ;
+                    Locative => mkLoc nt (stemsg)
                 } ;
                 Pl => table {
-                    Absolute => (mkNPre cg Pl) + stempl ;
-                    Possessive => (mkNPre cg Pl) + stempl ;
-                    Locative => mkLoc nt ((mkNPre cg Pl) + stempl)
+                    Absolute => stempl ;
+                    Possessive => stempl ;
+                    Locative => mkLoc nt (stempl)
                 }
             } ;
             c = cg ;
             nt = nt
         } ; 
+
+        mkIrregNoun : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \stemsg, stempl, cg -> let
+            ntype = case cg of {
+                (C1_2| C1a_2a) => HumanN ;
+                (C14_6 | C14) => AbstractN ;
+                _ => ConcreteN
+            }
+            in mkNounWC stemsg stempl cg ntype ;
 
         mkTypedNoun : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg, nt -> {
@@ -91,15 +100,6 @@ resource ResNso = open Prelude,ParamX in {
             nt = nt
         } ; 
 
-        mkIrregNoun : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
-        = \stemsg, stempl, cg -> let
-            ntype = case cg of {
-                (C1_2| C1a_2a) => HumanN ;
-                (C14_6 | C14) => AbstractN ;
-                _ => ConcreteN
-            }
-            in mkNounWC stemsg stempl cg ntype ;
-
         mkNoun : Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg -> let
             ntype = case cg of {
@@ -107,7 +107,7 @@ resource ResNso = open Prelude,ParamX in {
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-        in mkNounWC root root cg ntype ;
+        in mkTypedNoun root cg ntype ;
 
         mkLocClassNoun : Str -> ClassGender -> { s : Str ; c : ClassGender }
         = \n, lcg -> {
@@ -367,10 +367,10 @@ resource ResNso = open Prelude,ParamX in {
 
         v2RootFormImp : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> Agr -> Str = \v,p,a ->
         case <a,p> of {
-                <First Sg, Pos> => v.s!VPreAlt!VS_e ;
+                <First Sg, Pos> => v.s!VPreAlt!VS_a ;
                 <First Sg, Neg> => v.s!VPreAlt!VS_e ;
                 
-                <_, Pos> => v.s!VPreReg!VS_e ;
+                <_, Pos> => v.s!VPreReg!VS_a ;
                 <_, Neg> => v.s!VPreReg!VS_e 
         } ;
 
@@ -478,6 +478,58 @@ resource ResNso = open Prelude,ParamX in {
             Third C16 _ => "gohle" ;
             Third C17 _ => "gohle" ;
             Third C18 _ => "gohle" 
+        } ;
+
+        abs_pron : Agr => Str = table {
+            First Sg => "nna" ;
+            First Pl => "rena" ;
+            Second Sg => "wena" ;
+            Second Pl => "lena" ;
+            Third C1_2 Sg => "yena" ;
+            Third C1_2 Pl => "bona" ;
+            Third C1a_2a Sg => "yena" ;
+            Third C1a_2a Pl => "bona" ;
+            Third C3_4 Sg => "wona" ;
+            Third C3_4 Pl => "yona" ;
+            Third C5_6 Sg => "lona" ;
+            Third C5_6 Pl => "ona" ;
+            Third C7_8 Sg => "sona" ;
+            Third C7_8 Pl => "tšona" ;
+            Third C9_10 Sg => "yona" ;
+            Third C9_10 Pl => "tšona" ;
+            Third C14_6 Sg => "bjona" ;
+            Third C14_6 Pl => "ona" ;
+            Third C14 _ => "bjona" ;
+            Third C15 _ => "gona" ;
+            Third C16 _ => "gona" ;
+            Third C17 _ => "gona" ;
+            Third C18 _ => "gona" 
+        } ;
+
+        poss_pron : Agr => Str = table {
+            First Sg => "ka" ;
+            First Pl => "gešo" ;
+            Second Sg => "gago" ;
+            Second Pl => "geno" ;
+            Third C1_2 Sg => "gagwe" ;
+            Third C1_2 Pl => "gabo" ;
+            Third C1a_2a Sg => "gagwe" ;
+            Third C1a_2a Pl => "gabo" ;
+            Third C3_4 Sg => "wona" ;
+            Third C3_4 Pl => "yona" ;
+            Third C5_6 Sg => "lona" ;
+            Third C5_6 Pl => "ona" ;
+            Third C7_8 Sg => "sona" ;
+            Third C7_8 Pl => "tšona" ;
+            Third C9_10 Sg => "yona" ;
+            Third C9_10 Pl => "tšona" ;
+            Third C14_6 Sg => "bjona" ;
+            Third C14_6 Pl => "ona" ;
+            Third C14 _ => "bjona" ;
+            Third C15 _ => "gona" ;
+            Third C16 _ => "gona" ;
+            Third C17 _ => "gona" ;
+            Third C18 _ => "gona" 
         } ;
 
         pre1 : TensedCl -> Polarity -> BasicTense -> Str =\c,p,t ->

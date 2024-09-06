@@ -2,9 +2,9 @@ concrete RelativeSBantuNso of RelativeSBantu = CatNso ** open ResNso,Prelude,Par
 
 lin
 --  RelVPShort  : RP -> VP -> RCl ;      -- who loves John
---  NomRel : NP -> RS ;
 
 NomRel np = {
-            s = \\a => dem_pron!Dem1!a ++ np.s!Absolute
-        } ;
+    s = \\a => dem_pron!Dem1!a ++ np.s!Absolute
+    } ;
+
 }

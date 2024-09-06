@@ -7,10 +7,10 @@ concrete PhraseNso of Phrase = CatNso ** open Prelude, ParamX, ResNso in {
       s = s.s!IndicMS
     } ;
     UttImpSg pol imp = {
-      s = imp.s!Sg!pol.p 
+      s = pol.s ++ imp.s!Sg!pol.p 
     } ;
     UttImpPl pol imp = {
-      s = imp.s!Pl!pol.p
+      s = pol.s ++ imp.s!Pl!pol.p
     } ;
 
     NoPConj = {s = []} ;

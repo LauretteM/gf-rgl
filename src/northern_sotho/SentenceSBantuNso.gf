@@ -4,6 +4,8 @@ concrete SentenceSBantuNso of SentenceSBantu = CatNso,CatSBantuNso ** open ResNs
 
     ExistNP np = {s = \\_ => "ke" ++ np.s!Absolute} ;
 
+    -- ExistAppos : NP -> NP -> S ;
+
     GreetSg = {
       s = "dumela"
     } ;
@@ -11,8 +13,13 @@ concrete SentenceSBantuNso of SentenceSBantu = CatNso,CatSBantuNso ** open ResNs
       s = "dumelang"
     } ;
 
--- SConjS : S -> Conj -> S -> S ; -- he helps the aunt before she cries
-    SConjS s1 conj s2 = {
+    -- UseClProg : Temp -> Pol -> Cl -> S ;
+    -- UseClExcl : Temp -> Pol -> Cl -> S ;
+
+    -- UseRClProg : Temp -> Pol -> RCl -> RS ;
+    -- UseRClExcl : Temp -> Pol -> RCl -> RS ;
+
+    SConjS s1 conj s2 = {         -- he helps the aunt before she cries
       s = table {
         IndicMS => s1.s!IndicMS ++ conj.s ++ s2.s!conj.mood ;
         SitMS => s1.s!SitMS ++ conj.s ++ s2.s!conj.mood ;
@@ -21,10 +28,8 @@ concrete SentenceSBantuNso of SentenceSBantu = CatNso,CatSBantuNso ** open ResNs
       }
     } ;
 
--- ImpConjS : Imp -> Conj -> S -> S ; -- help the aunt before she cries 
--- ImpConjS : Imp -> Conj -> S -> Imp ; -- help the aunt before she cries 
+    ImpConjS imp conj s1 = {      -- help the aunt before she cries 
 
-    ImpConjS imp conj s1 = {
       s = table {
         Sg => table {
               Pos => imp.s!Sg!Pos ++ conj.s ++ s1.s!conj.mood ;
