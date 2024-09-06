@@ -16,7 +16,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in case np.proDrop of {
           True => vpref_with_oc ++ oc ++ r ++ obj ;
@@ -25,7 +25,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           oc = objConc np.agr v2.r v2.syl ; -- [] / m -
           longform = case np.heavy of {
             True => False ;
@@ -91,7 +91,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in case np.proDrop of {
           True => vpref_with_oc ++ oc ++ r ++ obj ;
@@ -105,36 +105,49 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
       vptype = VNPCompl
     } ;
 
+    -- v2 = write, np1 = the letter, np2 = the king
     ComplV3 v2 np1 np2 = let
-      oc = objConc np1.agr v2.r v2.syl ;
-      longform = case np1.heavy of {
-        True => False ;
-        False => True
+      oc = case <np1.proDrop,np2.proDrop> of {
+        <True,True> => objConc np2.agr v2.r v2.syl ; -- it (the letter) to him (the king)
+        <True,False> => objConc np1.agr v2.r v2.syl ; -- it (the letter) to the king
+        <False,True> => objConc np2.agr v2.r v2.syl ; -- the letter to him (the king)
+        <False,False> => []
       } ;
-      obj1 = np1.s!NFull ;
-      obj2 = case np2.proDrop of {
-        False => np2.s!NFull ;
-        True => "*" ++ np2.s!NFull
+      oc_present = case <np1.proDrop,np2.proDrop> of {
+        <True,True> => True ; -- it (the letter) to him (the king)
+        <True,False> => True ; -- it (the letter) to the king
+        <False,True> => True ; -- the letter to him (the king)
+        <False,False> => False
+      } ;
+      obj1 = case <np1.proDrop,np2.proDrop> of {
+        <True,True> => pron_stem!np1.agr ++BIND++ "na" ; -- it (the letter) to him (the king)
+        <True,False> => np1.s!NFull ; -- [should be empty] it (the letter) to the king
+        <False,_> => np1.s!NFull
+      } ;
+      obj2 = case <np1.proDrop,np2.proDrop> of {
+        <True,True> => [] ;-- it (the letter) to him (the king)
+        <_,False> => np2.s!NFull ; -- it/the letter to the king
+        <False,True> => [] -- the letter to him (the king)
       } ;
     in {
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
-        in case np1.proDrop of {
-          True => vpref_with_oc ++ oc ++ r ++ obj1 ++ obj2 ;
-          False => vpref_no_oc ++ r ++ obj1 ++ obj2
+        in case oc_present of {
+          True => vpref_with_oc ++ oc ++ r ++ obj2 ++ obj1 ;
+          False => vpref_no_oc ++ r ++ obj2 ++ obj1
         } ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
-        in case np1.proDrop of {
-          True => vpref_with_oc ++ oc ++ r ++ obj1 ++ obj2 ;
-          False => vpref_no_oc ++ r ++ obj1 ++ obj2
+        in case oc_present of {
+          True => vpref_with_oc ++ oc ++ r ++ obj2 ++ obj1 ;
+          False => vpref_no_oc ++ r ++ obj2 ++ obj1
         }
       } ;
       imp_s = table {
@@ -187,7 +200,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in case np1.proDrop of {
           True => vpref_with_oc ++ oc ++ r ++ obj1 ++ obj2 ;
@@ -210,7 +223,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in case np.proDrop of {
           True => vpref_with_oc ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;
@@ -219,7 +232,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
         in case np.proDrop of {
           True => vpref_with_oc ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;
@@ -276,7 +289,7 @@ concrete BackwardZul of Backward = CatZul ** open ResZul,Prelude,ParamX in {
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in case np.proDrop of {
           True => vpref_with_oc ++ oc ++ r ++ obj ++ vp.inf_s!NFull!Pos ;

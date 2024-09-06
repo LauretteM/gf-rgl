@@ -1,4 +1,4 @@
-concrete MonoLexZul of MonoLex = CatZul ** open ResZul,ParadigmsZul in {
+concrete MonoLexZul of MonoLex = CatZul, CatSBantuZul ** open ResZul,ParadigmsZul in {
 
    lin
    -- MANUAL ADDITIONS --
@@ -7,6 +7,9 @@ concrete MonoLexZul of MonoLex = CatZul ** open ResZul,ParadigmsZul in {
    lungu_1a_2a_N = mkN "lungu" "abelungu" "elungwini" "ebelungwini" C1a_2a ;
    ingabe_Adv = mkAdv "ingabe" ;
    kakhulu_Adv = mkAdv "kakhulu" ;
+   qotho_R = mkRelA "qotho" ;
+   mnyama_R = mkRelA "mnyama" ;
+   phandle_LocN = {s = "phandle" } ;
 
    -- AUTOMATED ADDITIONS --
 
@@ -692,7 +695,7 @@ concrete MonoLexZul of MonoLex = CatZul ** open ResZul,ParadigmsZul in {
    dluzele_9_10_N = mkN "dluzele" C9_10 ;
    dlwangudlwangu_14_N = mkN "dlwangudlwangu" C14 ;
    doda_14_N = mkN "doda" C14 ;
-   doda_9_6_N = mkN "doda" C9_6 ;
+   doda_9_10_N = mkN "doda" C9_10 ;
    dodakazi_9_6_N = mkN "dodakazi" C9_6 ;
    dodana_9_6_N = mkN "dodana" C9_6 ;
    dojeyana_9_6_N = mkN "dojeyana" C9_6 ;
@@ -4282,6 +4285,7 @@ concrete MonoLexZul of MonoLex = CatZul ** open ResZul,ParadigmsZul in {
    ntenjana_9_10_N = mkN "ntenjana" C9_10 ;
    ntolibhantshana_9_10_N = mkN "ntolibhantshana" C9_10 ;
    ntombazanyana_5_6_N = mkN "ntombazanyana" C5_6 ;
+   ntombi_9_10_N = mkN "ntombi" C9_10 ;
    ntonjwana_1a_2a_N = mkN "ntonjwana" C1a_2a ;
    ntshetshana_9_10_N = mkN "ntshetshana" C9_10 ;
    ntuthwanyana_9_10_N = mkN "ntuthwanyana" C9_10 ;

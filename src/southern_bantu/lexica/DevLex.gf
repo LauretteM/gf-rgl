@@ -74,6 +74,8 @@ abstract DevLex = Cat ** {
 
    win_V2 : V2 ;
 
+   write_V3 : V3 ;
+
    above_Adv : Adv ; -- ngaphezu
 
 }

@@ -689,8 +689,102 @@ resource ResZul = open Prelude,Predef,ParamX in {
     in
       sc ++
       ya ;
+    
+    verb_prefix_with_oc : VForm -> Bool -> RInit -> Agr -> Aspect -> Syl -> Str = \vform,longform,rinit,agr,aspect,syl -> let
+      sc = case <vform,longform,aspect> of {
+        -- null aspect, main clause
+        <VFIndic MainCl Pos PresTense,False,Null> => subjConcLookup!agr!SC ++BIND++ (objConc agr rinit syl) ;
 
-    verb_prefix_with_oc : VForm -> Bool -> Agr -> Aspect -> Str = \vform,longform,agr,aspect -> let
+        <VFIndic MainCl Pos PresTense,True,Null> => subjConcLookup!agr!SC ++BIND++ (objConc agr rinit syl) ;
+        <VFIndic MainCl Neg PresTense,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ (objConc agr rinit syl) ;
+
+        <VFIndic MainCl Pos PastTense,_,Null> => subjConcLookup!agr!SC ++BIND++ (objConc agr rinit syl) ;
+
+        <VFIndic MainCl Neg PastTense,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ (objConc agr rinit syl) ;
+
+        <VFIndic MainCl Pos RemPastTense,_,Null> => (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ++ (objConc agr rinit syl) ; -- wahamba
+
+        <VFIndic MainCl Neg RemPastTense,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ (objConc agr rinit syl) ;
+
+        <VFIndic MainCl Pos _,_,Null> => subjConcLookup!agr!SC ++BIND ++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- uzohamba
+        <VFIndic MainCl Neg _,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- akazuhamba
+
+        -- null aspect, relative clause
+        <VFIndic RelCl Pos RemPastTense,_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ++BIND++ (objConc agr rinit syl) ; -- owahamba
+        <VFIndic RelCl Pos (FutTense|RemFutTense),_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- ozohamba
+        <VFIndic RelCl Neg (FutTense|RemFutTense),_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- ongazuhamba
+        <VFIndic RelCl _ _,_,Null> => (relConc vform agr rinit)++ (objConc agr rinit syl) ;
+
+        -- progressive, main clause
+        <VFIndic MainCl Pos PresTense,_,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND++ (objConc agr rinit syl) ; -- usahamba
+        
+        <VFIndic MainCl Neg PresTense,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND++ (objConc agr rinit syl) ; -- akasahambi
+
+        <VFIndic MainCl Pos PastTense,_,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND++ (objConc agr rinit syl) ; -- usahambile
+
+        <VFIndic MainCl Neg PastTense,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND++ (objConc agr rinit syl) ; -- akasahambile
+
+        <VFIndic MainCl Pos RemPastTense,_,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform RC syl) ++ "sa" ++BIND++ (objConc agr rinit syl) ; -- wasahamba
+
+        <VFIndic MainCl Neg RemPastTense,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND++ (objConc agr rinit syl) ; -- akasahambanga
+
+        <VFIndic MainCl Pos _,_,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- usazohamba
+        <VFIndic MainCl Neg _,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- akasazuhamba
+
+        -- progressive, relative clause
+        <VFIndic RelCl Pos RemPastTense,_,Prog> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ++ "sa" ++BIND++ (objConc agr rinit syl) ;
+
+        <VFIndic RelCl Pos (FutTense|RemFutTense),_,Prog> => (relConc vform agr rinit) ++ "sa" ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ;
+
+        <VFIndic RelCl Neg (FutTense|RemFutTense),_,Prog> => (relConc vform agr rinit) ++ "se" ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ;
+        <VFIndic RelCl _ _,_,Prog> => (relConc vform agr rinit) ++ "sa" ++BIND++ (objConc agr rinit syl) ;
+
+        -- exclusive, main clause
+        <VFIndic MainCl Pos PresTense,_,Excl> => subjConcLookup!agr!SCSe ++BIND++ (objConc agr rinit syl) ; -- sewuhamba
+
+        <VFIndic MainCl Neg PresTense,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND++ (objConc agr rinit syl) ; -- akakahambi
+
+        <VFIndic MainCl Pos PastTense,_,Excl> => subjConcLookup!agr!SCSe ++BIND++ (objConc agr rinit syl) ; -- sewuhambile
+
+        <VFIndic MainCl Neg PastTense,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+
+        <VFIndic MainCl Pos RemPastTense,_,Excl> => "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- sewahamba
+
+        <VFIndic MainCl Neg RemPastTense,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+
+        <VFIndic MainCl Pos _,_,Excl> => subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ;
+        <VFIndic MainCl Neg _,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ;
+
+        -- exclusive, relative clause
+        <VFIndic RelCl Pos PresTense,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND++ (objConc agr rinit syl) ; -- engiseyahamba
+
+        <VFIndic RelCl Neg PresTense,_,Excl> => (relConc vform agr rinit) ++ "ka" ++ BIND++ (objConc agr rinit syl) ; -- engingakahambi
+
+        <VFIndic RelCl Pos PastTense,_,Excl> => shortRelConc!agr ++ "se" ++BIND++ subjConcLookup!agr!SC ++BIND++ (objConc agr rinit syl) ; -- esengihambile
+
+        <VFIndic RelCl Neg PastTense,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+
+        <VFIndic RelCl Pos RemPastTense,_,Excl> => shortRelConc!agr ++ "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ; -- osewahamba
+
+        <VFIndic RelCl Neg RemPastTense,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+
+        <VFIndic RelCl Pos _,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ;
+        <VFIndic RelCl Neg _,_,Excl> => (relConc vform agr rinit) ++ "ka" ++BIND++ (tensePref vform rinit syl)++ (objConc agr rinit syl) ;
+        <VFConsec Pos,_,_> => let
+          vow = case rinit of {
+            RC => False ;
+            _ => True
+          }
+        in (subjConc vform agr vow rinit)++ (objConc agr rinit syl) ;
+        <VFConsec _,_,_> => (subjConc vform agr False rinit) ++ (negPrefNga vform False)++ (objConc agr rinit syl) ;
+        <VFSubjunct _,_,_> => (subjConc vform agr False rinit) ++ (negPrefNga vform False)++ (objConc agr rinit syl)
+      } ;
+      ya = longform_ya vform longform rinit aspect ;
+    in
+      sc ++
+      ya ;
+
+    verb_prefix_with_oc_ : VForm -> Bool -> Agr -> Aspect -> Str = \vform,longform,agr,aspect -> let
       pre_pref = case <vform,aspect> of {
         <VFIndic _ Pos PresTense,Prog> => (negPref vform) ++ subjConcLookup!agr!SC ++BIND++ "sa" ++BIND ;
         <VFIndic _ Pos RemPastTense,Prog> => (negPref vform) ++ subjConcLookup!agr!SC ++BIND++ "s" ++BIND ;
