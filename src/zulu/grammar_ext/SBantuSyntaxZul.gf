@@ -5,4 +5,4 @@ resource SBantuSyntaxZul =
   SBantuSyntax with
     (Grammar=SBantuGrammarZul),
     (Backward=BackwardZul),
-    (TempExt=TempExtZul) ;
+    (TempSBantu=SBantuExtZul) ;
