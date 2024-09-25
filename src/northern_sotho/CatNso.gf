@@ -44,7 +44,7 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 
 -- Adjective
 
-    AP = { s : AForm => Str } ;
+    AP = { s : AForm => Str ; at : AType } ;
 
 -- Noun
 
@@ -71,9 +71,10 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Conj = {s : Str ; mood : MoodS } ;
 
 -- Open lexical classes, e.g. Lexicon
-    V, V2, V3, VV, V2V, VS = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl } ;
+    V, V2, V3, VV, V2V = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl } ;
+    VS = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood : MoodS } ;
 
-    A = { s : AForm => Str } ;
+    A = { s : AForm => Str ; at : AType } ;
 
     N = {s : Number => NPForm => Str ; c : ClassGender ; nt : NType} ;
 

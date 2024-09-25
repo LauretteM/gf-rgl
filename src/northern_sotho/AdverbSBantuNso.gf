@@ -22,14 +22,18 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
         }
     } ;
 
-    --  Pretoria
+    
+--  Pretoria
     PlaceNameAdv np = {
-        s = np.s!Locative
+        s = case np.nt of {
+            PlaceN => np.s!Locative ;
+            _ => nonExist
+        }
     } ;
 
     --  go moruti
     PersonLocAdv np = {
-        s = "go" ++ np.s!Locative
+        s = "go" ++ np.s!Absolute
     } ;
 
     --  ga moruti

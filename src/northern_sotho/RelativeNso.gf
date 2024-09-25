@@ -9,6 +9,6 @@ concrete RelativeNso of Relative = CatNso ** open ResNso,Prelude,ParamX in {
     } ;
 
     IdRP = {
-      s = abs_pron ;
+      s = dem_pron!Dem1 ;
     } ;
 }

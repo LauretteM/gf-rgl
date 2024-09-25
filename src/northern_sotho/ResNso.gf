@@ -6,6 +6,7 @@ resource ResNso = open Prelude,ParamX in {
         Agr = First Number | Second Number | Third ClassGender Number ;
         NPForm = Absolute | Possessive | Locative ; 
         NType = ConcreteN | AbstractN | HumanN | PlaceN ;
+        AType = AdjA | EnumA ;
 
         MoodS = IndicMS | SitMS | SubjunctMS | ConsecMS ;
         TensedCl = IndicCl | RelCl | SitCl ;
@@ -28,7 +29,7 @@ resource ResNso = open Prelude,ParamX in {
 
     oper
         vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
-        cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"t"|"v"|"w"|"x"|"y"|"z") ;
+        cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"š"|"t"|"v"|"w"|"x"|"y"|"z") ;
         labial_cons : pattern Str = #("p"|"b"|"f"|"m" ) ;
 
         mkNounExplicit : Str -> Str -> Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
@@ -184,18 +185,58 @@ resource ResNso = open Prelude,ParamX in {
                                 proDrop = False
         } ;
 
+        mkVerbExplicit : Str -> Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
+        = \root,pastform -> {
+                    s = table {
+                        VPreReg => table {
+                            VS_a => root + "a" ;                            -- sepela
+                            VS_e => root + "e" ;                            -- sepele    
+                            VS_ile => pastform
+                        } ;
+                          
+                        VPreAlt => let 
+                            alt_root = vPreAltRoot root ;
+                            alt_pastform = vPreAltRoot pastform
+                        in table {
+                            VS_a => alt_root+ "a" ;                --"tshepela" ;
+                            VS_e => alt_root + "e" ;               --"tshepele" ;
+                            VS_ile => alt_pastform              
+                        }
+                    } ;   
+
+                    initLab = case root of {
+                        #labial_cons + p => True ;
+                        _ => False
+                    }   ;
+
+                    syl = case root of {
+                        _+#cons+#vowel+#cons+_ => SylMult ; -- bal
+                        _+#cons+#vowel+#vowel+_ => SylMult ; -- neel
+                        _+#vowel+#cons+#vowel+_ => SylMult ; -- ape
+                        _+#cons+#vowel+_ => SylMult ; -- bo
+                        _+#vowel+#cons+_ => SylMult ; -- ag
+                        _ => SylMono
+                    } ;
+        } ;
+
         mkVerb : Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
         = \root -> {s = table {
                         VPreReg => table {
                             VS_a => root + "a" ;                            -- sepela
                             VS_e => root + "e" ;                            -- sepele    
-                            VS_ile => case root of {                        -- sepetše
+                            VS_ile => case root of {  
+                                "ngwal" => "ngwadile" ;  
+                                "lwal" => "lwadile" ; 
+                                "gom" => "gomile" ;  
+                                "bolay" => "bolaile" ;
+                                "y" => "ile" ;                              -- sepetše
                                 p + "n" => p + "ne" ;
                                 p + "m" => p + "me" ;
                                 p + "ar" => p + "ere" ;
                                 p + "al" => p + "etše" ;
                                 p + "el" => p + "etše" ;
                                 p + "ul" => p + "utše" ;
+                                p + "ol" => p + "otše" ;
                                 p + "tš" => p + "ditše" ;
                                 p + "š" => p + "šitše" ;
                                 p + "ny" => p + "tše" ;
@@ -215,6 +256,7 @@ resource ResNso = open Prelude,ParamX in {
                                 p + "al" => p + "etše" ;
                                 p + "el" => p + "etše" ;
                                 p + "ul" => p + "utše" ;
+                                p + "ol" => p + "otše" ;
                                 p + "tš" => p + "ditše" ;
                                 p + "š" => p + "šitše" ;
                                 p + "ny" => p + "tše" ;
@@ -234,6 +276,7 @@ resource ResNso = open Prelude,ParamX in {
                         _+#cons+#vowel+#vowel+_ => SylMult ; -- neel
                         _+#vowel+#cons+#vowel+_ => SylMult ; -- ape
                         _+#cons+#vowel+_ => SylMult ; -- bo
+                        _+#vowel+#cons+_ => SylMult ; -- ag
                         _ => SylMono
                     } ;
         } ;
@@ -559,11 +602,12 @@ resource ResNso = open Prelude,ParamX in {
             <_, _, _, _> => [] 
         } ;
 
-        regAdj : Str -> { s : AForm => Str } = \a -> {s = 
-        table {
-            AF1 => a ;
-            AF2 => strengthen_root a 
-            }
+        regAdj : Str -> { s : AForm => Str ; at : AType } = \a -> {
+            s = table {
+                AF1 => a ;
+                AF2 => strengthen_root a 
+                } ;
+            at = AdjA
         } ;
 
         strengthen_root : Str -> Str = \r -> 
@@ -571,6 +615,7 @@ resource ResNso = open Prelude,ParamX in {
             "bjalo" => "bjalo";
             "bjang" => "bjang" ; 
             "botse" => "botse" ;
+            "bose" => "bose" ;
             "ntši" => "ntši" ;
             "so" => "ntsho" ;
             "be" => "mpe" ;
@@ -705,7 +750,7 @@ resource ResNso = open Prelude,ParamX in {
             Third C17 _ => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
             Third C18 _ => "mo" ++ "go" ++BIND ++ ap.s!AF1
         } ;
-    
+
         descr_cop : VForm -> Agr -> Str = \vform,a -> let
             sc = subjConcLookup!a!SC1 ;
             sca = subjConcLookup!a!SC1Alt ;
