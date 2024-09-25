@@ -149,7 +149,7 @@ in {
             sc = subjConc vform a ;
             p2 = pre2 IndicCl p t longform ;
             r = case <npi.proDrop,npd.proDrop> of {
-                    <False, False> => [] ;
+                    <False, False> => v2RootForm v p t npi.a ;
                     <True, False> => v2RootForm v p t npi.a ;
                     <False, True> => v2RootForm v p t npd.a ;
                     <True, True> => v2RootForm v p t npi.a
@@ -161,7 +161,7 @@ in {
             sc = subjConc vform a ;
             p2 = pre2 RelCl p t False ;
             r = case <npi.proDrop,npd.proDrop> of {
-                    <False, False> => [] ;
+                    <False, False> => v2RootForm v p t npi.a ;
                     <True, False> => v2RootForm v p t npi.a ;
                     <False, True> => v2RootForm v p t npd.a ;
                     <True, True> => v2RootForm v p t npi.a
@@ -174,7 +174,7 @@ in {
             sc = subjConc vform a ;
             p2 = pre2 SitCl p t False ;
             r = case <npi.proDrop,npd.proDrop> of {
-                    <False, False> => [] ;
+                    <False, False> => v2RootForm v p t npi.a ;
                     <True, False> => v2RootForm v p t npi.a ;
                     <False, True> => v2RootForm v p t npd.a ;
                     <True, True> => v2RootForm v p t npi.a

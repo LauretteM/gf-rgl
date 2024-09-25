@@ -28,6 +28,7 @@ oper
 
   mkV = overload {
     mkV : (sepel : Str) -> V  = \sepel -> lin V (mkVerb sepel) ;
+    mkV : (sepel,sepetse : Str) -> V  = \sepel,sepetse -> lin V (mkVerbExplicit sepel sepetse) ;
   } ;
 
   mkV2 = overload {
@@ -43,7 +44,8 @@ oper
   } ;
 
   mkVS = overload {
-    mkVS : (bon : Str) -> MoodS -> VS  = \bon,mood -> lin VS (mkVerb bon) ; -- TODO: feed mood to a new mkSVerb oper
+    mkVS : (bon : Str) -> VS  = \bon -> lin VS (mkVerb bon) ** { mood = SubjunctMS } ;
+    mkVS : (bon : Str) -> MoodS -> VS  = \bon,mood -> lin VS (mkVerb bon) ** { mood = mood } ; -- TODO: feed mood to a new mkSVerb oper
     -- mkVS : (r, re : Str) -> MoodS -> VS = \r,re,mood -> lin VS (mkIrregSVerb r re mood) ; -- TODO: feed mood to a new mkIrregSVerb oper
   } ;
 

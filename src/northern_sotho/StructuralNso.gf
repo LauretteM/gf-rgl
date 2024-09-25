@@ -19,12 +19,12 @@ concrete StructuralNso of Structural = CatNso **
 
   -- Adv
   --   everywhere_Adv = mkAdv "everywhere" ;
-    -- here_Adv = mkAdv "lapha" ;
+    here_Adv = { s = "mo" } ; -- mo
   --   here7to_Adv = mkAdv ["to here"] ;
   --   here7from_Adv = mkAdv ["from here"] ;
   --   quite_Adv = mkAdv "quite" ;
   --   somewhere_Adv = mkAdv "somewhere" ;
-    -- there_Adv = mkAdv "khona" ;
+    there_Adv = { s = "moo" } ; -- moo
   --   there7to_Adv = mkAdv "there" ;
   --   there7from_Adv = mkAdv ["from there"] ;
 
@@ -38,6 +38,7 @@ concrete StructuralNso of Structural = CatNso **
 
   -- Conj
   -- and_Conj = { s = \\_ => "futhi" ; fix = False } ;
+  and_Conj = {s = "gomme" ; mood = IndicMS } ;
   --   both7and_DConj = mkConj "both" "and";
   --   either7or_DConj = mkConj "either" "or" singular ;
   --   or_Conj = mkConj "or" singular ;

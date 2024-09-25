@@ -47,7 +47,10 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
     } ;
 
     AdjCN ap cn = {
-      s = \\num,npform => cn.s!num!npform ++ compl_ap ap (Third cn.c num) ; 
+      s = case ap.at of {
+        EnumA => \\num,npform => cn.s!num!npform ++ subjConcLookup!(Third cn.c num)!SC1 ++ ap.s!AF1 ;
+        AdjA => \\num,npform => cn.s!num!npform ++ compl_ap ap (Third cn.c num)
+      } ; 
       c = cn.c ;
       nt = cn.nt 
     } ;

@@ -2,19 +2,25 @@
 
   lin
 
-    ProDrop pron = {
-      s = table {
-              Absolute => case pron.proDrop of {
-                  True => nonExist ;
-                  False => pron.empty
-              } ;
-              Possessive => nonExist ;
-              Locative => nonExist
-      } ; 
-      a = pron.a ; 
-      empty = pron.empty ;
-      proDrop = True
-    } ;
+    ProDrop pron = { -- 20 September 2024
+            s = table {
+                    Absolute => case pron.proDrop of {
+                        True => nonExist ;
+                        False => pron.empty
+                    } ;
+                    Possessive => case pron.proDrop of {
+                        True => nonExist ;
+                        False => pron.empty
+                    } ;
+                    Locative => case pron.proDrop of {
+                        True => nonExist ;
+                        False => pron.empty
+                    } 
+            } ; 
+            a = pron.a ; 
+            empty = pron.empty ;
+            proDrop = True
+        } ; 
 
     -- Quant is used for demonstratives, and QuantStem for all/only
 
@@ -57,7 +63,11 @@
     -- ApposN : CN -> N -> CN ; -- (takes agr of N)
 
     PredetN pdet n = { 
-      s = \\num,npform => pdet.s!(Third n.c num) ++ n.s!num!npform ;
+      s = \\num => table {
+        Absolute => pdet.s!(Third n.c num) ++ n.s!num!Absolute ;
+        Possessive => pdet.s!(Third n.c num) ++ n.s!num!Absolute ;
+        Locative => "go" ++ pdet.s!(Third n.c num) ++ n.s!num!Absolute 
+      } ;
       c = n.c ;
       nt = n.nt  
     } ; 
@@ -85,7 +95,7 @@
     EmphCN cn = {
       s = \\num => table {
           Absolute => abs_pron!(Third cn.c num) ++ cn.s!num!Absolute ;
-          Possessive => poss_pron!(Third cn.c num) ++ cn.s!num!Absolute ;
+          Possessive => abs_pron!(Third cn.c num) ++ cn.s!num!Absolute ;
           Locative => abs_pron!(Third cn.c num) ++ cn.s!num!Absolute 
       } ;
       c = cn.c ;
@@ -125,6 +135,10 @@
 
     -- LocNNgaNP : LocN -> NP ;
     -- PossLocN : LocN -> NP -> LocN ; -- phezu kwamahora...
+    PossLocN locn np = {
+      s = locn.s ++ "ga" ++ np.s!Absolute ;
+      c = locn.c
+    } ;
 
     LocAdvLoc locadv = {
       s = table {
@@ -184,4 +198,4 @@
 
     -- SBantuConjNP : NP -> Conj -> NP -> NP ;
 
-}
+  }
