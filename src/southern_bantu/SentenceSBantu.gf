@@ -14,4 +14,5 @@ abstract SentenceSBantu = Cat,CatSBantu ** {
     UseRClExcl : Temp -> Pol -> RCl -> RS ;
     SConjS : S -> Conj -> S -> S ;
     ImpConjS : Imp -> Conj -> S -> Imp ; -- help the aunt before she cries 
+    
 }

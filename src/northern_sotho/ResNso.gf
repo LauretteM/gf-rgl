@@ -768,29 +768,29 @@ resource ResNso = open Prelude,ParamX in {
             <AdjA,Third C17 _> => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
             <AdjA,Third C18 _> => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
 
-            <EnumA,First Sg> => "ke" ++ ap.s!AF1 ;
-            <EnumA,First Pl> => "re" ++ ap.s!AF1 ;
-            <EnumA,Second Sg> => "o" ++ ap.s!AF1 ;
-            <EnumA,Second Pl> => "le" ++ ap.s!AF1 ;
-            <EnumA,Third C1_2 Sg> => "o" ++ ap.s!AF1 ;
+            <EnumA,First Sg> => "yo" ++ ap.s!AF1 ;
+            <EnumA,First Pl> => "ba" ++ ap.s!AF1 ;
+            <EnumA,Second Sg> => "yo" ++ ap.s!AF1 ;
+            <EnumA,Second Pl> => "ba" ++ ap.s!AF1 ;
+            <EnumA,Third C1_2 Sg> => "yo" ++ ap.s!AF1 ;
             <EnumA,Third C1_2 Pl> => "ba" ++ ap.s!AF1 ;
-            <EnumA,Third C1a_2a Sg> => "o" ++ ap.s!AF1 ;
+            <EnumA,Third C1a_2a Sg> => "yo" ++ ap.s!AF1 ;
             <EnumA,Third C1a_2a Pl> =>"ba" ++ ap.s!AF1 ;
-            <EnumA,Third C3_4 Sg> => "o" ++ ap.s!AF1 ;
-            <EnumA,Third C3_4 Pl> => "e" ++ ap.s!AF1 ;
+            <EnumA,Third C3_4 Sg> => "wo" ++ ap.s!AF1 ;
+            <EnumA,Third C3_4 Pl> => "ye" ++ ap.s!AF1 ;
             <EnumA,Third C5_6 Sg> => "le" ++ ap.s!AF1 ;
             <EnumA,Third C5_6 Pl> => "a" ++ ap.s!AF1 ;
             <EnumA,Third C7_8 Sg> => "se" ++ ap.s!AF1 ;
-            <EnumA,Third C7_8 Pl> => "di" ++ ap.s!AF1 ;
-            <EnumA,Third C9_10 Sg> => "e" ++ ap.s!AF1 ;
-            <EnumA,Third C9_10 Pl> => "di" ++ ap.s!AF1 ;
-            <EnumA,Third C14_6 Sg> => "bo" ++ ap.s!AF1 ;
+            <EnumA,Third C7_8 Pl> => "tše" ++ ap.s!AF1 ;
+            <EnumA,Third C9_10 Sg> => "ye" ++ ap.s!AF1 ;
+            <EnumA,Third C9_10 Pl> => "tše" ++ ap.s!AF1 ;
+            <EnumA,Third C14_6 Sg> => "bjo" ++ ap.s!AF1 ;
             <EnumA,Third C14_6 Pl> => "a" ++ ap.s!AF1 ;
-            <EnumA,Third C14 _> => "bo" ++ ap.s!AF1 ;
-            <EnumA,Third C15 _> => "go" ++ ap.s!AF1 ;
-            <EnumA,Third C16 _> => "go" ++ ap.s!AF1 ;
-            <EnumA,Third C17 _> => "go" ++ ap.s!AF1 ;
-            <EnumA,Third C18 _> => "go" ++ ap.s!AF1
+            <EnumA,Third C14 _> => "bjo" ++ ap.s!AF1 ;
+            <EnumA,Third C15 _> => "mo" ++ ap.s!AF1 ;
+            <EnumA,Third C16 _> => "mo" ++ ap.s!AF1 ;
+            <EnumA,Third C17 _> => "mo" ++ ap.s!AF1 ;
+            <EnumA,Third C18 _> => "mo" ++ ap.s!AF1
 
         } ;
 
