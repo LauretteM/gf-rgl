@@ -33,6 +33,11 @@ oper
 
   mkV2 = overload {
     mkV2 : (rat : Str) -> V2  = \rat -> lin V2 (mkVerb rat) ;
+    mkV2 : (bal,badile : Str) -> V  = \bal,badile -> lin V (mkVerbExplicit bal badile) ;
+  } ;
+
+  mkV3 = overload {
+    mkV3 : (cook : Str) -> V3  = \cook -> lin V3 (mkVerb cook) ;
   } ;
 
   mkV2V = overload {
