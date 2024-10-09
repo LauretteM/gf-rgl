@@ -32,8 +32,10 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     forever_LocN : LocN ;
     inside_LocN : LocN ;
     on_top_LocN : LocN ;
-    
 
+    central_LocN : LocN ; -- gare
+    
+    is_present_Loc : Loc ;
     here_Loc : Loc ;
     there_Loc : Loc ;
 
@@ -68,6 +70,11 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     where_IComp : IComp ; -- -phi
     how_much_IComp : IComp ; -- -ngakanani
 
-    one_Enum : A ;
+    -- enumerative stems
+   different_Enum : A ; -- zul: mbe; nso: -šele
+   some_A : A ; -- zul: nye 
+   which_Enum : A ; -- nso: -fe
+   one_Enum : A ; -- nso: -tee
+   cruel_Enum : A ; -- nso: -šoro
 
 }

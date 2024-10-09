@@ -391,6 +391,16 @@ resource ResNso = open Prelude,ParamX in {
                 <Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
+        vsRootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood :MoodS }  -> Polarity -> BasicTense -> Str = \v,p,t ->
+        case <p,t> of {
+                <Pos, PresTense> => v.s!VPreReg!VS_a ;
+                <Pos, PastTense> => v.s!VPreReg!VS_ile ;
+                <Pos, FutTense> => v.s!VPreReg!VS_a ;
+                <Neg, PresTense> => v.s!VPreReg!VS_e ;
+                <Neg, PastTense> => v.s!VPreReg!VS_a ;
+                <Neg, FutTense> => v.s!VPreReg!VS_e 
+        } ;
+
         v2RootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Agr -> Str = \v,p,t,a ->
         case <a,p,t> of {
                 <First Sg, Pos, PresTense> => v.s!VPreAlt!VS_a ;
@@ -610,6 +620,14 @@ resource ResNso = open Prelude,ParamX in {
             at = AdjA
         } ;
 
+        enum : Str -> { s : AForm => Str ; at : AType } = \a -> {
+            s = table {
+                AF1 => a ;
+                AF2 => strengthen_root a 
+                } ;
+            at = EnumA
+        } ;
+
         strengthen_root : Str -> Str = \r -> 
         case r of {
             "bjalo" => "bjalo";
@@ -724,31 +742,56 @@ resource ResNso = open Prelude,ParamX in {
             }
         } ;
 
-        compl_ap : {s : AForm => Str } -> Agr -> Str = \ap,a ->
-        case a of {
-            First Sg => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
-            First Pl => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
-            Second Sg => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
-            Second Pl => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
-            Third C1_2 Sg => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
-            Third C1_2 Pl => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
-            Third C1a_2a Sg => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
-            Third C1a_2a Pl =>"ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
-            Third C3_4 Sg => "wo" ++ "mo" ++BIND ++ ap.s!AF1 ;
-            Third C3_4 Pl => "ye" ++ "me" ++BIND ++ ap.s!AF1 ;
-            Third C5_6 Sg => "le" ++ "le" ++BIND ++ ap.s!AF1 ;
-            Third C5_6 Pl => "a" ++ "ma" ++BIND ++ ap.s!AF1 ;
-            Third C7_8 Sg => "se" ++ "se" ++BIND ++ ap.s!AF1 ;
-            Third C7_8 Pl => "tše" ++ ap.s!AF2 ;
-            Third C9_10 Sg => "ye" ++ ap.s!AF2 ;
-            Third C9_10 Pl => "tše" ++ ap.s!AF2 ;
-            Third C14_6 Sg => "bjo" ++ "bo" ++BIND ++ ap.s!AF1 ;
-            Third C14_6 Pl => "a" ++ "ma" ++BIND ++ ap.s!AF1 ;
-            Third C14 _ => "bjo" ++ "bo" ++BIND ++ ap.s!AF1 ;
-            Third C15 _ => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
-            Third C16 _ => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
-            Third C17 _ => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
-            Third C18 _ => "mo" ++ "go" ++BIND ++ ap.s!AF1
+        compl_ap : {s : AForm => Str; at : AType } -> Agr -> Str = \ap,a ->
+        case <ap.at,a> of {
+            <AdjA, First Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,First Pl> => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Second Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Second Pl> => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C1_2 Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C1_2 Pl> => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C1a_2a Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C1a_2a Pl> =>"ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C3_4 Sg> => "wo" ++ "mo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C3_4 Pl> => "ye" ++ "me" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C5_6 Sg> => "le" ++ "le" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C5_6 Pl> => "a" ++ "ma" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C7_8 Sg> => "se" ++ "se" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C7_8 Pl> => "tše" ++ ap.s!AF2 ;
+            <AdjA,Third C9_10 Sg> => "ye" ++ ap.s!AF2 ;
+            <AdjA,Third C9_10 Pl> => "tše" ++ ap.s!AF2 ;
+            <AdjA,Third C14_6 Sg> => "bjo" ++ "bo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C14_6 Pl> => "a" ++ "ma" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C14 _> => "bjo" ++ "bo" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C15 _> => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C16 _> => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C17 _> => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
+            <AdjA,Third C18 _> => "mo" ++ "go" ++BIND ++ ap.s!AF1 ;
+
+            <EnumA,First Sg> => "yo" ++ ap.s!AF1 ;
+            <EnumA,First Pl> => "ba" ++ ap.s!AF1 ;
+            <EnumA,Second Sg> => "yo" ++ ap.s!AF1 ;
+            <EnumA,Second Pl> => "ba" ++ ap.s!AF1 ;
+            <EnumA,Third C1_2 Sg> => "yo" ++ ap.s!AF1 ;
+            <EnumA,Third C1_2 Pl> => "ba" ++ ap.s!AF1 ;
+            <EnumA,Third C1a_2a Sg> => "yo" ++ ap.s!AF1 ;
+            <EnumA,Third C1a_2a Pl> =>"ba" ++ ap.s!AF1 ;
+            <EnumA,Third C3_4 Sg> => "wo" ++ ap.s!AF1 ;
+            <EnumA,Third C3_4 Pl> => "ye" ++ ap.s!AF1 ;
+            <EnumA,Third C5_6 Sg> => "le" ++ ap.s!AF1 ;
+            <EnumA,Third C5_6 Pl> => "a" ++ ap.s!AF1 ;
+            <EnumA,Third C7_8 Sg> => "se" ++ ap.s!AF1 ;
+            <EnumA,Third C7_8 Pl> => "tše" ++ ap.s!AF1 ;
+            <EnumA,Third C9_10 Sg> => "ye" ++ ap.s!AF1 ;
+            <EnumA,Third C9_10 Pl> => "tše" ++ ap.s!AF1 ;
+            <EnumA,Third C14_6 Sg> => "bjo" ++ ap.s!AF1 ;
+            <EnumA,Third C14_6 Pl> => "a" ++ ap.s!AF1 ;
+            <EnumA,Third C14 _> => "bjo" ++ ap.s!AF1 ;
+            <EnumA,Third C15 _> => "mo" ++ ap.s!AF1 ;
+            <EnumA,Third C16 _> => "mo" ++ ap.s!AF1 ;
+            <EnumA,Third C17 _> => "mo" ++ ap.s!AF1 ;
+            <EnumA,Third C18 _> => "mo" ++ ap.s!AF1
+
         } ;
 
         descr_cop : VForm -> Agr -> Str = \vform,a -> let
