@@ -151,7 +151,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
           } 
     } ;
 
-    there_Loc = {
+    is_present_Loc = {
       s = \\c,a,p,t => kho_cop (VFIndic c p t) a ;
       imp_s = table {
         Sg => table {
