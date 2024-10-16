@@ -97,7 +97,107 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     } ;
 
     -- here_Loc : Loc ;
+    -- here_Loc = is_present_Loc ++ "mo" ;
+     here_Loc = { -- gona PLUS mo, Dem 1 of the locative classes.
+        s = table {
+            IndicCl => \\a,p,t => let
+                vform = VFTensed IndicCl p t ;
+                cop = descr_cop vform a ;
+                compl = "gona" ;
+              in cop ++ compl ++ "mo" ;
+
+            RelCl => \\a,p,t => let
+                vform = VFTensed RelCl p t ;
+                cop = descr_cop vform a ;
+                compl = "gona" ;
+              in cop ++ compl ++ "mo" ;
+
+            SitCl => \\a,p,t => let
+                vform = VFTensed SitCl p t ;
+                cop = descr_cop vform a ;
+                compl = "gona" ;
+              in cop ++ compl ++ "mo"
+        } ;
+        inf_s = table {
+            Pos => "go" ++ "ba" ++ "gona" ++ "mo" ;
+            Neg => "go" ++ "se" ++ "be" ++ "gona" ++ "mo"
+        } ;
+        imp_s = table {
+            Sg => table {
+                Pos => "eba" ++ "gona" ++ "mo" ;           
+                Neg => "se" ++ "be" ++ "gona" ++ "mo" 
+            } ;
+            Pl => table {
+                Pos => "ebang" ++ "gona" ++ "mo" ;           
+                Neg => "se" ++ "beng" ++ "gona" ++ "mo"  
+           } 
+        } ;
+        consubj_s = table {
+          SubjunctCl => \\a,p => let
+              vform = VFUntensed SubjunctCl p ;
+              cop = descr_cop vform a ; 
+              compl = "gona" ;
+          in cop ++ compl ++ "mo" ;
+          
+          ConsecCl => \\a,p => let
+              vform = VFUntensed ConsecCl p ;
+              cop = descr_cop vform a ; 
+              compl = "gona" ;
+          in cop ++ compl ++ "mo"
+      } ;
+    } ;  
+
     -- there_Loc : Loc ;
+    -- there_Loc = is_present_Loc ++ "moo" ;
+    there_Loc = { -- gona PLUS moo, Dem 2 of the locative classes.
+        s = table {
+            IndicCl => \\a,p,t => let
+                vform = VFTensed IndicCl p t ;
+                cop = descr_cop vform a ;
+                compl = "gona" ;
+              in cop ++ compl ++ "moo" ;
+
+            RelCl => \\a,p,t => let
+                vform = VFTensed RelCl p t ;
+                cop = descr_cop vform a ;
+                compl = "gona" ;
+              in cop ++ compl ++ "moo" ;
+
+            SitCl => \\a,p,t => let
+                vform = VFTensed SitCl p t ;
+                cop = descr_cop vform a ;
+                compl = "gona" ;
+              in cop ++ compl ++ "moo"
+        } ;
+        inf_s = table {
+            Pos => "go" ++ "ba" ++ "gona" ++ "moo" ;
+            Neg => "go" ++ "se" ++ "be" ++ "gona" ++ "moo"
+        } ;
+        imp_s = table {
+            Sg => table {
+                Pos => "eba" ++ "gona" ++ "moo" ;           
+                Neg => "se" ++ "be" ++ "gona" ++ "moo" 
+            } ;
+            Pl => table {
+                Pos => "ebang" ++ "gona" ++ "moo" ;           
+                Neg => "se" ++ "beng" ++ "gona" ++ "moo"  
+           } 
+        } ;
+        consubj_s = table {
+          SubjunctCl => \\a,p => let
+              vform = VFUntensed SubjunctCl p ;
+              cop = descr_cop vform a ; 
+              compl = "gona" ;
+          in cop ++ compl ++ "moo" ;
+          
+          ConsecCl => \\a,p => let
+              vform = VFUntensed ConsecCl p ;
+              cop = descr_cop vform a ; 
+              compl = "gona" ;
+          in cop ++ compl ++ "moo"
+      } ;
+    } ;  
+
 
     -- at_which_IAdv : NP -> IAdv ;
     -- what_IAdv : IAdv ;
