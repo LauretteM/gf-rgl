@@ -196,6 +196,13 @@
 
     -- PossNPLoc : CN -> NP -> CN ; -- zasepulazini
 
+
+    PossNPLoc cn np = {
+      s = \\num, npform => cn.s!num!npform ++ (possConc cn.c num) ++ np.s!Locative ;
+      c = cn.c ; empty =[] ;
+      nt = cn.nt
+    } ;
+
     -- SBantuConjNP : NP -> Conj -> NP -> NP ;
 
   }
