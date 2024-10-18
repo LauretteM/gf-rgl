@@ -18,8 +18,6 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     DetNum : Num -> Det ;
 
-    PostdetCN : CN -> Postdet -> Det -> NP ;
-
     RelN : RS -> N -> CN ;
 
     ApposCN : CN -> N -> CN ; -- (takes agr of CN)
