@@ -57,4 +57,8 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     SBantuConjNP : NP -> Conj -> NP -> NP ;
 
+    -- Added November 2024
+
+    AdjPron : AP -> Pron -> Pron ;
+
 }

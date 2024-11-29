@@ -201,7 +201,7 @@ resource ResNso = open Prelude,ParamX in {
                             VS_a => alt_root+ "a" ;                --"tshepela" ;
                             VS_e => alt_root + "e" ;               --"tshepele" ;
                             VS_ile => alt_pastform              
-                        }
+                        } 
                     } ;   
 
                     initLab = case root of {
@@ -263,7 +263,7 @@ resource ResNso = open Prelude,ParamX in {
                                 p + "al" => p + "adile" ;
                                 -- monosyllabic verb root : a -> ele
                                 p => p + "ile" }               
-                        }
+                        } 
                     } ;   
 
                     initLab = case root of {
@@ -288,7 +288,7 @@ resource ResNso = open Prelude,ParamX in {
             "i" + p => "ki" + p ;
             "o" + p => "ko" + p ;
             "u" + p => "ku" + p ;
-            "b" + p => "p" + p ;
+            "b" + p => p ;-- bitš -> itš
             "d" + p => "t" + p ;
             "f" + p => "ph" + p ;
             "fs" + p => "psh" + p ;
@@ -302,9 +302,12 @@ resource ResNso = open Prelude,ParamX in {
             "š" + p => "tšh" + p ;
             "w" + p => "kw" + p ;
             "y" + p => "k" + p ;
+            -- new patterns
+            "m" + p => p ; -- makatš -> akatš
+            "p" + p => p ; -- paka -> aka
             _ => root
         } ;
-             
+
         subjConcLookup : Agr => SCForm => Str 
         = table{
             First Sg =>  table {SC1 => "ke" ;  SC1Alt => "ke" ; SC2 => "ka" ; SC1AltPreKa => "n"++BIND} ;
@@ -375,8 +378,12 @@ resource ResNso = open Prelude,ParamX in {
 
         objConc : Bool -> Agr -> Str = \init,a -> case a of {
             First Sg => case init of {
-                True => "m"++BIND ;
+                True => "mp"++BIND ;
                 False => "n"++BIND
+            } ;
+            Third C1_2 Sg => case init of {
+                True => "mm"++BIND ;
+                False => objConcLookup!a
             } ;
             _ => objConcLookup!a
         } ;
@@ -410,6 +417,13 @@ resource ResNso = open Prelude,ParamX in {
                 <First Sg, Neg, PastTense> => v.s!VPreAlt!VS_a ;
                 <First Sg, Neg, FutTense> => v.s!VPreAlt!VS_e ;
 
+                <Third C1_2 Sg, Pos, PresTense> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Pos, PastTense> => v.s!VPreAlt!VS_ile ;
+                <Third C1_2 Sg, Pos, FutTense> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Neg, PresTense> => v.s!VPreAlt!VS_e ;
+                <Third C1_2 Sg, Neg, PastTense> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Neg, FutTense> => v.s!VPreAlt!VS_e ;
+
                 <_, Pos, PresTense> => v.s!VPreReg!VS_a ;
                 <_, Pos, PastTense> => v.s!VPreReg!VS_ile ;
                 <_, Pos, FutTense> => v.s!VPreReg!VS_a ;
@@ -422,6 +436,9 @@ resource ResNso = open Prelude,ParamX in {
         case <a,p> of {
                 <First Sg, Pos> => v.s!VPreAlt!VS_a ;
                 <First Sg, Neg> => v.s!VPreAlt!VS_e ;
+
+                <Third C1_2 Sg, Pos> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Neg> => v.s!VPreAlt!VS_e ;
                 
                 <_, Pos> => v.s!VPreReg!VS_a ;
                 <_, Neg> => v.s!VPreReg!VS_e 
