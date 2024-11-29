@@ -205,4 +205,26 @@
 
     -- SBantuConjNP : NP -> Conj -> NP -> NP ;
 
+    -- AdjPron : AP -> Pron -> Pron ;
+    
+    AdjPron ap pn = {
+      s = table {
+        Absolute => case ap.at of {
+          EnumA => pn.s!Absolute ++ subjConcLookup!pn.a!SC1 ++ ap.s!AF1 ;
+          AdjA => pn.s!Absolute ++ compl_ap ap pn.a
+         } ;
+        Possessive => case ap.at of {
+          EnumA => pn.s!Possessive ++ subjConcLookup!pn.a!SC1 ++ ap.s!AF1 ;
+          AdjA => pn.s!Possessive ++ compl_ap ap pn.a
+         } ;
+        Locative => case ap.at of {
+          EnumA => pn.s!Locative ++ subjConcLookup!pn.a!SC1 ++ ap.s!AF1 ;
+          AdjA => pn.s!Locative ++ compl_ap ap pn.a
+         } 
+      } ;
+      a = pn.a ;
+      empty = [] ;
+      proDrop = pn.proDrop
+    } ;
+
   }

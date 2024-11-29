@@ -203,7 +203,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         longform = case <l,np.proDrop> of {
                             <False,False> => False ;
                             <False,True> => False ;
-                            <_,False> => False ;
+                            <_,False> => True ;
                             <_,True> => True
                         } ;
                         p2 = pre2 IndicCl p t longform ;
@@ -248,11 +248,11 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                 oc = objConc v.initLab np.a ;
             in  table {
                     Sg => table {
-                        Pos => stab_e ++ oc ++ (v2RootFormImp v Pos np.a) ++ np.s!Absolute ;
+                        Pos => stab_e ++ oc ++ (v2RootFormImp v Neg np.a) ++ np.s!Absolute ; -- use neg form when OC present
                         Neg => "se" ++ oc ++ (v2RootFormImp v Neg np.a) ++ np.s!Absolute 
                     } ;    
                     Pl => table {
-                        Pos => stab_e ++ oc ++ (v2RootFormImp v Pos np.a) ++BIND++ "ng" ++ np.s!Absolute ;
+                        Pos => stab_e ++ oc ++ (v2RootFormImp v Neg np.a) ++BIND++ "ng" ++ np.s!Absolute ; -- use neg form when OC present
                         Neg => "se" ++ oc ++ (v2RootFormImp v Neg np.a) ++BIND++ "ng" ++ np.s!Absolute 
                     }   
             } ;
