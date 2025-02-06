@@ -529,7 +529,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
     } ;
 
     verb_prefix_stative : VForm -> Agr -> RInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
-      VFIndic MainCl Pos PresTense => subjConcLookup!agr!SC ++BIND ;
+      VFIndic MainCl Pos PresTense => case rinit of {
+        RA | RE | RI | RO | RU => subjConcLookup!agr!SCVow ++BIND ;
+        RC => subjConcLookup!agr!SC ++BIND
+      } ;
       VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
       VFIndic MainCl Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
       VFIndic MainCl Pos FutTense => subjConcLookup!agr!SC ++BIND++ TEMP_PREF_FUT ++BIND ;
@@ -594,7 +597,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         <VFIndic MainCl Neg _,_,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ++ (tensePref vform rinit syl) ; -- akazuhamba
 
         -- null aspect, relative clause
-        <VFIndic RelCl Pos RemPastTense,_,_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ++BIND ; -- owahamba
+        <VFIndic RelCl Pos RemPastTense,_,_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ; -- owahamba
         <VFIndic RelCl Pos (FutTense|RemFutTense),_,_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ; -- ozohamba
         <VFIndic RelCl Neg (FutTense|RemFutTense),_,_,Null> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ; -- ongazuhamba
         <VFIndic RelCl _ _,_,_,Null> => (relConc vform agr rinit) ;
