@@ -18,6 +18,7 @@ abstract AdverbSBantu = Cat,CatSBantu ** {
     LocNAdv :	LocN -> LocAdv ; -- morago as adverb 
 
     JustLikeAdv : NP -> Adv ;
+    WithAdv : NP -> Adv ;
 
     LocAdvAdv : LocAdv -> Adv ;
     LocAdvNP : LocAdv -> NP -> LocAdv ; -- ngaphezu kwamahora amabili adlule
@@ -31,7 +32,7 @@ abstract AdverbSBantu = Cat,CatSBantu ** {
 
     NPAdv : NP -> Adv ; -- sonke lesi sikhathi
 
-    -- ConjNAdv : ConjN -> S -> Adv ; -- lapho kunobuhlungu khona
+    ConjAdvS : ConjAdv -> S -> Adv ; -- lapho kunobuhlungu khona
 
     
 

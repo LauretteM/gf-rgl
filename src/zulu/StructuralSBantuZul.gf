@@ -27,7 +27,8 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
         First Pl => "sodwa" ;
         Second Sg  => "wedwa" ;
         Second Pl => "nodwa"
-      }
+      } ;
+      lemma = "dwa"
     } ;
     all_QuantPron = {
       s = table {
@@ -54,7 +55,8 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
         First Pl => "sonke" ;
         Second Sg  => "wenke" ;
         Second Pl => "nonke"
-      }
+      } ;
+      lemma = "nke"
     } ;
 
     it3_Pron = mkPron (Third C3_4 Sg) ;

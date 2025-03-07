@@ -150,7 +150,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       s = table {
         NFull => pron_stem!agr +"na" ;
         NReduced => pron_stem!agr ;
-        NPoss => poss_pron_stem!agr ;
+        NPoss => (poss_pron_conc_vowel agr) + poss_pron_stem!agr ;
         NLoc => case agr of {
           First _ | Second Pl => "ki" ++BIND++ pron_stem!agr ;
           _ => "ku" ++BIND++ pron_stem!agr
@@ -161,10 +161,15 @@ resource ResXho = open Prelude,Predef,ParamX in {
       proDrop = False
     } ;
 
+    poss_pron_conc_vowel : Agr -> Str = \agr -> case agr of {
+      (First Pl | Second Pl ) => "e" ;
+      (Third _ _ | First Sg | Second Sg) => "a"
+    } ;
+
     full_pron : Str -> Str = \s -> s ++BIND++ "na" ;
 
     pron_stem : Agr => Str = table {
-      First Sg => "mi" ;
+      First Sg => "m" ;
       First Pl => "thi" ;
       Second Sg => "we" ;
       Second Pl => "ni" ;
@@ -190,7 +195,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
     } ;
 
     poss_pron_stem : Agr => Str = table {
-      First Sg => "mi" ;
+      First Sg => "m" ;
       First Pl => "thu" ;
       Second Sg => "kho" ;
       Second Pl => "nu" ;
@@ -218,79 +223,79 @@ resource ResXho = open Prelude,Predef,ParamX in {
     dem_pron : Distance => Agr => Str = table {
       Dem1 => table {
         First Sg => "lo" ;
-        First Pl => "laba" ;
+        First Pl => "aba" ;
         Second Sg => "lo" ;
-        Second Pl => "laba" ;
+        Second Pl => "aba" ;
         Third C1_2 Sg => "lo" ;
-        Third C1_2 Pl => "laba" ;
+        Third C1_2 Pl => "aba" ;
         Third C1a_2a Sg => "lo" ;
-        Third C1a_2a Pl => "laba" ;
+        Third C1a_2a Pl => "aba" ;
         Third C3_4 Sg => "lo" ;
         Third C3_4 Pl => "le" ;
-        Third C5_6 Sg => "leli" ;
+        Third C5_6 Sg => "eli" ;
         Third C5_6 Pl => "la" ;
-        Third C7_8 Sg => "lesi" ;
-        Third C7_8 Pl => "lezi" ;
+        Third C7_8 Sg => "esi" ;
+        Third C7_8 Pl => "ezi" ;
         Third C9_10 Sg => "le" ;
-        Third C9_10 Pl => "lezi" ;
-        Third C11_10 Sg => "lolu" ;
-        Third C11_10 Pl => "lezi" ;
+        Third C9_10 Pl => "ezi" ;
+        Third C11_10 Sg => "olu" ;
+        Third C11_10 Pl => "ezi" ;
         Third C9_6 Sg => "le" ;
         Third C9_6 Pl => "la" ;
-        Third C14 _ => "lobu" ;
-        Third C15 _ => "lokhu" ;
-        Third C17 _ => "lokhu" ;
-        LocAgr => "lapha"
+        Third C14 _ => "obu" ;
+        Third C15 _ => "oku" ;
+        Third C17 _ => "oku" ;
+        LocAgr => "apha"
       } ;
       Dem2 => table {
-        First Sg => "lowo" ;
-        First Pl => "labo" ;
-        Second Sg => "lowo" ;
-        Second Pl => "labo" ;
-        Third C1_2 Sg => "lowo" ;
-        Third C1_2 Pl => "labo" ;
-        Third C1a_2a Sg => "lowo" ;
-        Third C1a_2a Pl => "labo" ;
-        Third C3_4 Sg => "lowo" ;
-        Third C3_4 Pl => "leyo" ;
-        Third C5_6 Sg => "lelo" ;
-        Third C5_6 Pl => "lawo" ;
-        Third C7_8 Sg => "leso" ;
-        Third C7_8 Pl => "lezo" ;
-        Third C9_10 Sg => "leyo" ;
-        Third C9_10 Pl => "lezo" ;
-        Third C11_10 Sg => "lolo" ;
-        Third C11_10 Pl => "lezo" ;
-        Third C9_6 Sg => "leyo" ;
-        Third C9_6 Pl => "lawo" ;
-        Third C14 _ => "lobo" ;
-        Third C15 _ => "lokho" ;
-        Third C17 _ => "lapho"
+        First Sg => "loo" ;
+        First Pl => "abo" ;
+        Second Sg => "loo" ;
+        Second Pl => "abo" ;
+        Third C1_2 Sg => "loo" ;
+        Third C1_2 Pl => "abo" ;
+        Third C1a_2a Sg => "loo" ;
+        Third C1a_2a Pl => "abo" ;
+        Third C3_4 Sg => "loo" ;
+        Third C3_4 Pl => "loo" ;
+        Third C5_6 Sg => "elo" ;
+        Third C5_6 Pl => "loo" ;
+        Third C7_8 Sg => "eso" ;
+        Third C7_8 Pl => "ezo" ;
+        Third C9_10 Sg => "loo" ;
+        Third C9_10 Pl => "ezo" ;
+        Third C11_10 Sg => "olo" ;
+        Third C11_10 Pl => "ezo" ;
+        Third C9_6 Sg => "loo" ;
+        Third C9_6 Pl => "loo" ;
+        Third C14 _ => "obo" ;
+        Third C15 _ => "oko" ;
+        Third C17 _ => "apho"
       } ;
       Dem3 => table {
-        First Sg => "loya" ;
-        First Pl => "labaya" ;
-        Second Sg => "loya" ;
-        Second Pl => "labaya" ;
-        Third C1_2 Sg => "loya" ;
-        Third C1_2 Pl => "labaya" ;
-        Third C1a_2a Sg => "loya" ;
-        Third C1a_2a Pl => "labaya" ;
-        Third C3_4 Sg => "loya" ;
-        Third C3_4 Pl => "leya" ;
-        Third C5_6 Sg => "leliya" ;
-        Third C5_6 Pl => "lawaya" ;
-        Third C7_8 Sg => "lesiya" ;
-        Third C7_8 Pl => "leziya" ;
-        Third C9_10 Sg => "leya" ;
-        Third C9_10 Pl => "leziya" ;
-        Third C11_10 Sg => "loluya" ;
-        Third C11_10 Pl => "leziya" ;
-        Third C9_6 Sg => "leya" ;
-        Third C9_6 Pl => "lawaya" ;
-        Third C14 _ => "lobuya" ;
-        Third C15 _ => "lokhuya" ;
-        Third C17 _ => "laphaya"
+        First Sg => "laa" ;
+        First Pl => "abaa" ;
+        Second Sg => "laa" ;
+        Second Pl => "abaa" ;
+        Third C1_2 Sg => "laa" ;
+        Third C1_2 Pl => "abaa" ;
+        Third C1a_2a Sg => "laa" ;
+        Third C1a_2a Pl => "abaa" ;
+        Third C3_4 Sg => "laa" ;
+        Third C3_4 Pl => "laa" ;
+        Third C5_6 Sg => "elaa" ;
+        Third C5_6 Pl => "laa" ;
+        Third C7_8 Sg => "esaa" ;
+        Third C7_8 Pl => "ezaa" ;
+        Third C9_10 Sg => "laa" ;
+        Third C9_10 Pl => "ezaa" ;
+        Third C11_10 Sg => "olwaa" ;
+        Third C11_10 Pl => "ezaa" ;
+        Third C9_6 Sg => "laa" ;
+        Third C9_6 Pl => "laa" ;
+        Third C14 _ => "obaa" ;
+        Third C15 _ => "okwaa" ;
+        Third C17 _ => "phaya"
       }
     } ;
 
@@ -1198,13 +1203,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
           Sg => table {
             NFull => noms ;
             NReduced => (drop_init_vowel noms) ;
-            NPoss => (drop_init_vowel noms) ;
+            NPoss => possNounForm noms sg_agr ;
             NLoc => locs
         } ;
           Pl => table {
             NFull => nomp ;
             NReduced => (drop_init_vowel nomp) ;
-            NPoss => (drop_init_vowel nomp) ;
+            NPoss => possNounForm nomp pl_agr ;
             NLoc => locp
           }
         } ;
@@ -1212,22 +1217,22 @@ resource ResXho = open Prelude,Predef,ParamX in {
         empty = []
       } ;
     
-    loanNoun : root -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } = \root -> {
-      s = table {
-        Sg => table {
-          NFull => "i" + root ;
-          NReduced => root ;
-          NPoss => root ;
-          NLoc => "e" + (addLocSuffix root) ;
-        } ;
-        Pl => table {
-          NFull => "ii" + root ;
-          NReduced => "i" + root ;
-          NPoss => "ee" + root ;
-          NLoc => "e" + (addLocSuffix root) ;
-        }
-      }
-    }
+    -- loanNoun : root -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } = \root -> {
+    --   s = table {
+    --     Sg => table {
+    --       NFull => "i" + root ;
+    --       NReduced => root ;
+    --       NPoss => root ;
+    --       NLoc => "e" + (addLocSuffix root) ;
+    --     } ;
+    --     Pl => table {
+    --       NFull => "ii" + root ;
+    --       NReduced => "i" + root ;
+    --       NPoss => "ee" + root ;
+    --       NLoc => "e" + (addLocSuffix root) ;
+    --     }
+    --   }
+    -- } ;
 
     semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
       \root,locs,locp,cg ->
@@ -1481,6 +1486,18 @@ resource ResXho = open Prelude,Predef,ParamX in {
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
         <C17,_> => "uku"+root  -- sometimes ukw
       } ;
+    
+    possNounForm : Str -> Agr -> Str = \nom,agr -> case agr of {
+      Third C1a_2a Sg => (drop 1 nom) ;
+      Third C5_6 Pl => "aw" + nom ;
+      (Third _ _ | Second _ | First _) => case nom of {
+        "ii"+_ => "ee" + (drop 2 nom) ;
+        "oo"+_ => "oo" + (drop 2 nom) ;
+        "i"+_ => "e" + (drop 1 nom) ;
+        "u"+_ => "o" + (drop 1 nom) ;
+        _ => nom
+      }
+    } ;
 
     locNoun : Str -> Number -> ClassGender -> Str = \root,n,cg ->
         case <cg,n> of
@@ -1552,11 +1569,6 @@ resource ResXho = open Prelude,Predef,ParamX in {
         (First _ | Second _ )  => []
       } ;
 
-      -- loc_n_cop_pref : VForm -> Agr -> Str = \vform,agr -> case vform of {
-      --   VFIndic _ Neg PresTense => kho_cop vform agr ;
-      --   VFIndic _ _ _ => id_pre_cop_pref vform agr
-      -- } ;
-
       loc_n_cop_base : {
         empty : Str ;
         s : NForm => Str ;
@@ -1625,7 +1637,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
     subjConcLookup : Agr => SCForm => Str =
       table {
         -- agr                     default        before vowel     after neg pref    sit/part         potential/subjunct/indirect relative
-        First Sg =>         table {SC => "ndi" ;  SCVow => "ng"++BIND ;  SCNeg => "ndi" ; SCNegVow => "ng" ; SCPart => "ndi" ; SCPS => "ndi" ; SCVowP => "ndi" ; SCBe => "bengi" ; SCRP => "ngangi" ; SCSe => "ndi"++BIND++"se" } ;
+        First Sg =>         table {SC => "ndi" ;  SCVow => "nd"++BIND ;  SCNeg => "ndi" ; SCNegVow => "nd" ; SCPart => "ndi" ; SCPS => "ndi" ; SCVowP => "ndi" ; SCBe => "bendi" ; SCRP => "ngandi" ; SCSe => "ndi"++BIND++"se" } ;
         Second Sg =>        table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "wu" ;  SCNegVow => "w" ;  SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ;  SCBe => "ubu" ;   SCRP => "wawu" ; SCSe => "se"++BIND++"wu" } ;
         First Pl =>         table {SC => "si" ;   SCVow => "s"++BIND ;   SCNeg => "si" ;  SCNegVow => "s" ; SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ;  SCBe => "besi" ;   SCRP => "sasi" ; SCSe => "se"++BIND++"si" } ;
         Second Pl =>        table {SC => "ni" ;   SCVow => "n"++BIND ;   SCNeg => "ni" ;  SCNegVow => "n" ; SCPart => "ni" ;  SCPS => "ni" ;  SCVowP => "ni" ;  SCBe => "beni" ;   SCRP => "nani" ; SCSe => "se"++BIND++"ni" } ;
@@ -1716,7 +1728,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
     objConcLookup : Agr => OCForm => Str =
       table {
-        First Sg =>         table {OC => "ndi" ;  OCAE => "ng" ;  OCIOU => "ng" ; OCMono => "ndi" ; OCThing => "ndi" } ;
+        First Sg =>         table {OC => "ndi" ;  OCAE => "nd" ;  OCIOU => "nd" ; OCMono => "ndi" ; OCThing => "ndi" } ;
         Second Sg =>        table {OC => "ku" ;   OCAE => "k" ;   OCIOU => "k" ;  OCMono => "ku" ;  OCThing => "ku" } ;
         First Pl =>         table {OC => "si" ;   OCAE => "s" ;   OCIOU => "s" ;  OCMono => "si" ;  OCThing => "si" } ;
         Second Pl =>        table {OC => "ni" ;   OCAE => "n" ;   OCIOU => "n" ;  OCMono => "ni" ;  OCThing => "ni" } ;
@@ -2013,75 +2025,75 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
 
-    poss_concord_agr : Agr => RInit => Str =
+    poss_concord_agr : Agr => Str =
       table {
-        First Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-        First Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
-        Second Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-        Second Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
-        Third C1_2 Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-        Third C1_2 Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
-        Third C1a_2a Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-        Third C1a_2a Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
-        Third C3_4 Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-        Third C3_4 Pl => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-        Third C5_6 Sg => table {(RA|RC) => "la" ; (RE|RI) => "le" ; (RO|RU) => "lo" } ;
-        Third C5_6 Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" } ;
-        Third C7_8 Sg => table {(RA|RC) => "sa" ; (RE|RI) => "se" ; (RO|RU) => "so" } ;
-        Third C7_8 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
-        Third C9_10 Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-        Third C9_10 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
-        Third C11_10 Sg => table {(RA|RC) => "lwa" ; (RE|RI) => "lwe" ; (RO|RU) => "lo" } ;
-        Third C11_10 Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" } ;
-        Third C9_6 Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-        Third C9_6 Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" } ;
-        Third C14 _ => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" } ;
-        Third C15 _ => table {(RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" } ;
-        Third C17 _ => table {(RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" }
+        First Sg => "w" ;
+        First Pl => "b" ;
+        Second Sg => "w" ;
+        Second Pl => "b" ;
+        Third C1_2 Sg => "w" ;
+        Third C1_2 Pl => "b" ;
+        Third C1a_2a Sg => "w" ;
+        Third C1a_2a Pl => "b" ;
+        Third C3_4 Sg => "w" ;
+        Third C3_4 Pl => "y" ;
+        Third C5_6 Sg => "l" ;
+        Third C5_6 Pl => [] ;
+        Third C7_8 Sg => "s" ;
+        Third C7_8 Pl => "z" ;
+        Third C9_10 Sg => "y" ;
+        Third C9_10 Pl => "z" ;
+        Third C11_10 Sg => "lw" ;
+        Third C11_10 Pl => "z" ;
+        Third C9_6 Sg => "y" ;
+        Third C9_6 Pl => [] ;
+        Third C14 _ => "b" ;
+        Third C15 _ => "kw" ;
+        Third C17 _ => "kw"
       } ;
 
-    poss_concord : ClassGender => Number => RInit => Str =
+    poss_concord : ClassGender => Number => Str =
       table {
         C1_2 => table {
-          Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-          Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" }
+          Sg => "w" ;
+          Pl => "b" 
         } ;
         C1a_2a => table {
-          Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-          Pl => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" }
+          Sg => "w" ;
+          Pl => "b"
         } ;
         C3_4 => table {
-          Sg => table {(RA|RC) => "wa" ; (RE|RI) => "we" ; (RO|RU) => "wo" } ;
-          Pl => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" }
+          Sg => "w" ;
+          Pl => "y"
         } ;
         C5_6 => table {
-          Sg => table {(RA|RC) => "la" ; (RE|RI) => "le" ; (RO|RU) => "lo" } ;
-          Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" }
+          Sg => "l" ;
+          Pl => ""
         } ;
         C7_8 => table {
-          Sg => table {(RA|RC) => "sa" ; (RE|RI) => "se" ; (RO|RU) => "so" } ;
-          Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
+          Sg => "s" ;
+          Pl => "z"
         } ;
         C9_10 => table {
-          Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-          Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
+          Sg => "y" ;
+          Pl => "z"
         } ;
         C11_10 => table {
-          Sg => table {(RA|RC) => "lwa" ; (RE|RI) => "lwe" ; (RO|RU) => "lo" } ;
-          Pl => table {(RA|RC) => "za" ; (RE|RI) => "ze" ; (RO|RU) => "zo" }
+          Sg => "lw" ;
+          Pl => "z"
         } ;
         C9_6 => table {
-          Sg => table {(RA|RC) => "ya" ; (RE|RI) => "ye" ; (RO|RU) => "yo" } ;
-          Pl => table {(RA|RC) => "a" ; (RE|RI) => "e" ; (RO|RU) => "o" }
+          Sg => "y" ;
+          Pl => ""
         } ;
         C14 => table {
-          _ => table {(RA|RC) => "ba" ; (RE|RI) => "be" ; (RO|RU) => "bo" }
+          _ => "b"
         } ;
         C15 => table {
-          _ => table {(RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" }
+          _ => "kw"
         } ;
         C17 => table {
-          _ => table {(RA|RC) => "kwa" ; (RE|RI) => "kwe" ; (RO|RU) => "ko" }
+          _ => "kw"
         }
       } ;
 

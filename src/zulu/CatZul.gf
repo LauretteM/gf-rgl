@@ -140,7 +140,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       r : RInit ;
       syl : Syl ;
       voice : Voice ;
-      root : Str
+      root : Str ;
+      lemma : Str
     } ;
     VS = {
       s : RForm => Str ;
@@ -163,7 +164,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       s : Number => NForm => Str ;
       c : ClassGender ;
       -- sem : SemanticType ;
-      empty : Str
+      empty : Str ;
+      lemma : Str
     } ;
 --     N2 = {s : Number => Case => Str ; g : Gender} ** {c2 : Str} ;
 --     N3 = {s : Number => Case => Str ; g : Gender} ** {c2,c3 : Str} ;
@@ -171,5 +173,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Adv = { s : Str ; reqLocS : Bool } ;
 
     IAdv = { s : Str ; postIAdv : Bool } ;
+  
+  linref
+    V = \v -> v.lemma ;
 
 }

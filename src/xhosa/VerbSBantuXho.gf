@@ -742,19 +742,19 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
-          cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
+          cop_base = poss_concord_agr!(Third C17 Sg) ++BIND++ np.s!NPoss -- utshani
         in
           pcp ++ cop_base ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a RC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
-          cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
+          cop_base = poss_concord_agr!(Third C17 Sg) ++BIND++ np.s!NPoss -- utshani
         in
           rcp ++ pcp ++ cop_base
       } ;
       imp_s = let
-        cop = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss
+        cop = poss_concord_agr!(Third C17 Sg) ++BIND++ np.s!NPoss
       in table {
         Sg => table {
           Pos => COP_YI++BIND++BA ++ cop ;
@@ -766,7 +766,7 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
         }
       } ;
       inf_s = let
-        cop = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss
+        cop = poss_concord_agr!(Third C17 Sg) ++BIND++ np.s!NPoss
       in table {
           NFull => table {
             Pos => INF_PREF_FULL++BIND++BA ++ cop ;
@@ -787,7 +787,7 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
             SubjCl => VFSubjunct p 
           } ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
-          cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
+          cop_base = poss_concord_agr!(Third C17 Sg) ++BIND++ np.s!NPoss -- utshani
         in
           pcp ++ cop_base ;
       comp, iadv, advs = [] ;

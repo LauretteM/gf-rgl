@@ -20,7 +20,7 @@ concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, P
 
     -- locative kwa
     PlaceLocAdv np = {
-      s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      s = (poss_concord_agr!(Third C17 Sg)) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
@@ -46,7 +46,7 @@ concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, P
     LocAdvAdv l = l ** { reqLocS = False } ;
 
     LocAdvNP adv np = {
-      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ; -- ngaphezu kwamahora amabili adlule
 

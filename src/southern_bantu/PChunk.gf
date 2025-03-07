@@ -1,4 +1,4 @@
-abstract PChunk = Cat, CatExt, Symbol [Symb] ** {
+abstract PChunk = Cat, CatSBantu, Symbol [Symb] ** {
 
 cat
   Chunks ;

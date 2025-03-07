@@ -2,14 +2,14 @@
 
 concrete SBantuChunkZul of SBantuChunk =
   SBantuGrammarZul,
-  AdverbExtZul,
+  AdverbSBantuZul,
   BackwardZul[ComplV2,ComplV3,ComplV2V],
-  NounExtZul,
-  PhraseExtZul,
-  RelativeExtZul,
-  SentenceExtZul,
-  StructuralExtZul,
-  VerbExtZul,
+  NounSBantuZul,
+  PhraseSBantuZul,
+  RelativeSBantuZul,
+  SentenceSBantuZul,
+  StructuralSBantuZul,
+  VerbSBantuZul,
   PChunkZul,
   SymbolZul - [Symb]
   ** {

@@ -18,6 +18,14 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
       reqLocS = False
     } ;
 
+    WithAdv np =
+    let
+      pref = withPref!(initNP np.isPron np.agr)
+    in {
+      s = pref ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ;
+
     -- locative kwa
     PlaceLocAdv np = {
       s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
@@ -85,7 +93,7 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
       reqLocS = False
     } ;
 
-    ConjNAdv conj s = {
+    ConjAdvS conj s = {
       s = conj.s ++ s.s!SInd;
       reqLocS = False
     } ;

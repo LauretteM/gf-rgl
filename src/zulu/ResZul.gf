@@ -319,7 +319,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -----------
     -- VERBS --
     -----------
-    regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
+    regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root ->
     {
       s = table {
         R_a => root ++BIND++ "a" ;
@@ -362,10 +362,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => SylMono
       } ;
       voice = Active ;
-      root = root
+      root = root ;
+      lemma = root+"a"
     } ;
 
-    th_Verb : Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \th,thi ->
+    th_Verb : Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \th,thi ->
     {
       s = table {
         R_a => thi ;
@@ -387,10 +388,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => SylMono
       } ;
       voice = Active ;
-      root = th
+      root = th ;
+      lemma = thi
     } ;
 
-    three_Verb : Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile -> {
+    three_Verb : Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root,r_a,r_ile -> {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
@@ -411,10 +413,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => SylMono
       } ;
       voice = Active ;
-      root = root
+      root = root ;
+      lemma = r_a
     } ;
 
-    four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile,r_e -> {
+    four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root,r_a,r_ile,r_e -> {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
@@ -435,7 +438,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => SylMono
       } ;
       voice = Active ;
-      root = root
+      root = root ;
+      lemma = r_a
     } ;
 
     -- irregVerb : Str -> Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \hamba,hambile,hambe,hambi,hambanga -> {
@@ -461,7 +465,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --   voice = Active
     -- } ;
 
-    passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
+    passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root ->
     {
       s = table {
         R_a => root ++BIND++ "a" ;
@@ -483,7 +487,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => SylMono
       } ;
       voice = Passive ;
-      root = root
+      root = root ;
+      lemma = root+"a"
     } ;
 
     -- Determine which form of the verb root to use
@@ -1186,8 +1191,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -- NOUNS --
     -----------
     -- worst case
-    mkNoun : (noms,nomp,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
-      \noms,nomp,locs,locp,cg ->
+    mkNoun : (noms,nomp,locs,locp,lemma : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
+      \noms,nomp,locs,locp,lemma,cg ->
       let
         sg_agr = Third cg Sg ;
         pl_agr = Third cg Pl ;
@@ -1208,18 +1213,19 @@ resource ResZul = open Prelude,Predef,ParamX in {
           }
         } ;
         c = cg ;
-        empty = []
+        empty = [] ;
+        lemma = lemma
       } ;
 
-    semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
+    semiRegNoun : (root,locs,locp : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
       \root,locs,locp,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
         nomp : Str = nomNoun root Pl cg ;
       in
-      mkNoun noms nomp locs locp cg ;
+      mkNoun noms nomp locs locp root cg ;
 
-    mkELocN : (root : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
+    mkELocN : (root : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
       \root,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
@@ -1227,9 +1233,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
         locs : Str = onlyLocPrefix root Sg cg ;
         locp : Str = onlyLocPrefix root Pl cg ;
       in
-      mkNoun noms nomp locs locp cg ;
+      mkNoun noms nomp locs locp root cg ;
 
-    regNoun : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
+    regNoun : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
       \root,cg ->
       let
         noms : Str = nomNoun root Sg cg ;
@@ -1238,9 +1244,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
         locp : Str = locNoun root Pl cg ;
         empty = []
       in
-      mkNoun noms nomp locs locp cg ;
+      mkNoun noms nomp locs locp root cg ;
 
-    kwaProperName : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str } =
+    kwaProperName : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
     \root,cg ->
     let
       noms : Str = nomNoun root Sg cg ;
@@ -1248,7 +1254,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
       locs : Str = "Kwa"+root ;
       locp : Str = "Kwa"+root ;
     in
-      mkNoun noms nomp locs locp cg ;
+      mkNoun noms nomp locs locp root cg ;
 
     initNP : Bool -> Agr -> RInit = \ispron,agr -> case ispron of {
       True => RC ;

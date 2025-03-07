@@ -261,7 +261,7 @@ concrete NounSBantuXho of NounSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
 
     PossNPLoc cn np = {
       empty = np.empty ;
-      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++LOC_S++BIND++ np.s!NLoc;
+      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n ++BIND++LOC_S++BIND++ np.s!NLoc;
       c = cn.c ;
       predet = cn.predet
     } ;

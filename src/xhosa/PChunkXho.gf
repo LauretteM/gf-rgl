@@ -93,11 +93,11 @@ concrete PChunkXho of PChunk = CatXho, CatSBantuXho, SymbolXho [Symb] **
       (First _ | Second _ | Third _ _ ) => np.i
     }
     in {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!i ++BIND++ np.s!NPoss
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr ++BIND++ np.s!NPoss
     } ;
 
     NP_PossLoc_Chunk pron np = {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!RC ++BIND++"s"++BIND++ (loc_NP np)
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr ++BIND++"s"++BIND++ (loc_NP np)
     } ;
     Predet_Chunk pron predet = {
       s = pron.s!NFull ++ predet.s!pron.agr

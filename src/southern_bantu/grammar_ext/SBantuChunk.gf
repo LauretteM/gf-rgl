@@ -2,14 +2,14 @@
 
 abstract SBantuChunk =
   SBantuGrammar,
-  AdverbExt,
+  AdverbSBantu,
   Backward[ComplV2,ComplV3,ComplV2V],
-  NounExt,
-  PhraseExt,
-  RelativeExt,
-  SentenceExt,
-  StructuralExt,
-  VerbExt,
+  NounSBantu,
+  PhraseSBantu,
+  RelativeSBantu,
+  SentenceSBantu,
+  StructuralSBantu,
+  VerbSBantu,
   PChunk,
   Symbol - [Symb]
   ** {
