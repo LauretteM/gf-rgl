@@ -1,5 +1,5 @@
-incomplete resource SBantuSyntax =
-  open SBantuGrammar,Backward,TempExt
+incomplete resource SyntaxSBantu =
+  open GrammarSBantu,Backward,TempSBantu
 
 in {
 
@@ -58,7 +58,7 @@ oper
   presentTense : Temp
     = TPresTemp ;
   perfectTense : Temp
-    = TPerfTemp ;
+    = TPastTemp ;
   pastTense : Temp
     = TPastTemp ;
   futureTense : Temp

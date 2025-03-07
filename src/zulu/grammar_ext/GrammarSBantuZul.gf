@@ -1,6 +1,6 @@
 -- All functions are explicitly inherited, in order to allow useful probabilities
 
-concrete SBantuGrammarZul of SBantuGrammar =
+concrete GrammarSBantuZul of GrammarSBantu =
   NounZul [DetCN, UsePron, DetQuant, NumSg, NumPl, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP,AdvNP], -- MassNP, AdvCN,AdvNP,
   VerbZul [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveZul [PositA, AdAP],
@@ -16,7 +16,15 @@ concrete SBantuGrammarZul of SBantuGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempSBantuZul -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantuZul, -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  BackwardZul[ComplV2,ComplV3,ComplV2V],
+  AdverbSBantuZul,
+  NounSBantuZul,
+  PhraseSBantuZul,
+  RelativeSBantuZul,
+  SentenceSBantuZul,
+  StructuralSBantuZul,
+  VerbSBantuZul
   ** open ResZul, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

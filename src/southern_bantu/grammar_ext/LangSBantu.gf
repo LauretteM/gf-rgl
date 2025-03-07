@@ -2,7 +2,7 @@
 
 abstract LangSBantu =
   GrammarSBantu,
-  LexSBantu
+  LexiconSBantu
   ** {
   flags startcat=Phr ;
   } ;

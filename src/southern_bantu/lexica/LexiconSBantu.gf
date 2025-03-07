@@ -1,4 +1,4 @@
-abstract LexSBantu = Cat ** {
+abstract LexiconSBantu = Cat ** {
 
    fun
    -- adjective stems

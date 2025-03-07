@@ -1,4 +1,4 @@
-concrete DevLexZul of DevLex = CatZul ** open ResZul,ParadigmsZul in {
+concrete LexiconSBantuZul of LexiconSBantu = CatZul ** open ResZul,ParadigmsZul in {
 
    lin
    -- adjective stems

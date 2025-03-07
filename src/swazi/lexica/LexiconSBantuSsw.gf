@@ -1,4 +1,4 @@
-concrete DevLexSsw of DevLex = CatSsw ** open ResSsw,ParadigmsSsw in {
+concrete LexiconSBantuSsw of LexiconSBantu = CatSsw ** open ResSsw,ParadigmsSsw in {
 
    lin
    -- adjective stems

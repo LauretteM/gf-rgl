@@ -2,7 +2,7 @@
 
 concrete LangSBantuNso of LangSBantu =
   GrammarSBantuNso,
-  LexSBantuNso
+  LexiconSBantuNso
   ** {
 
 

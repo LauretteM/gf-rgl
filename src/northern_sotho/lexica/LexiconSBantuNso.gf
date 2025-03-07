@@ -1,4 +1,4 @@
-concrete LexSBantuNso of LexSBantu = CatNso ** open ResNso,ParadigmsNso in {
+concrete LexiconSBantuNso of LexiconSBantu = CatNso ** open ResNso,ParadigmsNso in {
 
    lin
    -- -- adjective stems

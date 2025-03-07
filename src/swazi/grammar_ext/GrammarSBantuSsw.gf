@@ -1,6 +1,6 @@
 -- All functions are explicitly inherited, in order to allow useful probabilities
 
-concrete SBantuGrammarSsw of SBantuGrammar =
+concrete GrammarSBantuSsw of GrammarSBantu =
   NounSsw [DetCN, UsePron, DetQuant, NumSg, NumPl, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP,AdvNP], -- MassNP, AdvCN,AdvNP,
   VerbSsw [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveSsw [PositA, AdAP],
@@ -16,7 +16,15 @@ concrete SBantuGrammarSsw of SBantuGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempSBantuSsw -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantuSsw, -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  BackwardSsw[ComplV2,ComplV3,ComplV2V],
+  AdverbSBantuSsw,
+  NounSBantuSsw,
+  PhraseSBantuSsw,
+  RelativeSBantuSsw,
+  SentenceSBantuSsw,
+  StructuralSBantuSsw,
+  VerbSBantuSsw
   ** open ResSsw, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

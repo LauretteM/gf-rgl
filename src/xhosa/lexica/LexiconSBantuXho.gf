@@ -1,4 +1,4 @@
-concrete DevLexXho of DevLex = CatXho ** open ResXho,ParadigmsXho in {
+concrete LexiconSBantuXho of LexiconSBantu = CatXho ** open ResXho,ParadigmsXho in {
 
    lin
    -- adjective stems
