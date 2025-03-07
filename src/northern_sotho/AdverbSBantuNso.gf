@@ -4,12 +4,12 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
 
     --  a mmotoro
     InstrAdv np = {
-        s = "ka" ++ np.s!Absolute 
+        s = INS_KA ++ np.s!Absolute 
     } ;
 
     --  le mpša
     AssocAdv np = {
-        s = "le" ++ np.s!Absolute 
+        s = ASS_LE ++ np.s!Absolute 
     } ;
 
     -- ComparAdv :	NP -> Adv ; -- N/A

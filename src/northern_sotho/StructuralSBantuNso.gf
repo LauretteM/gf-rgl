@@ -211,9 +211,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- on_the_outside_LocAdv : LocAdv ;
     -- below_LocAdv : LocAdv ;
 
-    much_Adv = {
-      s = "kudu"
-    } ;
+    much_Adv = { s = "kudu" } ;
 
     -- with_ConjN = { s = "le" } ;
     -- together_with_Conj : Conj ;
