@@ -28,6 +28,13 @@ resource ResNso = open Prelude,ParamX in {
         Distance = Dem1 | Dem2 | Dem3 ;
 
     oper
+
+        ADV_GA : Str = "ga" ; 
+        INS_KA : Str = "ka" ;
+        ASS_LE : Str = "le" ;
+
+
+
         vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
         cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"š"|"t"|"v"|"w"|"x"|"y"|"z") ;
         labial_cons : pattern Str = #("p"|"b"|"f"|"m" ) ;
