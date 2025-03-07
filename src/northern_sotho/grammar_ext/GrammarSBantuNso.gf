@@ -1,6 +1,6 @@
 -- All functions are explicitly inherited, in order to allow useful probabilities
 
-concrete SBantuGrammarNso of SBantuGrammar =
+concrete GrammarSBantuNso of GrammarSBantu =
   NounNso [DetCN, UsePron, DetQuant, NumSg, NumPl, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP,AdvNP], -- MassNP, AdvCN,AdvNP,
   VerbNso [UseV, ComplVS, ComplVA, SlashV2a, UseComp, AdvVP, CompAP, CompNP, CompAdv, ComplSlash, ComplVV],
   AdjectiveNso [PositA, AdAP],
@@ -16,7 +16,15 @@ concrete SBantuGrammarNso of SBantuGrammar =
   -- Idiom,
   TenseX [PPos,PNeg],
   -- Transfer ,
-  TempSBantuNso -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantuNso,
+  BackwardNso[ComplV2,ComplV3,ComplV2V],
+  AdverbSBantuNso,
+  NounSBantuNso,
+  PhraseSBantuNso,
+  RelativeSBantuNso,
+  SentenceSBantuNso,
+  StructuralSBantuNso,
+  VerbSBantuNso -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
   ** open ResNso, Prelude in {
 
 flags startcat = Phr ; unlexer = text ; lexer = text ;

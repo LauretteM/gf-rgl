@@ -1,4 +1,4 @@
-abstract DevLex = Cat ** {
+abstract LexSBantu = Cat ** {
 
    fun
    -- adjective stems
@@ -21,7 +21,7 @@ abstract DevLex = Cat ** {
 
    -- enumerative stems
    different_A : A ; -- mbe
-   some_A : A ; -- nye
+   -- some_A : A ; -- nye
 
    -- noun stems
    animal_N : N ; -- lwane_7_8
