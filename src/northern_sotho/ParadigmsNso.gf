@@ -50,8 +50,10 @@ oper
 
   mkVS = overload {
     mkVS : (bon : Str) -> VS  = \bon -> lin VS (mkVerb bon) ** { mood = SubjunctMS } ;
+    mkVS : (bal,badile : Str) -> VS = \bal,badile -> lin VS (mkVerbExplicit bal badile) ** { mood = SubjunctMS } ;    
     mkVS : (bon : Str) -> MoodS -> VS  = \bon,mood -> lin VS (mkVerb bon) ** { mood = mood } ; -- TODO: feed mood to a new mkSVerb oper
-    -- mkVS : (r, re : Str) -> MoodS -> VS = \r,re,mood -> lin VS (mkIrregSVerb r re mood) ; -- TODO: feed mood to a new mkIrregSVerb oper
+    mkVS : (re,itse : Str) -> MoodS -> VS = \re,itse,mood -> lin VS (mkVerbIrregular re itse) ** { mood =  mood } ; -- TODO: feed mood to a new mkIrregSVerb oper
+    -- mkVS : (re, itše : Str) -> MoodS -> VS = \re,itše,mood -> lin VS (mkVerbIrregular re itše mood) ; -- TODO: feed mood to a new mkVerbIrregular oper
   } ;
 
   mkAdv = overload {

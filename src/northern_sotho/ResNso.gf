@@ -226,6 +226,42 @@ resource ResNso = open Prelude,ParamX in {
                     } ;
         } ;
 
+        -----------------------------
+        mkVerbIrregular : Str -> Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
+        = \presform,pastform -> {
+                    s = table {
+                        VPreReg => table {
+                            VS_a => presform ;                            -- re
+                            VS_e => presform ;                            -- re    
+                            VS_ile => pastform
+                        } ;
+                          
+                        VPreAlt => let 
+                            alt_presform = vPreAltRoot presform ;
+                            alt_pastform = vPreAltRoot pastform
+                        in table {
+                            VS_a => alt_presform ;                -- the
+                            VS_e => alt_presform ;                -- the 
+                            VS_ile => alt_pastform              
+                        } 
+                    } ;   
+
+                    initLab = case presform of {
+                        #labial_cons + p => True ;
+                        _ => False
+                    }   ;
+
+                    syl = case presform of {
+                        _+#cons+#vowel+#cons+_ => SylMult ; -- bal
+                        _+#cons+#vowel+#vowel+_ => SylMult ; -- neel
+                        _+#vowel+#cons+#vowel+_ => SylMult ; -- ape
+                        _+#cons+#vowel+_ => SylMult ; -- bo
+                        _+#vowel+#cons+_ => SylMult ; -- ag
+                        _ => SylMono
+                    } ;
+        } ;
+        -----------------------------
+
         mkVerb : Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
         = \root -> {s = table {
                         VPreReg => table {
