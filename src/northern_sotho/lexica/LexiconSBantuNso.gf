@@ -395,7 +395,7 @@ concrete LexiconSBantuNso of LexiconSBantu = CatNso ** open ResNso,ParadigmsNso 
   -- full_A : A ;
   -- fun_AV : A ;
   garden_N = mkN "rapa" C7_8 ;
-  girl_N = mkN "setsana" C1_2 ;
+--   girl_N = mkN "setsana" C1_2 ;
   give_V3 = mkV3 "f" ;
   glove_N = mkN "tlelafo" C9_10 ;
   gold_N = mkN "gauta" C9_10 ;
