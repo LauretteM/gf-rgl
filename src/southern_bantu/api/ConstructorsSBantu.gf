@@ -4,6 +4,9 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
 
         mkRS = overload {
             mkRS : VP -> RS = \vp -> UseRCl TPresTemp PPos (RelVP IdRP vp) ;
+            mkRS : Temp -> VP -> RS = \tmp,vp -> UseRCl tmp PPos (RelVP IdRP vp) ;
+            mkRS : Pol -> VP -> RS = \pol,vp -> UseRCl TPresTemp pol (RelVP IdRP vp) ;
+            mkRS : Temp -> Pol -> VP -> RS = \tmp,pol,vp -> UseRCl tmp pol (RelVP IdRP vp) ;
         } ;
 
         mkRSShort = overload {
@@ -29,5 +32,11 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
         } ;
 
         aSg_Det = DetNum NumSg ;
+
+        presentTense = TPresTemp ;
+        pastTense = TPastTemp ;
+
+        positivePol = PPos ;
+        negativePol = PNeg ;
 
 }
