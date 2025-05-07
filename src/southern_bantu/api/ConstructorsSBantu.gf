@@ -6,6 +6,10 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             mkRS : VP -> RS = \vp -> UseRCl TPresTemp PPos (RelVP IdRP vp) ;
         } ;
 
+        mkRSShort = overload {
+            mkRSShort : VP -> RS = \vp -> UseRCl TPresTemp PPos (RelVPShort IdRP vp) ;
+        } ;
+
         mkStativeVP = overload {
             mkStativeVP : V -> VP = UseVStative ;
         } ;
