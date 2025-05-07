@@ -32,13 +32,29 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
     } ;
 
     --  go moruti
+    --PersonLocAdv np = {
+    --    s = "go" ++ np.s!Absolute
+    --} ;
+
+    --  go moruti
     PersonLocAdv np = {
-        s = "go" ++ np.s!Absolute
+        s = case np.nt of {
+            HumanN => "go" ++ np.s!Locative ;
+            _ => nonExist
+        }
     } ;
 
     --  ga moruti
+    --PlaceLocAdv np = {
+    --    s = "ga" ++ np.s!Locative 
+    --} ;
+
+    --  ga moruti
     PlaceLocAdv np = {
-        s = "ga" ++ np.s!Locative 
+         s = case np.nt of {
+            HumanN => "ga" ++ np.s!Locative ;
+            _ => nonExist
+        }
     } ;
 
     --  PlaceCapLocAdv : NP -> LocAdv ; -- gaMdjadji

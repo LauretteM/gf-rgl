@@ -1,6 +1,58 @@
-concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open ResNso, Prelude, ParamX in {
+concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open ResNso, ParadigmsNso, Prelude, ParamX in {
 
   lin
+
+       -- -- adjective stems
+   bad_A = mkA "be" ;
+   big_A = mkA "golo" ;
+   many_A = mkA "ntši" ;
+   old_A = mkA "tala" ;
+   pretty_A = mkA "botse" ;
+   tall_A = mkA "telele" ;
+   two_A = mkA "bedi" ;
+   ugly_A = mkA "be" ;
+   small_A = mkA "nyane" ;
+   how_much_A = mkA "kae" ;
+   other_A = mkA "ngwe" ;
+   -- male_A = mkA "tona" ; -- not in abstract
+
+   
+   -- -- relative stems
+   black_R = mkA "so" ;
+   few_R = mkA "nyane" ;
+   -- heavy_R : A ; -- nzima
+   -- honest_R : A ; -- qotho
+   tasty_R = mkA "bose" ;
+   nice_R = mkA "bose" ;
+   white_R = mkA "šweu" ;
+   green_R = mkA "tala" ;
+   dangerous_A = mkA "kotsi" ;
+
+   -- -- enumerative stems
+   -- different_Enum = mkA "šele" ;
+   -- some_A : A ; -- nye
+   -- which_Enum : A ; -- nso: -fe
+   -- one_Enum : A ; -- nso: -tee
+   -- cruel_Enum : A ; -- nso: -šoro
+ 
+   -- -- adverbs
+   today_Adv = { s = "lehono" } ;
+   -- above_Adv = { s = "godimo" } ;
+   yesterday_Adv = { s = "maabane" } ;
+   well_Adv = { s = "gabotse" } ;
+   now_Adv = { s = "bjale"} ;
+   -- here_Adv = { s = "mo" } ; -- mo
+   -- here2_Adv = { s = "fa" } ; -- fa
+   -- there_Adv = { s = "moo" } ; -- moo
+   -- there2_Adv = { s = "fao" } ; -- fao
+   -- yonder_Adv = { s = "mola" } ; -- mola
+   -- yonder2_Adv = { s = "fale" } ; -- fale
+   -- here3_Adv = { s = "gona" } ; -- gona
+   -- outside_Adv = { s = "ntle" } ;
+   -- yesterday_Adv = { s = "maabane" } ;
+   -- well_Adv = { s = "gabotse" } ;
+   -- now_Adv = { s = "bjale"} ;  
+   
 
     all_QuantPron = { s = all_quantpron } ;
 
