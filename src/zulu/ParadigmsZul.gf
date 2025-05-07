@@ -15,6 +15,7 @@ resource ParadigmsZul = open
 oper
   mkN = overload {
     mkN : (wifi : Str) -> N = \n -> lin N (regNoun n C5_6) ;   -- default case, useful for loan words
+    mkN : (Mediterranean, Mediterranean : Str) -> N = \n,n2 -> lin N (mkELocN n C5_6) ;   -- default case, useful for loan words
     mkN : (ngane : Str) -> ClassGender -> N  = \n,c -> lin N (regNoun n c) ;   -- "thing" nouns
     mkN : (khaya, khaya : Str) -> ClassGender -> N  = \n,n2,c -> lin N (mkELocN n c) ;   -- "thing" nouns
     mkN : (nyaka,onyakeni,eminyakeni : Str) -> ClassGender -> N = \n,ls,lp,c -> lin N (semiRegNoun n ls lp c) ;
