@@ -1,0 +1,1 @@
+interface SyntaxSBantu = ConstructorsSBantu, Cat ;

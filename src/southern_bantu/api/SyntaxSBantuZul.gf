@@ -1,0 +1,1 @@
+instance SyntaxSBantuZul of SyntaxSBantu = ConstructorsSBantuZul, CatZul ;
