@@ -19,6 +19,11 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
         mkVP = overload {
             mkVP : V -> VP = UseV ;
             mkVP : NP -> VP = CopNP ;
+            mkVP : Loc -> VP = CopLocative ;
+        } ;
+
+        mkLoc = overload {
+            mkLoc : LocAdv -> Loc = LocAdvLoc ;
         } ;
 
         mkStativeVP = overload {
@@ -33,6 +38,12 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
         mkCN = overload {
             mkCN : N -> CN = \n -> UseN n ;
         } ;
+
+        locativisedNoun = overload {
+            locativisedNoun : N -> LocAdv = \n -> LocativisedNounAdv (DetCN (DetNum NumSg) (UseN n)) ;
+            locativisedNoun : NP -> LocAdv = LocativisedNounAdv ;
+        } ;
+        
 
         aSg_Det = DetNum NumSg ;
 
