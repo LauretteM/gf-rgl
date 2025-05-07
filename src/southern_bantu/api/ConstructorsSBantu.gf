@@ -11,6 +11,9 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
 
         mkRSShort = overload {
             mkRSShort : VP -> RS = \vp -> UseRCl TPresTemp PPos (RelVPShort IdRP vp) ;
+            mkRSShort : Temp -> VP -> RS = \tmp,vp -> UseRCl tmp PPos (RelVPShort IdRP vp) ;
+            mkRSShort : Pol -> VP -> RS = \pol,vp -> UseRCl TPresTemp pol (RelVPShort IdRP vp) ;
+            mkRSShort : Temp -> Pol -> VP -> RS = \tmp,pol,vp -> UseRCl tmp pol (RelVPShort IdRP vp) ;
         } ;
 
         mkVP = overload {
