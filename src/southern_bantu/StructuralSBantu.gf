@@ -2,6 +2,39 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
   fun
 
+    -- adjective stems
+    bad_A : A ; -- bi
+    big_A : A ; -- khulu
+    many_A : A ; -- many
+    old_A : A ; -- dala
+    pretty_A : A ; -- hle
+    tall_A : A ; -- de
+    two_A : A ; -- bili
+    ugly_A : A ; -- bana
+    small_A : A ;
+    how_much_A : A ;
+    other_A : A ;
+      
+    -- relative stems
+    black_R : A ; -- mnyama
+    few_R : A ; -- mbalwa
+    heavy_R : A ; -- nzima
+    honest_R : A ; -- qotho
+    tasty_R : A ; -- mnandi
+    nice_R : A ; -- mnandi
+    white_R : A ; -- mhlophe
+    green_R : A ;
+    dangerous_A : A ;
+
+    -- adverbs
+    today_Adv : Adv ;
+    yesterday_Adv : Adv ;
+    well_Adv : Adv ;
+    now_Adv : Adv ;
+    yesterday_Adv : Adv ;
+    well_Adv : Adv ;
+    now_Adv : Adv ;
+ 
     only_QuantPron : QuantPron ;
     all_QuantPron : QuantPron ;
 
@@ -71,10 +104,10 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     how_much_IComp : IComp ; -- -ngakanani
 
     -- enumerative stems
-   different_Enum : A ; -- zul: mbe; nso: -šele
-   some_A : A ; -- zul: nye 
-   which_Enum : A ; -- nso: -fe
-   one_Enum : A ; -- nso: -tee
-   cruel_Enum : A ; -- nso: -šoro
+    different_Enum : A ; -- zul: mbe; nso: -šele
+    some_A : A ; -- zul: nye 
+    which_Enum : A ; -- nso: -fe
+    one_Enum : A ; -- nso: -tee
+    cruel_Enum : A ; -- nso: -šoro
 
 }
