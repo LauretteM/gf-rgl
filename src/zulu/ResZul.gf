@@ -534,9 +534,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
     } ;
 
     verb_prefix_stative : VForm -> Agr -> RInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
-      VFIndic MainCl Pos PresTense => case rinit of {
-        RA | RE | RI | RO | RU => subjConcLookup!agr!SCVow ++BIND ;
-        RC => subjConcLookup!agr!SC ++BIND
+      VFIndic MainCl Pos PresTense => case <rinit,agr> of {
+        <(RA | RE | RI | RO | RU),Third C5_6 Pl> => [] ;
+        <(RA | RE | RI | RO | RU), (Third _ _ | Second _ | First _)> => subjConcLookup!agr!SCVow ++BIND ;
+        <RC,(Third _ _ | Second _ | First _)> => subjConcLookup!agr!SC ++BIND
       } ;
       VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
       VFIndic MainCl Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
@@ -1627,7 +1628,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCNegVow => "y" ; SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" ;    SCRP => "yayi" ; SCSe => "se"++BIND++"yi" } ;
         -- Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "i"++BIND ;   SCNeg => "yi" ;  SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
         Third C9_10 Pl =>   table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCNegVow => "z" ; SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" ;   SCRP => "zazi" ; SCSe => "se"++BIND++"zi" } ;
-        Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "lw"++BIND ;  SCNeg => "lu" ;  SCNegVow => "l" ; SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" ;  SCBe => "belu" ;   SCRP => "lwalu" ; SCSe => "se"++BIND++"lu" } ;
+        Third C11_10 Sg =>  table {SC => "lu" ;   SCVow => "l"++BIND ;  SCNeg => "lu" ;  SCNegVow => "l" ; SCPart => "lu" ;  SCPS => "lu" ;  SCVowP => "lu" ;  SCBe => "belu" ;   SCRP => "lwalu" ; SCSe => "se"++BIND++"lu" } ;
         Third C11_10 Pl =>  table {SC => "zi" ;   SCVow => "z"++BIND ;   SCNeg => "zi" ;  SCNegVow => "z" ; SCPart => "zi" ;  SCPS => "zi" ;  SCVowP => "zi" ;  SCBe => "bezi" ;   SCRP => "zazi" ; SCSe => "se"++BIND++"zi" } ;
         Third C9_6 Sg =>    table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCNegVow => "y" ; SCPart => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" ;    SCRP => "yayi" ; SCSe => "se"++BIND++"yi" } ;
         Third C9_6 Pl =>    table {SC => "a" ;    SCVow => [] ;          SCNeg => "wa" ;  SCNegVow => "w" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wa" ;  SCBe => "abe" ;    SCRP => "aye" ; SCSe => "se"++BIND++"ye" } ;
