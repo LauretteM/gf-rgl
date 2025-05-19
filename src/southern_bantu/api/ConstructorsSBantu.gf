@@ -2,6 +2,20 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
 
     oper
 
+        mkUtt = overload {
+            mkUtt : S -> Utt = UttS ;
+            mkUtt : Imp -> Utt = \imp -> UttImpSg PPos imp ;
+            mkUtt : Pol -> Imp -> Utt = UttImpSg ;
+        } ;
+
+        mkS = overload {
+            mkS : Cl -> S = \cl -> UseCl TPresTemp PPos cl ;
+            mkS : Temp -> Cl -> S = \tmp,cl -> UseCl tmp PPos cl ;
+            mkS : Pol -> Cl -> S = \pol,cl -> UseCl TPresTemp pol cl ;
+            mkS : Temp -> Pol -> Cl -> S = UseCl ;
+            mkS : Adv -> S -> S = AdvS ;
+        } ;
+
         mkRS = overload {
             mkRS : VP -> RS = \vp -> UseRCl TPresTemp PPos (RelVP IdRP vp) ;
             mkRS : Temp -> VP -> RS = \tmp,vp -> UseRCl tmp PPos (RelVP IdRP vp) ;
@@ -16,6 +30,10 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             mkRSShort : Temp -> Pol -> VP -> RS = \tmp,pol,vp -> UseRCl tmp pol (RelVPShort IdRP vp) ;
         } ;
 
+        mkCl = overload {
+            mkCl : NP -> VP -> Cl = PredVP ;
+        } ;
+
         mkVP = overload {
             mkVP : V -> VP = UseV ;
             mkVP : NP -> VP = CopNP ;
@@ -26,8 +44,8 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             mkLoc : LocAdv -> Loc = LocAdvLoc ;
         } ;
 
-        mkStativeVP = overload {
-            mkStativeVP : V -> VP = UseVStative ;
+        mkVPStative = overload {
+            mkVPStative : V -> VP = UseVStative ;
         } ;
 
         mkNP = overload {
@@ -43,12 +61,15 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             locativisedNoun : N -> LocAdv = \n -> LocativisedNounAdv (DetCN (DetNum NumSg) (UseN n)) ;
             locativisedNoun : NP -> LocAdv = LocativisedNounAdv ;
         } ;
-        
 
         aSg_Det = DetNum NumSg ;
+        aPl_Det = DetNum NumPl ;
 
         presentTense = TPresTemp ;
         pastTense = TPastTemp ;
+        futureTense = TFutTemp ;
+        remotePastTense = TRemPastTemp ;
+        remoteFutureTense = TRemFutTemp ;
 
         positivePol = PPos ;
         negativePol = PNeg ;
