@@ -269,7 +269,10 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
     SBantuConjNP np1 conj np2 = {
       s = table {
         NLoc => np1.s!NLoc ++ conj.s!RC++LOC_S++BIND++ np2.s!NLoc ;
-        nform => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NReduced 
+        nform => case conj.fix of {
+          True => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NReduced ;
+          False => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NFull 
+        }
       } ;
       agr = compAgr np1.agr np2.agr ;
       i = np1.i ;
