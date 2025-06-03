@@ -12,6 +12,10 @@ concrete RelativeSBantuZul of RelativeSBantu = CatZul ** open ResZul,Prelude,Par
       _ => rcl_with_verb_predicate_short rp vp
     } ;
 
+    SBantuConjRS rs1 conj rs2 = {
+      s = \\agr => rs1.s!agr ++ conj.s!(initNP False agr) ++ rs2.s!agr
+    } ;
+
     oper
 
       rcl_with_verb_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {
