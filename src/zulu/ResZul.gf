@@ -1286,7 +1286,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
       (First _ | Second _ )  => RC
     } ;
 
-
     locinit : Agr => RInit =
     table {
       Third C1_2 Sg => RC ;
