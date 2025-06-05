@@ -3,7 +3,8 @@ concrete RelativeSBantuNso of RelativeSBantu = CatNso ** open ResNso,Prelude,Par
 lin
 --  RelVPShort  : RP -> VP -> RCl ;      -- who loves John
 
-   
+--  SBantuConjRS : RS -> Conj -> RS -> RS ;
+
     Dem2RP = {
       s = dem_pron!Dem2 ;
     } ;
