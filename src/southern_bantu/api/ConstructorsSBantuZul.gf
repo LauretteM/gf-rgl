@@ -1,1 +1,4 @@
-resource ConstructorsSBantuZul = ConstructorsSBantu with (GrammarSBantu = GrammarSBantuZul) ;
+resource ConstructorsSBantuZul = ConstructorsSBantu with
+
+(GrammarSBantu = GrammarSBantuZul),
+(SymbolSBantu = SymbolSBantuZul) ;
