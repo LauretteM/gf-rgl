@@ -207,13 +207,23 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
 
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
-    with_Conj = {
+    with_ConjN = {
       s = \\r => withPref!r ++BIND ;
       fix = True
     } ;
 
-    together_with_Conj = {
+    together_with_ConjN = {
       s = \\ri => "kanye" ++ withPref!ri ++BIND ;
+      fix = True
+    } ;
+
+    but_also_ConjN = {
+      s = \\ri => "kodwa" ++ withPref!ri ++BIND ;
+      fix = True
+    } ;
+
+    with_Conj = {
+      s = \\r => withPref!r ++BIND ;
       fix = True
     } ;
 

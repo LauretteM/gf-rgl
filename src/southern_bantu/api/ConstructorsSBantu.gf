@@ -132,9 +132,10 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu, SymbolSBantu, Parad
             mkNumN1000 : Symb -> N = SymbN_1000 ;
         } ;
 
-        together_with = together_with_Conj ;
-        and_with = with_Conj ;
+        together_with = together_with_ConjN ;
+        and_with_N = with_ConjN ;
         and = and_Conj ;
+        and_with = with_Conj ;
 
         aSg_Det = DetNum NumSg ;
         aPl_Det = DetNum NumPl ;

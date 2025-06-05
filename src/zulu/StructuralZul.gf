@@ -122,7 +122,7 @@ concrete StructuralZul of Structural = CatZul **
     youPl_Pron = mkPron (Second Pl) ;
 
     he_Pron = mkPron (Third C1_2 Sg) ;
-    it_Pron = mkPron (Third C3_4 Sg) ;
+    it_Pron = mkPron (Third C17 Sg) ;
     she_Pron = mkPron (Third C1_2 Sg) ;
     they_Pron = mkPron (Third C1_2 Pl) ;
 
