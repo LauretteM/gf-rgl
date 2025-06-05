@@ -8,6 +8,7 @@ abstract VerbSBantu = Cat,CatSBantu ** {
     CopNPEq : NP -> VP ;
     CopNPEqSize : NP -> VP ;
     CopLocative : Loc -> VP ;
+    LocAdvLoc : LocAdv -> Loc ;
 
     UseVRefl : V -> VP ;
 

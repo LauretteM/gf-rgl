@@ -39,6 +39,24 @@ resource ResNso = open Prelude,ParamX in {
         cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"š"|"t"|"v"|"w"|"x"|"y"|"z") ;
         labial_cons : pattern Str = #("p"|"b"|"f"|"m" ) ;
 
+        mkNounWC : Str -> Str -> Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        = \abssg,locsg,abspl,locpl,cg,nt -> {
+            s = table {
+                Sg => table {
+                    Absolute => abssg ;
+                    Possessive => abssg ;
+                    Locative => locsg
+                } ;
+                Pl => table {
+                    Absolute => abspl ;
+                    Possessive => abspl ;
+                    Locative => locpl
+                }
+            } ;
+            c = cg ;
+            nt = nt
+        } ;
+
         mkNounExplicit : Str -> Str -> Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \abssg,locsg,abspl,locpl,cg -> let
             ntype = case cg of {
@@ -63,7 +81,7 @@ resource ResNso = open Prelude,ParamX in {
             nt = ntype
         } ;
 
-        mkNounWC : Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        mkNounFull : Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \stemsg, stempl, cg, nt -> {
             s = table {
                 Sg => table {
@@ -81,16 +99,16 @@ resource ResNso = open Prelude,ParamX in {
             nt = nt
         } ; 
 
-        mkIrregNoun : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        mkNounIrreg : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \stemsg, stempl, cg -> let
             ntype = case cg of {
                 (C1_2| C1a_2a) => HumanN ;
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-            in mkNounWC stemsg stempl cg ntype ;
+            in mkNounFull stemsg stempl cg ntype ;
 
-        mkTypedNoun : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
+        mkNounTyped : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \root, cg, nt -> {
             s = table {
                 Sg => table {
@@ -115,7 +133,7 @@ resource ResNso = open Prelude,ParamX in {
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-        in mkTypedNoun root cg ntype ;
+        in mkNounTyped root cg ntype ;
 
         mkLocClassNoun : Str -> ClassGender -> { s : Str ; c : ClassGender }
         = \n, lcg -> {
@@ -431,7 +449,7 @@ resource ResNso = open Prelude,ParamX in {
             _ => objConcLookup!a
         } ;
 
-        vRootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Str = \v,p,t ->
+        vStemForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Str = \v,p,t ->
         case <p,t> of {
                 <Pos, PresTense> => v.s!VPreReg!VS_a ;
                 <Pos, PastTense> => v.s!VPreReg!VS_ile ;
@@ -441,7 +459,7 @@ resource ResNso = open Prelude,ParamX in {
                 <Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
-        vsRootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood :MoodS }  -> Polarity -> BasicTense -> Str = \v,p,t ->
+        vsStemForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood :MoodS }  -> Polarity -> BasicTense -> Str = \v,p,t ->
         case <p,t> of {
                 <Pos, PresTense> => v.s!VPreReg!VS_a ;
                 <Pos, PastTense> => v.s!VPreReg!VS_ile ;
@@ -451,40 +469,40 @@ resource ResNso = open Prelude,ParamX in {
                 <Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
-        v2RootForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Agr -> Str = \v,p,t,a ->
-        case <a,p,t> of {
-                <First Sg, Pos, PresTense> => v.s!VPreAlt!VS_a ;
-                <First Sg, Pos, PastTense> => v.s!VPreAlt!VS_ile ;
-                <First Sg, Pos, FutTense> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, PresTense> => v.s!VPreAlt!VS_e ;
-                <First Sg, Neg, PastTense> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, FutTense> => v.s!VPreAlt!VS_e ;
+        v2StemForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Agr -> Bool -> Str = \v,p,t,a,pd ->
+        case <a,p,t,pd> of {
+                <First Sg, Pos, PresTense, True> => v.s!VPreAlt!VS_a ;
+                <First Sg, Pos, PastTense, True> => v.s!VPreAlt!VS_ile ;
+                <First Sg, Pos, FutTense, True> => v.s!VPreAlt!VS_a ;
+                <First Sg, Neg, PresTense, True> => v.s!VPreAlt!VS_e ;
+                <First Sg, Neg, PastTense, True> => v.s!VPreAlt!VS_a ;
+                <First Sg, Neg, FutTense, True> => v.s!VPreAlt!VS_e ;
 
-                <Third C1_2 Sg, Pos, PresTense> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Pos, PastTense> => v.s!VPreAlt!VS_ile ;
-                <Third C1_2 Sg, Pos, FutTense> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Neg, PresTense> => v.s!VPreAlt!VS_e ;
-                <Third C1_2 Sg, Neg, PastTense> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Neg, FutTense> => v.s!VPreAlt!VS_e ;
+                <Third C1_2 Sg, Pos, PresTense, True> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Pos, PastTense, True> => v.s!VPreAlt!VS_ile ;
+                <Third C1_2 Sg, Pos, FutTense, True> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Neg, PresTense, True> => v.s!VPreAlt!VS_e ;
+                <Third C1_2 Sg, Neg, PastTense, True> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Neg, FutTense, True> => v.s!VPreAlt!VS_e ;
 
-                <_, Pos, PresTense> => v.s!VPreReg!VS_a ;
-                <_, Pos, PastTense> => v.s!VPreReg!VS_ile ;
-                <_, Pos, FutTense> => v.s!VPreReg!VS_a ;
-                <_, Neg, PresTense> => v.s!VPreReg!VS_e ;
-                <_, Neg, PastTense> => v.s!VPreReg!VS_a ;
-                <_, Neg, FutTense> => v.s!VPreReg!VS_e 
+                <_, Pos, PresTense, _> => v.s!VPreReg!VS_a ;
+                <_, Pos, PastTense, _> => v.s!VPreReg!VS_ile ;
+                <_, Pos, FutTense, _> => v.s!VPreReg!VS_a ;
+                <_, Neg, PresTense, _> => v.s!VPreReg!VS_e ;
+                <_, Neg, PastTense, _> => v.s!VPreReg!VS_a ;
+                <_, Neg, FutTense, _> => v.s!VPreReg!VS_e 
         } ;
 
-        v2RootFormImp : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> Agr -> Str = \v,p,a ->
-        case <a,p> of {
-                <First Sg, Pos> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg> => v.s!VPreAlt!VS_e ;
+        v2StemFormImp : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> Agr -> Bool -> Str = \v,p,a,pd ->
+        case <a,p,pd> of {
+                <First Sg, Pos, True> => v.s!VPreAlt!VS_a ;
+                <First Sg, Neg, True> => v.s!VPreAlt!VS_e ;
 
-                <Third C1_2 Sg, Pos> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Neg> => v.s!VPreAlt!VS_e ;
+                <Third C1_2 Sg, Pos, True> => v.s!VPreAlt!VS_a ;
+                <Third C1_2 Sg, Neg, True> => v.s!VPreAlt!VS_e ;
                 
-                <_, Pos> => v.s!VPreReg!VS_a ;
-                <_, Neg> => v.s!VPreReg!VS_e 
+                <_, Pos, _> => v.s!VPreReg!VS_a ;
+                <_, Neg, _> => v.s!VPreReg!VS_e 
         } ;
 
         dem_pron : Distance => Agr => Str = table {
@@ -804,7 +822,7 @@ resource ResNso = open Prelude,ParamX in {
 
         compl_ap : {s : AForm => Str; at : AType } -> Agr -> Str = \ap,a ->
         case <ap.at,a> of {
-            <AdjA, First Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
+            <AdjA, First Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ; 
             <AdjA,First Pl> => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
             <AdjA,Second Sg> => "yo" ++ "mo" ++BIND ++ ap.s!AF1 ;
             <AdjA,Second Pl> => "ba" ++ "ba" ++BIND ++ ap.s!AF1 ;
@@ -921,6 +939,15 @@ resource ResNso = open Prelude,ParamX in {
 
                     VFUntensed ConsecCl Pos => sc2 ++ "ba" ++ "le";
                     VFUntensed ConsecCl Neg => sc2 ++ "se" ++ "be" ++ "le"
+        } ;
+
+        compAgr : Agr -> Agr -> Agr = \a1,a2 -> case <a1,a2> of {
+            <First _,(First _ | Second _ | Third _ _)> => First Pl ;
+            <(First _ | Second _ | Third _ _),First _> => First Pl ;
+            <Second _,(First _ | Second _ | Third _ _)> => Second Pl ;
+            <(First _ | Second _ | Third _ _),Second _> => Second Pl ;
+            <Third (C1_2|C1a_2a) _, Third _ _> => Third C1_2 Pl ;
+            <Third _ _,Third c _> => Third c Pl
         } ;
 
 }

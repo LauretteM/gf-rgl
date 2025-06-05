@@ -9,11 +9,14 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     old_A : A ; -- dala
     pretty_A : A ; -- hle
     tall_A : A ; -- de
-    two_A : A ; -- bili
     ugly_A : A ; -- bana
     small_A : A ;
     how_much_A : A ;
     other_A : A ;
+    two_A : A ; -- bili
+    three_A : A ; -- thathu
+    four_A : A ; -- ne
+    five_A : A ; -- hlanu
       
     -- relative stems
     black_R : A ; -- mnyama
@@ -86,7 +89,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     much_Adv : Adv ;
 
-    with_Conj : Conj ; -- le
+    with_ConjN : ConjN ; -- na in Zul; le in Nso
     together_with_Conj : Conj ;
     and_then_Conj: Conj ;
     but_also_Conj : Conj ;

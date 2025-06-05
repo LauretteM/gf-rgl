@@ -7,7 +7,6 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
       s = \\npform => det.s ++ cn.s!det.n!npform ; 
       a = Third cn.c det.n ;
       nt = cn.nt ;
-      isPron = False ;
       proDrop = False
     } ; 
 
@@ -15,7 +14,6 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
       s = pron.s ; 
       a = pron.a ; 
       nt = HumanN ;
-      isPron = True ;
       proDrop = pron.proDrop
     } ;
 
@@ -24,14 +22,12 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
       a = np.a ;
       nt = np.nt ;
       proDrop = False ; -- probably right?
-      isPron = np.isPron ;
     } ;
 
     RelNP np rs = {
       s = \\npform => np.s!npform ++ rs.s!np.a ;
       a = np.a ;
       nt = np.nt ;
-      isPron = np.isPron ;
       proDrop = np.proDrop 
     } ;
 

@@ -43,12 +43,14 @@ abstract LexiconSBantu = Cat ** {
    herdboy_N : N ;
    hill_N : N ;
    home_N : N ; -- khaya_5_6
+   horse_N : N ;
    house_N : N ; -- ndlu_9_10
    injury_N : N ;
    jail_N : N ; -- jele_5_6
    king_N : N ;
    kitchen_N : N ;
    knife_N : N ;
+   kraal_N : N ;
    lecturer_N : N ;
    letter_N : N ;
    lion_N : N ; -- bhubesi_5_6
@@ -82,6 +84,7 @@ abstract LexiconSBantu = Cat ** {
    school_N : N ;
    shop_N : N ;
    sister_N : N ;
+   speed_N : N ;
    student_N : N ; -- fundi 1 2
    sun_N : N ;
    sunset_N : N ;
@@ -90,6 +93,7 @@ abstract LexiconSBantu = Cat ** {
    tail_N : N ; -- sila_3_4
    teacher_N : N ;
    thief_N : N ;
+   time_N : N ;
    train_N : N ; 
    tree1_N : N ;
    tree2_N : N ;
@@ -108,10 +112,18 @@ abstract LexiconSBantu = Cat ** {
    world_N : N ;
    young_man_N : N ;
 
+   unit_N : N ;
+   eight_N : N ;
+   nine_N : N ;
+   ten_N : N ;
+   hundred_N : N ;
+   thousand_N : N ;
+
    -- -- verb roots
    ask_V2 : V2 ;
    ask_V3 : V3 ;
    ask_V : V ;
+   bark_V : V ;
    be_broken_V : V ;
    be_fast_V : V ;
    be_healthy_V : V ;
@@ -129,6 +141,8 @@ abstract LexiconSBantu = Cat ** {
    cook_V2 : V2 ; 
    cook_V3 : V3 ;
    cook_V : V ; 
+   cross_over_V : V ;
+   cross_over_V2 : V2 ;
    descend_V : V ; -- ehl
    die_V : V ; -- f
    donate_V2 : V2 ;
@@ -139,6 +153,7 @@ abstract LexiconSBantu = Cat ** {
    dry_V : V;
    earn_V2 : V2 ;
    eat_V : V ; 
+   eat_V2 : V2 ;
    exhaust_V2 : V2 ; 
    exhaust_V : V ; 
    fall_towards_V2 : V2 ;
@@ -167,6 +182,8 @@ abstract LexiconSBantu = Cat ** {
    play_V2 : V2 ;
    play_V : V ;
    plough_V2 : V2 ;
+   point_at_V : V ;
+   point_at_V2 : V2 ;
    pour_into_V3 : V3 ;
    pour_V2 : V2 ;
    put_into_V2 : V2 ;
@@ -178,6 +195,8 @@ abstract LexiconSBantu = Cat ** {
    return2_V : V ;
    return_to_V : V ;
    return_V : V ; 
+   run_V : V ;
+   run_V2 : V2 ;
    say_VS : VS ;
    say_2_VS : VS ;
    see_V2 : V2 ; -- bon
@@ -199,6 +218,8 @@ abstract LexiconSBantu = Cat ** {
    surprise_V2 : V2 ;
    take_away_V2 : V2 ;
    thank_V : V ;
+   teach_V : V ;
+   teach_V2 : V2 ;
    transfer_V2 : V2 ;
    try_V : V ;
    try_VV : VV ;
@@ -217,6 +238,8 @@ abstract LexiconSBantu = Cat ** {
    want_VV : VV ;
    win_V2 : V2 ;
    work_V : V ;
+   write_V : V ;
+   write_V2 : V2 ;
    write_V3 : V3 ;
 
 }

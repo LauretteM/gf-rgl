@@ -51,14 +51,15 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     -- LocNPossNP : LocN -> NP -> LocN ;
 
-    LocAdvLoc : LocAdv -> Loc ;
-
     PossNPLoc : CN -> NP -> CN ; -- zasepulazini
 
-    SBantuConjNP : NP -> Conj -> NP -> NP ;
+    SBantuConjNP : NP -> ConjN -> NP -> NP ;
 
     -- Added November 2024
 
     AdjPron : AP -> Pron -> Pron ;
+
+    NomRel : CN -> CN -> CN ;
+
 
 }

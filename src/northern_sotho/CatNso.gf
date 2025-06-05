@@ -54,7 +54,6 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       s : NPForm => Str ;
       a : Agr ;
       nt : NType ;
-      isPron : Bool ;
       proDrop : Bool 
     } ; 
 

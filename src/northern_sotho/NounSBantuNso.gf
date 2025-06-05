@@ -1,4 +1,4 @@
-                                        concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelude, ParamX in {
+concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelude, ParamX in {
 
   lin
 
@@ -32,8 +32,8 @@
       } ;
       a = pn.a; 
       nt = ConcreteN ;
-      isPron = False ;
-      proDrop = pn.proDrop
+      --proDrop = pn.proDrop 
+      proDrop = False -- Even if the pron is dropped the postdet remains 13 May 2025
     } ;
 
     QuantPostdet q = { -- (ntlo) yohle  
@@ -116,7 +116,6 @@
       } ;
       a = Third C15 Sg ;
       nt = ConcreteN ;
-      isPron = False ;
       proDrop = False 
     } ;
 
@@ -129,7 +128,6 @@
       } ;
       a = Third locn.c Sg ;
       nt = ConcreteN ;
-      isPron = False ;
       proDrop = False
     } ;
 
@@ -140,62 +138,9 @@
       c = locn.c
     } ;
 
-    LocAdvLoc locadv = {
-      s = table {
-          IndicCl => \\a,p,t => let
-              vform = VFTensed IndicCl p t ;
-              idcop = descr_cop vform a ; 
-              compl = locadv.s ;
-              in
-              idcop ++ compl ;
-          
-          RelCl => \\a,p,t => let
-              vform = VFTensed RelCl p t ;
-              idcop = descr_cop vform a ; 
-              compl = locadv.s ;       
-              in
-              idcop ++ compl ;
-
-          SitCl => \\a,p,t => let
-              vform = VFTensed SitCl p t ;
-              idcop = descr_cop vform a ; 
-              compl = locadv.s ;       
-              in
-              idcop ++ compl    
-      } ;
-      inf_s = table {
-          Pos => "go" ++ "ba" ++ locadv.s ;
-          Neg => "go" ++ "se" ++ "be" ++ locadv.s
-      } ;
-      imp_s = table {
-          Sg => table {
-              Pos => "eba" ++ locadv.s ;           
-          Neg => "se" ++ "be" ++ locadv.s 
-          } ;
-          Pl => table {
-              Pos => "ebang" ++ locadv.s ;           
-          Neg => "se" ++ "beng" ++ locadv.s    
-          } 
-      } ;
-      consubj_s = table {
-          SubjunctCl => \\a,p => let
-              vform = VFUntensed SubjunctCl p ;
-              idcop = descr_cop vform a ; 
-              compl = locadv.s ;
-              in
-              idcop ++ compl ;
-          
-          ConsecCl => \\a,p => let
-              vform = VFUntensed ConsecCl p ;
-              idcop = descr_cop vform a ; 
-              compl = locadv.s ;       
-              in
-              idcop ++ compl
-      } 
-    } ;
+    
 
     -- PossNPLoc : CN -> NP -> CN ; -- zasepulazini
-
 
     PossNPLoc cn np = {
       s = \\num, npform => cn.s!num!npform ++ (possConc cn.c num) ++ np.s!Locative ;
@@ -203,8 +148,19 @@
       nt = cn.nt
     } ;
 
-    -- SBantuConjNP : NP -> Conj -> NP -> NP ;
+    -- SBantuConjNP : NP -> ConjN -> NP -> NP ;
 
+    SBantuConjNP np1 cj np2 = {
+      s = table {
+        Absolute => np1.s!Absolute ++ cj.s ++ np2.s!Absolute ;
+        Possessive => np1.s!Possessive ++ cj.s ++ np2.s!Absolute ;
+        Locative => np1.s!Locative ++ cj.s ++ np2.s!Absolute 
+      } ;
+      a = compAgr np1.a np2.a ;
+      nt = np1.nt ;
+      proDrop = andB np1.proDrop np2.proDrop 
+    } ;
+   
     -- AdjPron : AP -> Pron -> Pron ;
     
     AdjPron ap pn = {
@@ -225,6 +181,19 @@
       a = pn.a ;
       empty = [] ;
       proDrop = pn.proDrop
+    } ;
+
+    -- CN = {s : Number => NPForm => Str ; c : ClassGender ; nt : NType} ;
+
+    NomRel cn1 cn2 = {
+        s = \\num, npform => let
+                part1 = cn1.s!num!npform ;
+                rel = dem_pron!Dem1!(Third cn1.c num) ;
+                part2 = cn2.s!num!Absolute ;
+                in
+                part1 ++ rel ++ part2 ;
+        c = cn1.c ;
+        nt = cn1.nt
     } ;
 
   }

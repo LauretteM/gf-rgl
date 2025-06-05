@@ -10,14 +10,14 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
               p1 = pre1 IndicCl p t ;
               sc = subjConc vform a ;
               p2 = pre2 IndicCl p t l ;
-              r = vRootForm v p t;
+              r = vStemForm v p t;
           in p1 ++ sc ++ p2 ++ r ;
           
           RelCl => \\a,p,t,l => let
               vform = VFTensed RelCl p t ;
               sc = subjConc vform a ;
               p2 = pre2 RelCl p t l ;
-              r = vRootForm v p t ;
+              r = vStemForm v p t ;
               suf = "go" ;
           in sc ++ p2 ++ r ++ BIND ++ suf ;
 
@@ -26,29 +26,29 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
               sc = subjConc vform a ;
               p2 = pre2 SitCl p t l ;
               r = case <p,t,v.syl> of {
-                  <Pos, PresTense, SylMono> => "e" ++BIND++ vRootForm v p t ;
-                  <_, _, _> => vRootForm v p t 
+                  <Pos, PresTense, SylMono> => "e" ++BIND++ vStemForm v p t ;
+                  <_, _, _> => vStemForm v p t 
                   } ;
           in sc ++ p2 ++ r 
       } ;
       inf_s = table {
-          Pos => "go" ++ (vRootForm v Pos PresTense) ;
-          Neg => "go" ++ "se" ++ (vRootForm v Neg PresTense)
+          Pos => "go" ++ (vStemForm v Pos PresTense) ;
+          Neg => "go" ++ "se" ++ (vStemForm v Neg PresTense)
       } ;
       imp_s = table {
           Sg => table {
               Pos => case v.syl of {
-                  SylMono => "e" ++BIND++ (vRootForm v Pos PresTense) ; 
-                  SylMult =>  vRootForm v Pos PresTense 
+                  SylMono => "e" ++BIND++ (vStemForm v Pos PresTense) ; 
+                  SylMult =>  vStemForm v Pos PresTense 
               } ; 
-          Neg => "se" ++ (vRootForm v Neg PresTense)
+          Neg => "se" ++ (vStemForm v Neg PresTense)
           } ;
           Pl => table {
               Pos => case v.syl of {
-                  SylMono => "e" ++BIND++ (vRootForm v Pos PresTense) ++BIND++ "ng" ;
-                  SylMult =>  (vRootForm v Pos PresTense) ++BIND++ "ng"
+                  SylMono => "e" ++BIND++ (vStemForm v Pos PresTense) ++BIND++ "ng" ;
+                  SylMult =>  (vStemForm v Pos PresTense) ++BIND++ "ng"
               } ;           
-          Neg => "se" ++ (vRootForm v Neg PresTense) ++BIND++ "ng"
+          Neg => "se" ++ (vStemForm v Neg PresTense) ++BIND++ "ng"
           } 
       } ;
       consubj_s = table {
@@ -59,7 +59,7 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Pos => [] ;
                   Neg => "se" 
               } ;
-              r = vRootForm v Neg PresTense ;
+              r = vStemForm v Neg PresTense ;
           in sc ++ pre1 ++ r ;
                           
           ConsecCl => \\a,p => let
@@ -70,8 +70,8 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Neg => "se" 
               } ;
               r = case p of {
-                  Pos => vRootForm v Pos PresTense ;
-                  Neg => vRootForm v Neg PresTense
+                  Pos => vStemForm v Pos PresTense ;
+                  Neg => vStemForm v Neg PresTense
               } ;
           in sc ++ pre1 ++ r 
       } ;
@@ -85,14 +85,14 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
               p1 = pre1 IndicCl p t ;
               sc = subjConc vform a ;
               p2 = pre2 IndicCl p t l ;
-              r = vRootForm vv p t;
+              r = vStemForm vv p t;
           in p1 ++ sc ++ p2 ++ r ++ vp.inf_s!Pos;
           
           RelCl => \\a,p,t,l => let
               vform = VFTensed RelCl p t ;
               sc = subjConc vform a ;
               p2 = pre2 RelCl p t l ;
-              r = vRootForm vv p t ;
+              r = vStemForm vv p t ;
               suf = "go" ;
           in sc ++ p2 ++ r ++ BIND ++ suf ++ vp.inf_s!Pos ;
 
@@ -104,27 +104,27 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                       SylMono => "e" ++BIND ;
                       SylMult => []
                     } ;
-                  r = vRootForm vv p t ;
+                  r = vStemForm vv p t ;
               in sc ++ p2 ++ stab_e ++ r ++ vp.inf_s!Pos 
       } ;
       inf_s = table {
-          Pos => "go" ++ (vRootForm vv Pos PresTense) ++ vp.inf_s!Pos;
-          Neg => "go" ++ "se" ++ (vRootForm vv Neg PresTense) ++ vp.inf_s!Pos
+          Pos => "go" ++ (vStemForm vv Pos PresTense) ++ vp.inf_s!Pos;
+          Neg => "go" ++ "se" ++ (vStemForm vv Neg PresTense) ++ vp.inf_s!Pos
       } ;
       imp_s = table {
           Sg => table {
               Pos => case vv.syl of {
-                  SylMono => "e" ++BIND++ (vRootForm vv Pos PresTense) ++ vp.inf_s!Pos ; 
-                  SylMult =>  (vRootForm vv Pos PresTense) ++ vp.inf_s!Pos
+                  SylMono => "e" ++BIND++ (vStemForm vv Pos PresTense) ++ vp.inf_s!Pos ; 
+                  SylMult =>  (vStemForm vv Pos PresTense) ++ vp.inf_s!Pos
               } ;
-          Neg => "se" ++ (vRootForm vv Neg PresTense) ++ vp.inf_s!Pos 
+          Neg => "se" ++ (vStemForm vv Neg PresTense) ++ vp.inf_s!Pos 
           } ;
           Pl => table {
               Pos => case vv.syl of {
-                  SylMono => "e" ++BIND++ (vRootForm vv Pos PresTense) ++BIND++ "ng" ++ vp.inf_s!Pos;
-                  SylMult =>  (vRootForm vv Pos PresTense) ++BIND++ "ng" ++ vp.inf_s!Pos
+                  SylMono => "e" ++BIND++ (vStemForm vv Pos PresTense) ++BIND++ "ng" ++ vp.inf_s!Pos;
+                  SylMult =>  (vStemForm vv Pos PresTense) ++BIND++ "ng" ++ vp.inf_s!Pos
               } ;           
-          Neg => "se" ++ (vRootForm vv Neg PresTense) ++BIND++ "ng" ++ vp.inf_s!Pos
+          Neg => "se" ++ (vStemForm vv Neg PresTense) ++BIND++ "ng" ++ vp.inf_s!Pos
           } 
       } ;
       consubj_s = table {
@@ -135,7 +135,7 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Pos => [] ;
                   Neg => "se" 
               } ;
-              r = vRootForm vv Neg PresTense ;
+              r = vStemForm vv Neg PresTense ;
           in sc ++ pre1 ++ r ++ vp.inf_s!Pos ;
                           
           ConsecCl => \\a,p => let
@@ -146,8 +146,8 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Neg => "se" 
               } ;
               r = case p of {
-                  Pos => vRootForm vv Pos PresTense ;
-                  Neg => vRootForm vv Neg PresTense
+                  Pos => vStemForm vv Pos PresTense ;
+                  Neg => vStemForm vv Neg PresTense
               } ;
           in sc ++ pre1 ++ r ++ vp.inf_s!Pos 
       } ;
@@ -172,14 +172,14 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
               p1 = pre1 IndicCl p t ;
               sc = subjConc vform a ;
               p2 = pre2 IndicCl p t l ;
-              r = vsRootForm vs p t;
+              r = vsStemForm vs p t;
           in p1 ++ sc ++ p2 ++ r ++ "gore" ++ s.s!vs.mood ;
           
           RelCl => \\a,p,t,l => let
               vform = VFTensed RelCl p t ;
               sc = subjConc vform a ;
               p2 = pre2 RelCl p t l ;
-              r = vsRootForm vs p t ;
+              r = vsStemForm vs p t ;
               suf = "go" ;
           in sc ++ p2 ++ r ++ BIND ++ suf ++ "gore" ++ s.s!vs.mood ;
 
@@ -191,27 +191,27 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                       SylMono => "e" ++BIND ;
                       SylMult => []
                     } ;
-                  r = vsRootForm vs p t ;
+                  r = vsStemForm vs p t ;
               in sc ++ p2 ++ stab_e ++ r ++ "gore" ++ s.s!vs.mood 
       } ;
       inf_s = table {
-          Pos => "go" ++ (vsRootForm vs Pos PresTense) ++ "gore" ++ s.s!vs.mood ;
-          Neg => "go" ++ "se" ++ (vsRootForm vs Neg PresTense) ++ "gore" ++ s.s!vs.mood
+          Pos => "go" ++ (vsStemForm vs Pos PresTense) ++ "gore" ++ s.s!vs.mood ;
+          Neg => "go" ++ "se" ++ (vsStemForm vs Neg PresTense) ++ "gore" ++ s.s!vs.mood
       } ;
       imp_s = table {
           Sg => table {
               Pos => case vs.syl of {
-                  SylMono => "e" ++BIND++ (vsRootForm vs Pos PresTense) ++ "gore" ++ s.s!vs.mood ; 
-                  SylMult =>  (vsRootForm vs Pos PresTense) ++ "gore" ++ s.s!vs.mood
+                  SylMono => "e" ++BIND++ (vsStemForm vs Pos PresTense) ++ "gore" ++ s.s!vs.mood ; 
+                  SylMult =>  (vsStemForm vs Pos PresTense) ++ "gore" ++ s.s!vs.mood
               } ;
-              Neg => "se" ++ (vsRootForm vs Neg PresTense) ++ "gore" ++ s.s!vs.mood 
+              Neg => "se" ++ (vsStemForm vs Neg PresTense) ++ "gore" ++ s.s!vs.mood 
           } ;
           Pl => table {
               Pos => case vs.syl of {
-                  SylMono => "e" ++BIND++ (vsRootForm vs Pos PresTense) ++BIND++ "ng" ++ "gore" ++ s.s!vs.mood ;
-                  SylMult =>  (vsRootForm vs Pos PresTense) ++BIND++ "ng" ++ "gore" ++ s.s!vs.mood 
+                  SylMono => "e" ++BIND++ (vsStemForm vs Pos PresTense) ++BIND++ "ng" ++ "gore" ++ s.s!vs.mood ;
+                  SylMult =>  (vsStemForm vs Pos PresTense) ++BIND++ "ng" ++ "gore" ++ s.s!vs.mood 
               } ;           
-              Neg => "se" ++ (vsRootForm vs Neg PresTense) ++BIND++ "ng" ++ "gore" ++ s.s!vs.mood
+              Neg => "se" ++ (vsStemForm vs Neg PresTense) ++BIND++ "ng" ++ "gore" ++ s.s!vs.mood
           } 
       } ;
       consubj_s = table {
@@ -222,7 +222,7 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Pos => [] ;
                   Neg => "se" 
               } ;
-              r = vsRootForm vs Neg PresTense ;
+              r = vsStemForm vs Neg PresTense ;
           in sc ++ pre1 ++ r ++ "gore" ++ s.s!vs.mood ;
                           
           ConsecCl => \\a,p => let
@@ -233,8 +233,8 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
                   Neg => "se" 
               } ;
               r = case p of {
-                  Pos => vsRootForm vs Pos PresTense ;
-                  Neg => vsRootForm vs Neg PresTense
+                  Pos => vsStemForm vs Pos PresTense ;
+                  Neg => vsStemForm vs Neg PresTense
               } ;
           in sc ++ pre1 ++ r ++ "gore" ++ s.s!vs.mood 
       } ;

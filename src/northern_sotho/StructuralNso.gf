@@ -123,7 +123,7 @@ concrete StructuralNso of Structural = CatNso **
     youPl_Pron = mkPron "lena" "lena" (Second Pl) ;
 
     he_Pron = mkPron "yena" "gagwe" (Third C1_2 Sg) ;
-    it_Pron = mkPron "wona" "wona" (Third C3_4 Sg) ;
+    it_Pron = mkPron "wona" "wona" (Third C17 Sg) ;
     she_Pron = mkPron "yena" "gagwe" (Third C1_2 Sg) ;
     they_Pron = mkPron "bona" "bona" (Third C1_2 Pl) ;
 

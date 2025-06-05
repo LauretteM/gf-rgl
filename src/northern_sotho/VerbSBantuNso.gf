@@ -190,11 +190,63 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
       hasComp = True        
     } ;
 
+    LocAdvLoc locadv = {
+      s = table {
+          IndicCl => \\a,p,t => let
+              vform = VFTensed IndicCl p t ;
+              idcop = descr_cop vform a ; 
+              compl = locadv.s ;
+              in
+              idcop ++ compl ;
+          
+          RelCl => \\a,p,t => let
+              vform = VFTensed RelCl p t ;
+              idcop = descr_cop vform a ; 
+              compl = locadv.s ;       
+              in
+              idcop ++ compl ;
+
+          SitCl => \\a,p,t => let
+              vform = VFTensed SitCl p t ;
+              idcop = descr_cop vform a ; 
+              compl = locadv.s ;       
+              in
+              idcop ++ compl    
+      } ;
+      inf_s = table {
+          Pos => "go" ++ "ba" ++ locadv.s ;
+          Neg => "go" ++ "se" ++ "be" ++ locadv.s
+      } ;
+      imp_s = table {
+          Sg => table {
+              Pos => "eba" ++ locadv.s ;           
+          Neg => "se" ++ "be" ++ locadv.s 
+          } ;
+          Pl => table {
+              Pos => "ebang" ++ locadv.s ;           
+          Neg => "se" ++ "beng" ++ locadv.s    
+          } 
+      } ;
+      consubj_s = table {
+          SubjunctCl => \\a,p => let
+              vform = VFUntensed SubjunctCl p ;
+              idcop = descr_cop vform a ; 
+              compl = locadv.s ;
+              in
+              idcop ++ compl ;
+          
+          ConsecCl => \\a,p => let
+              vform = VFUntensed ConsecCl p ;
+              idcop = descr_cop vform a ; 
+              compl = locadv.s ;       
+              in
+              idcop ++ compl
+      } 
+    } ;
+
     -- UseVRefl : V -> VP ;
 
-    
-
-        ComplV2Light v np = {
+     ComplV2Light v np = {
             s = table {
                     IndicCl => \\a,p,t,l => let
                         vform = VFTensed IndicCl p t ;
@@ -208,7 +260,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         } ;
                         p2 = pre2 IndicCl p t longform ;
                         oc = objConc v.initLab np.a ;
-                        r = v2RootForm v p t np.a;
+                        r = v2StemForm v p t np.a np.proDrop ;
                     in p1 ++ sc ++ p2 ++ oc ++ r ++ np.s!Absolute ;
 
                     RelCl => \\a,p,t,l => let
@@ -216,7 +268,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         sc = subjConc vform a ;
                         p2 = pre2 RelCl p t False ;
                         oc = objConc v.initLab np.a ;
-                        r = v2RootForm v p t np.a ;
+                        r = v2StemForm v p t np.a np.proDrop ;
                         suf = "go" ;
                     in sc ++ p2 ++ oc ++ r ++ BIND ++ suf ++ np.s!Absolute ;
 
@@ -229,15 +281,15 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                             <_, _> => []
                         } ;
                         oc = objConc v.initLab np.a ;
-                        r = v2RootForm v p t np.a ;
+                        r = v2StemForm v p t np.a np.proDrop ;
                     in sc ++ p2 ++ stab_e ++ oc ++ r ++ np.s!Absolute    
             } ;
             inf_s = let
                 oc = objConc v.initLab np.a ;
                 in
                 table {
-                    Pos => "go" ++ oc ++ (v2RootForm v Pos PresTense np.a) ++ np.s!Absolute ;
-                    Neg => "go" ++ "se" ++ oc ++ (v2RootForm v Neg PresTense np.a) ++ np.s!Absolute
+                    Pos => "go" ++ oc ++ (v2StemForm v Pos PresTense np.a np.proDrop) ++ np.s!Absolute ;
+                    Neg => "go" ++ "se" ++ oc ++ (v2StemForm v Neg PresTense np.a np.proDrop) ++ np.s!Absolute
             } ;    
 
             imp_s = let 
@@ -248,12 +300,12 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                 oc = objConc v.initLab np.a ;
             in  table {
                     Sg => table {
-                        Pos => stab_e ++ oc ++ (v2RootFormImp v Neg np.a) ++ np.s!Absolute ; -- use neg form when OC present
-                        Neg => "se" ++ oc ++ (v2RootFormImp v Neg np.a) ++ np.s!Absolute 
+                        Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute ; -- use neg form when OC present
+                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute 
                     } ;    
                     Pl => table {
-                        Pos => stab_e ++ oc ++ (v2RootFormImp v Neg np.a) ++BIND++ "ng" ++ np.s!Absolute ; -- use neg form when OC present
-                        Neg => "se" ++ oc ++ (v2RootFormImp v Neg np.a) ++BIND++ "ng" ++ np.s!Absolute 
+                        Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ np.s!Absolute ; -- use neg form when OC present
+                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ np.s!Absolute 
                     }   
             } ;
           
@@ -266,7 +318,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         Neg => "se" 
                     } ;
                     oc = objConc v.initLab np.a ;
-                    r = v2RootForm v Neg PresTense np.a;
+                    r = v2StemForm v Neg PresTense np.a np.proDrop ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ;
 
                 ConsecCl => \\a,p => let
@@ -278,8 +330,8 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                     } ;
                     oc = objConc v.initLab np.a ;
                     r = case p of {
-                        Pos => v2RootForm v Pos PresTense np.a ;
-                        Neg => v2RootForm v Neg PresTense np.a
+                        Pos => v2StemForm v Pos PresTense np.a np.proDrop ;
+                        Neg => v2StemForm v Neg PresTense np.a np.proDrop 
                     } ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute
             } ;
@@ -317,7 +369,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                             True => objConc v.initLab np.a ;
                             False => []
                         } ;
-                        r = v2RootForm v p t np.a;
+                        r = v2StemForm v p t np.a np.proDrop ;
                     in p1 ++ sc ++ p2 ++ oc ++ r ++ np.s!Absolute ;
 
                     RelCl => \\a,p,t,l => let
@@ -328,7 +380,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                             True => objConc v.initLab np.a ;
                             False => []
                         } ;
-                        r = v2RootForm v p t np.a ;
+                        r = v2StemForm v p t np.a np.proDrop ;
                         suf = "go" ;
                     in sc ++ p2 ++ oc ++ r ++ BIND ++ suf ++ np.s!Absolute ;
 
@@ -344,7 +396,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                              True => objConc v.initLab np.a ;
                              False => []
                         } ; 
-                        r = v2RootForm v p t np.a ;
+                        r = v2StemForm v p t np.a np.proDrop ;
                     in sc ++ p2 ++ stab_e ++ oc ++ r ++ np.s!Absolute    
             } ;
             inf_s = let
@@ -354,11 +406,11 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                 } ;
                 in
                 table {
-                    Pos => "go" ++ oc ++ (v2RootForm v Pos PresTense np.a) ++ np.s!Absolute ;
-                    Neg => "go" ++ "se" ++ oc ++ (v2RootForm v Neg PresTense np.a) ++ np.s!Absolute
+                    Pos => "go" ++ oc ++ (v2StemForm v Pos PresTense np.a np.proDrop) ++ np.s!Absolute ;
+                    Neg => "go" ++ "se" ++ oc ++ (v2StemForm v Neg PresTense np.a np.proDrop) ++ np.s!Absolute
             } ;    
 
-            imp_s = let 
+            imp_s = let
                 stab_e = case <v.syl, np.proDrop> of {
                     <SylMono, False> => "e" ++BIND;
                     <_, _> => []
@@ -366,16 +418,20 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                 oc = case np.proDrop of {
                     True => objConc v.initLab np.a ;
                     False => []
-                } ; 
+                } ;
+                vform = case np.proDrop of {
+                    True => v2StemFormImp v Neg np.a np.proDrop ;
+                    False => v2StemFormImp v Pos np.a np.proDrop 
+                } ;
             in  table {
                     Sg => table {
-                        Pos => stab_e ++ oc ++ (v2RootFormImp v Pos np.a) ++ np.s!Absolute ;
-                        Neg => "se" ++ oc ++ (v2RootFormImp v Neg np.a) ++ np.s!Absolute 
-                    } ;    
+                        Pos => stab_e ++ oc ++ vform ++ np.s!Absolute ;
+                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute
+                    } ;
                     Pl => table {
-                        Pos => stab_e ++ oc ++ (v2RootFormImp v Pos np.a) ++BIND++ "ng" ++ np.s!Absolute ;
-                        Neg => "se" ++ oc ++ (v2RootFormImp v Neg np.a) ++BIND++ "ng" ++ np.s!Absolute 
-                    }   
+                        Pos => stab_e ++ oc ++ vform ++BIND++ "ng" ++ np.s!Absolute ;
+                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ np.s!Absolute
+                    }
             } ;
           
             consubj_s = table {
@@ -390,7 +446,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         True => objConc v.initLab np.a ;
                         False => []
                     } ;
-                    r = v2RootForm v Neg PresTense np.a;
+                    r = v2StemForm v Neg PresTense np.a np.proDrop ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ;
 
                 ConsecCl => \\a,p => let
@@ -405,8 +461,8 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         False => []
                     } ;
                     r = case p of {
-                        Pos => v2RootForm v Pos PresTense np.a ;
-                        Neg => v2RootForm v Neg PresTense np.a
+                        Pos => v2StemForm v Pos PresTense np.a np.proDrop ;
+                        Neg => v2StemForm v Neg PresTense np.a np.proDrop 
                     } ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute
             } ;

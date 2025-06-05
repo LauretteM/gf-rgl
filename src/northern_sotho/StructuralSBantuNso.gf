@@ -2,21 +2,24 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
   lin
 
-       -- -- adjective stems
+   -- -- adjective stems
    bad_A = mkA "be" ;
    big_A = mkA "golo" ;
    many_A = mkA "ntši" ;
    old_A = mkA "tala" ;
    pretty_A = mkA "botse" ;
    tall_A = mkA "telele" ;
-   two_A = mkA "bedi" ;
    ugly_A = mkA "be" ;
    small_A = mkA "nyane" ;
    how_much_A = mkA "kae" ;
    other_A = mkA "ngwe" ;
    -- male_A = mkA "tona" ; -- not in abstract
 
-   
+   two_A = mkA "bedi" ;
+   three_A = mkA "raro" ;
+   four_A = mkA "ne" ;
+   five_A = mkA "hlano" ;
+
    -- -- relative stems
    black_R = mkA "so" ;
    few_R = mkA "nyane" ;
@@ -29,11 +32,11 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
    dangerous_A = mkA "kotsi" ;
 
    -- -- enumerative stems
-   -- different_Enum = mkA "šele" ;
-   -- some_A : A ; -- nye
-   -- which_Enum : A ; -- nso: -fe
-   -- one_Enum : A ; -- nso: -tee
-   -- cruel_Enum : A ; -- nso: -šoro
+   -- some_A = mkA "nye" ;
+   different_Enum = enum "šele" ;
+   -- which_Enum = enum "&+ fe" ;
+   one_Enum = enum "tee" ; 
+   cruel_Enum = enum "šoro" ;
  
    -- -- adverbs
    today_Adv = { s = "lehono" } ;
@@ -265,7 +268,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
     much_Adv = { s = "kudu" } ;
 
-    -- with_ConjN = { s = "le" } ;
+    with_ConjN = { s = "le" } ;
     -- together_with_Conj : Conj ;
     and_then_Conj = { s = "" ; mood = ConsecMS } ;
     -- but_also_Conj : Conj ;
@@ -282,11 +285,6 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- where_IComp : IComp ; -- -phi
     -- how_much_IComp : IComp ; -- -ngakanani
 
-    -- -- enumerative stems
-   -- some_A = mkA "nye" ;
-   different_Enum = enum "šele" ;
-   -- which_Enum = enum "&+ fe" ;
-   one_Enum = enum "tee" ; 
-   cruel_Enum = enum "šoro" ;
+   
 
 }
