@@ -1081,6 +1081,18 @@ resource ResZul = open Prelude,Predef,ParamX in {
       t = RelType
     } ;
 
+    enumAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
+    {
+      s = \\_ => a ;
+      -- b = case a of {
+      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
+      --   ("m"|"n")+_ => True ;
+      --   _ => False
+      -- } ;
+      empty = [] ;
+      t = EnumType
+    } ;
+
     rel_yo_2 : Str = BIND++"yo" ;
 
     relSuf : VForm -> Aspect -> Str = \vform,aspect -> case <vform,aspect> of {

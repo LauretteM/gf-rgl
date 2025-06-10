@@ -9,7 +9,7 @@ abstract LexiconSBantu = Cat ** {
    -- -- noun stems   
    animal_N : N ; -- lwane_7_8
    apple_N : N ; 
-   ax_N : N ;
+   axe_N : N ;
    badness_N : N ;
    beauty_N : N ;
    book_N : N ; -- ncwadi_9_10
