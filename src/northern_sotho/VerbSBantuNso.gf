@@ -472,6 +472,9 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
             } ;
         } ;
 
+    UseVStative v = nonExist_VP ;
+    CopQuant qp = nonExist_VP ;
+
     -- ApplV : V -> V ; -- el
     -- CausV : V -> V ; -- is
     -- IntensV : V -> V ; -- isis

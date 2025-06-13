@@ -201,5 +201,8 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       empty = np1.empty ++ np2.empty
     } ;
 
+  AdjPron ap pron = nonExist_Pron ;
+  NomRel cn1 cn2 = nonExist_CN ;
+  PossLocN locn np = nonExist_LocN ;
 
 }

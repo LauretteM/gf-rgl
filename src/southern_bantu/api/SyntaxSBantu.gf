@@ -1,1 +1,1 @@
-interface SyntaxSBantu = ConstructorsSBantu, Cat ;
+interface SyntaxSBantu = ConstructorsSBantu, Cat, SymbolSBantu, Structural, StructuralSBantu ;
