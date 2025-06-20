@@ -258,6 +258,8 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
     where_IComp = { s = "phi" ; postIComp = True } ; -- -phi
     how_much_IComp = { s = "ngakanani" ; postIComp = False } ; -- -ngakanani
 
+    different_Enum = enumAdj "mbe" ;
+    some_A = regAdj "nye" ;
     one_Enum = {
       s = \\_ => "nye" ;
       empty = [] ;

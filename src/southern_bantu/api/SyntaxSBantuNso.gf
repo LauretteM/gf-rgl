@@ -1,0 +1,1 @@
+instance SyntaxSBantuNso of SyntaxSBantu = ConstructorsSBantuNso, CatNso, SymbolSBantuNso, StructuralNso, StructuralSBantuNso ;

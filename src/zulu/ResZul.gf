@@ -1081,6 +1081,18 @@ resource ResZul = open Prelude,Predef,ParamX in {
       t = RelType
     } ;
 
+    enumAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
+    {
+      s = \\_ => a ;
+      -- b = case a of {
+      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
+      --   ("m"|"n")+_ => True ;
+      --   _ => False
+      -- } ;
+      empty = [] ;
+      t = EnumType
+    } ;
+
     rel_yo_2 : Str = BIND++"yo" ;
 
     relSuf : VForm -> Aspect -> Str = \vform,aspect -> case <vform,aspect> of {
@@ -2461,5 +2473,48 @@ resource ResZul = open Prelude,Predef,ParamX in {
       <(First _ | Second _ | Third _ _),Second _> => Second Pl ;
       <Third (C1_2|C1a_2a) _, Third _ _> => Third C1_2 Pl ;
       <Third _ _,Third c _> => Third c Pl
+    } ;
+
+
+    --------------------------------------------
+    --  NONEXIST lincats
+    --------------------------------------------
+
+    nonExist_Adv : { s : Str ; reqLocS : Bool } = {
+      s = nonExist ;
+      reqLocS = False
+    } ;
+
+    nonExist_CN : {
+      s : Number => NForm => Str ;
+      c : ClassGender ;
+      empty : Str ;
+      predet : Bool
+    } = {
+      s = \\_,_ => nonExist ;
+      c = C17 ;
+      empty = nonExist ;
+      predet = False
+    } ;
+
+    nonExist_LocAdv : { s : Str ; reqLocS : Bool } = {
+      s = nonExist ;
+      reqLocS = False
+    } ;
+
+    nonExist_Pron : {
+      s : NForm => Str ;
+      agr : Agr ;
+      empty : Str ;
+      proDrop : Bool
+    } = {
+        s = \\_ => nonExist ;
+        agr = Third C17 Sg ;
+        empty = nonExist ;
+        proDrop = False
+    } ;
+
+    nonExist_LocN : { s : Str } = {
+      s = nonExist
     } ;
 }
