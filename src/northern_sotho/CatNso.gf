@@ -70,8 +70,8 @@ concrete CatNso of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Conj = {s : Str ; mood : MoodS } ;
 
 -- Open lexical classes, e.g. Lexicon
-    V, V2, V3, VV, V2V = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl } ;
-    VS = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood : MoodS } ;
+    V, V2, V3, VV, V2V = {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl } ;
+    VS = {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl ; mood : MoodS } ;
 
     A = { s : AForm => Str ; at : AType } ;
 

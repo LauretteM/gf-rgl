@@ -259,7 +259,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                             <_,True> => True
                         } ;
                         p2 = pre2 IndicCl p t longform ;
-                        oc = objConc v.initLab np.a ;
+                        oc = objConc v.initLet np.a ;
                         r = v2StemForm v p t np.a np.proDrop ;
                     in p1 ++ sc ++ p2 ++ oc ++ r ++ np.s!Absolute ;
 
@@ -267,7 +267,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         vform = VFTensed RelCl p t ;
                         sc = subjConc vform a ;
                         p2 = pre2 RelCl p t False ;
-                        oc = objConc v.initLab np.a ;
+                        oc = objConc v.initLet np.a ;
                         r = v2StemForm v p t np.a np.proDrop ;
                         suf = "go" ;
                     in sc ++ p2 ++ oc ++ r ++ BIND ++ suf ++ np.s!Absolute ;
@@ -280,12 +280,12 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                             <SylMono, False> => "e" ++BIND ;
                             <_, _> => []
                         } ;
-                        oc = objConc v.initLab np.a ;
+                        oc = objConc v.initLet np.a ;
                         r = v2StemForm v p t np.a np.proDrop ;
                     in sc ++ p2 ++ stab_e ++ oc ++ r ++ np.s!Absolute    
             } ;
             inf_s = let
-                oc = objConc v.initLab np.a ;
+                oc = objConc v.initLet np.a ;
                 in
                 table {
                     Pos => "go" ++ oc ++ (v2StemForm v Pos PresTense np.a np.proDrop) ++ np.s!Absolute ;
@@ -297,7 +297,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                     <SylMono, False> => "e" ++BIND;
                     <_, _> => []
                 } ;
-                oc = objConc v.initLab np.a ;
+                oc = objConc v.initLet np.a ;
             in  table {
                     Sg => table {
                         Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute ; -- use neg form when OC present
@@ -317,7 +317,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         Pos => [] ;
                         Neg => "se" 
                     } ;
-                    oc = objConc v.initLab np.a ;
+                    oc = objConc v.initLet np.a ;
                     r = v2StemForm v Neg PresTense np.a np.proDrop ;
                 in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ;
 
@@ -328,7 +328,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         Pos => [] ;
                         Neg => "se" 
                     } ;
-                    oc = objConc v.initLab np.a ;
+                    oc = objConc v.initLet np.a ;
                     r = case p of {
                         Pos => v2StemForm v Pos PresTense np.a np.proDrop ;
                         Neg => v2StemForm v Neg PresTense np.a np.proDrop 
@@ -366,7 +366,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         } ;
                         p2 = pre2 IndicCl p t longform ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -377,7 +377,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         sc = subjConc vform a ;
                         p2 = pre2 RelCl p t False ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -393,7 +393,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                             <_, _> => []
                         } ;
                         oc = case np.proDrop of {
-                             True => objConc v.initLab np.a ;
+                             True => objConc v.initLet np.a ;
                              False => []
                         } ; 
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -401,7 +401,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
             } ;
             inf_s = let
                 oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                 } ;
                 in
@@ -416,7 +416,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                     <_, _> => []
                 } ;
                 oc = case np.proDrop of {
-                    True => objConc v.initLab np.a ;
+                    True => objConc v.initLet np.a ;
                     False => []
                 } ;
                 vform = case np.proDrop of {
@@ -443,7 +443,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         Neg => "se" 
                     } ;
                     oc = case np.proDrop of {
-                        True => objConc v.initLab np.a ;
+                        True => objConc v.initLet np.a ;
                         False => []
                     } ;
                     r = v2StemForm v Neg PresTense np.a np.proDrop ;
@@ -457,7 +457,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         Neg => "se" 
                     } ;
                     oc = case np.proDrop of {
-                        True => objConc v.initLab np.a ;
+                        True => objConc v.initLet np.a ;
                         False => []
                     } ;
                     r = case p of {

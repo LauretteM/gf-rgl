@@ -19,7 +19,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         } ;
                         p2 = pre2 IndicCl p t longform ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -30,7 +30,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         sc = subjConc vform a ;
                         p2 = pre2 RelCl p t False ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -46,7 +46,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                             <_, _> => []
                         } ;
                         oc = case np.proDrop of {
-                             True => objConc v.initLab np.a ;
+                             True => objConc v.initLet np.a ;
                              False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -54,7 +54,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
             } ;
             inf_s = let
                 oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                 } ;
                 in
@@ -69,7 +69,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                     <_, _> => []
                 } ;
                 oc = case np.proDrop of {
-                    True => objConc v.initLab np.a ;
+                    True => objConc v.initLet np.a ;
                     False => []
                 } ;
                 vform = case np.proDrop of {
@@ -95,7 +95,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         Neg => "se"
                     } ;
                     oc = case np.proDrop of {
-                        True => objConc v.initLab np.a ;
+                        True => objConc v.initLet np.a ;
                         False => []
                     } ;
                     r = v2StemForm v Neg PresTense np.a np.proDrop ;
@@ -109,7 +109,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         Neg => "se"
                     } ;
                     oc = case np.proDrop of {
-                        True => objConc v.initLab np.a ;
+                        True => objConc v.initLet np.a ;
                         False => []
                     } ;
                     r = case p of {
@@ -129,9 +129,9 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
         longform = False ;
         oc = case <npi.proDrop,npd.proDrop> of {
             <False, False> => [] ;
-            <True, False> => objConc v.initLab npi.a ;
-            <False, True> => objConc v.initLab npd.a ;
-            <True, True> => objConc v.initLab npi.a
+            <True, False> => objConc v.initLet npi.a ;
+            <False, True> => objConc v.initLet npd.a ;
+            <True, True> => objConc v.initLet npi.a
         } ;
         abspron = case <npi.proDrop,npd.proDrop> of {
             <True, True> => abs_pron!npd.a ;
@@ -278,7 +278,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         } ;
                         p2 = pre2 IndicCl p t longform ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -289,7 +289,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         sc = subjConc vform a ;
                         p2 = pre2 RelCl p t False ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -305,7 +305,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                             <_, _> => []
                          } ;
                         oc = case np.proDrop of {
-                            True => objConc v.initLab np.a ;
+                            True => objConc v.initLet np.a ;
                             False => []
                         } ;
                         r = v2StemForm v p t np.a np.proDrop ;
@@ -321,7 +321,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                     <_, _> => []
                 } ;
                 oc = case np.proDrop of {
-                    True => objConc v.initLab np.a ;
+                    True => objConc v.initLet np.a ;
                     False => []
                 } ;
             in
@@ -344,7 +344,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         Neg => "se"
                     } ;
                     oc = case np.proDrop of {
-                        True => objConc v.initLab np.a ;
+                        True => objConc v.initLet np.a ;
                         False => []
                     } ;
                     r = v2StemForm v Neg PresTense np.a np.proDrop ;
@@ -358,7 +358,7 @@ concrete BackwardNso of Backward = CatNso ** open ResNso,Prelude,ParamX in {
                         Neg => "se"
                     } ;
                     oc = case np.proDrop of {
-                        True => objConc v.initLab np.a ;
+                        True => objConc v.initLet np.a ;
                         False => []
                     } ;
                     r = case p of {

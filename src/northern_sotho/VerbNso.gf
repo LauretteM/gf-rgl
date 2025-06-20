@@ -162,8 +162,8 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
         hasComp = True
     } ;
 
--- VV = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl } ;
--- VS = {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood : MoodS } ;
+-- VV = {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl } ;
+-- VS = {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl ; mood : MoodS } ;
 
     ComplVS vs s = {
       s = table {
