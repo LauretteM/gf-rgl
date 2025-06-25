@@ -26,7 +26,7 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     PredetN : Predet -> N -> CN ;
 
-    PostdetN : Postdet -> N -> CN ; -- ntlo ye yohle
+    PostdetCN : Postdet -> CN -> CN ; -- ntlo ye yohle
 
     QuantPredet : QuantPron -> Predet ;
 

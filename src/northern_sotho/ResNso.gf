@@ -21,9 +21,10 @@ resource ResNso = open Prelude,ParamX in {
         SCForm = SC1 | SC1Alt | SC2 | SC1AltPreKa;
         AForm = AF1 | AF2 ; 
 
-        VPreForm = VPreReg | VPreAlt ;
+        VPreForm = VPreReg | VPreAlt1 | VPreAlt2 ; -- 1 is for OC 1ps and 2 is for OC C1/1a
         VSufForm = VS_a | VS_e | VS_ile ;
         Syl = SylMono | SylMult ;
+        Let = LabB | LabFMP | NotLab ;
 
         Distance = Dem1 | Dem2 | Dem3 ;
 
@@ -37,7 +38,8 @@ resource ResNso = open Prelude,ParamX in {
 
         vowel : pattern Str = #("a"|"e"|"i"|"o"|"u") ;
         cons : pattern Str = #("b"|"c"|"d"|"f"|"g"|"h"|"j"|"k"|"l"|"m"|"n"|"p"|"q"|"r"|"s"|"š"|"t"|"v"|"w"|"x"|"y"|"z") ;
-        labial_cons : pattern Str = #("p"|"b"|"f"|"m" ) ;
+        labial_fmp : pattern Str = #("p"|"f"|"m" ) ;
+        labial_b : pattern Str = #("b") ;
 
         mkNounWC : Str -> Str -> Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
         = \abssg,locsg,abspl,locpl,cg,nt -> {
@@ -210,7 +212,7 @@ resource ResNso = open Prelude,ParamX in {
                                 proDrop = False
         } ;
 
-        mkVerbExplicit : Str -> Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
+        mkVerbExplicit : Str -> Str -> {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl }
         = \root,pastform -> {
                     s = table {
                         VPreReg => table {
@@ -219,9 +221,18 @@ resource ResNso = open Prelude,ParamX in {
                             VS_ile => pastform
                         } ;
                           
-                        VPreAlt => let 
-                            alt_root = vPreAltRoot root ;
-                            alt_pastform = vPreAltRoot pastform
+                        VPreAlt1 => let 
+                            alt_root = vPreAlt1Root root ;
+                            alt_pastform = vPreAlt1Root pastform
+                        in table {
+                            VS_a => alt_root+ "a" ;                --"tshepela" ;
+                            VS_e => alt_root + "e" ;               --"tshepele" ;
+                            VS_ile => alt_pastform              
+                        } ;
+
+                         VPreAlt2 => let 
+                            alt_root = vPreAlt2Root root ;
+                            alt_pastform = vPreAlt2Root pastform
                         in table {
                             VS_a => alt_root+ "a" ;                --"tshepela" ;
                             VS_e => alt_root + "e" ;               --"tshepele" ;
@@ -229,9 +240,10 @@ resource ResNso = open Prelude,ParamX in {
                         } 
                     } ;   
 
-                    initLab = case root of {
-                        #labial_cons + p => True ;
-                        _ => False
+                    initLet = case root of {
+                        #labial_b + p => LabB ;
+                        #labial_fmp + p => LabFMP ;
+                        _ => NotLab
                     }   ;
 
                     syl = case root of {
@@ -244,8 +256,7 @@ resource ResNso = open Prelude,ParamX in {
                     } ;
         } ;
 
-        -----------------------------
-        mkVerbIrregular : Str -> Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
+        mkVerbIrregular : Str -> Str -> {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl }
         = \presform,pastform -> {
                     s = table {
                         VPreReg => table {
@@ -254,9 +265,18 @@ resource ResNso = open Prelude,ParamX in {
                             VS_ile => pastform
                         } ;
                           
-                        VPreAlt => let 
-                            alt_presform = vPreAltRoot presform ;
-                            alt_pastform = vPreAltRoot pastform
+                        VPreAlt1 => let 
+                            alt_presform = vPreAlt1Root presform ;
+                            alt_pastform = vPreAlt1Root pastform
+                        in table {
+                            VS_a => alt_presform ;                -- the
+                            VS_e => alt_presform ;                -- the 
+                            VS_ile => alt_pastform              
+                        } ;
+
+                        VPreAlt2 => let 
+                            alt_presform = vPreAlt2Root presform ;
+                            alt_pastform = vPreAlt2Root pastform
                         in table {
                             VS_a => alt_presform ;                -- the
                             VS_e => alt_presform ;                -- the 
@@ -264,9 +284,10 @@ resource ResNso = open Prelude,ParamX in {
                         } 
                     } ;   
 
-                    initLab = case presform of {
-                        #labial_cons + p => True ;
-                        _ => False
+                    initLet = case presform of {
+                        #labial_b + p => LabB ;
+                        #labial_fmp + p => LabFMP ;
+                        _ => NotLab
                     }   ;
 
                     syl = case presform of {
@@ -278,9 +299,8 @@ resource ResNso = open Prelude,ParamX in {
                         _ => SylMono
                     } ;
         } ;
-        -----------------------------
-
-        mkVerb : Str -> {s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl }
+        
+        mkVerb : Str -> {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl }
         = \root -> {s = table {
                         VPreReg => table {
                             VS_a => root + "a" ;                            -- sepela
@@ -305,8 +325,29 @@ resource ResNso = open Prelude,ParamX in {
                                 p => p + "ile" } 
                         } ;
                           
-                        VPreAlt => let 
-                            alt_root = vPreAltRoot root
+                        VPreAlt1 => let 
+                            alt_root = vPreAlt1Root root
+                        in table {
+                            VS_a => alt_root+ "a" ;                --"tshepela" ;
+                            VS_e => alt_root + "e" ;               --"tshepele" ;
+                            VS_ile => case alt_root of {            --"tshepetše"
+                                p + "n" => p + "ne" ;
+                                p + "m" => p + "me" ;
+                                p + "ar" => p + "ere" ;
+                                p + "al" => p + "etše" ;
+                                p + "el" => p + "etše" ;
+                                p + "ul" => p + "utše" ;
+                                p + "ol" => p + "otše" ;
+                                p + "tš" => p + "ditše" ;
+                                p + "š" => p + "šitše" ;
+                                p + "ny" => p + "tše" ;
+                                p + "al" => p + "adile" ;
+                                -- monosyllabic verb root : a -> ele
+                                p => p + "ile" }               
+                        } ;
+
+                        VPreAlt2 => let 
+                            alt_root = vPreAlt2Root root
                         in table {
                             VS_a => alt_root+ "a" ;                --"tshepela" ;
                             VS_e => alt_root + "e" ;               --"tshepele" ;
@@ -327,9 +368,10 @@ resource ResNso = open Prelude,ParamX in {
                         } 
                     } ;   
 
-                    initLab = case root of {
-                        #labial_cons + p => True ;
-                        _ => False
+                    initLet = case root of {
+                        #labial_b + p => LabB ;
+                        #labial_fmp + p => LabFMP ;
+                        _ => NotLab
                     }   ;
 
                     syl = case root of {
@@ -342,20 +384,21 @@ resource ResNso = open Prelude,ParamX in {
                     } ;
         } ;
 
-        vPreAltRoot : Str -> Str 
+        vPreAlt1Root : Str -> Str 
         = \root -> case root of {
             "a" + p => "ka" + p ;
             "e" + p => "ke" + p ;
             "i" + p => "ki" + p ;
             "o" + p => "ko" + p ;
             "u" + p => "ku" + p ;
-            "b" + p => p ;-- bitš -> itš
+            "bj" + p => "pš" + p ;
+            "b" + p => "p" + p ; -- bitš -> pitš
             "d" + p => "t" + p ;
             "f" + p => "ph" + p ;
             "fs" + p => "psh" + p ;
             "g" + p => "kg" + p ;
-            "h" + p => "kh" + p ;
             "hl" + p => "tlh" + p ;
+            "h" + p => "kh" + p ;
             "j" + p => "tš" + p ;
             "l" + p => "t" + p ;
             "r" + p => "th" + p ;
@@ -363,9 +406,13 @@ resource ResNso = open Prelude,ParamX in {
             "š" + p => "tšh" + p ;
             "w" + p => "kw" + p ;
             "y" + p => "k" + p ;
-            -- new patterns
-            "m" + p => p ; -- makatš -> akatš
-            "p" + p => p ; -- paka -> aka
+            _ => root
+        } ;
+
+
+        vPreAlt2Root : Str -> Str 
+        = \root -> case root of {
+            "b" + p => "m" + p ;-- bitš -> mitš
             _ => root
         } ;
 
@@ -437,19 +484,20 @@ resource ResNso = open Prelude,ParamX in {
             Third C18 _ =>  "go" 
         } ;
 
-        objConc : Bool -> Agr -> Str = \init,a -> case a of {
-            First Sg => case init of {
-                True => "mp"++BIND ;
-                False => "n"++BIND
+        objConc : Let -> Agr -> Str = \Let,a -> case a of {
+            First Sg => case Let of {
+                LabB => "m"++BIND ;
+                LabFMP => "m"++BIND ;
+                NotLab => "n"++BIND
             } ;
-            Third C1_2 Sg => case init of {
-                True => "mm"++BIND ;
-                False => objConcLookup!a
+            Third C1_2 Sg => case Let of {
+                LabB => "m"++BIND ;
+                _ => objConcLookup!a
             } ;
             _ => objConcLookup!a
         } ;
 
-        vStemForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Str = \v,p,t ->
+        vStemForm : { s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl} -> Polarity -> BasicTense -> Str = \v,p,t ->
         case <p,t> of {
                 <Pos, PresTense> => v.s!VPreReg!VS_a ;
                 <Pos, PastTense> => v.s!VPreReg!VS_ile ;
@@ -459,7 +507,7 @@ resource ResNso = open Prelude,ParamX in {
                 <Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
-        vsStemForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl ; mood :MoodS }  -> Polarity -> BasicTense -> Str = \v,p,t ->
+        vsStemForm : { s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl ; mood :MoodS }  -> Polarity -> BasicTense -> Str = \v,p,t ->
         case <p,t> of {
                 <Pos, PresTense> => v.s!VPreReg!VS_a ;
                 <Pos, PastTense> => v.s!VPreReg!VS_ile ;
@@ -469,21 +517,21 @@ resource ResNso = open Prelude,ParamX in {
                 <Neg, FutTense> => v.s!VPreReg!VS_e 
         } ;
 
-        v2StemForm : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> BasicTense -> Agr -> Bool -> Str = \v,p,t,a,pd ->
+        v2StemForm : { s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl} -> Polarity -> BasicTense -> Agr -> Bool -> Str = \v,p,t,a,pd ->
         case <a,p,t,pd> of {
-                <First Sg, Pos, PresTense, True> => v.s!VPreAlt!VS_a ;
-                <First Sg, Pos, PastTense, True> => v.s!VPreAlt!VS_ile ;
-                <First Sg, Pos, FutTense, True> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, PresTense, True> => v.s!VPreAlt!VS_e ;
-                <First Sg, Neg, PastTense, True> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, FutTense, True> => v.s!VPreAlt!VS_e ;
+                <First Sg, Pos, PresTense, True> => v.s!VPreAlt1!VS_a ;
+                <First Sg, Pos, PastTense, True> => v.s!VPreAlt1!VS_ile ;
+                <First Sg, Pos, FutTense, True> => v.s!VPreAlt1!VS_a ;
+                <First Sg, Neg, PresTense, True> => v.s!VPreAlt1!VS_e ;
+                <First Sg, Neg, PastTense, True> => v.s!VPreAlt1!VS_a ;
+                <First Sg, Neg, FutTense, True> => v.s!VPreAlt1!VS_e ;
 
-                <Third C1_2 Sg, Pos, PresTense, True> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Pos, PastTense, True> => v.s!VPreAlt!VS_ile ;
-                <Third C1_2 Sg, Pos, FutTense, True> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Neg, PresTense, True> => v.s!VPreAlt!VS_e ;
-                <Third C1_2 Sg, Neg, PastTense, True> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Neg, FutTense, True> => v.s!VPreAlt!VS_e ;
+                <Third C1_2 Sg, Pos, PresTense, True> => v.s!VPreAlt2!VS_a ;
+                <Third C1_2 Sg, Pos, PastTense, True> => v.s!VPreAlt2!VS_ile ;
+                <Third C1_2 Sg, Pos, FutTense, True> => v.s!VPreAlt2!VS_a ;
+                <Third C1_2 Sg, Neg, PresTense, True> => v.s!VPreAlt2!VS_e ;
+                <Third C1_2 Sg, Neg, PastTense, True> => v.s!VPreAlt2!VS_a ;
+                <Third C1_2 Sg, Neg, FutTense, True> => v.s!VPreAlt2!VS_e ;
 
                 <_, Pos, PresTense, _> => v.s!VPreReg!VS_a ;
                 <_, Pos, PastTense, _> => v.s!VPreReg!VS_ile ;
@@ -493,13 +541,13 @@ resource ResNso = open Prelude,ParamX in {
                 <_, Neg, FutTense, _> => v.s!VPreReg!VS_e 
         } ;
 
-        v2StemFormImp : { s : VPreForm => VSufForm => Str ; initLab : Bool ; syl : Syl} -> Polarity -> Agr -> Bool -> Str = \v,p,a,pd ->
+        v2StemFormImp : { s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl} -> Polarity -> Agr -> Bool -> Str = \v,p,a,pd ->
         case <a,p,pd> of {
-                <First Sg, Pos, True> => v.s!VPreAlt!VS_a ;
-                <First Sg, Neg, True> => v.s!VPreAlt!VS_e ;
+                <First Sg, Pos, True> => v.s!VPreAlt1!VS_a ;
+                <First Sg, Neg, True> => v.s!VPreAlt1!VS_e ;
 
-                <Third C1_2 Sg, Pos, True> => v.s!VPreAlt!VS_a ;
-                <Third C1_2 Sg, Neg, True> => v.s!VPreAlt!VS_e ;
+                <Third C1_2 Sg, Pos, True> => v.s!VPreAlt2!VS_a ;
+                <Third C1_2 Sg, Neg, True> => v.s!VPreAlt2!VS_e ;
                 
                 <_, Pos, _> => v.s!VPreReg!VS_a ;
                 <_, Neg, _> => v.s!VPreReg!VS_e 
@@ -673,6 +721,14 @@ resource ResNso = open Prelude,ParamX in {
         
         pre2 : TensedCl -> Polarity -> BasicTense -> Bool -> Str =\c,p,t,l->
         case <c,p,t,l> of {
+            <IndicCl, Pos, PresTense, True> => "a" ;
+            <IndicCl, Pos, PresTense, False> => [] ;
+            <IndicCl, Neg, PresTense, _> => [] ;
+            <IndicCl, Pos, PastTense, _> => [] ;
+            <IndicCl, Neg, PastTense, _> => [] ;
+            <IndicCl, Pos, FutTense, _> => "tlo" ;
+            <IndicCl, Neg, FutTense, _> => "ka" ++ "se" ;
+
             <SitCl, Pos, PresTense, _> => [] ;
             <SitCl, Neg, PresTense, _> => "sa" ;
             <SitCl, Pos, PastTense, _> => [] ;
@@ -680,14 +736,12 @@ resource ResNso = open Prelude,ParamX in {
             <SitCl, Pos, FutTense, _> => "tlo" ;
             <SitCl, Neg, FutTense, _> => "ka" ++ "se" ;
 
-            <_, Pos, FutTense,_> => "tlo" ;
-            <_, Neg, FutTense, _> => "ka" ++ "se" ;
-            
-            <IndicCl, Pos, PresTense, True> => "a" ;
-            <IndicCl, Pos, PresTense, False> => [] ;
-            
-            <RelCl, Neg, _, _> => "sa" ;
-            <_, _, _, _> => [] 
+            <RelCl, Pos, PresTense, _> => [] ;
+            <RelCl, Neg, PresTense, _> => "sa" ;
+            <RelCl, Pos, PastTense, _> => [] ;
+            <RelCl, Neg, PastTense, _> => "sa" ;
+            <RelCl, Pos, FutTense, _> => "tlo" ;
+            <RelCl, Neg, FutTense, _> => "ka" ++ "se" 
         } ;
 
         regAdj : Str -> { s : AForm => Str ; at : AType } = \a -> {

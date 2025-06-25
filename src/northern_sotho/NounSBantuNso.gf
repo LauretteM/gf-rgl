@@ -72,10 +72,10 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
       nt = n.nt  
     } ; 
 
-    PostdetN pdet n = { 
-      s = \\num,npform => n.s!num!npform ++ pdet.s!(Third n.c num) ;
-      c = n.c ;
-      nt = n.nt  
+    PostdetCN pdet cn = { 
+      s = \\num,npform => cn.s!num!npform ++ pdet.s!(Third cn.c num) ;
+      c = cn.c ;
+      nt = cn.nt  
     } ;
 
     QuantPredet q = { -- NSO Vraag
