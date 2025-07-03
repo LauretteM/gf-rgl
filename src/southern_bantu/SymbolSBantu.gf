@@ -2,6 +2,7 @@ abstract SymbolSBantu = Cat, Symbol ** {
 
     fun
         SymbN : Symb -> N ;
+        SymbLoanPlaceName : Symb -> N ;
         SymbA : Symb -> A ;
 
         SymbN_sub10 : Symb -> N ;

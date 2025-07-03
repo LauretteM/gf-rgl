@@ -1,7 +1,25 @@
 concrete SymbolSBantuZul of SymbolSBantu = CatZul, SymbolZul ** open ResZul, ParamX, Prelude in {
 
     lin
-        -- SymbN symb = mkSymbNumber symb.s C5_6;
+        SymbN symb = mkSymbNumber symb.s C5_6;
+
+        SymbLoanPlaceName symb = {
+            s = table {
+                Sg => table {
+                    NFull => "i-" ++BIND++ symb.s ;
+                    NLoc => "e-" ++BIND++ symb.s ;
+                    _ => "-" ++BIND++ symb.s 
+                } ;
+                Pl => table {
+                    NFull => "ama-" ++BIND++ symb.s ;
+                    NLoc => "ema-" ++BIND++ symb.s ;
+                    _ => "ma-" ++BIND++ symb.s 
+                }
+            } ;
+            c = C5_6 ;
+            empty = [] ;
+            lemma = symb.s
+        } ;
 
         SymbA symb = {
             s = \\aform => "-" ++BIND++ symb.s ;

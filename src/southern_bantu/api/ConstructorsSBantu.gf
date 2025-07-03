@@ -148,6 +148,10 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             insideLocAdv : NP -> LocAdv = \np -> InsideLocAdv (LocativisedNounAdv np) ;
         } ;
 
+        mkLoanPlaceNameN = overload {
+            mkLoanPlaceNameN : Symb -> N = SymbLoanPlaceName ;
+        } ;
+
         mkNumA = overload {
             mkNumA : Symb -> A = SymbA ;
         } ;
