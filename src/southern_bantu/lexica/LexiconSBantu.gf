@@ -62,6 +62,7 @@ abstract LexiconSBantu = Cat ** {
    money_N : N ;
    mosquito_N : N ;
    mountain_N : N ; -- taba_9_10
+   occasion_N : N; 
    old_man_N : N ;
    old_woman_N : N ;
    owl_N : N ; -- khova_7_8
