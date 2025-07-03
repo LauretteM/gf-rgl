@@ -12,6 +12,10 @@ concrete RelativeSBantuSsw of RelativeSBantu = CatSsw ** open ResSsw,Prelude,Par
       _ => rcl_with_verb_predicate_short rp vp
     } ;
 
+    SBantuConjRS rs1 conj rs2 = {
+      s = \\agr => rs1.s!agr ++ conj.s!agr ++ rs2.s!agr
+    } ;
+
     oper
 
       rcl_with_verb_predicate_short : RP -> VP -> { s : Agr => Polarity => BasicTense => Aspect => Str } = \rp,vp -> {

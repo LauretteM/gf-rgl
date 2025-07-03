@@ -87,7 +87,12 @@ concrete PChunkSsw of PChunk = CatSsw, CatSBantuSsw, SymbolSsw [Symb] **
     NP_Loc_Chunk np = {
       s = np.s!NLoc
     } ;
-    NP_Gen_Chunk pron np = {
+    NP_Gen_Chunk pron np = let
+    i = case np.agr of {
+      (First Pl) | (Second Pl) => RI ;
+      (First _ | Second _ | Third _ _ ) => np.i
+    }
+    in {
       s = pron.s!NFull ++ poss_concord_agr!pron.agr!np.agr ++BIND++ np.s!NPoss
     } ;
 

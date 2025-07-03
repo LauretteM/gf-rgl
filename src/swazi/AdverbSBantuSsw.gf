@@ -18,6 +18,21 @@ concrete AdverbSBantuSsw of AdverbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, P
       reqLocS = False
     } ;
 
+    WithAdv np =
+    let
+      pref = withPref!np.agr
+    in {
+      s = pref ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ;
+
+    ComparAdv np = nonExist_Adv ;
+    PlaceNameAdv np = nonExist_LocAdv ;
+    PlaceCapLocAdv np = nonExist_LocAdv ;
+    SurfaceLocAdv adv = nonExist_LocAdv ;
+    InsideLocAdv adv = nonExist_LocAdv ;
+    FarLocAdv adv = nonExist_LocAdv ;
+
     -- locative kwa
     PlaceLocAdv np = {
       s = (poss_concord_agr!(Third C17 Sg)!np.agr) ++BIND++ (np.s!NReduced) ;

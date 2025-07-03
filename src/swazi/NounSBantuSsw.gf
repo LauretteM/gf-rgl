@@ -182,87 +182,6 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       heavy = True
     } ;
 
-    LocAdvLoc locadv = {
-      s = table {
-        MainCl => \\a,p,t => let
-          vform = VFIndic MainCl p t ;
-          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
-          s = case locadv.reqLocS of {
-            True => LOC_S++BIND ;
-            False => []
-          } ;
-          cop_base = locadv.s
-        in
-          case vform of {
-            VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => pcp ++ s ++ cop_base ;
-            VFConsec _ => nonExist ; -- "*consec" ;
-            VFSubjunct _ => nonExist -- "*subjunct"
-          } ;
-        RelCl => \\a,p,t => let
-          vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o- / onge-
-          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
-          s = case locadv.reqLocS of {
-            True => LOC_S++BIND ;
-            False => []
-          } ;
-          cop_base = locadv.s
-        in
-          case vform of {
-            VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
-            VFIndic _ _ _ => rcp ++ pcp ++ s ++ cop_base ;
-            VFConsec _ => nonExist ; -- "*consec" ;
-            VFSubjunct _ => nonExist -- "*subjunct"
-          }
-      } ;
-      imp_s = table {
-        Sg => table {
-          Pos => COP_YI++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => IMP_NEG_PREF_SG++BIND++BI ++ LOC_S++BIND++ locadv.s
-        } ;
-        Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ LOC_S++BIND++ locadv.s ;
-          Neg => IMP_NEG_PREF_PL++BIND++BI ++ LOC_S++BIND++ locadv.s
-        }
-      } ;
-      inf_s = table {
-        NFull => table {
-          Pos => INF_PREF_FULL++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
-        } ;
-        NReduced | NPoss => table {
-          Pos => INF_PREF_REDUCED++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
-        } ;
-        NLoc => table {
-          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
-        }
-      } ;
-      consubj_s = \\m,a,p => let 
-          vform = case m of {
-            ConsecCl => VFConsec p ;
-            SubjCl => VFSubjunct p 
-          } ;
-          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
-          s = case locadv.reqLocS of {
-            True => LOC_S++BIND ;
-            False => []
-          } ;
-          cop_base = locadv.s
-        in
-          case vform of {
-            VFIndic _ Neg PresTense => nonExist ; -- "*indic";
-            VFConsec Neg => (kho_cop vform a) ++ cop_base;
-            VFSubjunct Neg => (kho_cop vform a) ++ cop_base;
-
-            VFIndic _ _ _ => nonExist ; --"*indic" ;
-            VFConsec _ => pcp ++ s ++ cop_base ;
-            VFSubjunct _ => pcp ++ s ++ cop_base 
-          } ;
-    } ;
-
     PossNPLoc cn np = {
       empty = np.empty ;
       s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!(Third C1a_2a Sg) ++BIND++LOC_S++BIND++ (loc_NP np);
@@ -271,7 +190,13 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
     } ;
 
     SBantuConjNP np1 conj np2 = {
-      s = \\nform => np1.s!nform ++ conj.s!np2.agr ++ np2.s!NReduced ;
+      s = table {
+        NLoc => np1.s!NLoc ++ conj.s!RC++LOC_S++BIND++ np2.s!NLoc ;
+        nform => case conj.fix of {
+          True => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NReduced ;
+          False => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NFull 
+        }
+      } ;
       agr = compAgr np1.agr np2.agr ;
       i = np1.i ;
       proDrop = andB np1.proDrop np2.proDrop ;
@@ -279,6 +204,10 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       heavy = orB np1.heavy np2.heavy ;
       empty = np1.empty ++ np2.empty
     } ;
+
+    AdjPron ap pron = nonExist_Pron ;
+    NomRel cn1 cn2 = nonExist_CN ;
+    PossLocN locn np = nonExist_LocN ;
 
 
 }

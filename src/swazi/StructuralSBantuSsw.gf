@@ -27,7 +27,8 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
         First Pl => "sodvwa" ;
         Second Sg  => "wedvwa" ;
         Second Pl => "nodvwa"
-      }
+      } ;
+      lemma = "dvwa"
     } ;
     all_QuantPron = {
       s = table {
@@ -54,7 +55,8 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
         First Pl => "sonkhe" ;
         Second Sg  => "wenkhe" ;
         Second Pl => "nonkhe"
-      }
+      } ;
+      lemma = "khe"
     } ;
 
     it3_Pron = mkPron (Third C3_4 Sg) ;
@@ -206,31 +208,38 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
     with_Conj = {
-      s = \\a => withPref!a ++BIND 
+      s = \\a => withPref!a ++BIND ;
+      fix = True
     } ;
 
-    together_with_Conj = {
-      s = \\a => "kanye" ++ withPref!a ++BIND
+    together_with_ConjN = {
+      s = \\a => "kanye" ++ withPref!a ++BIND ;
+      fix = True
     } ;
 
     and_then_Conj = {
-      s = \\_ => "bese"
+      s = \\_ => "bese" ;
+      fix = False
     } ;
 
     but_also_Conj = {
-      s = \\a => "kodvwa" ++ withPref!a ++BIND
+      s = \\a => "kodvwa" ++ withPref!a ++BIND ;
+      fix = True
     } ;
 
     in_comparison_with_Conj = {
-      s = \\a => "ku" ++BIND++ withPref!a ++BIND
+      s = \\a => "ku" ++BIND++ withPref!a ++BIND ;
+      fix = True
     } ;
 
     while_Conj = {
-      s = \\_ => "kanti" 
+      s = \\_ => "kanti" ;
+      fix = False
     } ;
 
     however_Conj = {
-      s = \\_ => "kodvwa" 
+      s = \\_ => "kodvwa" ;
+      fix = False
     } ;
 
     where_ConjAdv = { s = "lapho" } ;

@@ -424,7 +424,7 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) longform) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -437,7 +437,7 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
           vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform vform longform) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -501,7 +501,7 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -531,19 +531,100 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       vptype = CopLoc
     } ;
 
+    LocAdvLoc locadv = {
+      s = table {
+        MainCl => \\a,p,t => let
+          vform = VFIndic MainCl p t ;
+          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
+          s = case locadv.reqLocS of {
+            True => LOC_S++BIND ;
+            False => []
+          } ;
+          cop_base = locadv.s
+        in
+          case vform of {
+            VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
+            VFIndic _ _ _ => pcp ++ s ++ cop_base ;
+            VFConsec _ => nonExist ; -- "*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
+          } ;
+        RelCl => \\a,p,t => let
+          vform = VFIndic RelCl p t ;
+          rcp = (relConcCop vform a RC) ; -- o- / onge-
+          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
+          s = case locadv.reqLocS of {
+            True => LOC_S++BIND ;
+            False => []
+          } ;
+          cop_base = locadv.s
+        in
+          case vform of {
+            VFIndic _ Neg PresTense => (kho_cop vform a) ++ cop_base;
+            VFIndic _ _ _ => rcp ++ pcp ++ s ++ cop_base ;
+            VFConsec _ => nonExist ; -- "*consec" ;
+            VFSubjunct _ => nonExist -- "*subjunct"
+          }
+      } ;
+      imp_s = table {
+        Sg => table {
+          Pos => BA++BIND++IMP_SUF ++ LOC_S++BIND++ locadv.s ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ LOC_S++BIND++ locadv.s
+        } ;
+        Pl => table {
+          Pos => BA++BIND++IMP_SUF++BIND++PL_NI ++ LOC_S++BIND++ locadv.s ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ LOC_S++BIND++ locadv.s
+        }
+      } ;
+      inf_s = table {
+        NFull => table {
+          Pos => INF_PREF_FULL++BIND++BA ++ LOC_S++BIND++ locadv.s ;
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
+        } ;
+        NReduced | NPoss => table {
+          Pos => INF_PREF_REDUCED++BIND++BA ++ LOC_S++BIND++ locadv.s ;
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
+        } ;
+        NLoc => table {
+          Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++BA ++ LOC_S++BIND++ locadv.s ;
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
+        }
+      } ;
+      consubj_s = \\m,a,p => let 
+          vform = case m of {
+            ConsecCl => VFConsec p ;
+            SubjCl => VFSubjunct p 
+          } ;
+          pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
+          s = case locadv.reqLocS of {
+            True => LOC_S++BIND ;
+            False => []
+          } ;
+          cop_base = locadv.s
+        in
+          case vform of {
+            VFIndic _ Neg PresTense => nonExist ; -- "*indic";
+            VFConsec Neg => (kho_cop vform a) ++ cop_base;
+            VFSubjunct Neg => (kho_cop vform a) ++ cop_base;
+
+            VFIndic _ _ _ => nonExist ; --"*indic" ;
+            VFConsec _ => pcp ++ s ++ cop_base ;
+            VFSubjunct _ => pcp ++ s ++ cop_base 
+          } ;
+    } ;
+
     UseVRefl v2 = let
       longform = True ;
     in {
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
+          vpref_with_oc = verb_prefix_with_oc vform True v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r  ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
+          vpref_with_oc = verb_prefix_with_oc vform True v2.r a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
@@ -582,7 +663,7 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ;
@@ -605,20 +686,23 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True a s ;
-          r = v2.s!(rform (VFIndic MainCl p t) True) ; -- bona / boni
-        in
-          vpref_with_oc ++ oc ++ r ++ obj ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
+        in vpref_with_oc ++ oc ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          rc = relConc vform a v2.r ; -- o- / onga-
-          r = v2.s!(rform vform True) ; -- bona / boni
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          longform = case np.heavy of {
+            True => False ;
+            False => True
+          } ;
+          r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
             False => []
           } ;
-        in
-          rc ++ oc ++ r ++ suf ++ obj
+        in vpref_with_oc ++ oc ++ r ++ suf ++ obj 
       } ;
       imp_s = table {
         Sg => table {
@@ -649,11 +733,9 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
-          r = v2.s!(rform vform True) ; -- bona / boni
-        in
-          vpref_with_oc ++ oc ++ r ++ obj ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
+          r = v2.s!(rform vform False) ; -- bona / boni
+        in vpref_with_oc ++ oc ++ r ++ obj ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = np.heavy ;
@@ -672,20 +754,20 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l a s ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          rc = relConc vform a v2.r ; -- o- / onga-
+          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
             False => []
           } ;
         in
-          rc ++ REFL_PRON ++BIND ++ r ++ suf ++ obj
+          vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ suf ++ obj
       } ;
       imp_s = table {
         Sg => table {
@@ -717,7 +799,7 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
             SubjCl => VFSubjunct p 
           } ;
           vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False a Null ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ obj ;
@@ -819,13 +901,13 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
         Sg => let
           agr = (Second Sg)
         in table {
-          Pos => COP_YI++BIND++BA ++ qs.s!agr ;
+          Pos => BA++BIND++IMP_SUF ++ qs.s!agr ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ qs.s!agr
         } ;
         Pl => let
           agr = (Second Pl)
         in table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ qs.s!agr ;
+          Pos => BA++BIND++IMP_SUF++BIND++PL_NI ++ qs.s!agr ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ qs.s!agr
         }
       } ;
