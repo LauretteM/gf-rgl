@@ -38,7 +38,8 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
 
     PossNP cn np = {
       s = \\num, npform => cn.s!num!npform ++ (possConc cn.c num) ++ np.s!Possessive ;   
-      c = cn.c ; empty =[] ; 
+      c = cn.c ;
+      empty = cn.empty ++ np.empty ; 
       nt = cn.nt 
     } ;
 

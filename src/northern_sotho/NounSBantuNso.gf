@@ -91,6 +91,9 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
     } ;
 
     -- DemQuantPredet?
+    -- DemQuantPredet d q = { -- ntlo ye yohle
+    --   s = \\a => d.s!a ++ q.s!a ;
+    -- } ;
 
     EmphCN cn = {
       s = \\num => table {
@@ -144,7 +147,7 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
 
     PossNPLoc cn np = {
       s = \\num, npform => cn.s!num!npform ++ (possConc cn.c num) ++ np.s!Locative ;
-      c = cn.c ; empty =[] ;
+      c = cn.c ; empty = cn.empty ;
       nt = cn.nt
     } ;
 
@@ -179,7 +182,7 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
          } 
       } ;
       a = pn.a ;
-      empty = [] ;
+      empty = pn.empty ;
       proDrop = pn.proDrop
     } ;
 
