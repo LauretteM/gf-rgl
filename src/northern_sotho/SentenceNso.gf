@@ -52,7 +52,7 @@ concrete SentenceNso of Sentence = CatNso ** open Prelude,ResNso,ParamX in {
     } ;
 
     AdvS adv s = {
-      s = \\ms => s.s!ms ++ adv.s
+      s = \\ms => adv.s ++ s.s!ms
     } ;
 
 }

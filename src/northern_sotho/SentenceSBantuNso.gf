@@ -4,7 +4,7 @@ concrete SentenceSBantuNso of SentenceSBantu = CatNso,CatSBantuNso ** open ResNs
 
     ExistNP np = {s = \\_ => "ke" ++ np.s!Absolute} ;
 
-    -- ExistAppos : NP -> NP -> S ;
+    ExistAppos np1 np2 = {s = \\_ => np1.s!Absolute ++ "ke" ++ np2.s!Absolute} ;
 
     GreetSg = {
       s = "dumela"

@@ -1,4 +1,4 @@
-concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelude, ParamX in {
+concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelude, ParamX, BackwardNso in {
 
   lin
 
@@ -261,7 +261,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         p2 = pre2 IndicCl p t longform ;
                         oc = objConc v.initLet np.a ;
                         r = v2StemForm v p t np.a np.proDrop ;
-                    in p1 ++ sc ++ p2 ++ oc ++ r ++ np.s!Absolute ;
+                    in p1 ++ sc ++ p2 ++ oc ++ r ++ SOFT_BIND ++ "," ++ np.s!Absolute ;
 
                     RelCl => \\a,p,t,l => let
                         vform = VFTensed RelCl p t ;
@@ -270,7 +270,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         oc = objConc v.initLet np.a ;
                         r = v2StemForm v p t np.a np.proDrop ;
                         suf = "go" ;
-                    in sc ++ p2 ++ oc ++ r ++ BIND ++ suf ++ np.s!Absolute ;
+                    in sc ++ p2 ++ oc ++ r ++ BIND ++ suf ++ SOFT_BIND ++ "," ++ np.s!Absolute ;
 
                     SitCl => \\a,p,t,l => let
                         vform = VFTensed SitCl p t ;
@@ -282,14 +282,14 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         } ;
                         oc = objConc v.initLet np.a ;
                         r = v2StemForm v p t np.a np.proDrop ;
-                    in sc ++ p2 ++ stab_e ++ oc ++ r ++ np.s!Absolute    
+                    in sc ++ p2 ++ stab_e ++ oc ++ r ++ SOFT_BIND ++ "," ++ np.s!Absolute
             } ;
             inf_s = let
                 oc = objConc v.initLet np.a ;
                 in
                 table {
-                    Pos => "go" ++ oc ++ (v2StemForm v Pos PresTense np.a np.proDrop) ++ np.s!Absolute ;
-                    Neg => "go" ++ "se" ++ oc ++ (v2StemForm v Neg PresTense np.a np.proDrop) ++ np.s!Absolute
+                    Pos => "go" ++ oc ++ (v2StemForm v Pos PresTense np.a np.proDrop) ++ SOFT_BIND ++ "," ++ np.s!Absolute ;
+                    Neg => "go" ++ "se" ++ oc ++ (v2StemForm v Neg PresTense np.a np.proDrop) ++ SOFT_BIND ++ "," ++ np.s!Absolute
             } ;    
 
             imp_s = let 
@@ -300,12 +300,12 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                 oc = objConc v.initLet np.a ;
             in  table {
                     Sg => table {
-                        Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute ; -- use neg form when OC present
-                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute 
+                        Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ SOFT_BIND ++ "," ++ np.s!Absolute ; -- use neg form when OC present
+                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ SOFT_BIND ++ "," ++ np.s!Absolute
                     } ;    
                     Pl => table {
-                        Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ np.s!Absolute ; -- use neg form when OC present
-                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ np.s!Absolute 
+                        Pos => stab_e ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ SOFT_BIND ++ "," ++ np.s!Absolute ; -- use neg form when OC present
+                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ SOFT_BIND ++ "," ++ np.s!Absolute
                     }   
             } ;
           
@@ -319,7 +319,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                     } ;
                     oc = objConc v.initLet np.a ;
                     r = v2StemForm v Neg PresTense np.a np.proDrop ;
-                in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ;
+                in sc ++ pre1 ++ oc ++ r ++ SOFT_BIND ++ "," ++ np.s!Absolute ;
 
                 ConsecCl => \\a,p => let
                     vform = VFUntensed ConsecCl p ;
@@ -333,7 +333,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
                         Pos => v2StemForm v Pos PresTense np.a np.proDrop ;
                         Neg => v2StemForm v Neg PresTense np.a np.proDrop 
                     } ;
-                in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute
+                in sc ++ pre1 ++ oc ++ r ++ SOFT_BIND ++ "," ++ np.s!Absolute
             } ;
             hasComp = False
         } ;
@@ -352,125 +352,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
     -- CopQuant : QuantPron -> VP ;
     -- UseVStative : V -> VP ;
 
-    ComplV2Nonspec v np = {
-            s = table {
-                    IndicCl => \\a,p,t,l => let
-                        vform = VFTensed IndicCl p t ;
-                        p1 = pre1 IndicCl p t ;
-                        sc = subjConc vform a ;
-                        longform = case <l,np.proDrop> of {
-                            <False,False> => False ;
-                            <False,True> => False ;
-                            <_,False> => False ;
-                            <_,True> => True
-                        } ;
-                        p2 = pre2 IndicCl p t longform ;
-                        oc = case np.proDrop of {
-                            True => objConc v.initLet np.a ;
-                            False => []
-                        } ;
-                        r = v2StemForm v p t np.a np.proDrop ;
-                    in p1 ++ sc ++ p2 ++ oc ++ r ++ np.s!Absolute ;
-
-                    RelCl => \\a,p,t,l => let
-                        vform = VFTensed RelCl p t ;
-                        sc = subjConc vform a ;
-                        p2 = pre2 RelCl p t False ;
-                        oc = case np.proDrop of {
-                            True => objConc v.initLet np.a ;
-                            False => []
-                        } ;
-                        r = v2StemForm v p t np.a np.proDrop ;
-                        suf = "go" ;
-                    in sc ++ p2 ++ oc ++ r ++ BIND ++ suf ++ np.s!Absolute ;
-
-                    SitCl => \\a,p,t,l => let
-                        vform = VFTensed SitCl p t ;
-                        sc = subjConc vform a ;
-                        p2 = pre2 SitCl p t False ;
-                        stab_e = case <v.syl, np.proDrop> of {
-                            <SylMono, False> => "e" ++BIND ;
-                            <_, _> => []
-                        } ;
-                        oc = case np.proDrop of {
-                             True => objConc v.initLet np.a ;
-                             False => []
-                        } ; 
-                        r = v2StemForm v p t np.a np.proDrop ;
-                    in sc ++ p2 ++ stab_e ++ oc ++ r ++ np.s!Absolute    
-            } ;
-            inf_s = let
-                oc = case np.proDrop of {
-                            True => objConc v.initLet np.a ;
-                            False => []
-                } ;
-                in
-                table {
-                    Pos => "go" ++ oc ++ (v2StemForm v Pos PresTense np.a np.proDrop) ++ np.s!Absolute ;
-                    Neg => "go" ++ "se" ++ oc ++ (v2StemForm v Neg PresTense np.a np.proDrop) ++ np.s!Absolute
-            } ;    
-
-            imp_s = let
-                stab_e = case <v.syl, np.proDrop> of {
-                    <SylMono, False> => "e" ++BIND;
-                    <_, _> => []
-                } ;
-                oc = case np.proDrop of {
-                    True => objConc v.initLet np.a ;
-                    False => []
-                } ;
-                vform = case np.proDrop of {
-                    True => v2StemFormImp v Neg np.a np.proDrop ;
-                    False => v2StemFormImp v Pos np.a np.proDrop 
-                } ;
-            in  table {
-                    Sg => table {
-                        Pos => stab_e ++ oc ++ vform ++ np.s!Absolute ;
-                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++ np.s!Absolute
-                    } ;
-                    Pl => table {
-                        Pos => stab_e ++ oc ++ vform ++BIND++ "ng" ++ np.s!Absolute ;
-                        Neg => "se" ++ oc ++ (v2StemFormImp v Neg np.a np.proDrop) ++BIND++ "ng" ++ np.s!Absolute
-                    }
-            } ;
-          
-            consubj_s = table {
-                SubjunctCl => \\a,p => let
-                    vform = VFUntensed SubjunctCl p ;
-                    sc = subjConc vform a ;
-                    pre1 = case p of {
-                        Pos => [] ;
-                        Neg => "se" 
-                    } ;
-                    oc = case np.proDrop of {
-                        True => objConc v.initLet np.a ;
-                        False => []
-                    } ;
-                    r = v2StemForm v Neg PresTense np.a np.proDrop ;
-                in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute ;
-
-                ConsecCl => \\a,p => let
-                    vform = VFUntensed ConsecCl p ;
-                    sc = subjConc vform a ;
-                    pre1 = case p of {
-                        Pos => [] ;
-                        Neg => "se" 
-                    } ;
-                    oc = case np.proDrop of {
-                        True => objConc v.initLet np.a ;
-                        False => []
-                    } ;
-                    r = case p of {
-                        Pos => v2StemForm v Pos PresTense np.a np.proDrop ;
-                        Neg => v2StemForm v Neg PresTense np.a np.proDrop 
-                    } ;
-                in sc ++ pre1 ++ oc ++ r ++ np.s!Absolute
-            } ;
-            hasComp = case np.proDrop of {
-                True => False ;
-                False => True
-            } ;
-        } ;
+    ComplV2Nonspec = ComplV2 ;
 
     UseVStative v = nonExist_VP ;
     CopQuant qp = nonExist_VP ;
