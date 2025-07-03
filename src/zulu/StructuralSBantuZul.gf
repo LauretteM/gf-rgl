@@ -20,6 +20,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
       
     -- relative stems
     -- black_R : A ; -- mnyama
+    red_R = mkRelA "bomvu" ;
     -- few_R : A ; -- mbalwa
     -- heavy_R : A ; -- nzima
     honest_R = mkRelA "qotho" ;
@@ -31,11 +32,13 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
 
     -- adverbs
     today_Adv = mkAdv "namuhla" ;
+    always_Adv = mkAdv "njalo" ;
     -- yesterday_Adv : Adv ;
     -- well_Adv : Adv ;
     yesterday_Adv = mkAdv "izolo" ;
     -- well_Adv : Adv ;
     now_Adv = mkAdv "manje" ;
+    when_Adv = mkAdv "nini" ;
 
     only_QuantPron = {
       s = table {
