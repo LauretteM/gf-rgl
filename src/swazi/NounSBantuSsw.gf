@@ -93,7 +93,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       predet = True
     } ;
 
-    PostdetN postdet n = {
+    PostdetCN postdet n = {
       s = \\num,nform => n.s!num!nform ++ postdet.s!(Third n.c num) ;
       c = n.c ;
       empty = n.empty ;

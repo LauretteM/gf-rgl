@@ -738,7 +738,7 @@ concrete VerbSBantuSsw of VerbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
         in vpref_with_oc ++ oc ++ r ++ obj ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
-      hasComp = np.heavy ;
+      hasComp = False ;
       r = v2.r ;
       syl = v2.syl ;
       vptype = VNPCompl

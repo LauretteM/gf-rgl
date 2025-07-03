@@ -559,8 +559,8 @@ resource ResSsw = open Prelude,Predef,ParamX in {
 
     longform_ya : VForm -> Bool -> RInit -> Aspect -> Str =
     \vform,longform,rinit,aspect -> case <vform,longform,rinit,aspect> of {
-      <VFIndic _ Pos PresTense,True,RC,(Null|Excl)> => "ya"++BIND ;
-      <VFIndic _ Pos PresTense,True,_,(Null|Excl)>  => "y"++BIND ;
+      <VFIndic MainCl Pos PresTense,True,RC,(Null|Excl)> => "ya"++BIND ;
+      <VFIndic MainCl Pos PresTense,True,_,(Null|Excl)>  => "y"++BIND ;
       <VFIndic _ _ _,_,_,_> => [] ;
       <VFConsec _,_,_,_> => [] ;
       <VFSubjunct _,_,_,_> => [] 

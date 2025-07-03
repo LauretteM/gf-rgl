@@ -1,6 +1,20 @@
-concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelude, ParamX in {
+concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelude, ParamX, ParadigmsSsw in {
 
   lin
+
+    bad_A = mkA "bi" ;
+    big_A = mkA "khulu" ;
+    how_much_A = mkA "ngakhi" ;
+    small_A = mkA "fishane" ;
+    three_A = mkA "tsatfu" ;
+    honest_R = mkRelA "cotfo" ;
+    nice_R = mkRelA "mnandzi" ;
+    red_R = mkRelA "bovu" ;
+    always_Adv = mkAdv "njalo" ;
+    now_Adv = mkAdv "manje" ;
+    today_Adv = mkAdv "lamuhla" ;
+    when_Adv = mkAdv "nini" ;
+    yesterday_Adv = mkAdv "itolo" ;
 
     only_QuantPron = {
       s = table {
