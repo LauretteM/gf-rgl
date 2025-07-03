@@ -2,61 +2,131 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
   lin
 
-   -- -- adjective stems
-   bad_A = mkA "be" ;
-   big_A = mkA "golo" ;
-   many_A = mkA "ntši" ;
-   old_A = mkA "tala" ;
-   pretty_A = mkA "botse" ;
-   tall_A = mkA "telele" ;
-   ugly_A = mkA "be" ;
-   small_A = mkA "nyane" ;
-   how_much_A = mkA "kae" ;
-   other_A = mkA "ngwe" ;
-   -- male_A = mkA "tona" ; -- not in abstract
+    -- -- adjective stems
+    bad_A = mkA "be" ;
+    big_A = mkA "golo" ;
+    many_A = mkA "ntši" ;
+    old_A = mkA "tala" ;
+    pretty_A = mkA "botse" ;
+    tall_A = mkA "telele" ;
+    ugly_A = mkA "be" ;
+    small_A = mkA "nyane" ;
+    how_much_A = mkA "kae" ;
+    other_A = mkA "ngwe" ;
+    -- male_A = mkA "tona" ; -- not in abstract
+    two_A = mkA "bedi" ;
+    three_A = mkA "raro" ;
+    four_A = mkA "ne" ;
+    five_A = mkA "hlano" ;
+    new_A = mkA "fsa" ; -- sha
+    short_A = mkA "kopana" ; --fishane
+    many_A = mkA "ntši" ; -- ningi
+          
 
-   two_A = mkA "bedi" ;
-   three_A = mkA "raro" ;
-   four_A = mkA "ne" ;
-   five_A = mkA "hlano" ;
+    -- -- relative stems
+    black_R = mkA "so" ;
+    few_R = mkA "nyane" ;
+    -- heavy_R : A ; -- nzima
+    -- honest_R : A ; -- qotho
+    tasty_R = mkA "bose" ;
+    nice_R = mkA "bose" ;
+    white_R = mkA "šweu" ;
+    green_R = mkA "tala" ;
+    dangerous_A = mkA "kotsi" ;
+    red_R = mkA "hubedu" ; -- bomvu
+    yellow_R = mkA "serolane" ; -- phuzi
+    thin_R = mkA "sese" ; 
+    how_R = mkA "bjang" ; --njani?
+    hard_R = mkA "thata" ;
+    thick_R = mkA "koto" ; 
+    brown_R = mkA "tsothwa" ; -- nsundu
+    grey_R = mkA "sehla" ;
+    soft_R = mkA "boleta" ; -- ntofontofo
+    raw_R = mkA "tala" ;
+    crooked_R = mkA "kgopo" ;
+    so_big_R = mkA "kaaka" ;
 
-   -- -- relative stems
-   black_R = mkA "so" ;
-   few_R = mkA "nyane" ;
-   -- heavy_R : A ; -- nzima
-   -- honest_R : A ; -- qotho
-   tasty_R = mkA "bose" ;
-   nice_R = mkA "bose" ;
-   white_R = mkA "šweu" ;
-   green_R = mkA "tala" ;
-   dangerous_A = mkA "kotsi" ;
 
-   -- -- enumerative stems
-   -- some_A = mkA "nye" ;
-   different_Enum = enum "šele" ;
-   -- which_Enum = enum "&+ fe" ;
-   one_Enum = enum "tee" ; 
-   cruel_Enum = enum "šoro" ;
+    -- -- enumerative stems
+    -- some_A = mkA "nye" ;
+    different_Enum = enum "šele" ;
+    which_Enum = enum "&+ fe" ;
+    one_Enum = enum "tee" ; 
+    cruel_Enum = enum "šoro" ;
  
-   -- -- adverbs
-   today_Adv = { s = "lehono" } ;
-   -- above_Adv = { s = "godimo" } ;
-   yesterday_Adv = { s = "maabane" } ;
-   well_Adv = { s = "gabotse" } ;
-   now_Adv = { s = "bjale"} ;
-   -- here_Adv = { s = "mo" } ; -- mo
-   -- here2_Adv = { s = "fa" } ; -- fa
-   -- there_Adv = { s = "moo" } ; -- moo
-   -- there2_Adv = { s = "fao" } ; -- fao
-   -- yonder_Adv = { s = "mola" } ; -- mola
-   -- yonder2_Adv = { s = "fale" } ; -- fale
-   -- here3_Adv = { s = "gona" } ; -- gona
-   -- outside_Adv = { s = "ntle" } ;
-   -- yesterday_Adv = { s = "maabane" } ;
-   -- well_Adv = { s = "gabotse" } ;
-   -- now_Adv = { s = "bjale"} ;  
-   
+    -- -- adverbs
+    when_Adv = { s = "neng" } ;
+    where_Adv = { s = "kae" } ;
+    how_Adv = { s = "bjang" } ;
 
+    today_Adv = { s = "lehono" } ;
+    -- above_Adv = { s = "godimo" } ;
+    yesterday_Adv = { s = "maabane" } ;
+    well_Adv = { s = "gabotse" } ;
+    now_Adv = { s = "bjale"} ;
+    much_Adv = { s = "kudu" } ; 
+    night_Adv = { s = "bošego" } ; 
+    tomorrow_Adv = { s = "bosasa" } ; 
+    winter_Adv = { s = "marega" } ; 
+    evening_Adv = { s = "mantšiboa" } ; 
+    really_Adv = { s = "ruri" } ; 
+    often_Adv = { s = "gantši" } ;
+    especially_Adv = { s = "gagolo" } ;
+    thrice_Adv = { s = "gararo" } ;
+    somewhat_Adv = { s = "gannyane" } ;
+    badly_Adv = { s = "gampe" } ;
+    painful_Adv = { s = "gabohloko" } ;
+    ten_times_Adv = { s = "galesome" } ;
+    once_Adv = { s = "kgatee" } ;
+    so_Adv = { s = "bjalo" } ;
+    day_before_yesterday_Adv = { s = "maloba" } ;
+    just_Adv = { s = "fela" } ;
+    simultaneously_Adv = { s = "gotee" } ;
+    always_Adv = {s = "ka mehla" } ;
+    long_ago_Adv = {s = "kgale" } ;
+    twice_Adv = {s = "gabedi" } ;
+    far_Adv = {s = "kgole" } ;
+    nearby_Adv = {s = "kgauswi" } ;
+    across_Adv = { s = "putla" } ;
+
+    
+    -- here_Adv = { s = "mo" } ; -- mo
+    -- here2_Adv = { s = "fa" } ; -- fa
+    -- there_Adv = { s = "moo" } ; -- moo
+    -- there2_Adv = { s = "fao" } ; -- fao
+    -- yonder_Adv = { s = "mola" } ; -- mola
+    -- yonder2_Adv = { s = "fale" } ; -- fale
+    -- here3_Adv = { s = "gona" } ; -- gona
+    -- outside_Adv = { s = "ntle" } ;
+     
+    -- locative adverbs
+    at_the_back_LocAdv = { s = "morago" } ;
+    -- behind_LocAdv : LocAdv ;
+    -- on_the_side_LocAdv : LocAdv ;
+    above_LocAdv = { s = "godimo" } ;
+    -- above_2_LocAdv : LocAdv ;
+    -- on_the_outside_LocAdv : LocAdv ;
+    below_LocAdv  = { s = "fase" } ;
+
+
+    -- locative class nouns
+    below_LocN = mkLocClassNoun "fase" C16 ;
+    place_LocN = mkLocClassNoun "felo" C16 ;
+    above_LocN = mkLocClassNoun "godimo" C17 ;
+    on_top_LocN = mkLocClassNoun "godimo" C17 ;
+    behind_LocN = mkLocClassNoun "morago" C18 ;
+    on_the_other_side_LocN = mkLocClassNoun "moše" C18 ;
+    across_LocN = mkLocClassNoun "mošola" C18 ;
+    this_side_LocN = mkLocClassNoun "mošono" C18 ;
+    -- ahead_LocN 
+    -- forever_LocN 
+    outside_LocN = mkLocClassNoun "ntle" C18 ;
+    in_front_LocN = mkLocClassNoun "pele" C18 ;
+    inside_LocN = mkLocClassNoun "teng" C18 ;
+    on_top_LocN = mkLocClassNoun "godimo" C17 ;
+    central_LocN = mkLocClassNoun "gare" C18 ;
+
+    
     all_QuantPron = { s = all_quantpron } ;
 
     it3_Pron = mkPron "wona" "wona" (Third C3_4 Sg) ;
@@ -82,19 +152,21 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
       dist = Dem3
     } ;
 
-    below_LocN = mkLocClassNoun "fase" C16 ;
-    above_LocN = mkLocClassNoun "godimo" C17 ;
-    behind_LocN = mkLocClassNoun "morago" C18 ;
-    on_the_other_side_LocN = mkLocClassNoun "mošola" C18 ;
-    -- ahead_LocN 
-    -- forever_LocN 
-    outside_LocN = mkLocClassNoun "ntle" C18 ;
-    in_front_LocN = mkLocClassNoun "pele" C18 ;
-    inside_LocN = mkLocClassNoun "teng" C18 ;
-    on_top_LocN = mkLocClassNoun "godimo" C17 ;
+ 
 
-    central_LocN = mkLocClassNoun "gare" C18 ;
+    -- conjunctions
+    with_ConjN = { s = "le" } ;
+    -- together_with_Conj : Conj ;
+    and_then_Conj = { s = "" ; mood = ConsecMS } ;
+    -- but_also_Conj : Conj ;
+    -- in_comparison_with_Conj : Conj ;
+    while_Conj = { s = "mola" ; mood = SitMS } ;
+    however_Conj = { s = "eupša" ; mood = IndicMS } ;
+    if_Conj = { s = "ge" ; mood = SitMS } ;
+    so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;
+    but_Conj = { s = "fela" ; mood = IndicMS } ;
 
+    
     {-Loc = {
       s : TensedCl => Agr => Polarity => BasicTense => Str ; 
       inf_s : Polarity => Str  ;
@@ -253,32 +325,9 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
       } ;
     } ;  
 
-
     -- at_which_IAdv : NP -> IAdv ;
     -- what_IAdv : IAdv ;
     -- how_many_IAdj : IAdj ;
-
-    -- at_the_back_LocAdv : LocAdv ;
-    -- behind_LocAdv : LocAdv ;
-    -- on_the_side_LocAdv : LocAdv ;
-    -- above_LocAdv : LocAdv ;
-    -- above_2_LocAdv : LocAdv ;
-    -- on_the_outside_LocAdv : LocAdv ;
-    -- below_LocAdv : LocAdv ;
-
-    much_Adv = { s = "kudu" } ;
-
-    with_ConjN = { s = "le" } ;
-    -- together_with_Conj : Conj ;
-    and_then_Conj = { s = "" ; mood = ConsecMS } ;
-    -- but_also_Conj : Conj ;
-    -- in_comparison_with_Conj : Conj ;
-    while_Conj = { s = "mola" ; mood = SitMS } ;
-    however_Conj = { s = "eupša" ; mood = IndicMS } ;
-    if_Conj = { s = "ge" ; mood = SitMS } ;
-    so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;
-    but_Conj = { s = "fela" ; mood = IndicMS } ;
-
     -- where_ConjAdv : ConjAdv ;
 
     -- how_IComp : IComp ; -- -njani

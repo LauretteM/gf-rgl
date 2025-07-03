@@ -10,9 +10,12 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     pretty_A : A ; -- hle
     tall_A : A ; -- de
     ugly_A : A ; -- bana
-    small_A : A ;
-    how_much_A : A ;
-    other_A : A ;
+    small_A : A ; -- ncane
+    how_much_A : A ; --ngaki?
+    other_A : A ; 
+    new_A : A ; -- sha
+    short_A : A ; --fishane
+    may_A : A ; -- ningi
     two_A : A ; -- bili
     three_A : A ; -- thathu
     four_A : A ; -- ne
@@ -26,21 +29,95 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     tasty_R : A ; -- mnandi
     nice_R : A ; -- mnandi
     white_R : A ; -- mhlophe
-    green_R : A ;
+    green_R : A ; -- luhlaza
     dangerous_A : A ;
+    red_R : A ; -- bomvu
+    yellow_R : A ; -- phuzi
+    thin_R : A ; 
+    how_R : A ; --njani?
+    hard_R : A ;
+    thick_R : A ; 
+    brown_R : A ; -- nsundu
+    grey_R : A ;
+    soft_R : A ; -- ntofontofo
+    raw_R : A ;
+    crooked_R : A ;
+    so_big_R : A ;
+
+   -- enumerative stems
+    different_Enum : A ; -- zul: mbe; nso: -šele
+    some_A : A ; -- zul: nye 
+    which_Enum : A ; -- nso: -fe
+    one_Enum : A ; -- nso: -tee
+    cruel_Enum : A ; -- nso: -šoro
 
     -- adverbs
+    when_Adv : Adv ;
+    where_Adv : Adv ;
+    how_Adv : Adv ;
+
     today_Adv : Adv ;
     yesterday_Adv : Adv ;
     well_Adv : Adv ;
     now_Adv : Adv ;
-    yesterday_Adv : Adv ;
-    well_Adv : Adv ;
-    now_Adv : Adv ;
- 
+    much_Adv : Adv ;
+    night_Adv : Adv ;
+    tomorrow_Adv : Adv ;
+    winter_Adv : Adv ;
+    evening_Adv : Adv ;
+    really_Adv : Adv ;
+    often_Adv : Adv ;
+    especially_Adv : Adv ;
+    thrice_Adv : Adv ;
+    somewhat_Adv : Adv ;
+    badly_Adv : Adv ;
+    painful_Adv : Adv ;
+    ten_times_Adv : Adv ;
+    once_Adv : Adv ;
+    so_Adv : Adv ;
+    how_Adv : Adv ;
+    day_before_yesterday_Adv : Adv ;
+    just_Adv : Adv ;
+    simultaneously_Adv : Adv ;
+    always_Adv : Adv ;
+    long_ago_Adv : Adv ;
+    twice_Adv : Adv ;
+    far_Adv : Adv ;
+    nearby_Adv : Adv ;
+    across_Adv : Adv ;
+    
+
+    -- lovative adverbs
+    at_the_back_LocAdv : LocAdv ;
+    behind_LocAdv : LocAdv ;
+    on_the_side_LocAdv : LocAdv ;
+    above_LocAdv : LocAdv ;
+    above_2_LocAdv : LocAdv ;
+    on_the_outside_LocAdv : LocAdv ;
+    below_LocAdv : LocAdv ;
+
+     -- locative class nouns
+    below_LocN : LocN ;
+    place_LocN : LocN ;
+    above_LocN : LocN ;
+    behind_LocN : LocN ;
+    on_the_other_side_LocN : LocN ;
+    across_LocN : LocN ;
+    outside_LocN : LocN ;
+    this_side_LocN : LocN ;
+    in_front_LocN : LocN ;
+    ahead_LocN : LocN ;
+    forever_LocN : LocN ;
+    inside_LocN : LocN ;
+    on_top_LocN : LocN ;
+    central_LocN : LocN ; -- gare
+    place_LocN : LocN ;
+
+    -- quantitative pronouns 
     only_QuantPron : QuantPron ;
     all_QuantPron : QuantPron ;
 
+    -- absolute pronouns
     it3_Pron : Pron ;
     they4_Pron : Pron ;
     it5_Pron : Pron ;
@@ -58,19 +135,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     yonder_Quant : Quant ;
     
-    below_LocN : LocN ;
-    above_LocN : LocN ;
-    behind_LocN : LocN ;
-    on_the_other_side_LocN : LocN ;
-    outside_LocN : LocN ;
-    in_front_LocN : LocN ;
-    ahead_LocN : LocN ;
-    forever_LocN : LocN ;
-    inside_LocN : LocN ;
-    on_top_LocN : LocN ;
-
-    central_LocN : LocN ; -- gare
-    
     is_present_Loc : Loc ;
     here_Loc : Loc ;
     there_Loc : Loc ;
@@ -79,16 +143,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     what_IAdv : IAdv ;
     how_many_IAdj : IAdj ;
 
-    at_the_back_LocAdv : LocAdv ;
-    behind_LocAdv : LocAdv ;
-    on_the_side_LocAdv : LocAdv ;
-    above_LocAdv : LocAdv ;
-    above_2_LocAdv : LocAdv ;
-    on_the_outside_LocAdv : LocAdv ;
-    below_LocAdv : LocAdv ;
-
-    much_Adv : Adv ;
-
+    -- conjunctions
     with_ConjN : ConjN ; -- na in Zul; le in Nso
     together_with_ConjN : Conj ; -- kanye na in Zul
     but_also_ConjN : ConjN ;
@@ -108,11 +163,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     where_IComp : IComp ; -- -phi
     how_much_IComp : IComp ; -- -ngakanani
 
-    -- enumerative stems
-    different_Enum : A ; -- zul: mbe; nso: -šele
-    some_A : A ; -- zul: nye 
-    which_Enum : A ; -- nso: -fe
-    one_Enum : A ; -- nso: -tee
-    cruel_Enum : A ; -- nso: -šoro
+ 
 
 }
