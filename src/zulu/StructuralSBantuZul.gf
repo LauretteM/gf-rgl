@@ -1,6 +1,41 @@
-concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open ResZul, Prelude, ParamX in {
+concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open ResZul, Prelude, ParamX, ParadigmsZul in {
 
   lin
+
+    -- adjective stems
+    bad_A = mkA "bi" ;
+    big_A = mkA "khulu" ;
+    -- many_A : A ; -- many
+    -- old_A : A ; -- dala
+    pretty_A = mkA "hle" ;
+    -- tall_A : A ; -- de
+    -- ugly_A : A ; -- bana
+    small_A = mkA "fuphi" ;
+    how_much_A = mkA "ngaki" ;
+    -- other_A : A ;
+    two_A = mkA "bili" ;
+    three_A = mkA "thathu" ;
+    four_A = mkA "ne" ;
+    five_A = mkA "hlanu" ;
+      
+    -- relative stems
+    -- black_R : A ; -- mnyama
+    -- few_R : A ; -- mbalwa
+    -- heavy_R : A ; -- nzima
+    honest_R = mkRelA "qotho" ;
+    -- tasty_R : A ; -- mnandi
+    nice_R = mkRelA "mnandi" ;
+    -- white_R : A ; -- mhlophe
+    -- green_R : A ;
+    -- dangerous_A : A ;
+
+    -- adverbs
+    today_Adv = mkAdv "namuhla" ;
+    -- yesterday_Adv : Adv ;
+    -- well_Adv : Adv ;
+    yesterday_Adv = mkAdv "izolo" ;
+    -- well_Adv : Adv ;
+    now_Adv = mkAdv "manje" ;
 
     only_QuantPron = {
       s = table {
