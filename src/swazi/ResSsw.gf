@@ -569,7 +569,7 @@ resource ResSsw = open Prelude,Predef,ParamX in {
     verb_prefix_stative : VForm -> Agr -> RInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
       VFIndic MainCl Pos PresTense => case <rinit,agr> of {
         <(RA | RE | RI | RO | RU),Third C5_6 Pl> => [] ;
-        <(RA | RE | RI | RO | RU), (Third _ _ | Second _ | First _)> => subjConcLookup!agr!SCVow ++BIND ;
+        <(RA | RE | RI | RO | RU), (Third _ _ | Second _ | First _)> => subjConcLookup!agr!SCVow ;
         <RC,(Third _ _ | Second _ | First _)> => subjConcLookup!agr!SC ++BIND
       } ;
       VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
@@ -1653,14 +1653,14 @@ resource ResSsw = open Prelude,Predef,ParamX in {
       case <vow,vform,agr,rinit> of {
           <False,VFIndic _ Neg _,_> => subjConcLookup ! agr ! SCNeg ++BIND ;
           <True,VFIndic _ Neg _,_> => subjConcLookup ! agr ! SCNegVow ++BIND ;
-          <True,VFIndic _ _ _,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ++BIND ;
+          <True,VFIndic _ _ _,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ;
           <True,VFIndic _ _ _,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ RemPastTense,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ _,_,_>   => subjConcLookup ! agr ! SC ++BIND ;
-          <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND ;
-          <True,VFConsec Pos ,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ++BIND ;
+          <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCVow ++ "a" ++BIND ;
+          <True,VFConsec Pos ,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ;
           <True,VFConsec Pos ,_,_> => subjConcLookup ! agr ! SCVow ;
-          <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND ;
+          <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCVow ++ "a" ++BIND ;
           <False,VFSubjunct _,_,_> => case agr of {
             Third C1_2 Sg => "a" ++BIND ;
             Third C1a_2a Sg => "a" ++BIND ;
@@ -1669,7 +1669,7 @@ resource ResSsw = open Prelude,Predef,ParamX in {
           <True,VFSubjunct Pos,Third C17 _,(RA|RE|RI)> => case agr of {
             Third C1_2 Sg => [] ;
             Third C1a_2a Sg => [] ;
-            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SCVow ++BIND
+            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SCVow
           } ;
           <True,VFSubjunct Pos,_,_> => case agr of {
             Third C1_2 Sg => [] ;
