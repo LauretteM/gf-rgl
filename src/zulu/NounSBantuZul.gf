@@ -114,7 +114,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
 
     EmphCN cn = {
       s = \\num => table {
-        NFull => pron_stem!(Third cn.c num) ++BIND++ PRON_NA ++ cn.s!num!NFull ;
+        NFull => full_pron_stem!(Third cn.c num) ++ cn.s!num!NFull ;
         NReduced => pron_stem!(Third cn.c num) ++ cn.s!num!NFull ;
         NPoss => poss_pron_stem!(Third cn.c num) ++ cn.s!num!NFull ;
         NLoc => LOC_KU ++BIND++ pron_stem!(Third cn.c num) ++ cn.s!num!NFull
@@ -125,7 +125,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
     } ;
 
     ContrastCN cn = {
-      s = \\num,nform => cn.s!num!nform ++ pron_stem!(Third cn.c num) ++BIND++ PRON_NA ;
+      s = \\num,nform => cn.s!num!nform ++ full_pron_stem!(Third cn.c num) ;
       c = cn.c ;
       empty = cn.empty ;
       predet = cn.predet

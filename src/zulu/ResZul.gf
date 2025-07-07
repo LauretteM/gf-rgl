@@ -91,7 +91,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
     NEG_NG : Str = "ng" ;
 
     PL_NI : Str = "ni" ;
-    PRON_NA : Str = "na" ;
 
     QUESTION_NA : Str = "na" ;
 
@@ -148,9 +147,61 @@ resource ResZul = open Prelude,Predef,ParamX in {
     --   proDrop = False
     -- } ;
 
+    only_QuantPron_table : Agr => Str = table {
+        Third C1_2 Sg => "yedwa" ;
+        Third C1_2 Pl => "bodwa" ;
+        Third C1a_2a Sg => "yedwa" ;
+        Third C1a_2a Pl => "bodwa" ;
+        Third C3_4 Sg  => "wodwa" ;
+        Third C3_4 Pl => "yodwa" ;
+        Third C5_6 Sg => "lodwa" ;
+        Third C5_6 Pl => "odwa" ;
+        Third C7_8 Sg => "sodwa" ;
+        Third C7_8 Pl => "zodwa" ;
+        Third C9_10 Sg => "yodwa" ;
+        Third C9_10 Pl => "zodwa" ;
+        Third C11_10 Sg => "lodwa" ;
+        Third C11_10 Pl => "zodwa" ;
+        Third C9_6 Sg => "yodwa" ;
+        Third C9_6 Pl => "odwa" ;
+        Third C14 _ => "bodwa" ;
+        Third C15 _ => "kodwa" ;
+        Third C17 _ => "kodwa" ;
+        First Sg => "ngedwa" ;
+        First Pl => "sodwa" ;
+        Second Sg  => "wedwa" ;
+        Second Pl => "nodwa"
+    } ;
+
+    all_QuantPron_table : Agr => Str = table {
+        Third C1_2 Sg => "wonke" ;
+        Third C1_2 Pl => "bonke" ;
+        Third C1a_2a Sg => "wonke" ;
+        Third C1a_2a Pl => "bonke" ;
+        Third C3_4 Sg  => "wonke" ;
+        Third C3_4 Pl => "yonke" ;
+        Third C5_6 Sg => "lonke" ;
+        Third C5_6 Pl => "onke" ;
+        Third C7_8 Sg => "sonke" ;
+        Third C7_8 Pl => "zonke" ;
+        Third C9_10 Sg => "yonke" ;
+        Third C9_10 Pl => "zonke" ;
+        Third C11_10 Sg => "lonke" ;
+        Third C11_10 Pl => "zonke" ;
+        Third C9_6 Sg => "yonke" ;
+        Third C9_6 Pl => "onke" ;
+        Third C14 _ => "bonke" ;
+        Third C15 _ => "konke" ;
+        Third C17 _ => "konke" ;
+        First Sg => "ngenke" ;
+        First Pl => "sonke" ;
+        Second Sg  => "wenke" ;
+        Second Pl => "nonke"
+    } ;
+
     mkPron : Agr -> { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \agr -> {
       s = table {
-        NFull => pron_stem!agr +"na" ;
+        NFull => full_pron_stem!agr ;
         NReduced => pron_stem!agr ;
         NPoss => poss_pron_stem!agr ;
         NLoc => case agr of {
@@ -163,7 +214,31 @@ resource ResZul = open Prelude,Predef,ParamX in {
       proDrop = False
     } ;
 
-    full_pron : Str -> Str = \s -> s ++BIND++ "na" ;
+    full_pron_stem : Agr => Str = table {
+      First Sg => "mina" ;
+      First Pl => "thina" ;
+      Second Sg => "wena" ;
+      Second Pl => "nina" ;
+      Third C1_2 Sg => "yena" ;
+      Third C1_2 Pl => "bona" ;
+      Third C1a_2a Sg => "yena" ;
+      Third C1a_2a Pl => "bona" ;
+      Third C3_4 Sg  => "wona" ;
+      Third C3_4 Pl => "yona" ;
+      Third C5_6 Sg => "lona" ;
+      Third C5_6 Pl => "wona" ;
+      Third C7_8 Sg => "sona" ;
+      Third C7_8 Pl => "zona" ;
+      Third C9_10 Sg => "yona" ;
+      Third C9_10 Pl => "zona" ;
+      Third C11_10 Sg => "lona" ;
+      Third C11_10 Pl => "zona" ;
+      Third C9_6 Sg => "yona" ;
+      Third C9_6 Pl => "wona" ;
+      Third C14 _ => "bona" ;
+      Third C15 _ => "khona" ;
+      Third C17 _ => "khona"
+    } ;
 
     pron_stem : Agr => Str = table {
       First Sg => "mi" ;
@@ -542,7 +617,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     verb_prefix_stative : VForm -> Agr -> RInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
       VFIndic MainCl Pos PresTense => case <rinit,agr> of {
         <(RA | RE | RI | RO | RU),Third C5_6 Pl> => [] ;
-        <(RA | RE | RI | RO | RU), (Third _ _ | Second _ | First _)> => subjConcLookup!agr!SCVow ++BIND ;
+        <(RA | RE | RI | RO | RU), (Third _ _ | Second _ | First _)> => subjConcLookup!agr!SCVow ;
         <RC,(Third _ _ | Second _ | First _)> => subjConcLookup!agr!SC ++BIND
       } ;
       VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
@@ -1052,6 +1127,9 @@ resource ResZul = open Prelude,Predef,ParamX in {
       RO => "ngo" ;
       _  => "nga"
     } ;
+
+    regLocN : Str -> { s : Str } = \s -> ss s;
+    regLocAdv : Str -> { s : Str ; reqLocS : Bool } = \s -> ss s ** { reqLocS = False };
 
     --------------------
     -- QUALIFICATIVES --
@@ -1653,14 +1731,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
       case <vow,vform,agr,rinit> of {
           <False,VFIndic _ Neg _,_> => subjConcLookup ! agr ! SCNeg ++BIND ;
           <True,VFIndic _ Neg _,_> => subjConcLookup ! agr ! SCNegVow ++BIND ;
-          <True,VFIndic _ _ _,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ++BIND ;
+          <True,VFIndic _ _ _,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ;
           <True,VFIndic _ _ _,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ RemPastTense,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ _,_,_>   => subjConcLookup ! agr ! SC ++BIND ;
-          <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND ;
-          <True,VFConsec Pos ,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ++BIND ;
+          <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCVow ++ "a" ++BIND ;
+          <True,VFConsec Pos ,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ;
           <True,VFConsec Pos ,_,_> => subjConcLookup ! agr ! SCVow ;
-          <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND ;
+          <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCVow ++ "a" ++BIND ;
           <False,VFSubjunct _,_,_> => case agr of {
             Third C1_2 Sg => "a" ++BIND ;
             Third C1a_2a Sg => "a" ++BIND ;
@@ -1669,7 +1747,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
           <True,VFSubjunct Pos,Third C17 _,(RA|RE|RI)> => case agr of {
             Third C1_2 Sg => [] ;
             Third C1a_2a Sg => [] ;
-            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SCVow ++BIND
+            (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SCVow 
           } ;
           <True,VFSubjunct Pos,_,_> => case agr of {
             Third C1_2 Sg => [] ;
@@ -1889,8 +1967,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey"++BIND ; _ => "e"++BIND } ;
         Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
         Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
-        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
+        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw"++BIND ; _ => "ok"++BIND } ;
+        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw"++BIND ; _ => "ok"++BIND } ;
         First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
         First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
         Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
@@ -2461,6 +2539,11 @@ resource ResZul = open Prelude,Predef,ParamX in {
     ----------------------------------------
     -- OTHER
     ----------------------------------------
+
+    regConjN : Str -> { s : RInit => Str ; fix : Bool } = \s -> {
+      s = \\_ => s ;
+      fix = False
+    } ;
 
     link_conj : { s: RInit => Str ; fix : Bool } -> RInit -> Str = \conj,rinit -> case conj.fix of {
       True => conj.s!rinit ++BIND ;
