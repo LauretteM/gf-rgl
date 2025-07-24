@@ -409,14 +409,14 @@ resource ResZul = open Prelude,Predef,ParamX in {
           (#cons+"al") | (#cons+#cons+"al") | (#cons+#cons+#cons+"al") => root ++BIND ++ "e" ;
           _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
           _+"an" => (tk 2 root) + "en" ++BIND++ "e" ;
-          _+"ath" => (tk 3 root) + "eth" ++BIND++ "e" ;
+          -- _+"ath" => (tk 3 root) + "eth" ++BIND++ "e" ;
           _+"w" => root ++BIND ++ "e" ;
           _ => root ++BIND++ "ile"
         } ;
         R_e => case root of {
           _+"an" => (tk 2 root) + "en" ++BIND++ "e" ;
           _+"al" => (tk 2 root) + "el" ++BIND++ "e" ;
-          _+"ath" => (tk 3 root) + "eth" ++BIND++ "e" ;
+          -- _+"ath" => (tk 3 root) + "eth" ++BIND++ "e" ;
           _ => root ++BIND++ "e"
         } ;
         R_i => case root of {
@@ -426,7 +426,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
         R_anga => case root of {
           _+"al" => (tk 2 root) + "el" ++BIND++ "anga" ;
           _+"an" => (tk 2 root) + "en" ++BIND++ "anga" ;
-          _+"ath" => (tk 3 root) + "eth" ++BIND++ "anga" ;
+          -- _+"ath" => (tk 3 root) + "eth" ++BIND++ "anga" ;
           _ => root ++BIND++ "anga"
         }
       } ;
@@ -1337,6 +1337,47 @@ resource ResZul = open Prelude,Predef,ParamX in {
         empty = []
       in
       mkNoun noms nomp locs locp root cg ;
+    
+    mkN_abe : Str -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } = \root -> {
+      s = table {
+          Sg => table {
+            NFull => "um"+root ;
+            NReduced => "m"+root ;
+            NPoss => "m"+root ;
+            NLoc => "kum"+root
+        } ;
+          Pl => table {
+            NFull => "abe"+(drop 1 root) ;
+            NReduced => "be"+(drop 1 root) ;
+            NPoss => "be"+(drop 1 root) ;
+            NLoc => "kube"+(drop 1 root)
+          }
+        } ;
+        c = C1_2 ;
+        empty = [] ;
+        lemma = root
+    } ;
+
+    irregN : Str -> Str -> Str -> Str -> Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } = 
+    \root,sgpf,sgr,plpf,plr,cg -> {
+      s = table {
+        Sg => table {
+            NFull => sgpf+sgr ;
+            NReduced => (drop 1 sgpf)+sgr ;
+            NPoss => (drop 1 sgpf)+sgr ;
+            NLoc => locNoun root Sg cg
+        } ;
+        Pl => table {
+          NFull => plpf+plr ;
+          NReduced => (drop 1 plpf)+plr ;
+          NPoss => (drop 1 plpf)+plr ;
+          NLoc => locNoun root Pl cg
+        }
+        } ;
+        c = cg ;
+        empty = [] ;
+        lemma = root
+    } ;
 
     kwaProperName : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
     \root,cg ->
@@ -1408,7 +1449,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
         _ => "e"+root -- ili long form (not used?)
       } ;
       <C5_6,Pl> => case root of {
-        ("i"|"I")+_ => "eme"+ (last root) ;
         (#vowel|#vowel_cap)+_ => "em"+root ;
         _ => "ema"+root
       } ; -- ame for roots starting with i
@@ -1427,14 +1467,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
         ("w"|"W")+_ => "ol"+root ;
         _ => "o"+root
       } ;
-      <C11_10,Pl> => case root of {
-        (#vowel|#vowel_cap)+_ => "ezilw" + root ;
-        ("w"|"W")+_ => "ezil" + root ;
-        _ => "ezi"+(prefix_nasal root)
-      } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+      <C11_10,Pl> => "ezi"+(prefix_nasal root) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
       <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
-        ("i"|"I")+_ => "eme"+root ;
+        (#vowel|#vowel_cap)+_ => "em"+root ;
         _ => "ema"+root
       } ; -- ame for roots starting with i
       <C14,_> => "ebu"+root ;
@@ -1518,7 +1554,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
           _ => "i"+root  -- ili long form (not used?)
         } ;
         <C5_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame"+(drop 1 root) ;
           (#vowel|#vowel_cap)+_ => "am"+root ;
           _ => "ama"+root
         } ; -- ame for roots starting with i
@@ -1537,14 +1572,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
           ("w"|"W")+_ => "ul"+root ;
           _ => "u"+root
         } ;
-        <C11_10,Pl> => case root of {
-          (#vowel|#vowel_cap)+_ => "izilw"+root ;
-          ("w"|"W")+_ => "izil"+root ;
-          _ => "izi" + prefix_nasal root
-        } ;
+        <C11_10,Pl> => "izi" + prefix_nasal root ;
         <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame"+root ;
+          (#vowel|#vowel_cap)+_ => "am"+root ;
           _ => "ama"+root
         } ; -- ame for roots starting with i
         <C14,_> => "ubu"+root ;
@@ -1582,7 +1613,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
             _ => "e"+(addLocSuffix root) -- ili long form (not used?)
           } ;
           <C5_6,Pl> => case root of {
-            ("i"|"I")+_ => "eme"+(addLocSuffix (drop 1 root)) ;
             (#vowel|#vowel_cap)+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
           } ; -- ame for roots starting with i
@@ -1601,14 +1631,10 @@ resource ResZul = open Prelude,Predef,ParamX in {
             ("w"|"W")+_ => "ol"+(addLocSuffix root) ;
             _ => "o"+(addLocSuffix root)
           } ;
-          <C11_10,Pl> => case root of {
-            (#vowel|#vowel_cap)+_ => "ezilw"+(addLocSuffix root) ;
-            ("w"|"W")+_ => "ezil"+(addLocSuffix root) ;
-            _ => "ezi"+(addLocSuffix (prefix_nasal root)) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
-          } ;
+          <C11_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
           <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
-            ("i"|"I")+_ => "eme"+(addLocSuffix root) ;
+            (#vowel|#vowel_cap)+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
           } ; -- ame for roots starting with i
           <C14,_> => "ebu"+(addLocSuffix root) ;
@@ -1619,7 +1645,6 @@ resource ResZul = open Prelude,Predef,ParamX in {
             } ; -- ukw for roots starting with a/e, uk for roots starting with o
           <C17,_> => "eku"+(addLocSuffix root)  -- sometimes ukw
         } ;
-
 
       locS : Agr => Str = table {
         Third C1_2 _ => [] ;
