@@ -7,8 +7,8 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     big_A = mkA "golo" ;
     many_A = mkA "ntši" ;
     old_A = mkA "tala" ;
-    pretty_A = mkA "botse" ;
-    tall_A = mkA "telele" ;
+    beautiful_A = mkA "botse" ;
+    long_A = mkA "telele" ;
     ugly_A = mkA "be" ;
     small_A = mkA "nyane" ;
     how_much_A = mkA "kae" ;
@@ -21,8 +21,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     new_A = mkA "fsa" ; -- sha
     short_A = mkA "kopana" ; --fishane
     many_A = mkA "ntši" ; -- ningi
-          
-
+             
     -- -- relative stems
     black_R = mkA "so" ;
     few_R = mkA "nyane" ;
@@ -31,7 +30,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     tasty_R = mkA "bose" ;
     nice_R = mkA "bose" ;
     white_R = mkA "šweu" ;
-    green_R = mkA "tala" ;
+    green_R = mkA "talamerogo" ;
     dangerous_A = mkA "kotsi" ;
     red_R = mkA "hubedu" ; -- bomvu
     yellow_R = mkA "serolane" ; -- phuzi
@@ -39,13 +38,16 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     how_R = mkA "bjang" ; --njani?
     hard_R = mkA "thata" ;
     thick_R = mkA "koto" ; 
-    brown_R = mkA "tsothwa" ; -- nsundu
+    brown_R = mkA "sootho" ; -- nsundu
     grey_R = mkA "sehla" ;
     soft_R = mkA "boleta" ; -- ntofontofo
     raw_R = mkA "tala" ;
     crooked_R = mkA "kgopo" ;
     so_big_R = mkA "kaaka" ;
-
+    -- how_big_R = mkA "kaakang" ;
+    -- how_many_R = mkA "kae" ;
+    spotted_R = mkA "mebalabala" ;
+    blue_R = mkA "tala" ;
 
     -- -- enumerative stems
     -- some_A = mkA "nye" ;
@@ -53,14 +55,13 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     which_Enum = enum "&+ fe" ;
     one_Enum = enum "tee" ; 
     cruel_Enum = enum "šoro" ;
- 
+
     -- -- adverbs
     when_Adv = { s = "neng" } ;
-    where_Adv = { s = "kae" } ;
+    
     how_Adv = { s = "bjang" } ;
 
     today_Adv = { s = "lehono" } ;
-    -- above_Adv = { s = "godimo" } ;
     yesterday_Adv = { s = "maabane" } ;
     well_Adv = { s = "gabotse" } ;
     now_Adv = { s = "bjale"} ;
@@ -85,10 +86,11 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     always_Adv = {s = "ka mehla" } ;
     long_ago_Adv = {s = "kgale" } ;
     twice_Adv = {s = "gabedi" } ;
-    far_Adv = {s = "kgole" } ;
-    nearby_Adv = {s = "kgauswi" } ;
-    across_Adv = { s = "putla" } ;
-
+    in_the_afternoon_Adv = { s = "ka mathapama" } ;
+	  like_this_Adv = { s = "bjalo" } ;
+    only_Adv = { s = "fela" } ;
+    quickly_Adv = { s = "ka pela" } ;
+    always_Adv = { s = "ka mehla" } ;
     
     -- here_Adv = { s = "mo" } ; -- mo
     -- here2_Adv = { s = "fa" } ; -- fa
@@ -100,33 +102,45 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- outside_Adv = { s = "ntle" } ;
      
     -- locative adverbs
+    where_LocAdv = { s = "kae" } ;
+    far_LocAdv = {s = "kgole" } ;
+    nearby_LocAdv = {s = "kgauswi" } ;
+    across_LocAdv = { s = "putla" } ;
     at_the_back_LocAdv = { s = "morago" } ;
     -- behind_LocAdv : LocAdv ;
-    -- on_the_side_LocAdv : LocAdv ;
+    -- on_the_side_LocAdv : LocAdv m
     above_LocAdv = { s = "godimo" } ;
     -- above_2_LocAdv : LocAdv ;
     -- on_the_outside_LocAdv : LocAdv ;
     below_LocAdv  = { s = "fase" } ;
-
+    down_LocAdv = { s = "fase" } ;
+    inside_LocAdv = { s = "ka gare ga" } ;
+    outside_LocAdv = { s = "ntle" } ;
+    yonder_LocAdv = { s = "kua" } ;
 
     -- locative class nouns
     below_LocN = mkLocClassNoun "fase" C16 ;
     place_LocN = mkLocClassNoun "felo" C16 ;
     above_LocN = mkLocClassNoun "godimo" C17 ;
     on_top_LocN = mkLocClassNoun "godimo" C17 ;
+    elsewhere_LocN = mkLocClassNoun "gongwe" C17 ;
     behind_LocN = mkLocClassNoun "morago" C18 ;
     on_the_other_side_LocN = mkLocClassNoun "moše" C18 ;
     across_LocN = mkLocClassNoun "mošola" C18 ;
     this_side_LocN = mkLocClassNoun "mošono" C18 ;
-    -- ahead_LocN 
-    -- forever_LocN 
-    outside_LocN = mkLocClassNoun "ntle" C18 ;
+        outside_LocN = mkLocClassNoun "ntle" C18 ;
     in_front_LocN = mkLocClassNoun "pele" C18 ;
     inside_LocN = mkLocClassNoun "teng" C18 ;
-    on_top_LocN = mkLocClassNoun "godimo" C17 ;
     central_LocN = mkLocClassNoun "gare" C18 ;
+    next_to_LocN = mkLocClassNoun "hleng" C18 ;
+    under_LocN = mkLocClassNoun "tlase" C18 ;
+    far_LocN = mkLocClassNoun "kgole" C18 ;
+    near_LocN = mkLocClassNoun "kgauswi" C18 ;
+    long_ago_LocN = mkLocClassNoun "kgale" C18 ;
+    -- ahead_LocN 
+    -- forever_LocN 
+    -- this_side_LocN : LocN ;
 
-    
     all_QuantPron = { s = all_quantpron } ;
 
     it3_Pron = mkPron "wona" "wona" (Third C3_4 Sg) ;
@@ -151,8 +165,6 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
       s = \\a => dem_pron!Dem3!a ;
       dist = Dem3
     } ;
-
- 
 
     -- conjunctions
     with_ConjN = { s = "le" } ;

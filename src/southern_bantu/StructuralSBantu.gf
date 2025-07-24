@@ -7,8 +7,8 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     big_A : A ; -- khulu
     many_A : A ; -- many
     old_A : A ; -- dala
-    pretty_A : A ; -- hle
-    tall_A : A ; -- de
+    beautiful_A : A ; -- hle
+    long_A : A ; -- de
     ugly_A : A ; -- bana
     small_A : A ; -- ncane
     how_much_A : A ; --ngaki?
@@ -43,6 +43,8 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     raw_R : A ;
     crooked_R : A ;
     so_big_R : A ;
+    spotted_R : A ;
+    blue_R : A ;
 
    -- enumerative stems
     different_Enum : A ; -- zul: mbe; nso: -šele
@@ -53,7 +55,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     -- adverbs
     when_Adv : Adv ;
-    where_Adv : Adv ;
     how_Adv : Adv ;
 
     today_Adv : Adv ;
@@ -82,12 +83,16 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     always_Adv : Adv ;
     long_ago_Adv : Adv ;
     twice_Adv : Adv ;
-    far_Adv : Adv ;
-    nearby_Adv : Adv ;
-    across_Adv : Adv ;
+    in_the_afternoon_Adv : Adv ;
+    like_this_Adv : Adv ;
+    only_Adv : Adv ;
+    quickly_Adv : Adv ;
     
-
-    -- lovative adverbs
+    -- locative adverbs
+    where_LocAdv : LocAdv ;
+    far_LocAdv : LocAdv ;
+    nearby_LocAdv : LocAdv ;
+    across_LocAdv : LocAdv ;
     at_the_back_LocAdv : LocAdv ;
     behind_LocAdv : LocAdv ;
     on_the_side_LocAdv : LocAdv ;
@@ -95,6 +100,10 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     above_2_LocAdv : LocAdv ;
     on_the_outside_LocAdv : LocAdv ;
     below_LocAdv : LocAdv ;
+    down_LocAdv : LocAdv ;
+    inside_LocAdv : LocAdv ;
+    outside_LocAdv : LocAdv ;
+    yonder_LocAdv : LocAdv ;
 
      -- locative class nouns
     below_LocN : LocN ;
@@ -112,6 +121,12 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     on_top_LocN : LocN ;
     central_LocN : LocN ; -- gare
     place_LocN : LocN ;
+    elsewhere_LocN : LocN ;
+    next_to_LocN : LocN ;
+    under_LocN : LocN ;
+    far_LocN : LocN ;
+    near_LocN : LocN ;
+    long_ago_LocN : LocN ;
 
     -- quantitative pronouns 
     only_QuantPron : QuantPron ;
