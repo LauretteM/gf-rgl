@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../../prelude
 
-resource ResMorphZul = open Prelude,Predef,ParamX in {
+resource ResZul = open Prelude,Predef,ParamX in {
 
   param
     ClassGender = C1_2 | C1a_2a | C3_4 | C5_6 | C7_8 | C9_10 | C11_10 | C9_6 | C14 | C15 | C17 ;
@@ -33,7 +33,7 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     SType = SInd | SSub | SConsec ;
 
     AForm = AF1 | AF2 | AF3 ; -- two forms for implementing sound changes Poulos+Msimang p143, one for monosyllabic
-    SCForm = SC | SCVow | SCNeg | SCNegVow | SCPS | SCMood | SCVowP | SCBe | SCRP | SCSe ;
+    SCForm = SC | SCVow | SCNeg | SCNegVow | SCPS | SCPT | SCVowP | SCBe | SCRP | SCSe ;
     OCForm = OC | OCAE | OCIOU | OCMono | OCThing ;
     RCForm = RelC | RelCA ;
 
@@ -62,19 +62,19 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     COP_YI : Str = "yi[CopPre]" ;
     COP_Y : Str = "y[CopPre]" ;
 
-    IMP_NEG_PREF_SG : Str = "unga[Imp]" ;
-    IMP_NEG_PREF_PL : Str = "ninga[Imp]" ;
+    IMP_NEG_PREF_SG : Str = "u[SC][2ps]nga[NegPre]" ;
+    IMP_NEG_PREF_PL : Str = "ni[SC][2pp]nga[NegPre]" ;
 
-    IMP_NEG_PREF_SG_REDUCED : Str = "ung[Imp]" ;
-    IMP_NEG_PREF_PL_REDUCED : Str = "ning[Imp]" ;
+    IMP_NEG_PREF_SG_REDUCED : Str = "u[SC][2ps]ng[NegPre]" ;
+    IMP_NEG_PREF_PL_REDUCED : Str = "ni[SC][2pp]ng[NegPre]" ;
 
-    INF_PREF_FULL : Str = "uku[Inf]" ;
-    INF_PREF_REDUCED : Str = "ku[Inf]" ;
+    INF_PREF_FULL : Str = "uku[NPre][15]" ;
+    INF_PREF_REDUCED : Str = "ku[NPre][15]" ;
 
-    LOC_IMP_SG_POS : Str = "yiba[Imp]" ;
-    LOC_IMP_SG_NEG : Str = "ungabi[Imp]" ;
-    LOC_IMP_PL_POS : Str = "yibani[Imp]" ;
-    LOC_IMP_PL_NEG : Str = "ningabi[Imp]" ;
+    LOC_IMP_SG_POS : Str = "yi[ImpPre]ba[AuxV]" ;
+    LOC_IMP_SG_NEG : Str = "u[SC][2ps]nga[NegPre]bi[AuxV]" ;
+    -- LOC_IMP_PL_POS : Str = "yi[ImpPre]ba[AuxV]ni[ImpSuf]" ;
+    -- LOC_IMP_PL_NEG : Str = "ni[SC][2pp]nga[NegPre]bi[ImpSuf]" ;
 
     LOC_E : Str = "e[LocPre]" ;
 
@@ -90,9 +90,9 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     NEG_NGA : Str = "nga[NegPre]" ;
     NEG_NG : Str = "ng[NegPre]" ;
 
-    PL_NI : Str = "ni[Pl]" ;
+    PL_NI : Str = "ni[ImpSuf]" ;
 
-    QUESTION_NA : Str = "na[QSuf]" ;
+    QUESTION_NA : Str = "na[QPart]" ;
 
     REFL_PRON : Str = "zi[ReflPre]" ;
 
@@ -100,45 +100,75 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     TEMP_PREF_FUT : Str = "zo[Fut]" ;
     TEMP_PREF_REMFUT : Str = "yo[Fut]" ;
-    TEMP_PREF_FUT_NEG : Str = "zu[Fut]" ;
-    TEMP_PREF_REMFUT_NEG : Str = "yu[Fut]" ;
+    TEMP_PREF_FUT_NEG : Str = "zu[FutNeg]" ;
+    TEMP_PREF_REMFUT_NEG : Str = "yu[FutNeg]" ;
 
     TEMP_PREF_PAST : Str = "a[Past]" ;
 
-    PROG_KA = "ka[ProgPre]" ;
-    PROG_K = "k[ProgPre]" ;
     PROG_SE = "se[ProgPre]" ;
     PROG_SA = "sa[ProgPre]" ;
     PROG_S = "s[ProgPre]" ;
 
+    EXCL_KA = "ka[ExclNeg]" ;
+    EXCL_K = "k[ExclNeg]" ;
     EXCL_SE = "se[ExclPre]" ;
     EXCL_S = "s[ExclPre]" ;
 
-    prefix_nasal : Str -> Str = \r -> case r of {
-      "ph"+x => "m[NPre]p" + x ;
-      "Ph"+x => "m[NPre]P" + x ;
-      "bh"+x => "m[NPre]b" + x ;
-      "Bh"+x => "m[NPre]B" + x ;
-      (#nasal_de_asp|#nasal_de_asp_cap)+"h"+x => "n[NPre]"+(take 1 r) + x ;
-      "hl"+x => "n[NPre]hl"+x ;
-      "Hl"+x => "N[NPre]hl"+x ;
-      "h"+x => "n[NPre]k"+x ;
-      "H"+x => "N[NPre]k"+x ;
-      "sh"+x => "n[NPre]tsh"+x ;
-      "Sh"+x => "N[NPre]tsh"+x ;
-      "l"+x => "n[NPre]d"+x ;
-      "L"+x => "N[NPre]d"+x ;
-      #nasal_m+x => "m[NPre]"+r ;
-      #nasal_m_cap+x => "M[NPre]"+r ;
-      #nasal_ng+x => "ng[NPre]"+r ;
-      #nasal_ng_cap+x => "Ng[NPre]"+r ;
+    prefix_nasal_no_tag : Str -> Str = \r -> case r of {
+      "ph"+x => "mp" + x ;
+      "Ph"+x => "mP" + x ;
+      "bh"+x => "mb" + x ;
+      "Bh"+x => "mB" + x ;
+      (#nasal_de_asp|#nasal_de_asp_cap)+"h"+x => "n"+(take 1 r) + x ;
+      "hl"+x => "nhl"+x ;
+      "Hl"+x => "Nhl"+x ;
+      "h"+x => "nk"+x ;
+      "H"+x => "Nk"+x ;
+      "sh"+x => "ntsh"+x ;
+      "Sh"+x => "Ntsh"+x ;
+      "l"+x => "nd"+x ;
+      "L"+x => "Nd"+x ;
+      #nasal_m+x => "m"+r ;
+      #nasal_m_cap+x => "M"+r ;
+      #nasal_ng+x => "ng"+r ;
+      #nasal_ng_cap+x => "Ng"+r ;
       #nasal+x => r ;
       #nasal_cap+x => r ;
-      "p"+x => "m[NPre]p" + x ;
-      "P"+x => "M[NPre]p" + x ;
-      #vowel_cap+x => "N[NPre]" + r ;
-      #cons_cap+x => "N[NPre]" + r ;
-      _ => "n[NPre]"+r
+      "p"+x => "mp" + x ;
+      "P"+x => "Mp" + x ;
+      #vowel_cap+x => "N" + r ;
+      #cons_cap+x => "N" + r ;
+      _ => "n"+r
+    } ;
+
+    prefix_nasal : Str -> ClassGender -> Number -> Str = \r,classgender,number -> let 
+      class_tag = noun_prefix_tag classgender number ;
+    in 
+      case r of {
+      "ph"+x => "m[NPre]"+class_tag+"p" + x ;
+      "Ph"+x => "m[NPre]"+class_tag+"P" + x ;
+      "bh"+x => "m[NPre]"+class_tag+"b" + x ;
+      "Bh"+x => "m[NPre]"+class_tag+"B" + x ;
+      (#nasal_de_asp|#nasal_de_asp_cap)+"h"+x => "n[NPre]"+class_tag+(take 1 r) + x ;
+      "hl"+x => "n[NPre]"+class_tag+"hl"+x ;
+      "Hl"+x => "N[NPre]"+class_tag+"hl"+x ;
+      "h"+x => "n[NPre]"+class_tag+"k"+x ;
+      "H"+x => "N[NPre]"+class_tag+"k"+x ;
+      "sh"+x => "n[NPre]"+class_tag+"tsh"+x ;
+      "Sh"+x => "N[NPre]"+class_tag+"tsh"+x ;
+      "l"+x => "n[NPre]"+class_tag+"d"+x ;
+      "L"+x => "N[NPre]"+class_tag+"d"+x ;
+      #nasal_m+x => "m[NPre]"+class_tag+r ;
+      #nasal_m_cap+x => "M[NPre]"+class_tag+r ;
+      #nasal_ng+x => "ng[NPre]"+class_tag+r ;
+      #nasal_ng_cap+x => "Ng[NPre]"+class_tag+r ;
+      #nasal+x => "[NPre]"+class_tag+r ;
+      #nasal_cap+x => "[NPre]"+class_tag+r ;
+      "p"+x => "m[NPre]"+class_tag+"p" + x ;
+      "P"+x => "M[NPre]"+class_tag+"p" + x ;
+      #vowel_cap+x => "N[NPre]"+class_tag+r ;
+      #cons_cap+x => "N[NPre]"+class_tag+r ;
+      _ => "n[NPre]"+class_tag+r
     } ;
     --------------
     -- PRONOUNS --
@@ -297,80 +327,80 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     dem_pron : Distance => Agr => Str = table {
       Dem1 => table {
-        First Sg => "lo[Dem][1ps]" ;
-        First Pl => "laba[Dem][1pp]" ;
-        Second Sg => "lo[Dem][2ps]" ;
-        Second Pl => "laba[Dem][2pp]" ;
-        Third C1_2 Sg => "lo[Dem][1]" ;
-        Third C1_2 Pl => "laba[Dem][2]" ;
-        Third C1a_2a Sg => "lo[Dem][1a]" ;
-        Third C1a_2a Pl => "laba[Dem][2a]" ;
-        Third C3_4 Sg => "lo[Dem][3]" ;
-        Third C3_4 Pl => "le[Dem][4]" ;
-        Third C5_6 Sg => "leli[Dem][5]" ;
-        Third C5_6 Pl => "la[Dem][6]" ;
-        Third C7_8 Sg => "lesi[Dem][7]" ;
-        Third C7_8 Pl => "lezi[Dem][8]" ;
-        Third C9_10 Sg => "le[Dem][9]" ;
-        Third C9_10 Pl => "lezi[Dem][10]" ;
-        Third C11_10 Sg => "lolu[Dem][11]" ;
-        Third C11_10 Pl => "lezi[Dem][10]" ;
-        Third C9_6 Sg => "le[Dem][9]" ;
-        Third C9_6 Pl => "la[Dem][6]" ;
-        Third C14 _ => "lobu[Dem][14]" ;
-        Third C15 _ => "lokhu[Dem][15]" ;
-        Third C17 _ => "lokhu[Dem][17]" ;
-        LocAgr => "lapha[Dem]"
+        First Sg => "lo[Dem][1ps][Pos1]" ;
+        First Pl => "laba[Dem][1pp][Pos1]" ;
+        Second Sg => "lo[Dem][2ps][Pos1]" ;
+        Second Pl => "laba[Dem][2pp][Pos1]" ;
+        Third C1_2 Sg => "lo[Dem][1][Pos1]" ;
+        Third C1_2 Pl => "laba[Dem][2][Pos1]" ;
+        Third C1a_2a Sg => "lo[Dem][1a][Pos1]" ;
+        Third C1a_2a Pl => "laba[Dem][2a][Pos1]" ;
+        Third C3_4 Sg => "lo[Dem][3][Pos1]" ;
+        Third C3_4 Pl => "le[Dem][4][Pos1]" ;
+        Third C5_6 Sg => "leli[Dem][5][Pos1]" ;
+        Third C5_6 Pl => "la[Dem][6][Pos1]" ;
+        Third C7_8 Sg => "lesi[Dem][7][Pos1]" ;
+        Third C7_8 Pl => "lezi[Dem][8][Pos1]" ;
+        Third C9_10 Sg => "le[Dem][9][Pos1]" ;
+        Third C9_10 Pl => "lezi[Dem][10][Pos1]" ;
+        Third C11_10 Sg => "lolu[Dem][11][Pos1]" ;
+        Third C11_10 Pl => "lezi[Dem][10][Pos1]" ;
+        Third C9_6 Sg => "le[Dem][9][Pos1]" ;
+        Third C9_6 Pl => "la[Dem][6][Pos1]" ;
+        Third C14 _ => "lobu[Dem][14][Pos1]" ;
+        Third C15 _ => "lokhu[Dem][15][Pos1]" ;
+        Third C17 _ => "lokhu[Dem][17][Pos1]" ;
+        LocAgr => "lapha[Dem][Pos1]"
       } ;
       Dem2 => table {
-        First Sg => "lowo[Dem][1ps]" ;
-        First Pl => "labo[Dem][1pp]" ;
-        Second Sg => "lowo[Dem][2ps]" ;
-        Second Pl => "labo[Dem][2pp]" ;
-        Third C1_2 Sg => "lowo[Dem][1]" ;
-        Third C1_2 Pl => "labo[Dem][2]" ;
-        Third C1a_2a Sg => "lowo[Dem][1a]" ;
-        Third C1a_2a Pl => "labo[Dem][2a]" ;
-        Third C3_4 Sg => "lowo[Dem][3]" ;
-        Third C3_4 Pl => "leyo[Dem][4]" ;
-        Third C5_6 Sg => "lelo[Dem][5]" ;
-        Third C5_6 Pl => "lawo[Dem][6]" ;
-        Third C7_8 Sg => "leso[Dem][7]" ;
-        Third C7_8 Pl => "lezo[Dem][8]" ;
-        Third C9_10 Sg => "leyo[Dem][9]" ;
-        Third C9_10 Pl => "lezo[Dem][10]" ;
-        Third C11_10 Sg => "lolo[Dem][11]" ;
-        Third C11_10 Pl => "lezo[Dem][10]" ;
-        Third C9_6 Sg => "leyo[Dem][9]" ;
-        Third C9_6 Pl => "lawo[Dem][6]" ;
-        Third C14 _ => "lobo[Dem][14]" ;
-        Third C15 _ => "lokho[Dem][15]" ;
-        Third C17 _ => "lapho[Dem][17]"
+        First Sg => "lowo[Dem][1ps][Pos2]" ;
+        First Pl => "labo[Dem][1pp][Pos2]" ;
+        Second Sg => "lowo[Dem][2ps][Pos2]" ;
+        Second Pl => "labo[Dem][2pp][Pos2]" ;
+        Third C1_2 Sg => "lowo[Dem][1][Pos2]" ;
+        Third C1_2 Pl => "labo[Dem][2][Pos2]" ;
+        Third C1a_2a Sg => "lowo[Dem][1a][Pos2]" ;
+        Third C1a_2a Pl => "labo[Dem][2a][Pos2]" ;
+        Third C3_4 Sg => "lowo[Dem][3][Pos2]" ;
+        Third C3_4 Pl => "leyo[Dem][4][Pos2]" ;
+        Third C5_6 Sg => "lelo[Dem][5][Pos2]" ;
+        Third C5_6 Pl => "lawo[Dem][6][Pos2]" ;
+        Third C7_8 Sg => "leso[Dem][7][Pos2]" ;
+        Third C7_8 Pl => "lezo[Dem][8][Pos2]" ;
+        Third C9_10 Sg => "leyo[Dem][9][Pos2]" ;
+        Third C9_10 Pl => "lezo[Dem][10][Pos2]" ;
+        Third C11_10 Sg => "lolo[Dem][11][Pos2]" ;
+        Third C11_10 Pl => "lezo[Dem][10][Pos2]" ;
+        Third C9_6 Sg => "leyo[Dem][9][Pos2]" ;
+        Third C9_6 Pl => "lawo[Dem][6][Pos2]" ;
+        Third C14 _ => "lobo[Dem][14][Pos2]" ;
+        Third C15 _ => "lokho[Dem][15][Pos2]" ;
+        Third C17 _ => "lapho[Dem][17][Pos2]"
       } ;
       Dem3 => table {
-        First Sg => "loya[Dem][1ps]" ;
-        First Pl => "labaya[Dem][1pp]" ;
-        Second Sg => "loya[Dem][2ps]" ;
-        Second Pl => "labaya[Dem][2pp]" ;
-        Third C1_2 Sg => "loya[Dem][1]" ;
-        Third C1_2 Pl => "labaya[Dem][2]" ;
-        Third C1a_2a Sg => "loya[Dem][1a]" ;
-        Third C1a_2a Pl => "labaya[Dem][2a]" ;
-        Third C3_4 Sg => "loya[Dem][3]" ;
-        Third C3_4 Pl => "leya[Dem][4]" ;
-        Third C5_6 Sg => "leliya[Dem][5]" ;
-        Third C5_6 Pl => "lawaya[Dem][6]" ;
-        Third C7_8 Sg => "lesiya[Dem][7]" ;
-        Third C7_8 Pl => "leziya[Dem][8]" ;
-        Third C9_10 Sg => "leya[Dem][9]" ;
-        Third C9_10 Pl => "leziya[Dem][10]" ;
-        Third C11_10 Sg => "loluya[Dem][11]" ;
-        Third C11_10 Pl => "leziya[Dem][10]" ;
-        Third C9_6 Sg => "leya[Dem][9]" ;
-        Third C9_6 Pl => "lawaya[Dem][6]" ;
-        Third C14 _ => "lobuya[Dem][14]" ;
-        Third C15 _ => "lokhuya[Dem][15]" ;
-        Third C17 _ => "laphaya[Dem][17]"
+        First Sg => "loya[Dem][1ps][Pos3]" ;
+        First Pl => "labaya[Dem][1pp][Pos3]" ;
+        Second Sg => "loya[Dem][2ps][Pos3]" ;
+        Second Pl => "labaya[Dem][2pp][Pos3]" ;
+        Third C1_2 Sg => "loya[Dem][1][Pos3]" ;
+        Third C1_2 Pl => "labaya[Dem][2][Pos3]" ;
+        Third C1a_2a Sg => "loya[Dem][1a][Pos3]" ;
+        Third C1a_2a Pl => "labaya[Dem][2a][Pos3]" ;
+        Third C3_4 Sg => "loya[Dem][3][Pos3]" ;
+        Third C3_4 Pl => "leya[Dem][4][Pos3]" ;
+        Third C5_6 Sg => "leliya[Dem][5][Pos3]" ;
+        Third C5_6 Pl => "lawaya[Dem][6][Pos3]" ;
+        Third C7_8 Sg => "lesiya[Dem][7][Pos3]" ;
+        Third C7_8 Pl => "leziya[Dem][8][Pos3]" ;
+        Third C9_10 Sg => "leya[Dem][9][Pos3]" ;
+        Third C9_10 Pl => "leziya[Dem][10][Pos3]" ;
+        Third C11_10 Sg => "loluya[Dem][11][Pos3]" ;
+        Third C11_10 Pl => "leziya[Dem][10][Pos3]" ;
+        Third C9_6 Sg => "leya[Dem][9][Pos3]" ;
+        Third C9_6 Pl => "lawaya[Dem][6][Pos3]" ;
+        Third C14 _ => "lobuya[Dem][14][Pos3]" ;
+        Third C15 _ => "lokhuya[Dem][15][Pos3]" ;
+        Third C17 _ => "laphaya[Dem][17][Pos3]"
       }
     } ;
 
@@ -406,31 +436,31 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root ->
     {
       s = table {
-        R_a => root ++BIND++"[VRoot]"++BIND++ "a[VT]" ;
+        R_a => root +"[VRoot]"+ "a[VT]" ;
         R_ile => case root of {
-          _+"el" => root++BIND++"[VRoot]" ++BIND++ "e[VTPerf]" ;
-          (#cons+"al") | (#cons+#cons+"al") | (#cons+#cons+#cons+"al") => root++BIND++"[VRoot]" ++BIND ++ "e[VTPerf]" ;
-          _+"al" => (tk 2 root) + "el[VRoot]" ++BIND++ "e[VTPerf]" ;
-          _+"an" => (tk 2 root) + "en[VRoot]" ++BIND++ "e[VTPerf]" ;
-          _+"ath" => (tk 3 root) + "eth[VRoot]" ++BIND++ "e[VTPerf]" ;
-          _+"w" => root++BIND++"[VRoot]" ++BIND ++ "e[VTPerf]" ;
-          _ => root++BIND++"[VRoot]" ++BIND++ "ile[VTPerf]"
+          _+"el" => root+"[VRoot]" + "e[VTPerf]" ;
+          (#cons+"al") | (#cons+#cons+"al") | (#cons+#cons+#cons+"al") => root+"[VRoot]" + "e[VTPerf]" ;
+          _+"al" => (tk 2 root) + "el[VRoot]" + "e[VTPerf]" ;
+          _+"an" => (tk 2 root) + "en[VRoot]" + "e[VTPerf]" ;
+          -- _+"ath" => (tk 3 root) + "eth[VRoot]" + "e[VTPerf]" ;
+          _+"w" => root+"[VRoot]" + "e[VTPerf]" ;
+          _ => root+"[VRoot]" + "ile[VTPerf]"
         } ;
         R_e => case root of {
-          _+"an" => (tk 2 root) + "en[VRoot]" ++BIND++ "e[VTPerf]" ;
-          _+"al" => (tk 2 root) + "el[VRoot]" ++BIND++ "e[VTPerf]" ;
-          _+"ath" => (tk 3 root) + "eth[VRoot]" ++BIND++ "e[VTPerf]" ;
-          _ => root++BIND++"[VRoot]" ++BIND++ "e[VTPerf]"
+          _+"an" => (tk 2 root) + "en[VRoot]" + "e[VTPerf]" ;
+          _+"al" => (tk 2 root) + "el[VRoot]" + "e[VTPerf]" ;
+          -- _+"ath" => (tk 3 root) + "eth[VRoot]" + "e[VTPerf]" ;
+          _ => root+"[VRoot]" + "e[VTPerf]"
         } ;
         R_i => case root of {
-          _+"w" => root++BIND++"[VRoot]" ++BIND++ "a[VTNeg]" ;
-          _ => root++BIND++"[VRoot]" ++BIND++ "i[VTNeg]"
+          _+"w" => root+"[VRoot]" + "a[VTNeg]" ;
+          _ => root+"[VRoot]" + "i[VTNeg]"
         } ;
         R_anga => case root of {
-          _+"al" => (tk 2 root) + "el[VRoot]" ++BIND++ "anga[VTNeg]" ;
-          _+"an" => (tk 2 root) + "en[VRoot]" ++BIND++ "anga[VTNeg]" ;
-          _+"ath" => (tk 3 root) + "eth[VRoot]" ++BIND++ "anga[VTNeg]" ;
-          _ => root++BIND++"[VRoot]"++BIND++ "anga[VTNeg]"
+          _+"al" => (tk 2 root) + "el[VRoot]" + "anga[VTNeg]" ;
+          _+"an" => (tk 2 root) + "en[VRoot]" + "anga[VTNeg]" ;
+          -- _+"ath" => (tk 3 root) + "eth[VRoot]" + "anga[VTNeg]" ;
+          _ => root+"[VRoot]"+ "anga[VTNeg]"
         }
       } ;
       r = case root of {
@@ -453,11 +483,11 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     th_Verb : Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \th,thi ->
     {
       s = table {
-        R_a => thi ++BIND++"[VRoot+VT]"  ;
-        R_ile => th ++BIND++"[VRoot]"++BIND++ "ile[VTPerf]" ;
-        R_e => th ++BIND++"[VRoot]"++BIND++ "e[VTPerf]" ;
-        R_i => th ++BIND++"[VRoot]"++BIND++ "i[VTNeg]" ;
-        R_anga => th ++BIND++"[VRoot]"++BIND++ "anga[VTNeg]"
+        R_a => (tk 1 thi) +"[VRoot]"+(take 1 thi)+"[VT]"  ;
+        R_ile => th +"[VRoot]"+ "ile[VTPerf]" ;
+        R_e => th +"[VRoot]"+ "e[VTPerf]" ;
+        R_i => th +"[VRoot]"+ "i[VTNeg]" ;
+        R_anga => th +"[VRoot]"+ "anga[VTNeg]"
       } ;
       r = case th of {
         "a"+_ => RA ;
@@ -503,11 +533,11 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root,r_a,r_ile,r_e -> {
       s = table {
-        R_a => r_a++BIND++ "[VRoot+VT]" ;
-        R_ile => r_ile++BIND++ "[VRoot+VTPerf]" ;
-        R_e => r_e++BIND++ "[VRoot+VTPerf]" ;
-        R_i => root ++BIND++"[VRoot]"++BIND++ "i[VTNeg]" ;
-        R_anga => root ++BIND++"[VRoot]"++BIND++ "anga[VTNeg]"
+        R_a => root+"[VRoot]"+"a[VT]" ;
+        R_ile => root+"[VRoot]"+"ile[VTPerf]" ;
+        R_e => root+"[VRoot]"+"e[VTPerf]" ;
+        R_i => root +"[VRoot]"+"i[VTNeg]" ;
+        R_anga => root +"[VRoot]"+"anga[VTNeg]"
       } ;
       r = case root of {
         "a"+_ => RA ;
@@ -552,11 +582,11 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str ; lemma : Str } = \root ->
     {
       s = table {
-        R_a => root ++BIND++"[VRoot]"++BIND++ "a[VT]" ;
-        R_ile => root ++BIND++"[VRoot]"++BIND++ "ile[VTPerf]" ;
-        R_e => root ++BIND++"[VRoot]"++BIND++ "e[VTPerf]" ;
-        R_i => root ++BIND++"[VRoot]"++BIND++ "i[VTNeg]" ;
-        R_anga => root ++BIND++"[VRoot]"++BIND++ "anga[VTNeg]"
+        R_a => root +"[VRoot]"+ "a[VT]" ;
+        R_ile => root +"[VRoot]"+ "ile[VTPerf]" ;
+        R_e => root +"[VRoot]"+ "e[VTPerf]" ;
+        R_i => root +"[VRoot]"+ "i[VTNeg]" ;
+        R_anga => root +"[VRoot]"+ "anga[VTNeg]"
       } ;
       r = case root of {
         "a"+_ => RA ;
@@ -728,45 +758,45 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
         <VFIndic MainCl Pos PresTense,_,RC,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhamba
         <VFIndic MainCl Pos PresTense,_,_,Excl> => EXCL_SE ++BIND++ (subjConc vform agr True rinit) ; -- seweqa
 
-        <VFIndic MainCl Neg PresTense,_,RC,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ; -- akakahambi
-        <VFIndic MainCl Neg PresTense,_,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNegVow ++BIND++ PROG_K ++ BIND ; -- akakeqi
+        <VFIndic MainCl Neg PresTense,_,RC,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ EXCL_KA ++ BIND ; -- akakahambi
+        <VFIndic MainCl Neg PresTense,_,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNegVow ++BIND++ EXCL_K ++ BIND ; -- akakeqi
 
         <VFIndic MainCl Pos PastTense,_,RC,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhambile
         <VFIndic MainCl Pos PastTense,_,_,Excl> => EXCL_SE ++BIND++ (subjConc vform agr True rinit) ; -- seweqile
 
-        <VFIndic MainCl Neg PastTense,_,RC,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
-        <VFIndic MainCl Neg PastTense,_,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNegVow ++BIND++ PROG_K ++ BIND ;
+        <VFIndic MainCl Neg PastTense,_,RC,Excl> => nonExist ;
+        <VFIndic MainCl Neg PastTense,_,_,Excl> => nonExist ;
 
         <VFIndic MainCl Pos RemPastTense,_,RC,Excl> => EXCL_SE ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- sewahamba
         <VFIndic MainCl Pos RemPastTense,_,_,Excl> => EXCL_SE ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- seweqa
 
-        <VFIndic MainCl Neg RemPastTense,_,RC,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
-        <VFIndic MainCl Neg RemPastTense,_,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNegVow ++BIND++ PROG_K ++ BIND ;
+        <VFIndic MainCl Neg RemPastTense,_,RC,Excl> => nonExist ;
+        <VFIndic MainCl Neg RemPastTense,_,_,Excl> => nonExist ;
 
         <VFIndic MainCl Pos _,_,_,Excl> => subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
-        <VFIndic MainCl Neg _,_,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++BIND++ (tensePref vform rinit syl) ;
+        <VFIndic MainCl Neg _,_,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ EXCL_KA ++BIND++ (tensePref vform rinit syl) ;
 
         -- exclusive, relative clause
         <VFIndic RelCl Pos PresTense,_,RC,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND ; -- engiseyahamba
         <VFIndic RelCl Pos PresTense,_,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND ; -- engiseyeqa
 
-        <VFIndic RelCl Neg PresTense,_,RC,Excl> => (relConc vform agr rinit) ++ PROG_KA ++ BIND ; -- engingakahambi
-        <VFIndic RelCl Neg PresTense,_,_,Excl> => (relConc vform agr RC) ++ PROG_K ++ BIND ; -- engingakeqi
+        <VFIndic RelCl Neg PresTense,_,RC,Excl> => (relConc vform agr rinit) ++ EXCL_KA ++ BIND ; -- engingakahambi
+        <VFIndic RelCl Neg PresTense,_,_,Excl> => (relConc vform agr RC) ++ EXCL_K ++ BIND ; -- engingakeqi
 
         <VFIndic RelCl Pos PastTense,_,RC,Excl> => shortRelConc!agr ++ EXCL_SE ++BIND++ subjConcLookup!agr!SC ++BIND ; -- esengihambile
         <VFIndic RelCl Pos PastTense,_,_,Excl> => shortRelConc!agr ++ EXCL_SE ++BIND++ (subjConc vform agr True rinit) ; -- esengeqile
 
-        <VFIndic RelCl Neg PastTense,_,RC,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
-        <VFIndic RelCl Neg PastTense,_,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNegVow ++BIND++ PROG_K ++ BIND ;
+        <VFIndic RelCl Neg PastTense,_,RC,Excl> => nonExist ;
+        <VFIndic RelCl Neg PastTense,_,_,Excl> => nonExist ;
 
         <VFIndic RelCl Pos RemPastTense,_,RC,Excl> => shortRelConc!agr ++ EXCL_SE ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- osewahamba
         <VFIndic RelCl Pos RemPastTense,_,_,Excl> => shortRelConc!agr ++ EXCL_SE ++BIND++ (subjConc vform agr True rinit) ; -- oseweqa
 
-        <VFIndic RelCl Neg RemPastTense,_,RC,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
-        <VFIndic RelCl Neg RemPastTense,_,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNegVow ++BIND++ PROG_K ++ BIND ;
+        <VFIndic RelCl Neg RemPastTense,_,RC,Excl> => nonExist ;
+        <VFIndic RelCl Neg RemPastTense,_,_,Excl> => nonExist ;
 
         <VFIndic RelCl Pos _,_,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
-        <VFIndic RelCl Neg _,_,_,Excl> => (relConc vform agr rinit) ++ PROG_KA ++BIND++ (tensePref vform rinit syl) ;
+        <VFIndic RelCl Neg _,_,_,Excl> => (relConc vform agr rinit) ++ EXCL_KA ++BIND++ (tensePref vform rinit syl) ;
         <VFConsec Pos,_,_,_> => let
           vow = case rinit of {
             RC => False ;
@@ -835,34 +865,34 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
         -- exclusive, main clause
         <VFIndic MainCl Pos PresTense,_,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhamba
 
-        <VFIndic MainCl Neg PresTense,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ; -- akakahambi
+        <VFIndic MainCl Neg PresTense,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ EXCL_KA ++ BIND ; -- akakahambi
 
         <VFIndic MainCl Pos PastTense,_,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhambile
 
-        <VFIndic MainCl Neg PastTense,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
+        <VFIndic MainCl Neg PastTense,_,Excl> => nonExist ;
 
         <VFIndic MainCl Pos RemPastTense,_,Excl> => EXCL_SE ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- sewahamba
 
-        <VFIndic MainCl Neg RemPastTense,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
+        <VFIndic MainCl Neg RemPastTense,_,Excl> => nonExist ;
 
         <VFIndic MainCl Pos _,_,Excl> => subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
-        <VFIndic MainCl Neg _,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++BIND++ (tensePref vform rinit syl) ;
+        <VFIndic MainCl Neg _,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ EXCL_KA ++BIND++ (tensePref vform rinit syl) ;
 
         -- exclusive, relative clause
         <VFIndic RelCl Pos PresTense,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND ; -- engiseyahamba
 
-        <VFIndic RelCl Neg PresTense,_,Excl> => (relConc vform agr rinit) ++ PROG_KA ++ BIND ; -- engingakahambi
+        <VFIndic RelCl Neg PresTense,_,Excl> => (relConc vform agr rinit) ++ EXCL_KA ++ BIND ; -- engingakahambi
 
         <VFIndic RelCl Pos PastTense,_,Excl> => shortRelConc!agr ++ EXCL_SE ++BIND++ subjConcLookup!agr!SC ++BIND ; -- esengihambile
 
-        <VFIndic RelCl Neg PastTense,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
+        <VFIndic RelCl Neg PastTense,_,Excl> => nonExist ;
 
         <VFIndic RelCl Pos RemPastTense,_,Excl> => shortRelConc!agr ++ EXCL_SE ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- osewahamba
 
-        <VFIndic RelCl Neg RemPastTense,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ PROG_KA ++ BIND ;
+        <VFIndic RelCl Neg RemPastTense,_,Excl> => nonExist ;
 
         <VFIndic RelCl Pos _,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
-        <VFIndic RelCl Neg _,_,Excl> => (relConc vform agr rinit) ++ PROG_KA ++BIND++ (tensePref vform rinit syl) ;
+        <VFIndic RelCl Neg _,_,Excl> => (relConc vform agr rinit) ++ EXCL_KA ++BIND++ (tensePref vform rinit syl) ;
         <VFConsec Pos,_,_> => let
           vow = case rinit of {
             RC => False ;
@@ -1141,7 +1171,7 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     {
       s = table {
         AF1 => a+"[AdjStem]" ;
-        AF2 => prefix_nasal a+"[AdjStem]" ;
+        AF2 => prefix_nasal_no_tag a+"[AdjStem]" ;
         AF3 => case a of {
           #cons+#cons*+#vowel => "u[Phon]"+a+"[AdjStem]" ;
           _ => a+"[AdjStem]"
@@ -1257,29 +1287,29 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     atwhichPhiPref : Agr => Str =
       table {
-        Third C1_2 Sg => "mu" ; -- TODO
-        Third C1_2 Pl => "ba" ;
-        Third C1a_2a Sg => "mu" ;
-        Third C1a_2a Pl => "ba" ;
-        Third C3_4 Sg  => "mu" ;
-        Third C3_4 Pl => "mi" ;
-        Third C5_6 Sg => "li" ;
-        Third C5_6 Pl => "ma" ;
-        Third C7_8 Sg => "si" ;
-        Third C7_8 Pl => "zi" ;
-        Third C9_10 Sg => "yi" ;
-        Third C9_10 Pl => "zi" ;
-        Third C11_10 Sg => "lu" ;
-        Third C11_10 Pl => "zi" ;
-        Third C9_6 Sg => "yi" ;
-        Third C9_6 Pl => "ma" ;
-        Third C14 _ => "bu" ;
-        Third C15 _ => "ku" ;
-        Third C17 _ => "ku" ;
-        First Sg => "mu" ;
-        First Pl => "ba" ;
-        Second Sg => "mu" ;
-        Second Pl => "om"
+        Third C1_2 Sg => "mu[EC][1]" ;
+        Third C1_2 Pl => "ba[EC][2]" ;
+        Third C1a_2a Sg => "mu[EC][1a]" ;
+        Third C1a_2a Pl => "ba[EC][2a]" ;
+        Third C3_4 Sg  => "mu[EC][3]" ;
+        Third C3_4 Pl => "mi[EC][4]" ;
+        Third C5_6 Sg => "li[EC][5]" ;
+        Third C5_6 Pl => "ma[EC][6]" ;
+        Third C7_8 Sg => "si[EC][7]" ;
+        Third C7_8 Pl => "zi[EC][8]" ;
+        Third C9_10 Sg => "yi[EC][9]" ;
+        Third C9_10 Pl => "zi[EC][10]" ;
+        Third C11_10 Sg => "lu[EC][11]" ;
+        Third C11_10 Pl => "zi[EC][10]" ;
+        Third C9_6 Sg => "yi[EC][9]" ;
+        Third C9_6 Pl => "ma[EC][6]" ;
+        Third C14 _ => "bu[EC][14]" ;
+        Third C15 _ => "ku[EC][15]" ;
+        Third C17 _ => "ku[EC][17]" ;
+        First Sg => "mu[EC][1ps]" ;
+        First Pl => "ba[EC][1pp]" ;
+        Second Sg => "mu[EC][2ps]" ;
+        Second Pl => "om[EC][2pp]"
       } ;
 
     -----------
@@ -1287,17 +1317,39 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     -----------
 
     noun_stem_tag : ClassGender -> Str = \c -> case c of {
-      C1_2 => "[NStem][C1-2]" ;
-      C1a_2a => "[NStem][C1a-2a]" ;
-      C3_4 => "[NStem][C3-4]" ;
-      C5_6 => "[NStem][C5-6]" ;
-      C7_8 => "[NStem][C7-8]" ;
-      C9_10 => "[NStem][C9-10]" ;
-      C11_10 => "[NStem][C11-10]" ;
-      C9_6 => "[NStem][C9-6]" ;
-      C14 => "[NStem][C14]" ;
-      C15 => "[NStem][C15]" ;
-      C17 => "[NStem][C17]"
+      C1_2 => "[NStem][1-2]" ;
+      C1a_2a => "[NStem][1a-2a]" ;
+      C3_4 => "[NStem][3-4]" ;
+      C5_6 => "[NStem][5-6]" ;
+      C7_8 => "[NStem][7-8]" ;
+      C9_10 => "[NStem][9-10]" ;
+      C11_10 => "[NStem][11-10]" ;
+      C9_6 => "[NStem][9-6]" ;
+      C14 => "[NStem][14]" ;
+      C15 => "[NStem][15]" ;
+      C17 => "[NStem][17]"
+    } ;
+
+    noun_prefix_tag : ClassGender -> Number -> Str = \c,n -> case <c,n> of {
+      <C1_2,Sg> => "[1]" ;
+      <C1_2,Pl> => "[2]" ;
+      <C1a_2a,Sg> => "[1a]" ;
+      <C1a_2a,Pl> => "[2a]" ;
+      <C3_4,Sg> => "[3]" ;
+      <C3_4,Pl> => "[4]" ;
+      <C5_6,Sg> => "[5]" ;
+      <C5_6,Pl> => "[6]" ;
+      <C7_8,Sg> => "[7]" ;
+      <C7_8,Pl> => "[8]" ;
+      <C9_10,Sg> => "[9]" ;
+      <C9_10,Pl> => "[10]" ;
+      <C11_10,Sg> => "[11]" ;
+      <C11_10,Pl> => "[10]" ;
+      <C9_6,Sg> => "[9]" ;
+      <C9_6,Pl> => "[6]" ;
+      <C14,_> => "[14]" ;
+      <C15,_> => "[15]" ;
+      <C17,_> => "[17]"
     } ;
 
     -- worst case
@@ -1355,14 +1407,55 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
         empty = []
       in
       mkNoun noms nomp locs locp root cg ;
+    
+    mkN_abe : Str -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } = \root -> {
+      s = table {
+          Sg => table {
+            NFull => "um[NPre][1]"+root+"[NStem][1-2]" ;
+            NReduced => "m[NPre][1]"+root+"[NStem][1-2]" ;
+            NPoss => "m[NPre][1]"+root+"[NStem][1-2]" ;
+            NLoc => "k[LocPre]um[NPre][1]"+root+"[NStem][1-2]"
+        } ;
+          Pl => table {
+            NFull => "ab[NPre][2]e"+(drop 1 root)+"[NStem][1-2]" ;
+            NReduced => "b[NPre][2]e"+(drop 1 root)+"[NStem][1-2]" ;
+            NPoss => "b[NPre][2]e"+(drop 1 root)+"[NStem][1-2]" ;
+            NLoc => "ku[LocPre]b[NPre][2]e"+(drop 1 root)+"[NStem][1-2]"
+          }
+        } ;
+        c = C1_2 ;
+        empty = [] ;
+        lemma = root
+    } ;
+
+    irregN : Str -> Str -> Str -> Str -> Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } = 
+    \root,sgpf,sgr,plpf,plr,cg -> {
+      s = table {
+        Sg => table {
+            NFull => sgpf+"[NPre]"+(noun_prefix_tag cg Sg)+sgr+(noun_stem_tag cg) ;
+            NReduced => (drop 1 sgpf)+"[NPre]"+(noun_prefix_tag cg Sg)+sgr+(noun_stem_tag cg) ;
+            NPoss => (drop 1 sgpf)+"[NPre]"+(noun_prefix_tag cg Sg)+sgr+(noun_stem_tag cg) ;
+            NLoc => locNoun root Sg cg
+        } ;
+        Pl => table {
+          NFull => plpf+"[NPre]"+(noun_prefix_tag cg Pl)+plr+(noun_stem_tag cg) ;
+          NReduced => (drop 1 plpf)+"[NPre]"+(noun_prefix_tag cg Pl)+plr+(noun_stem_tag cg) ;
+          NPoss => (drop 1 plpf)+"[NPre]"+(noun_prefix_tag cg Pl)+plr+(noun_stem_tag cg) ;
+          NLoc => locNoun root Pl cg
+        }
+        } ;
+        c = cg ;
+        empty = [] ;
+        lemma = root
+    } ;
 
     kwaProperName : Str -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
     \root,cg ->
     let
       noms : Str = nomNoun root Sg cg ;
       nomp : Str = nomNoun root Sg cg ;
-      locs : Str = "Kwa"+root+(noun_stem_tag cg) ; -- TODO
-      locp : Str = "Kwa"+root+(noun_stem_tag cg) ;
+      locs : Str = "Kwa[LocPre]"+root+(noun_stem_tag cg) ;
+      locp : Str = "Kwa[LocPre]"+root+(noun_stem_tag cg) ;
     in
       mkNoun noms nomp locs locp root cg ;
 
@@ -1409,59 +1502,54 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     case <cg,n> of
     {
       <C1_2,Sg> => case root of {
-        _+#cons+#vowel+#cons+_+#vowel+_ => "ku[LocPre]m[NPre]"+root+(noun_stem_tag cg) ;
-        _ => "ku[LocPre]mu[NPre]"+root+(noun_stem_tag cg)
+        _+#cons+#vowel+#cons+_+#vowel+_ => "ku[LocPre]m[NPre][1]"+root+(noun_stem_tag cg) ;
+        _ => "ku[LocPre]mu[NPre][1]"+root+(noun_stem_tag cg)
       } ; -- umu for single syllables, um for the rest
-      <C1_2,Pl> => "ku[LocPre]ba[NPre]"+root+(noun_stem_tag cg) ; -- abe for tribes or guilds
-      <C1a_2a,Sg> => "k[LocPre]u[Npre]"+root+(noun_stem_tag cg) ;
-      <C1a_2a,Pl> => "k[LocPre]o[NPre]"+root+(noun_stem_tag cg) ;
+      <C1_2,Pl> => "ku[LocPre]ba[NPre][2]"+root+(noun_stem_tag cg) ; -- abe for tribes or guilds
+      <C1a_2a,Sg> => "k[LocPre]u[NPre][1a]"+root+(noun_stem_tag cg) ;
+      <C1a_2a,Pl> => "k[LocPre]o[NPre][2a]"+root+(noun_stem_tag cg) ;
       <C3_4,Sg> => case root of {
-        ("m"|"M")+_ => "e[LocPre]"+root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]m[NPre]"+root+(noun_stem_tag cg)
+        ("m"|"M")+_ => "e[LocPre][NPre][3]"+root+(noun_stem_tag cg) ;
+        _ => "e[LocPre]m[NPre][3]"+root+(noun_stem_tag cg)
       } ;
-      <C3_4,Pl> => "e[LocPre]mi[NPre]"+root+(noun_stem_tag cg) ;
+      <C3_4,Pl> => "e[LocPre]mi[NPre][4]"+root+(noun_stem_tag cg) ;
       <C5_6,Sg> => case root of {
-        ("i"|"I")+_ => "e[LocPre]" + (last root)+(noun_stem_tag cg)  ;
-        (#vowel|#vowel_cap)+_ => "e[LocPre]l[NPre]" + root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]"+root+(noun_stem_tag cg) -- ili long form (not used?)
+        ("i"|"I")+_ => "e[LocPre][NPre][5]" + (last root)+(noun_stem_tag cg)  ;
+        (#vowel|#vowel_cap)+_ => "e[LocPre]l[NPre][5]" + root+(noun_stem_tag cg) ;
+        _ => "e[LocPre][NPre][5]"+root+(noun_stem_tag cg) -- ili long form (not used?)
       } ;
       <C5_6,Pl> => case root of {
-        ("i"|"I")+_ => "e[LocPre]me[NPre]"+ (last root)+(noun_stem_tag cg) ;
-        (#vowel|#vowel_cap)+_ => "e[LocPre]m[NPre]"+root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]ma[NPre]"+root+(noun_stem_tag cg)
-      } ; -- ame for roots starting with i
+        (#vowel|#vowel_cap)+_ => "e[LocPre]m[NPre][6]"+root+(noun_stem_tag cg) ;
+        _ => "e[LocPre]ma[NPre][6]"+root+(noun_stem_tag cg)
+      } ; 
       <C7_8,Sg> => case root of {
-        (#vowel|#vowel_cap)+_ => "e[LocPre]s[NPre]"+root+(noun_stem_tag cg);
-        _ => "e[LocPre]si[NPre]"+root+(noun_stem_tag cg)
+        (#vowel|#vowel_cap)+_ => "e[LocPre]s[NPre][7]"+root+(noun_stem_tag cg);
+        _ => "e[LocPre]si[NPre][7]"+root+(noun_stem_tag cg)
       } ; -- is for roots starting with vowel
       <C7_8,Pl> => case root of {
-        (#vowel|#vowel_cap)+_ => "e[LocPre]z[NPre]"+root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]zi[NPre]"+root+(noun_stem_tag cg)  -- iz for roots starting with vowel
+        (#vowel|#vowel_cap)+_ => "e[LocPre]z[NPre][8]"+root+(noun_stem_tag cg) ;
+        _ => "e[LocPre]zi[NPre][8]"+root+(noun_stem_tag cg)  -- iz for roots starting with vowel
       } ;
-      <C9_10,Sg> => "e[LocPre]"+(prefix_nasal root)+(noun_stem_tag cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
-      <C9_10,Pl> => "e[LocPre]zi"+(prefix_nasal root)+(noun_stem_tag cg) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+      <C9_10,Sg> => "e[LocPre]"+(prefix_nasal root cg Sg)+(noun_stem_tag cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+      <C9_10,Pl> => "e[LocPre]zi"+(prefix_nasal root cg Pl)+(noun_stem_tag cg) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
       <C11_10,Sg> => case root of {
-        (#vowel|#vowel_cap)+_ => "o[LocPre]lw[NPre]" + root+(noun_stem_tag cg) ;
-        ("w"|"W")+_ => "o[LocPre]l[NPre]"+root+(noun_stem_tag cg) ;
-        _ => "o[LocPre]"+root+(noun_stem_tag cg)
+        (#vowel|#vowel_cap)+_ => "o[LocPre]lw[NPre][11]" + root+(noun_stem_tag cg) ;
+        ("w"|"W")+_ => "o[LocPre]l[NPre][11]"+root+(noun_stem_tag cg) ;
+        _ => "o[LocPre][NPre][11]"+root+(noun_stem_tag cg)
       } ;
-      <C11_10,Pl> => case root of {
-        (#vowel|#vowel_cap)+_ => "e[LocPre]zi[NPre]lw" + root+(noun_stem_tag cg) ;
-        ("w"|"W")+_ => "e[LocPre]zi[NPre]l" + root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]zi[NPre]"+(prefix_nasal root+(noun_stem_tag cg))
-      } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
-      <C9_6,Sg> => "e[LocPre]"+(prefix_nasal root)+(noun_stem_tag cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+      <C11_10,Pl> => "e[LocPre]zi"+(prefix_nasal root cg Pl)+(noun_stem_tag cg) ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
+      <C9_6,Sg> => "e[LocPre]"+(prefix_nasal root cg Sg)+(noun_stem_tag cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
-        ("i"|"I")+_ => "e[LocPre]me[NPre]"+root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]ma[NPre]"+root
-      } ; -- ame for roots starting with i
-      <C14,_> => "e[LocPre]bu[NPre]"+root+(noun_stem_tag cg) ;
+        (#vowel|#vowel_cap)+_ => "e[LocPre]m[NPre][6]"+root+(noun_stem_tag cg) ;
+        _ => "e[LocPre]ma[NPre][6]"+root+(noun_stem_tag cg)
+      } ; 
+      <C14,_> => "e[LocPre]bu[NPre][14]"+root+(noun_stem_tag cg) ;
       <C15,_> => case root of {
-        ("a"|"e"|"A"|"E")+_ => "ek[LocPre]w[NPre]"+root+(noun_stem_tag cg) ;
-        (#cons|"y"|#cons_cap|"Y")+_ => "e[LocPre]ku[NPre]"+root+(noun_stem_tag cg) ;
-        _ => "e[LocPre]k[NPre]"+root+(noun_stem_tag cg)
+        ("a"|"e"|"A"|"E")+_ => "e[LocPre]kw[NPre][15]"+root+(noun_stem_tag cg) ;
+        (#cons|"y"|#cons_cap|"Y")+_ => "e[LocPre]ku[NPre][15]"+root+(noun_stem_tag cg) ;
+        _ => "e[LocPre]k[NPre][15]"+root+(noun_stem_tag cg)
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
-      <C17,_> => "e[LocPre]ku[NPre]"+root+(noun_stem_tag cg)  -- sometimes ukw
+      <C17,_> => "e[LocPre]ku[NPre][17]"+root+(noun_stem_tag cg)  -- sometimes ukw
     } ;
 
     -- Src: Doke, Linda Hall
@@ -1470,23 +1558,23 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
       in
       case root of
       {
-        _+"mbo" => (tk 3 root) + "nje" + tag + "ni[LocSuf]" ;
-        _+"mbu" => (tk 3 root) + "nji" + tag + "ni[LocSuf]" ;
-        _+"pho" => (tk 3 root) + "she" + tag + "ni[LocSuf]" ;
-        _+"bho" => (tk 3 root) + "je" + tag + "ni[LocSuf]" ;
-        _+"phu" => (tk 3 root) + "shi" + tag + "ni[LocSuf]" ;
-        _+"bhu" => (tk 3 root) + "ji" + tag + "ni[LocSuf]" ;
-        _+"bo" => (tk 2 root) + "tshe" + tag + "ni[LocSuf]" ;
-        _+"bu" => (tk 2 root) + "tshi" + tag + "ni[LocSuf]" ;
-        _+"mo" => (tk 2 root) + "nye" + tag + "ni[LocSuf]" ;
-        _+"mu" => (tk 2 root) + "nyi" + tag + "ni[LocSuf]" ;
+        _+"mbo" => (tk 3 root) + "nj" + tag + "eni[LocSuf]" ;
+        _+"mbu" => (tk 3 root) + "nj" + tag + "ini[LocSuf]" ;
+        _+"pho" => (tk 3 root) + "sh" + tag + "eni[LocSuf]" ;
+        _+"bho" => (tk 3 root) + "j" + tag + "eni[LocSuf]" ;
+        _+"phu" => (tk 3 root) + "sh" + tag + "ini[LocSuf]" ;
+        _+"bhu" => (tk 3 root) + "j" + tag + "ini[LocSuf]" ;
+        _+"bo" => (tk 2 root) + "tsh" + tag + "eni[LocSuf]" ;
+        _+"bu" => (tk 2 root) + "tsh" + tag + "ini[LocSuf]" ;
+        _+"mo" => (tk 2 root) + "ny" + tag + "eni[LocSuf]" ;
+        _+"mu" => (tk 2 root) + "ny" + tag + "ini[LocSuf]" ;
         _+("a"|"e") => (init root)+"e" + tag + "ni[LocSuf]" ;
         _+"i" => (init root)+"i" + tag + "ni[LocSuf]" ;
         _+"wu" => (init root)+"i" + tag + "ni[LocSuf]" ;
         _+"wo" => (init root)+"e" + tag + "ni[LocSuf]" ;
-        _+"o" => (init root)+"we" + tag + "ni[LocSuf]" ;
-        _+"u" => (init root)+"wi" + tag + "ni[LocSuf]" ;
-        _ => root+"" + tag + "ini[LocSuf]"
+        _+"o" => (init root)+"w" + tag + "eni[LocSuf]" ;
+        _+"u" => (init root)+"w" + tag + "ini[LocSuf]" ;
+        _ => root+ tag + "ini[LocSuf]"
       } ;
 
     drop_init_vowel : Str -> Str = \s ->
@@ -1514,130 +1602,121 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
       case <cg,n> of
       {
         <C1_2,Sg> => case root of {
-          (#vowel|#vowel_cap)+_ => "um[NPre]"+root+(noun_stem_tag cg) ;
-          _+#cons+#vowel+#cons+_+#vowel+_ => "um[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "umu[NPre]"+root+(noun_stem_tag cg)
+          (#vowel|#vowel_cap)+_ => "um[NPre][1]"+root+(noun_stem_tag cg) ;
+          _+#cons+#vowel+#cons+_+#vowel+_ => "um[NPre][1]"+root+(noun_stem_tag cg) ;
+          _ => "umu[NPre][1]"+root+(noun_stem_tag cg)
         } ; -- umu for single syllables, um for the rest
         <C1_2,Pl> => case root of {
-          (#vowel|#vowel_cap)+_ => "ab[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "aba[NPre]"+root+(noun_stem_tag cg)  -- abe for tribes or guilds
+          (#vowel|#vowel_cap)+_ => "ab[NPre][2]"+root+(noun_stem_tag cg) ;
+          _ => "aba[NPre][2]"+root+(noun_stem_tag cg)  -- abe for tribes or guilds
         } ;
-        <C1a_2a,Sg> => "u[NPre]"+root+(noun_stem_tag cg) ;
-        <C1a_2a,Pl> => "o[NPre]"+root+(noun_stem_tag cg) ;
+        <C1a_2a,Sg> => "u[NPre][1a]"+root+(noun_stem_tag cg) ;
+        <C1a_2a,Pl> => "o[NPre][2a]"+root+(noun_stem_tag cg) ;
         <C3_4,Sg> => case root of {
-          ("m"|"M")+_+#vowel+#cons+_+#vowel+_ => "u[NPre]"+root+(noun_stem_tag cg) ;
-          ("n"|"N")+_+#vowel+#cons+_+#vowel+_ => "u[NPre]"+root+(noun_stem_tag cg) ;
-          _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um[NPre]"+root+(noun_stem_tag cg) ;
-          ("o"|"O")+_ => "um[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "umu[NPre]"+root+(noun_stem_tag cg)
+          ("m"|"M")+_+#vowel+#cons+_+#vowel+_ => "u[NPre][3]"+root+(noun_stem_tag cg) ;
+          ("n"|"N")+_+#vowel+#cons+_+#vowel+_ => "u[NPre][3]"+root+(noun_stem_tag cg) ;
+          _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um[NPre][3]"+root+(noun_stem_tag cg) ;
+          ("o"|"O")+_ => "um[NPre][3]"+root+(noun_stem_tag cg) ;
+          _ => "umu[NPre][3]"+root+(noun_stem_tag cg)
         } ; -- umu for single syllables, um for the rest
-        <C3_4,Pl> => "imi[NPre]"+root+(noun_stem_tag cg) ;
+        <C3_4,Pl> => "imi[NPre][4]"+root+(noun_stem_tag cg) ;
         <C5_6,Sg> => case root of {
-          ("i"|"I")+_ => root+(noun_stem_tag cg) ;
-          (#vowel|#vowel_cap)+_ => "il[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "i[NPre]"+root+(noun_stem_tag cg)  -- ili long form (not used?)
+          ("i"|"I")+_ => "[NPre][5]"+root+(noun_stem_tag cg) ;
+          (#vowel|#vowel_cap)+_ => "il[NPre][5]"+root+(noun_stem_tag cg) ;
+          _ => "i[NPre][5]"+root+(noun_stem_tag cg)  -- ili long form (not used?)
         } ;
         <C5_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame[NPre]"+(drop 1 root)+(noun_stem_tag cg) ;
-          (#vowel|#vowel_cap)+_ => "am[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "ama[NPre]"+root+(noun_stem_tag cg)
-        } ; -- ame for roots starting with i
+          ("i"|"I")+_ => "am[NPre][6]"+root+(noun_stem_tag cg) ;
+          (#vowel|#vowel_cap)+_ => "am[NPre][6]"+root+(noun_stem_tag cg) ;
+          _ => "ama[NPre][6]"+root+(noun_stem_tag cg)
+        } ; 
         <C7_8,Sg> => case root of {
-          (#vowel|#vowel_cap)+_ => "is[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "isi[NPre]"+root+(noun_stem_tag cg)
+          (#vowel|#vowel_cap)+_ => "is[NPre][7]"+root+(noun_stem_tag cg) ;
+          _ => "isi[NPre][7]"+root+(noun_stem_tag cg)
         } ; -- is for roots starting with vowel
         <C7_8,Pl> => case root of {
-          (#vowel|#vowel_cap)+_ => "iz[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "izi[NPre]" + root+(noun_stem_tag cg)
+          (#vowel|#vowel_cap)+_ => "iz[NPre][8]"+root+(noun_stem_tag cg) ;
+          _ => "izi[NPre][8]" + root+(noun_stem_tag cg)
         } ;
-        <C9_10,Sg> => "i[NPre]" + (prefix_nasal root)+(noun_stem_tag cg) ;
-        <C9_10,Pl> => "izi[NPre]" + (prefix_nasal root)+(noun_stem_tag cg) ;
+        <C9_10,Sg> => "i" + (prefix_nasal root cg Sg)+(noun_stem_tag cg) ;
+        <C9_10,Pl> => "izi" + (prefix_nasal root cg Pl)+(noun_stem_tag cg) ;
         <C11_10,Sg> => case root of {
-          (#vowel|#vowel_cap)+_ => "u[NPre]lw[Phon]"+root+(noun_stem_tag cg) ;
-          ("w"|"W")+_ => "u[NPre]l[Phon]"+root+(noun_stem_tag cg) ;
-          _ => "u[NPre]"+root+(noun_stem_tag cg)
+          (#vowel|#vowel_cap)+_ => "ulw[NPre][11]"+root+(noun_stem_tag cg) ;
+          ("w"|"W")+_ => "ul[NPre][11]"+root+(noun_stem_tag cg) ;
+          _ => "u[NPre][11]"+root+(noun_stem_tag cg)
         } ;
-        <C11_10,Pl> => case root of {
-          (#vowel|#vowel_cap)+_ => "izi[NPre]lw[Phon]"+root+(noun_stem_tag cg) ;
-          ("w"|"W")+_ => "izi[NPre]l[Phon]"+root+(noun_stem_tag cg) ;
-          _ => "izi[NPre]" + prefix_nasal root+(noun_stem_tag cg)
-        } ;
-        <C9_6,Sg> => "i[NPre]" + (prefix_nasal root)+(noun_stem_tag cg) ;
+        <C11_10,Pl> => "izi" + (prefix_nasal root cg Pl)+(noun_stem_tag cg) ;
+        <C9_6,Sg> => "i" + (prefix_nasal root cg Sg)+(noun_stem_tag cg) ;
         <C9_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "ama[NPre]"+root+(noun_stem_tag cg)
-        } ; -- ame for roots starting with i
-        <C14,_> => "ubu[NPre]"+root+(noun_stem_tag cg) ;
+          (#vowel|#vowel_cap)+_ => "am[NPre][6]"+root+(noun_stem_tag cg) ;
+          _ => "ama[NPre][6]"+root+(noun_stem_tag cg)
+        } ; 
+        <C14,_> => "ubu[NPre][14]"+root+(noun_stem_tag cg) ;
         <C15,_> => case root of {
-          ("a"|"e"|"A"|"E")+_ => "ukw[NPre]"+root+(noun_stem_tag cg) ;
-          (#cons|#cons_cap|"y"|"Y")+_ => "uku[NPre]"+root+(noun_stem_tag cg) ;
-          _ => "uk[NPre]"+root+(noun_stem_tag cg)
+          ("a"|"e"|"A"|"E")+_ => "ukw[NPre][15]"+root+(noun_stem_tag cg) ;
+          (#cons|#cons_cap|"y"|"Y")+_ => "uku[NPre][15]"+root+(noun_stem_tag cg) ;
+          _ => "uk[NPre][15]"+root+(noun_stem_tag cg)
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
-        <C17,_> => "uku[NPre]"+root+(noun_stem_tag cg)  -- sometimes ukw
+        <C17,_> => "uku[NPre][17]"+root+(noun_stem_tag cg)  -- sometimes ukw
       } ;
 
     locNoun : Str -> Number -> ClassGender -> Str = \root,n,cg ->
         case <cg,n> of
         {
           <C1_2,Sg> => case root of {
-            (#vowel|#vowel_cap)+_ => "ku[LocPre]m[NPre]"+root+(noun_stem_tag cg) ;
-            _+#cons+#vowel+#cons+_+#vowel+_ => "ku[LocPre]m[NPre]"+root+(noun_stem_tag cg) ;
-            _ => "ku[LocPre]mu[NPre]"+root+(noun_stem_tag cg)
+            (#vowel|#vowel_cap)+_ => "ku[LocPre]m[NPre][1]"+root+(noun_stem_tag cg) ;
+            _+#cons+#vowel+#cons+_+#vowel+_ => "ku[LocPre]m[NPre][1]"+root+(noun_stem_tag cg) ;
+            _ => "ku[LocPre]mu[NPre][1]"+root+(noun_stem_tag cg)
           } ; -- umu for single syllables, um for the rest
           <C1_2,Pl> => case root of {
-            (#vowel|#vowel_cap)+_ => "ku[LocPre]b[NPre]"+root+(noun_stem_tag cg) ;
-            _ => "ku[LocPre]ba[NPre]"+root -- abe for tribes or guilds
+            (#vowel|#vowel_cap)+_ => "ku[LocPre]b[NPre][2]"+root+(noun_stem_tag cg) ;
+            _ => "ku[LocPre]ba[NPre][2]"+root -- abe for tribes or guilds
           } ;
-          <C1a_2a,Sg> => "k[LocPre]u[NPre]"+root+(noun_stem_tag cg) ;
-          <C1a_2a,Pl> => "k[LocPre]o[NPre]"+root+(noun_stem_tag cg) ;
+          <C1a_2a,Sg> => "k[LocPre]u[NPre][1a]"+root+(noun_stem_tag cg) ;
+          <C1a_2a,Pl> => "k[LocPre]o[NPre][2a]"+root+(noun_stem_tag cg) ;
           <C3_4,Sg> => case root of {
-            ("m"|"M")+_ => "e[LocPre]"+(addLocSuffix root cg) ;
-            ("n"|"N")+_ => "e[LocPre]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]m[NPre]"+(addLocSuffix root cg)
+            ("m"|"M")+_ => "e[LocPre][NPre][3]"+(addLocSuffix root cg) ;
+            ("n"|"N")+_ => "e[LocPre][NPre][3]"+(addLocSuffix root cg) ;
+            _ => "e[LocPre]m[NPre][3]"+(addLocSuffix root cg)
           } ;
-          <C3_4,Pl> => "e[LocPre]mi[NPre]"+(addLocSuffix root cg) ;
+          <C3_4,Pl> => "e[LocPre]mi[NPre][4]"+(addLocSuffix root cg) ;
           <C5_6,Sg> => case root of {
-            ("i"|"I")+_ => "e[LocPre]"+(addLocSuffix (drop 1 root) cg) ;
-            (#vowel|#vowel_cap)+_ => "e[LocPre]l[NPre]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]"+(addLocSuffix root cg) -- ili long form (not used?)
+            ("i"|"I")+_ => "e[LocPre][NPre][5]"+(addLocSuffix (drop 1 root) cg) ;
+            (#vowel|#vowel_cap)+_ => "e[LocPre]l[NPre][5]"+(addLocSuffix root cg) ;
+            _ => "e[LocPre][NPre][5]"+(addLocSuffix root cg) -- ili long form (not used?)
           } ;
           <C5_6,Pl> => case root of {
-            ("i"|"I")+_ => "e[LocPre]m[NPre]e"+(addLocSuffix (drop 1 root) cg) ;
-            (#vowel|#vowel_cap)+_ => "e[LocPre]m[NPre]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]ma[NPre]"+(addLocSuffix root cg)
-          } ; -- ame for roots starting with i
+            (#vowel|#vowel_cap)+_ => "e[LocPre]m[NPre][6]"+(addLocSuffix root cg) ;
+            _ => "e[LocPre]ma[NPre][6]"+(addLocSuffix root cg)
+          } ;
           <C7_8,Sg> => case root of {
-            (#vowel|#vowel_cap)+_ => "e[LocPre]s[NPre]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]si[NPre]"+(addLocSuffix root cg)
+            (#vowel|#vowel_cap)+_ => "e[LocPre]s[NPre][7]"+(addLocSuffix root cg) ;
+            _ => "e[LocPre]si[NPre][7]"+(addLocSuffix root cg)
           } ; -- is for roots starting with vowel
           <C7_8,Pl> => case root of {
-            (#vowel|#vowel_cap)+_ => "e[LocPre]z[NPre]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]zi[NPre]"+(addLocSuffix root cg)  -- iz for roots starting with vowel
+            (#vowel|#vowel_cap)+_ => "e[LocPre]z[NPre][8]"+(addLocSuffix root cg) ;
+            _ => "e[LocPre]zi[NPre][8]"+(addLocSuffix root cg)  -- iz for roots starting with vowel
           } ;
-          <C9_10,Sg> => "e[LocPre]"+(addLocSuffix (prefix_nasal root) cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
-          <C9_10,Pl> => "e[LocPre]zi"+(addLocSuffix (prefix_nasal root) cg) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+          <C9_10,Sg> => "e[LocPre]"+(addLocSuffix (prefix_nasal root cg Sg) cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+          <C9_10,Pl> => "e[LocPre]zi"+(addLocSuffix (prefix_nasal root cg Pl) cg) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
           <C11_10,Sg> => case root of {
-            (#vowel|#vowel_cap)+_ => "o[LocPre]lw[NPre]"+(addLocSuffix root cg) ;
-            ("w"|"W")+_ => "o[LocPre]l[NPre]"+(addLocSuffix root cg) ;
-            _ => "o[LocPre]"+(addLocSuffix root cg)
+            (#vowel|#vowel_cap)+_ => "o[LocPre]lw[NPre][11]"+(addLocSuffix root cg) ;
+            ("w"|"W")+_ => "o[LocPre]l[NPre][11]"+(addLocSuffix root cg) ;
+            _ => "o[LocPre][NPre][11]"+(addLocSuffix root cg)
           } ;
-          <C11_10,Pl> => case root of {
-            (#vowel|#vowel_cap)+_ => "e[LocPre]zi[NPre]lw[Phon]"+(addLocSuffix root cg) ;
-            ("w"|"W")+_ => "e[LocPre]zi[NPre]l[Phon]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]zi"+(addLocSuffix (prefix_nasal root) cg) -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
-          } ;
-          <C9_6,Sg> => "e[LocPre]"+(addLocSuffix (prefix_nasal root) cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
+          <C11_10,Pl> => "e[LocPre]zi"+(addLocSuffix (prefix_nasal root cg Pl) cg) ;
+          <C9_6,Sg> => "e[LocPre]"+(addLocSuffix (prefix_nasal root cg Sg) cg) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
-            ("i"|"I")+_ => "e[LocPre]me[NPre]"+(addLocSuffix root cg) ;
-            _ => "e[LocPre]ma[NPre]"+(addLocSuffix root cg)
-          } ; -- ame for roots starting with i
-          <C14,_> => "e[LocPre]bu[NPre]"+(addLocSuffix root cg) ;
+            (#vowel|#vowel_cap)+_ => "e[LocPre]m[NPre][6]"+(addLocSuffix root cg) ;
+            _ => "e[LocPre]ma[NPre][6]"+(addLocSuffix root cg)
+          } ;
+          <C14,_> => "e[LocPre]bu[NPre][14]"+(addLocSuffix root cg) ;
           <C15,_> => case root of {
-            ("a"|"e"|"A"|"E")+_ => "e[LocPre]kw[NPre]"+(addLocSuffix root cg) ;
-            (#cons|"y"|#cons_cap|"Y")+_ => "e[LocPre]ku[NPre]"+root ;
-            _ => "e[LocPre]k[NPre]"+(addLocSuffix root cg)
+            ("a"|"e"|"A"|"E")+_ => "e[LocPre]kw[NPre][15]"+(addLocSuffix root cg) ;
+            (#cons|"y"|#cons_cap|"Y")+_ => "e[LocPre]ku[NPre][15]"+root ;
+            _ => "e[LocPre]k[NPre][15]"+(addLocSuffix root cg)
             } ; -- ukw for roots starting with a/e, uk for roots starting with o
-          <C17,_> => "e[LocPre]ku[NPre]"+(addLocSuffix root cg)  -- sometimes ukw
+          <C17,_> => "e[LocPre]ku[NPre][17]"+(addLocSuffix root cg)  -- sometimes ukw
         } ;
 
 
@@ -1721,30 +1800,30 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     subjConcLookup : Agr => SCForm => Str =
       table {
         -- agr                     default        before vowel     after neg pref    sit/part         potential/subjunct/indirect relative
-        First Sg =>         table {SC => "ngi[SC][1ps]" ;  SCVow => "ng[SC][1ps]"++BIND ;  SCNeg => "ngi[SCNeg][1ps]" ; SCNegVow => "ng[SCNeg][1ps]" ; SCMood => "nga[SCMood][1ps]" ; SCPS => "ngi" ; SCVowP => "ngi[SCPast][1ps]" ; SCBe => "bengi[SCBe][1ps]" ; SCRP => "ngangi[SCPast][1ps]" ; SCSe => "ngise[SCSe][1ps]" } ;
-        Second Sg =>        table {SC => "u[SC][2ps]" ;    SCVow => "w[SC][2ps]"++BIND ;   SCNeg => "wu[SCNeg][2ps]" ;  SCNegVow => "w[SCNeg][2ps]" ;  SCMood => "wa[SCMood][2ps]" ;   SCPS => "u" ;   SCVowP => "wu[SCPast][2ps]" ;  SCBe => "ubu[SCBe][2ps]" ;   SCRP => "wawu[SCPast][2ps]" ; SCSe => "sewu[SCSe][2ps]" } ;
-        First Pl =>         table {SC => "si[SC][1pp]" ;   SCVow => "s[SC][1pp]"++BIND ;   SCNeg => "si[SCNeg][1pp]" ;  SCNegVow => "s[SCNeg][1pp]" ; SCMood => "sa[SCMood][1pp]" ;  SCPS => "si" ;  SCVowP => "si[SCPast][1pp]" ;  SCBe => "besi[SCBe][1pp]" ;   SCRP => "sasi[SCPast][1pp]" ; SCSe => "sesi[SCSe][1pp]" } ;
-        Second Pl =>        table {SC => "ni[SC][2pp]" ;   SCVow => "n[SC][2pp]"++BIND ;   SCNeg => "ni[SCNeg][2pp]" ;  SCNegVow => "n[SCNeg][2pp]" ; SCMood => "na[SCMood][2pp]" ;  SCPS => "ni" ;  SCVowP => "ni[SCPast][2pp]" ;  SCBe => "beni[SCBe][2pp]" ;   SCRP => "nani[SCPast][2pp]" ; SCSe => "seni[SCSe][2pp]" } ;
-        Third C1_2 Sg =>    table {SC => "u[SC][1]" ;    SCVow => "w[SC][1]"++BIND ;   SCNeg => "ka[SCNeg][1]" ;  SCNegVow => "k[SCNeg][1]" ; SCMood => "wa[SCMood][1]" ;   SCPS => "a" ;   SCVowP => "wu[SCPast][1]" ;  SCBe => "ube[SCBe][1]" ;    SCRP => "waye[SCPast][1]" ; SCSe => "seye[SCSe][1]" } ;
-        Third C1_2 Pl =>    table {SC => "ba[SC][2]" ;   SCVow => "b[SC][2]"++BIND ;   SCNeg => "ba[SCNeg][2]" ;  SCNegVow => "b[SCNeg][2]" ; SCMood => "ba[SCMood][2]" ;  SCPS => "ba" ;  SCVowP => "ba[SCPast][2]" ;  SCBe => "bebe[SCBe][2]" ;   SCRP => "babe[SCPast][2]" ; SCSe => "sebe[SCSe][2]" } ;
-        Third C1a_2a Sg =>  table {SC => "u[SC][1a]" ;    SCVow => "w[SC][1a]"++BIND ;   SCNeg => "ka[SCNeg][1a]" ;  SCNegVow => "k[SCNeg][1a]" ; SCMood => "wa[SCMood][1a]" ;   SCPS => "a" ;   SCVowP => "wu[SCPast][1a]" ;  SCBe => "ube[SCBe][1a]" ;    SCRP => "waye[SCPast][1a]" ; SCSe => "seye[SCSe][1a]" } ;
-        Third C1a_2a Pl =>  table {SC => "ba[SC][2a]" ;   SCVow => "b[SC][2a]"++BIND ;   SCNeg => "ba[SCNeg][2a]" ;  SCNegVow => "b[SCNeg][2a]" ; SCMood => "ba[SCMood][2a]" ;  SCPS => "ba" ;  SCVowP => "ba[SCPast][2a]" ;  SCBe => "bebe[SCBe][2a]" ;   SCRP => "babe[SCPast][2a]" ; SCSe => "sebe[SCSe][2a]" } ;
-        Third C3_4 Sg =>    table {SC => "u[SC][3]" ;    SCVow => "w[SC][3]"++BIND ;   SCNeg => "wu[SCNeg][3]" ;  SCNegVow => "w[SCNeg][3]" ; SCMood => "uwa[SCMood][3]" ;   SCPS => "u" ;   SCVowP => "wu[SCPast][3]" ;  SCBe => "ubu[SCBe][3]" ;    SCRP => "wawu[SCPast][3]" ; SCSe => "sewu[SCSe][3]" } ;
-        Third C3_4 Pl =>    table {SC => "i[SC][4]" ;    SCVow => "y[SC][4]"++BIND ;   SCNeg => "yi[SCNeg][4]" ;  SCNegVow => "y[SCNeg][4]" ; SCMood => "ya[SCMood][4]" ;   SCPS => "i" ;   SCVowP => "yi[SCPast][4]" ;  SCBe => "ibi[SCBe][4]" ;    SCRP => "yayi[SCPast][4]" ; SCSe => "seyi[SCSe][4]" } ;
-        Third C5_6 Sg =>    table {SC => "li[SC][5]" ;   SCVow => "l[SC][5]"++BIND ;   SCNeg => "li[SCNeg][5]" ;  SCNegVow => "l[SCNeg][5]" ; SCMood => "la[SCMood][5]" ;  SCPS => "li" ;  SCVowP => "li[SCPast][5]" ;  SCBe => "beli[SCBe][5]" ;   SCRP => "lali[SCPast][5]" ; SCSe => "seli[SCSe][5]" } ;
-        Third C5_6 Pl =>    table {SC => "a[SC][6]" ;    SCVow => [] ;          SCNeg => "wa[SCNeg][6]" ;  SCNegVow => "w[SCNeg][6]" ; SCMood => "a[SCMood][6]" ;   SCPS => "a" ;   SCVowP => "wa[SCPast][6]" ;  SCBe => "abe[SCBe][6]" ;    SCRP => "aye[SCPast][6]" ; SCSe => "seye[SCSe][6]" } ;
-        Third C7_8 Sg =>    table {SC => "si[SC][7]" ;   SCVow => "s[SC][7]"++BIND ;   SCNeg => "si[SCNeg][7]" ;  SCNegVow => "s[SCNeg][7]" ; SCMood => "sa[SCMood][7]" ;  SCPS => "si" ;  SCVowP => "si[SCPast][7]" ;  SCBe => "besi[SCBe][7]" ;   SCRP => "sasi[SCPast][7]" ; SCSe => "sesi[SCSe][7]" } ;
-        Third C7_8 Pl =>    table {SC => "zi[SC][8]" ;   SCVow => "z[SC][8]"++BIND ;   SCNeg => "zi[SCNeg][8]" ;  SCNegVow => "z[SCNeg][8]" ; SCMood => "za[SCMood][8]" ;  SCPS => "zi" ;  SCVowP => "zi[SCPast][8]" ;  SCBe => "bezi[SCBe][8]" ;   SCRP => "zazi[SCPast][8]" ; SCSe => "sezi[SCSe][8]" } ;
-        Third C9_10 Sg =>   table {SC => "i[SC][9]" ;    SCVow => "y[SC][9]"++BIND ;   SCNeg => "yi[SCNeg][9]" ;  SCNegVow => "y[SCNeg][9]" ; SCMood => "ya[SCMood][9]" ;  SCPS => "i" ;   SCVowP => "yi[SCPast][9]" ;  SCBe => "ibi[SCBe][9]" ;    SCRP => "yayi[SCPast][9]" ; SCSe => "seyi[SCSe][9]" } ;
-        -- Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "i"++BIND ;   SCNeg => "yi" ;  SCMood => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
-        Third C9_10 Pl =>   table {SC => "zi[SC][10]" ;   SCVow => "z[SC][10]"++BIND ;   SCNeg => "zi[SCNeg][10]" ;  SCNegVow => "z[SCNeg][10]" ; SCMood => "za[SCMood][10]" ;  SCPS => "zi" ;  SCVowP => "zi[SCPast][10]" ;  SCBe => "bezi[SCBe][10]" ;   SCRP => "zazi[SCPast][10]" ; SCSe => "sezi[SCSe][10]" } ;
-        Third C11_10 Sg =>  table {SC => "lu[SC][11]" ;   SCVow => "l[SC][11]"++BIND ;  SCNeg => "lu[SCNeg][11]" ;  SCNegVow => "l[SCNeg][11]" ; SCMood => "lwa[SCMood][11]" ;  SCPS => "lu" ;  SCVowP => "lu[SCPast][11]" ;  SCBe => "belu[SCBe][11]" ;   SCRP => "lwalu[SCPast][11]" ; SCSe => "selu[SCSe][11]" } ;
-        Third C11_10 Pl =>  table {SC => "zi[SC][10]" ;   SCVow => "z[SC][10]"++BIND ;   SCNeg => "zi[SCNeg][10]" ;  SCNegVow => "z[SCNeg][10]" ; SCMood => "za[SCMood][10]" ;  SCPS => "zi" ;  SCVowP => "zi[SCPast][10]" ;  SCBe => "bezi[SCBe][10]" ;   SCRP => "zazi[SCPast][10]" ; SCSe => "sezi[SCSe][10]" } ;
-        Third C9_6 Sg =>    table {SC => "i[SC][9]" ;    SCVow => "y[SC][9]"++BIND ;   SCNeg => "yi[SCNeg][9]" ;  SCNegVow => "y[SCNeg][9]" ; SCMood => "ya[SCMood][9]" ;  SCPS => "i" ;   SCVowP => "yi[SCPast][9]" ;  SCBe => "ibi[SCBe][9]" ;    SCRP => "yayi[SCPast][9]" ; SCSe => "seyi[SCSe][9]" } ;
-        Third C9_6 Pl =>    table {SC => "a[SC][6]" ;    SCVow => [] ;          SCNeg => "wa[SCNeg][6]" ;  SCNegVow => "w[SCNeg][6]" ; SCMood => "a[SCMood][6]" ;   SCPS => "a" ;   SCVowP => "wa[SCPast][6]" ;  SCBe => "abe[SCBe][6]" ;    SCRP => "aye[SCPast][6]" ; SCSe => "seye[SCSe][6]" } ;
-        Third C14 _ =>      table {SC => "bu[SC][14]" ;   SCVow => "b[SC][14]"++BIND ;   SCNeg => "bu[SCNeg][14]" ;  SCNegVow => "b[SCNeg][14]" ; SCMood => "ba[SCMood][14]" ;  SCPS => "bu" ;  SCVowP => "bu[SCPast][14]" ;  SCBe => "bebu[SCBe][14]" ;   SCRP => "babu[SCPast][14]" ; SCSe => "sebu[SCSe][14]" } ;
-        Third C15 _ =>      table {SC => "ku[SC][15]" ;   SCVow => "k[SC][15]"++BIND ;  SCNeg => "ku[SCNeg][15]" ;  SCNegVow => "k[SCNeg][15]" ; SCMood => "ka[SCMood][15]" ;  SCPS => "ku" ;  SCVowP => "ku[SCPast][15]" ;  SCBe => "beku[SCBe][15]" ;   SCRP => "kwaku[SCPast][15]" ; SCSe => "seku[SCSe][15]" } ;
-        Third C17 _ =>      table {SC => "ku[SC][17]" ;   SCVow => "k[SC][17]"++BIND ;  SCNeg => "ku[SCNeg][17]" ;  SCNegVow => "k[SCNeg][17]" ; SCMood => "ka[SCMood][17]" ;  SCPS => "ku" ;  SCVowP => "ku[SCPast][17]" ;  SCBe => "beku[SCBe][17]" ;   SCRP => "kwaku[SCPast][17]" ; SCSe => "seku[SCSe][17]" }
+        First Sg =>         table {SC => "ngi[SC][1ps]" ;  SCVow => "ng[SC][1ps]"++BIND ;  SCNeg => "ngi[SCNeg][1ps]" ; SCNegVow => "ng[SCNeg][1ps]" ; SCPT => "nga[SCPT][1ps]" ; SCPS => "ngi" ; SCVowP => "ngi[SCPast][1ps]" ; SCBe => "bengi[SCBe][1ps]" ; SCRP => "ngangi[SCRP][1ps]" ; SCSe => "ngise[SCSe][1ps]" } ;
+        Second Sg =>        table {SC => "u[SC][2ps]" ;    SCVow => "w[SC][2ps]"++BIND ;   SCNeg => "wu[SCNeg][2ps]" ;  SCNegVow => "w[SCNeg][2ps]" ;  SCPT => "wa[SCPT][2ps]" ;   SCPS => "u" ;   SCVowP => "wu[SCPast][2ps]" ;  SCBe => "ubu[SCBe][2ps]" ;   SCRP => "wawu[SCRP][2ps]" ; SCSe => "sewu[SCSe][2ps]" } ;
+        First Pl =>         table {SC => "si[SC][1pp]" ;   SCVow => "s[SC][1pp]"++BIND ;   SCNeg => "si[SCNeg][1pp]" ;  SCNegVow => "s[SCNeg][1pp]" ; SCPT => "sa[SCPT][1pp]" ;  SCPS => "si" ;  SCVowP => "si[SCPast][1pp]" ;  SCBe => "besi[SCBe][1pp]" ;   SCRP => "sasi[SCRP][1pp]" ; SCSe => "sesi[SCSe][1pp]" } ;
+        Second Pl =>        table {SC => "ni[SC][2pp]" ;   SCVow => "n[SC][2pp]"++BIND ;   SCNeg => "ni[SCNeg][2pp]" ;  SCNegVow => "n[SCNeg][2pp]" ; SCPT => "na[SCPT][2pp]" ;  SCPS => "ni" ;  SCVowP => "ni[SCPast][2pp]" ;  SCBe => "beni[SCBe][2pp]" ;   SCRP => "nani[SCRP][2pp]" ; SCSe => "seni[SCSe][2pp]" } ;
+        Third C1_2 Sg =>    table {SC => "u[SC][1]" ;    SCVow => "w[SC][1]"++BIND ;   SCNeg => "ka[SCNeg][1]" ;  SCNegVow => "k[SCNeg][1]" ; SCPT => "wa[SCPT][1]" ;   SCPS => "a" ;   SCVowP => "wu[SCPast][1]" ;  SCBe => "ube[SCBe][1]" ;    SCRP => "waye[SCRP][1]" ; SCSe => "seye[SCSe][1]" } ;
+        Third C1_2 Pl =>    table {SC => "ba[SC][2]" ;   SCVow => "b[SC][2]"++BIND ;   SCNeg => "ba[SCNeg][2]" ;  SCNegVow => "b[SCNeg][2]" ; SCPT => "ba[SCPT][2]" ;  SCPS => "ba" ;  SCVowP => "ba[SCPast][2]" ;  SCBe => "bebe[SCBe][2]" ;   SCRP => "babe[SCRP][2]" ; SCSe => "sebe[SCSe][2]" } ;
+        Third C1a_2a Sg =>  table {SC => "u[SC][1a]" ;    SCVow => "w[SC][1a]"++BIND ;   SCNeg => "ka[SCNeg][1a]" ;  SCNegVow => "k[SCNeg][1a]" ; SCPT => "wa[SCPT][1a]" ;   SCPS => "a" ;   SCVowP => "wu[SCPast][1a]" ;  SCBe => "ube[SCBe][1a]" ;    SCRP => "waye[SCRP][1a]" ; SCSe => "seye[SCSe][1a]" } ;
+        Third C1a_2a Pl =>  table {SC => "ba[SC][2a]" ;   SCVow => "b[SC][2a]"++BIND ;   SCNeg => "ba[SCNeg][2a]" ;  SCNegVow => "b[SCNeg][2a]" ; SCPT => "ba[SCPT][2a]" ;  SCPS => "ba" ;  SCVowP => "ba[SCPast][2a]" ;  SCBe => "bebe[SCBe][2a]" ;   SCRP => "babe[SCRP][2a]" ; SCSe => "sebe[SCSe][2a]" } ;
+        Third C3_4 Sg =>    table {SC => "u[SC][3]" ;    SCVow => "w[SC][3]"++BIND ;   SCNeg => "wu[SCNeg][3]" ;  SCNegVow => "w[SCNeg][3]" ; SCPT => "uwa[SCPT][3]" ;   SCPS => "u" ;   SCVowP => "wu[SCPast][3]" ;  SCBe => "ubu[SCBe][3]" ;    SCRP => "wawu[SCRP][3]" ; SCSe => "sewu[SCSe][3]" } ;
+        Third C3_4 Pl =>    table {SC => "i[SC][4]" ;    SCVow => "y[SC][4]"++BIND ;   SCNeg => "yi[SCNeg][4]" ;  SCNegVow => "y[SCNeg][4]" ; SCPT => "ya[SCPT][4]" ;   SCPS => "i" ;   SCVowP => "yi[SCPast][4]" ;  SCBe => "ibi[SCBe][4]" ;    SCRP => "yayi[SCRP][4]" ; SCSe => "seyi[SCSe][4]" } ;
+        Third C5_6 Sg =>    table {SC => "li[SC][5]" ;   SCVow => "l[SC][5]"++BIND ;   SCNeg => "li[SCNeg][5]" ;  SCNegVow => "l[SCNeg][5]" ; SCPT => "la[SCPT][5]" ;  SCPS => "li" ;  SCVowP => "li[SCPast][5]" ;  SCBe => "beli[SCBe][5]" ;   SCRP => "lali[SCRP][5]" ; SCSe => "seli[SCSe][5]" } ;
+        Third C5_6 Pl =>    table {SC => "a[SC][6]" ;    SCVow => [] ;          SCNeg => "wa[SCNeg][6]" ;  SCNegVow => "w[SCNeg][6]" ; SCPT => "a[SCPT][6]" ;   SCPS => "a" ;   SCVowP => "wa[SCPast][6]" ;  SCBe => "abe[SCBe][6]" ;    SCRP => "aye[SCRP][6]" ; SCSe => "seye[SCSe][6]" } ;
+        Third C7_8 Sg =>    table {SC => "si[SC][7]" ;   SCVow => "s[SC][7]"++BIND ;   SCNeg => "si[SCNeg][7]" ;  SCNegVow => "s[SCNeg][7]" ; SCPT => "sa[SCPT][7]" ;  SCPS => "si" ;  SCVowP => "si[SCPast][7]" ;  SCBe => "besi[SCBe][7]" ;   SCRP => "sasi[SCRP][7]" ; SCSe => "sesi[SCSe][7]" } ;
+        Third C7_8 Pl =>    table {SC => "zi[SC][8]" ;   SCVow => "z[SC][8]"++BIND ;   SCNeg => "zi[SCNeg][8]" ;  SCNegVow => "z[SCNeg][8]" ; SCPT => "za[SCPT][8]" ;  SCPS => "zi" ;  SCVowP => "zi[SCPast][8]" ;  SCBe => "bezi[SCBe][8]" ;   SCRP => "zazi[SCRP][8]" ; SCSe => "sezi[SCSe][8]" } ;
+        Third C9_10 Sg =>   table {SC => "i[SC][9]" ;    SCVow => "y[SC][9]"++BIND ;   SCNeg => "yi[SCNeg][9]" ;  SCNegVow => "y[SCNeg][9]" ; SCPT => "ya[SCPT][9]" ;  SCPS => "i" ;   SCVowP => "yi[SCPast][9]" ;  SCBe => "ibi[SCBe][9]" ;    SCRP => "yayi[SCRP][9]" ; SCSe => "seyi[SCSe][9]" } ;
+        -- Third C9_10 Sg =>   table {SC => "i" ;    SCVow => "i"++BIND ;   SCNeg => "yi" ;  SCPT => "yi" ;  SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" } ;
+        Third C9_10 Pl =>   table {SC => "zi[SC][10]" ;   SCVow => "z[SC][10]"++BIND ;   SCNeg => "zi[SCNeg][10]" ;  SCNegVow => "z[SCNeg][10]" ; SCPT => "za[SCPT][10]" ;  SCPS => "zi" ;  SCVowP => "zi[SCPast][10]" ;  SCBe => "bezi[SCBe][10]" ;   SCRP => "zazi[SCRP][10]" ; SCSe => "sezi[SCSe][10]" } ;
+        Third C11_10 Sg =>  table {SC => "lu[SC][11]" ;   SCVow => "l[SC][11]"++BIND ;  SCNeg => "lu[SCNeg][11]" ;  SCNegVow => "l[SCNeg][11]" ; SCPT => "lwa[SCPT][11]" ;  SCPS => "lu" ;  SCVowP => "lu[SCPast][11]" ;  SCBe => "belu[SCBe][11]" ;   SCRP => "lwalu[SCRP][11]" ; SCSe => "selu[SCSe][11]" } ;
+        Third C11_10 Pl =>  table {SC => "zi[SC][10]" ;   SCVow => "z[SC][10]"++BIND ;   SCNeg => "zi[SCNeg][10]" ;  SCNegVow => "z[SCNeg][10]" ; SCPT => "za[SCPT][10]" ;  SCPS => "zi" ;  SCVowP => "zi[SCPast][10]" ;  SCBe => "bezi[SCBe][10]" ;   SCRP => "zazi[SCRP][10]" ; SCSe => "sezi[SCSe][10]" } ;
+        Third C9_6 Sg =>    table {SC => "i[SC][9]" ;    SCVow => "y[SC][9]"++BIND ;   SCNeg => "yi[SCNeg][9]" ;  SCNegVow => "y[SCNeg][9]" ; SCPT => "ya[SCPT][9]" ;  SCPS => "i" ;   SCVowP => "yi[SCPast][9]" ;  SCBe => "ibi[SCBe][9]" ;    SCRP => "yayi[SCRP][9]" ; SCSe => "seyi[SCSe][9]" } ;
+        Third C9_6 Pl =>    table {SC => "a[SC][6]" ;    SCVow => [] ;          SCNeg => "wa[SCNeg][6]" ;  SCNegVow => "w[SCNeg][6]" ; SCPT => "a[SCPT][6]" ;   SCPS => "a" ;   SCVowP => "wa[SCPast][6]" ;  SCBe => "abe[SCBe][6]" ;    SCRP => "aye[SCRP][6]" ; SCSe => "seye[SCSe][6]" } ;
+        Third C14 _ =>      table {SC => "bu[SC][14]" ;   SCVow => "b[SC][14]"++BIND ;   SCNeg => "bu[SCNeg][14]" ;  SCNegVow => "b[SCNeg][14]" ; SCPT => "ba[SCPT][14]" ;  SCPS => "bu" ;  SCVowP => "bu[SCPast][14]" ;  SCBe => "bebu[SCBe][14]" ;   SCRP => "babu[SCRP][14]" ; SCSe => "sebu[SCSe][14]" } ;
+        Third C15 _ =>      table {SC => "ku[SC][15]" ;   SCVow => "k[SC][15]"++BIND ;  SCNeg => "ku[SCNeg][15]" ;  SCNegVow => "k[SCNeg][15]" ; SCPT => "ka[SCPT][15]" ;  SCPS => "ku" ;  SCVowP => "ku[SCPast][15]" ;  SCBe => "beku[SCBe][15]" ;   SCRP => "kwaku[SCRP][15]" ; SCSe => "seku[SCSe][15]" } ;
+        Third C17 _ =>      table {SC => "ku[SC][17]" ;   SCVow => "k[SC][17]"++BIND ;  SCNeg => "ku[SCNeg][17]" ;  SCNegVow => "k[SCNeg][17]" ; SCPT => "ka[SCPT][17]" ;  SCPS => "ku" ;  SCVowP => "ku[SCPast][17]" ;  SCBe => "beku[SCBe][17]" ;   SCRP => "kwaku[SCRP][17]" ; SCSe => "seku[SCSe][17]" }
       } ;
 
     subjConc : VForm -> Agr -> Bool -> RInit -> Str = \vform,agr,vow,rinit ->
@@ -1755,10 +1834,10 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
           <True,VFIndic _ _ _,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ RemPastTense,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ _,_,_>   => subjConcLookup ! agr ! SC ++BIND ;
-          <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCMood ++BIND ;
+          <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCPT ++BIND ;
           <True,VFConsec Pos ,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ;
           <True,VFConsec Pos ,_,_> => subjConcLookup ! agr ! SCVow ;
-          <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCMood ++BIND ;
+          <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCPT ++BIND ;
           <False,VFSubjunct _,_,_> => case agr of {
             Third C1_2 Sg => "a[SC][1]" ++BIND ;
             Third C1a_2a Sg => "a[SC][1a]" ++BIND ;
@@ -1783,7 +1862,7 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     impPref : Polarity -> Str = \pol -> case pol of {
       Pos => [] ;
-      Neg => "u[SCImp]" ++BIND++ "nga[NegPre]" ++BIND
+      Neg => "u[SC][2ps]" ++BIND++ "nga[NegPre]" ++BIND
     } ;
 
     icomp_pref : VForm -> Agr -> Str = \vform,agr ->
@@ -1794,16 +1873,16 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
     case vform of {
       VFIndic _ Pos PresTense => subjConcLookup ! agr ! SC ++BIND ;
       VFIndic _ Pos PastTense => [] ;
-      VFIndic _ Pos RemPastTense => subjConcLookup ! agr ! SC ++BIND++ "be[Past]" ++ subjConcLookup ! agr ! SCBe ++BIND ;
-      VFIndic _ Pos FutTense => subjConcLookup ! agr ! SC ++BIND ++ TEMP_PREF_FUT++BIND++"be[Past]" ++ subjConcLookup ! agr ! SC ++BIND ;
-      VFIndic _ Pos RemFutTense => subjConcLookup ! agr ! SC ++BIND ++ TEMP_PREF_REMFUT++BIND++"be[Past]" ++ subjConcLookup ! agr ! SC ++BIND ;
+      VFIndic _ Pos RemPastTense => subjConcLookup ! agr ! SC ++BIND++ "be[AuxV]" ++ subjConcLookup ! agr ! SCBe ++BIND ;
+      VFIndic _ Pos FutTense => subjConcLookup ! agr ! SC ++BIND ++ TEMP_PREF_FUT++BIND++"be[AuxV]" ++ subjConcLookup ! agr ! SC ++BIND ;
+      VFIndic _ Pos RemFutTense => subjConcLookup ! agr ! SC ++BIND ++ TEMP_PREF_REMFUT++BIND++"be[AuxV]" ++ subjConcLookup ! agr ! SC ++BIND ;
 
       -- might have to add an SCNegBe to the table
       VFIndic _ Neg PresTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ neg2 ;
       VFIndic _ Neg PastTense => NEG_NGA ; -- neg1 ++ "be"++BIND++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
-      VFIndic _ Neg RemPastTense => neg1 ++ subjConcLookup ! agr ! SC ++BIND++ "be[Past]" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
-      VFIndic _ Neg FutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ TEMP_PREF_FUT++BIND++"be[Past]" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
-      VFIndic _ Neg RemFutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ TEMP_PREF_REMFUT++BIND++"be[Past]" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg RemPastTense => neg1 ++ subjConcLookup ! agr ! SC ++BIND++ "be[AuxV]" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg FutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ TEMP_PREF_FUT++BIND++"be[AuxV]" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
+      VFIndic _ Neg RemFutTense => neg1 ++ subjConcLookup ! agr ! SCNeg ++BIND ++ TEMP_PREF_REMFUT++BIND++"be[AuxV]" ++ subjConcLookup ! agr ! SCBe ++BIND ++ neg2 ;
       VFConsec _ => nonExist ; -- "*consec" ;
       VFSubjunct _ => nonExist -- "*subjunct"
     } ;
@@ -1847,35 +1926,6 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
           _ => objConcLookup ! agr ! OC ++BIND
         }
       } ;
-
-    -- ADJECTIVE ANTECEDENT AGREEMENT MORPHEME --
-
-    relAdjPrefLookup : Agr => Str =
-      table {
-        Third C1_2 Sg => "m[RC][1]" ;
-        Third C1_2 Pl => "" ;
-        Third C1a_2a Sg => "m[RC][1a]" ;
-        Third C1a_2a Pl => "" ;
-        Third C3_4 Sg  => "m[RC][3]" ;
-        Third C3_4 Pl => "mi[RC][4]" ;
-        Third C5_6 Sg => "" ;
-        Third C5_6 Pl => "ma[RC][6]" ;
-        Third C7_8 Sg => "" ;
-        Third C7_8 Pl => "" ;
-        Third C9_10 Sg => "" ;
-        Third C9_10 Pl => "" ;
-        Third C11_10 Sg => "" ;
-        Third C11_10 Pl => "" ;
-        Third C9_6 Sg => "" ;
-        Third C9_6 Pl => "ma[RC][6]" ;
-        Third C14 _ => "bu[RC][14]" ;
-        Third C15 _ => "ku[RC][15]" ;
-        Third C17 _ => "ku[RC][17]" ;
-        First Sg => "m[RC][1ps]" ;
-        First Pl => "m[RC][1pp]" ;
-        Second Sg => "m[RC][2ps]" ;
-        Second Pl => "m[RC][2pp]" 
-    } ;
 
     -- RELATIVE ANTECEDENT AGREEMENT MORPHEME --
 
@@ -1946,22 +1996,22 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     relConcLookup : Agr => RInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow[RC][1]"++BIND ; _ => "o[RC][1]"++BIND } ;
+        Third C1_2 Sg => table { RO => "[RC][1]"++BIND ; (RA|RE) => "ow[RC][1]"++BIND ; _ => "o[RC][1]"++BIND } ;
         Third C1_2 Pl => table { RC => "aba[RC][2]"++BIND ; _ => "ab[RC][2]"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow[RC][1a]"++BIND ; _ => "o[RC][1a]"++BIND } ;
+        Third C1a_2a Sg => table { RO => "[RC][1a]"++BIND ; (RA|RE) => "ow[RC][1a]"++BIND ; _ => "o[RC][1a]"++BIND } ;
         Third C1a_2a Pl => table { RC => "aba[RC][2a]"++BIND ; _ => "ab[RC][2a]"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow[RC][3]"++BIND ; _ => "o[RC][3]"++BIND } ;
-        Third C3_4 Pl => table { RE => [] ; (RA|RO) => "ey[RC][4]" ++BIND ; _ => "e[RC][4]"++BIND } ;
+        Third C3_4 Sg  => table { RO => "[RC][3]"++BIND ; (RA|RE) => "ow[RC][3]"++BIND ; _ => "o[RC][3]"++BIND } ;
+        Third C3_4 Pl => table { RE => "[RC][4]"++BIND ; (RA|RO) => "ey[RC][4]" ++BIND ; _ => "e[RC][4]"++BIND } ;
         Third C5_6 Sg => table { RC => "eli[RC][5]"++BIND ; _ => "el[RC][5]"++BIND } ;
-        Third C5_6 Pl => table { RC => "a[RC][6]"++BIND ; _ => [] } ;
+        Third C5_6 Pl => table { RC => "a[RC][6]"++BIND ; _ => "[RC][6]"++BIND } ;
         Third C7_8 Sg => table { RC => "esi[RC][7]"++BIND ; _ => "es[RC][7]"++BIND } ;
         Third C7_8 Pl => table { RC => "ezi[RC][8]"++BIND ; _ => "ez[RC][8]"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey[RC][9]" ++BIND ; _ => "e[RC][9]"++BIND } ;
+        Third C9_10 Sg => table { RE => "[RC][9]"++BIND ; (RA|RO) => "ey[RC][9]" ++BIND ; _ => "e[RC][9]"++BIND } ;
         Third C9_10 Pl => table { RC => "ezi[RC][10]"++BIND ; _ => "ez[RC][10]"++BIND } ;
         Third C11_10 Sg => table { RC => "olu[RC][11]"++BIND ; (RA|RE) => "olw[RC][11]" ; _ => "ol[RC][11]"++BIND } ;
         Third C11_10 Pl => table { RC => "ezi[RC][10]"++BIND ; _ => "ez[RC][10]"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey[RC][9]" ++BIND ; _ => "e[RC][9]"++BIND } ;
-        Third C9_6 Pl => table { RC => "a[RC][6]"++BIND ; _ => [] } ;
+        Third C9_6 Sg => table { RE => "[RC][9]"++BIND ; (RA|RO) => "ey[RC][9]" ++BIND ; _ => "e[RC][9]"++BIND } ;
+        Third C9_6 Pl => table { RC => "a[RC][6]"++BIND ; _ => "[RC][6]"++BIND } ;
         Third C14 _ => table { RC => "obu[RC][14]"++BIND ; _ => "ob[RC][14]"++BIND } ;
         Third C15 _ => table { RC => "oku[RC][15]"++BIND ; (RA|RE) => "okw[RC][15]" ; _ => "ok[RC][15]"++BIND } ;
         Third C17 _ => table { RC => "oku[RC][17]"++BIND ; (RA|RE) => "okw[RC][17]" ; _ => "ok[RC][17]"++BIND } ;
@@ -1973,22 +2023,22 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     adjConcLookup : Agr => RInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow[AC][1]"++BIND ; _ => "o[AC][1]"++BIND } ;
+        Third C1_2 Sg => table { RO => "[RC][1]" ; (RA|RE) => "ow[AC][1]"++BIND ; _ => "o[AC][1]"++BIND } ;
         Third C1_2 Pl => table { RC => "aba[AC][2]"++BIND ; _ => "ab[AC][2]"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow[AC][1a]"++BIND ; _ => "o[AC][a1]"++BIND } ;
+        Third C1a_2a Sg => table { RO => "[RC][1a]" ; (RA|RE) => "ow[AC][1a]"++BIND ; _ => "o[AC][1a]"++BIND } ;
         Third C1a_2a Pl => table { RC => "aba[AC][2a]"++BIND ; _ => "ab[AC][2a]"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow[AC][3]"++BIND ; _ => "o[AC][3]"++BIND } ;
+        Third C3_4 Sg  => table { RO => "[RC][3]" ; (RA|RE) => "ow[AC][3]"++BIND ; _ => "o[AC][3]"++BIND } ;
         Third C3_4 Pl => table { RC => "emi[AC][4]"++BIND ; _ => "em[AC][4]"++BIND } ;
         Third C5_6 Sg => table { RC => "eli[AC][5]"++BIND ; _ => "el[AC][5]"++BIND } ;
-        Third C5_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => [] } ;
+        Third C5_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => "[RC][6]" } ;
         Third C7_8 Sg => table { RC => "esi[AC][7]"++BIND ; _ => "es[AC][7]"++BIND } ;
         Third C7_8 Pl => table { RC => "ezi[AC][8]"++BIND ; _ => "ez[AC][8]"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
+        Third C9_10 Sg => table { RE => "[RC][9]" ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
         Third C9_10 Pl => table { RC => "ezi[AC][10]"++BIND ; _ => "ez[AC][10]"++BIND } ;
         Third C11_10 Sg => table { RC => "olu[AC][11]"++BIND ; (RA|RE) => "olw[AC][11]"++BIND ; _ => "ol[AC][11]"++BIND } ;
         Third C11_10 Pl => table { RC => "ezi[AC][10]"++BIND ; _ => "ez[AC][10]"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
-        Third C9_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => [] } ;
+        Third C9_6 Sg => table { RE => "[RC][9]" ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
+        Third C9_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => "[RC][6]" } ;
         Third C14 _ => table { RC => "obu[AC][14]"++BIND ; _ => "ob[AC][14]"++BIND } ;
         Third C15 _ => table { RC => "oku[AC][15]"++BIND ; (RA|RE) => "okw[AC][15]" ; _ => "ok[AC][15]"++BIND } ;
         Third C17 _ => table { RC => "oku[AC][17]"++BIND ; (RA|RE) => "okw[AC][17]" ; _ => "ok[AC][17]"++BIND } ;
@@ -2027,29 +2077,29 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
 
     relCopConcRemPastLookup : Agr => Str =
       table {
-        Third C1_2 Sg => "owaye[RCPT][1]"++BIND ;
-        Third C1_2 Pl => "ababe[RCPT][2]"++BIND ;
-        Third C1a_2a Sg => "owaye[RCPT][1a]"++BIND ;
-        Third C1a_2a Pl => "ababe[RCPT][2a]"++BIND ;
-        Third C3_4 Sg  => "owawu[RCPT][3]"++BIND ;
-        Third C3_4 Pl => "eyayi[RCPT][4]"++BIND ;
-        Third C5_6 Sg => "elali[RCPT][5]"++BIND ;
-        Third C5_6 Pl => "aye[RCPT][6]"++BIND ;
-        Third C7_8 Sg => "esasi[RCPT][7]"++BIND ;
-        Third C7_8 Pl => "ezazi[RCPT][8]"++BIND ;
-        Third C9_10 Sg => "eyayi[RCPT][9]"++BIND ;
-        Third C9_10 Pl => "ezazi[RCPT][10]"++BIND ;
-        Third C11_10 Sg => "olwalu[RCPT][11]"++BIND ;
-        Third C11_10 Pl => "ezazi[RCPT][10]"++BIND ;
-        Third C9_6 Sg => "eyayi[RCPT][9]"++BIND ;
-        Third C9_6 Pl => "aye[RCPT][6]"++BIND ;
-        Third C14 _ => "obabu[RCPT][14]"++BIND ;
-        Third C15 _ => "okwaku[RCPT][15]"++BIND ;
-        Third C17 _ => "okwaku[RCPT][17]"++BIND ;
-        First Sg => "engangi[RCPT][1ps]"++BIND ;
-        First Pl => "esasi[RCPT][1pp]"++BIND ;
-        Second Sg  => "owawu[RCPT][2ps]"++BIND ;
-        Second Pl => "enani[RCPT][2pp]"++BIND
+        Third C1_2 Sg => "owaye[RCRP][1]"++BIND ;
+        Third C1_2 Pl => "ababe[RCRP][2]"++BIND ;
+        Third C1a_2a Sg => "owaye[RCRP][1a]"++BIND ;
+        Third C1a_2a Pl => "ababe[RCRP][2a]"++BIND ;
+        Third C3_4 Sg  => "owawu[RCRP][3]"++BIND ;
+        Third C3_4 Pl => "eyayi[RCRP][4]"++BIND ;
+        Third C5_6 Sg => "elali[RCRP][5]"++BIND ;
+        Third C5_6 Pl => "aye[RCRP][6]"++BIND ;
+        Third C7_8 Sg => "esasi[RCRP][7]"++BIND ;
+        Third C7_8 Pl => "ezazi[RCRP][8]"++BIND ;
+        Third C9_10 Sg => "eyayi[RCRP][9]"++BIND ;
+        Third C9_10 Pl => "ezazi[RCRP][10]"++BIND ;
+        Third C11_10 Sg => "olwalu[RCRP][11]"++BIND ;
+        Third C11_10 Pl => "ezazi[RCRP][10]"++BIND ;
+        Third C9_6 Sg => "eyayi[RCRP][9]"++BIND ;
+        Third C9_6 Pl => "aye[RCRP][6]"++BIND ;
+        Third C14 _ => "obabu[RCRP][14]"++BIND ;
+        Third C15 _ => "okwaku[RCRP][15]"++BIND ;
+        Third C17 _ => "okwaku[RCRP][17]"++BIND ;
+        First Sg => "engangi[RCRP][1ps]"++BIND ;
+        First Pl => "esasi[RCRP][1pp]"++BIND ;
+        Second Sg  => "owawu[RCRP][2ps]"++BIND ;
+        Second Pl => "enani[RCRP][2pp]"++BIND
     } ;
 
     -- ENUMERATIVE ANTECEDENT AGREEMENT MORPHEME --
@@ -2243,34 +2293,6 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
       (First _ | Second _ )  => RC
     } ;
 
-    exclQuantConc : Agr => Str = table {
-      Third C1_2 Sg => "ye" ;
-      Third C1_2 Pl => "bo" ;
-      Third C1a_2a Sg => "ye" ;
-      Third C1a_2a Pl => "bo" ;
-      Third C3_4 Sg  => "wo" ;
-      Third C3_4 Pl => "yo" ;
-      Third C5_6 Sg => "lo" ;
-      Third C5_6 Pl => "o" ;
-      Third C7_8 Sg => "so" ;
-      Third C7_8 Pl => "zo" ;
-      Third C9_10 Sg => "yo" ;
-      Third C9_10 Pl => "zo" ;
-      Third C11_10 Sg => "lo" ;
-      Third C11_10 Pl => "zo" ;
-      Third C9_6 Sg => "yo" ;
-      Third C9_6 Pl => "o" ;
-      Third C14 _ => "bo" ;
-      Third C15 _ => "ko" ;
-      Third C17 _ => "ko" ;
-      First Sg => "nge" ;
-      First Pl => "so" ;
-      Second Sg  => "we" ;
-      Second Pl => "no"
-    } ;
-
-
-
     -----------------
     -- COPULATIVES --
     -----------------
@@ -2433,132 +2455,113 @@ resource ResMorphZul = open Prelude,Predef,ParamX in {
       } ;
 
       assoc_cop_pref : Polarity -> Agr -> Str = \pol,agr -> case pol of {
-        Neg => "na[CopPre]"++BIND ;
+        Neg => "na[AdvPre]"++BIND ;
         Pos => case agr of {
-          Third C1_2 Sg => "no[CopPre]";
-          Third C1_2 Pl => "na[CopPre]";
-          Third C1a_2a Sg => "no[CopPre]";
-          Third C1a_2a Pl => "na[CopPre]";
-          Third C3_4 Sg  => "no[CopPre]";
-          Third C3_4 Pl => "ne[CopPre]";
-          Third C5_6 Sg => "ne[CopPre]";
-          Third C5_6 Pl => "na[CopPre]";
-          Third C7_8 Sg => "ne[CopPre]";
-          Third C7_8 Pl => "ne[CopPre]";
-          Third C9_10 Sg => "ne[CopPre]";
-          Third C9_10 Pl => "ne[CopPre]";
-          Third C11_10 Sg => "no[CopPre]";
-          Third C11_10 Pl => "ne[CopPre]";
-          Third C9_6 Sg => "ne[CopPre]";
-          Third C9_6 Pl => "na[CopPre]";
-          Third C14 _ => "no[CopPre]";
-          Third C15 _ => "no[CopPre]";
-          Third C17 _ => "no[CopPre]";
-          First Sg => "na[CopPre]";
-          First Pl => "na[CopPre]";
-          Second Sg  => "na[CopPre]";
-          Second Pl => "na[CopPre]"-- ;
+          Third C1_2 Sg => "no[AdvPre]";
+          Third C1_2 Pl => "na[AdvPre]";
+          Third C1a_2a Sg => "no[AdvPre]";
+          Third C1a_2a Pl => "na[AdvPre]";
+          Third C3_4 Sg  => "no[AdvPre]";
+          Third C3_4 Pl => "ne[AdvPre]";
+          Third C5_6 Sg => "ne[AdvPre]";
+          Third C5_6 Pl => "na[AdvPre]";
+          Third C7_8 Sg => "ne[AdvPre]";
+          Third C7_8 Pl => "ne[AdvPre]";
+          Third C9_10 Sg => "ne[AdvPre]";
+          Third C9_10 Pl => "ne[AdvPre]";
+          Third C11_10 Sg => "no[AdvPre]";
+          Third C11_10 Pl => "ne[AdvPre]";
+          Third C9_6 Sg => "ne[AdvPre]";
+          Third C9_6 Pl => "na[AdvPre]";
+          Third C14 _ => "no[AdvPre]";
+          Third C15 _ => "no[AdvPre]";
+          Third C17 _ => "no[AdvPre]";
+          First Sg => "na[AdvPre]";
+          First Pl => "na[AdvPre]";
+          Second Sg  => "na[AdvPre]";
+          Second Pl => "na[AdvPre]"-- ;
           -- LocAgr => "na"
         } ++BIND
       } ;
 
       eq_cop_pref : Polarity -> Agr -> Str = \pol,agr -> case pol of {
-        Neg => "njenga[CopPre]"++BIND ;
+        Neg => "njenga[AdvPre]"++BIND ;
         Pos => case agr of {
-          Third C1_2 Sg => "njengo[CopPre]";
-          Third C1_2 Pl => "njenga[CopPre]";
-          Third C1a_2a Sg => "njengo[CopPre]";
-          Third C1a_2a Pl => "njenga[CopPre]";
-          Third C3_4 Sg  => "njengo[CopPre]";
-          Third C3_4 Pl => "njenge[CopPre]";
-          Third C5_6 Sg => "njenge[CopPre]";
-          Third C5_6 Pl => "njenga[CopPre]";
-          Third C7_8 Sg => "njenge[CopPre]";
-          Third C7_8 Pl => "njenge[CopPre]";
-          Third C9_10 Sg => "njenge[CopPre]";
-          Third C9_10 Pl => "njenge[CopPre]";
-          Third C11_10 Sg => "njengo[CopPre]";
-          Third C11_10 Pl => "njenge[CopPre]";
-          Third C9_6 Sg => "njenge[CopPre]";
-          Third C9_6 Pl => "njenga[CopPre]";
-          Third C14 _ => "njengo[CopPre]";
-          Third C15 _ => "njengo[CopPre]";
-          Third C17 _ => "njengo[CopPre]";
-          First Sg => "njenga[CopPre]";
-          First Pl => "njenga[CopPre]";
-          Second Sg  => "njenga[CopPre]";
-          Second Pl => "njenga[CopPre]";
-          LocAgr => "njenga[CopPre]"
+          Third C1_2 Sg => "njengo[AdvPre]";
+          Third C1_2 Pl => "njenga[AdvPre]";
+          Third C1a_2a Sg => "njengo[AdvPre]";
+          Third C1a_2a Pl => "njenga[AdvPre]";
+          Third C3_4 Sg  => "njengo[AdvPre]";
+          Third C3_4 Pl => "njenge[AdvPre]";
+          Third C5_6 Sg => "njenge[AdvPre]";
+          Third C5_6 Pl => "njenga[AdvPre]";
+          Third C7_8 Sg => "njenge[AdvPre]";
+          Third C7_8 Pl => "njenge[AdvPre]";
+          Third C9_10 Sg => "njenge[AdvPre]";
+          Third C9_10 Pl => "njenge[AdvPre]";
+          Third C11_10 Sg => "njengo[AdvPre]";
+          Third C11_10 Pl => "njenge[AdvPre]";
+          Third C9_6 Sg => "njenge[AdvPre]";
+          Third C9_6 Pl => "njenga[AdvPre]";
+          Third C14 _ => "njengo[AdvPre]";
+          Third C15 _ => "njengo[AdvPre]";
+          Third C17 _ => "njengo[AdvPre]";
+          First Sg => "njenga[AdvPre]";
+          First Pl => "njenga[AdvPre]";
+          Second Sg  => "njenga[AdvPre]";
+          Second Pl => "njenga[AdvPre]";
+          LocAgr => "njenga[AdvPre]"
         } ++BIND
       } ;
 
       eq_size_cop_pref : Polarity -> Agr -> Str = \pol,agr -> case pol of {
-        Neg => "nganga[CopPre]"++BIND ;
+        Neg => "nganga[AdvPre]"++BIND ;
         Pos => case agr of {
-          Third C1_2 Sg => "ngango[CopPre]";
-          Third C1_2 Pl => "nganga[CopPre]";
-          Third C1a_2a Sg => "ngango[CopPre]";
-          Third C1a_2a Pl => "nganga[CopPre]";
-          Third C3_4 Sg  => "ngango[CopPre]";
-          Third C3_4 Pl => "ngange[CopPre]";
-          Third C5_6 Sg => "ngange[CopPre]";
-          Third C5_6 Pl => "nganga[CopPre]";
-          Third C7_8 Sg => "ngange[CopPre]";
-          Third C7_8 Pl => "ngange[CopPre]";
-          Third C9_10 Sg => "ngange[CopPre]";
-          Third C9_10 Pl => "ngange[CopPre]";
-          Third C11_10 Sg => "ngango[CopPre]";
-          Third C11_10 Pl => "ngange[CopPre]";
-          Third C9_6 Sg => "ngange[CopPre]";
-          Third C9_6 Pl => "nganga[CopPre]";
-          Third C14 _ => "ngango[CopPre]";
-          Third C15 _ => "ngango[CopPre]";
-          Third C17 _ => "ngango[CopPre]";
-          First Sg => "nganga[CopPre]";
-          First Pl => "nganga[CopPre]";
-          Second Sg  => "nganga[CopPre]";
-          Second Pl => "nganga[CopPre]";
-          LocAgr => "nganga[CopPre][]"
+          Third C1_2 Sg => "ngango[AdvPre]";
+          Third C1_2 Pl => "nganga[AdvPre]";
+          Third C1a_2a Sg => "ngango[AdvPre]";
+          Third C1a_2a Pl => "nganga[AdvPre]";
+          Third C3_4 Sg  => "ngango[AdvPre]";
+          Third C3_4 Pl => "ngange[AdvPre]";
+          Third C5_6 Sg => "ngange[AdvPre]";
+          Third C5_6 Pl => "nganga[AdvPre]";
+          Third C7_8 Sg => "ngange[AdvPre]";
+          Third C7_8 Pl => "ngange[AdvPre]";
+          Third C9_10 Sg => "ngange[AdvPre]";
+          Third C9_10 Pl => "ngange[AdvPre]";
+          Third C11_10 Sg => "ngango[AdvPre]";
+          Third C11_10 Pl => "ngange[AdvPre]";
+          Third C9_6 Sg => "ngange[AdvPre]";
+          Third C9_6 Pl => "nganga[AdvPre]";
+          Third C14 _ => "ngango[AdvPre]";
+          Third C15 _ => "ngango[AdvPre]";
+          Third C17 _ => "ngango[AdvPre]";
+          First Sg => "nganga[AdvPre]";
+          First Pl => "nganga[AdvPre]";
+          Second Sg  => "nganga[AdvPre]";
+          Second Pl => "nganga[AdvPre]";
+          LocAgr => "nganga[AdvPre][]"
         } ++BIND
       } ;
 
-      -- TODO
       kho_cop : VForm -> Agr -> Str = \vform,agr -> case vform of {
-        VFIndic MainCl Neg PresTense => neg_kho_cop_pref agr ++ "kho";
-        VFIndic RelCl Neg PresTense => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl Neg PresTense) agr RelType) ++ "kho" ;
-        VFIndic RelCl p t => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl p t) agr RelType) ++ "khona" ;
-        VFIndic MainCl p t => (ap_cop_pref (VFIndic MainCl p t) agr RelType) ++ "khona" ;
-        VFConsec p => (ap_cop_pref (VFIndic MainCl p PastTense) agr RelType) ++ "khona" ;
-        VFSubjunct Neg => neg_kho_cop_pref agr ++ "kho" ;
-        VFSubjunct Pos => (ap_cop_pref (VFIndic MainCl Pos PresTense) agr RelType) ++ "khona"
+        VFIndic MainCl Neg PresTense => neg_kho_cop_pref agr ++ "kho[Adv]";
+        VFIndic RelCl Neg PresTense => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl Neg PresTense) agr RelType) ++ "kho[Adv]" ;
+        VFIndic RelCl p t => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl p t) agr RelType) ++ "khona[Adv]" ;
+        VFIndic MainCl p t => (ap_cop_pref (VFIndic MainCl p t) agr RelType) ++ "khona[Adv]" ;
+        VFConsec p => (ap_cop_pref (VFIndic MainCl p PastTense) agr RelType) ++ "khona[Adv]" ;
+        VFSubjunct Neg => neg_kho_cop_pref agr ++ "kho[Adv]" ;
+        VFSubjunct Pos => (ap_cop_pref (VFIndic MainCl Pos PresTense) agr RelType) ++ "khona[Adv]"
       } ;
 
       neg_kho_cop_pref : Agr -> Str = \agr ->
         "a[NegPre]" ++BIND++
          case agr of {
-          Third C1_2 Sg => "ke" ;
-          Third C1_2 Pl => "be" ;
-          Third C1a_2a Sg => "ke" ;
-          Third C1a_2a Pl => "be" ;
-          -- Third C3_4 Sg  => "no" ;
-          -- Third C3_4 Pl => "ne" ;
-          -- Third C5_6 Sg => "ne" ;
-          Third C5_6 Pl => "we" ;
-          -- Third C7_8 Sg => "ne" ;
-          -- Third C7_8 Pl => "ne" ;
-          -- Third C9_10 Sg => "ne" ;
-          -- Third C9_10 Pl => "ne" ;
-          -- Third C11_10 Sg => "no" ;
-          -- Third C11_10 Pl => "ne" ;
-          -- Third C9_6 Sg => "ne" ;
-          -- Third C9_6 Pl => "na" ;
-          -- Third C14 _ => "no" ;
-          -- Third C15 _ => "no" ;
-          -- Third C17 _ => "no" ;
-          -- First Sg => "na" ;
-          -- First Pl => "na" ;
-          -- Second Sg  => "na" ;
-          -- Second Pl => "na"
+          Third C1_2 Sg => "ke[SCNeg][1]" ;
+          Third C1_2 Pl => "be[SCNeg][2]" ;
+          Third C1a_2a Sg => "ke[SCNeg][1a]" ;
+          Third C1a_2a Pl => "be[SCNeg][2a]" ;
+          Third C5_6 Pl => "we[SCNeg][6]" ;
           (First _ | Second _ | Third _ _ ) => subjConcLookup!agr!SCNeg
         } ++BIND ;
 
