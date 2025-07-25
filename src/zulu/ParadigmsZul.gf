@@ -22,6 +22,18 @@ oper
     mkN : (iso,amehlo,esweni,emehlweni : Str) -> ClassGender -> N = \ns,np,ls,lp,c -> lin N (mkNoun ns np ls lp ns c) ;
   } ;
 
+  mkNe = overload {
+    mkNe : (khaya : Str) -> ClassGender -> N = \n,c -> lin N (mkELocN n c) ;
+  } ;
+
+  mkNabe = overload {
+    mkNabe : (alusi : Str) -> ClassGender -> N = \n,c -> lin N (mkN_abe n) ;
+  } ;
+
+  mkNIrreg = overload {
+    mkNIrreg : (alusi,um,alusi,ab,elusi : Str) -> ClassGender -> N = \r,sp,sr,pp,pr,c -> lin N (irregN r sp sr pp pr c) ;
+  } ;
+
   mkLN = overload {
     mkLN : (Mediterranean : Str) -> N = \n -> lin N (mkELocN n C5_6) ;   -- default case, useful for loan words
   } ;
