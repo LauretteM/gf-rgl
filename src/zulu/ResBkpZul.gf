@@ -61,6 +61,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
     BI : Str = "bi" ;
     COP_YI : Str = "yi" ;
     COP_Y : Str = "y" ;
+    IMP_YI : Str = "yi" ;
+    IMP_Y : Str = "y" ;
 
     IMP_NEG_PREF_SG : Str = "unga" ;
     IMP_NEG_PREF_PL : Str = "ninga" ;
