@@ -194,8 +194,9 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
     above_2_LocAdv = regLocAdv "ngaphezulu" ;
     on_the_outside_LocAdv = regLocAdv "ngaphandle" ;
     below_LocAdv = regLocAdv "ngaphansi" ;
+    yonder_LocAdv = regLocAdv "laphaya" ;
 
-    much_Adv = regAdv "kakhulu" ;
+    -- much_Adv = regAdv "kakhulu" ;
 
     with_ConjN = {
       s = \\r => withPref!r ++BIND ;
