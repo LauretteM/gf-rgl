@@ -61,6 +61,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
     BI : Str = "bi[AuxV]" ;
     COP_YI : Str = "yi[CopPre]" ;
     COP_Y : Str = "y[CopPre]" ;
+    IMP_YI : Str = "yi[ImpPre]" ;
+    IMP_Y : Str = "y[ImpPre]" ;
 
     IMP_NEG_PREF_SG : Str = "u[SC][2ps]nga[NegPre]" ;
     IMP_NEG_PREF_PL : Str = "ni[SC][2pp]nga[NegPre]" ;
