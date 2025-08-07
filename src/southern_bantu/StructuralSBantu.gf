@@ -8,7 +8,11 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     many_A : A ; -- many
     old_A : A ; -- dala
     beautiful_A : A ; -- hle
+<<<<<<< HEAD
     long_A : A ; -- de
+=======
+    tall_A : A ; -- de
+>>>>>>> lin-experiments
     ugly_A : A ; -- bana
     small_A : A ; -- ncane
     how_much_A : A ; --ngaki?
@@ -82,10 +86,20 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     simultaneously_Adv : Adv ;
     always_Adv : Adv ;
     long_ago_Adv : Adv ;
+<<<<<<< HEAD
     -- twice_Adv : Adv ;
     in_the_afternoon_Adv : Adv ;
     like_this_Adv : Adv ;
     only_Adv : Adv ;
+=======
+    twice_Adv : Adv ;
+    far_Adv : Adv ;
+    nearby_Adv : Adv ;
+    across_Adv : Adv ;
+    like_this_Adv : Adv ;
+    only_Adv : Adv ;
+    in_the_afternoon_Adv : Adv ;
+>>>>>>> lin-experiments
     quickly_Adv : Adv ;
     
     -- locative adverbs
@@ -100,9 +114,12 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     above_2_LocAdv : LocAdv ;
     on_the_outside_LocAdv : LocAdv ;
     below_LocAdv : LocAdv ;
+<<<<<<< HEAD
     down_LocAdv : LocAdv ;
     inside_LocAdv : LocAdv ;
     outside_LocAdv : LocAdv ;
+=======
+>>>>>>> lin-experiments
     yonder_LocAdv : LocAdv ;
 
      -- locative class nouns

@@ -23,8 +23,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ;
-            <SylMono,_> => COP_Y++BIND++v.s!R_a ;
+            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ;
+            <SylMono,_> => IMP_Y++BIND++v.s!R_a ;
             <SylMult,_> => v.s!R_a
           } ;
           Neg => case v.r of {
@@ -34,8 +34,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         } ;
         Pl => table {
           Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
-            <SylMono,_> => COP_Y++BIND++v.s!R_a ++BIND++PL_NI ;
+            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
+            <SylMono,_> => IMP_Y++BIND++v.s!R_a ++BIND++PL_NI ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI
           } ;
           Neg => case v.r of {
@@ -94,8 +94,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
-            <SylMono,_> => COP_Y++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
+            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
+            <SylMono,_> => IMP_Y++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
             <SylMult,_> => v.s!R_a ++ vp.inf_s!NFull!Pos
           } ;
           Neg => case v.r of {
@@ -105,8 +105,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         } ;
         Pl => table {
           Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
-            <SylMono,_> => COP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
+            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
+            <SylMono,_> => IMP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos
           } ;
           Neg => case v.r of {
@@ -165,8 +165,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++ s.s!v.s_type ;
-            <SylMono,_> => COP_Y++BIND++v.s!R_a ++ s.s!v.s_type ;
+            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++ s.s!v.s_type ;
+            <SylMono,_> => IMP_Y++BIND++v.s!R_a ++ s.s!v.s_type ;
             <SylMult,_> => v.s!R_a ++ s.s!v.s_type
           } ;
           Neg => case v.r of {
@@ -176,8 +176,8 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
         } ;
         Pl => table {
           Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
-            <SylMono,_> => COP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
+            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
+            <SylMono,_> => IMP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type
           } ;
           Neg => case v.r of {
