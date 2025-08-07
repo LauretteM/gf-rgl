@@ -4,6 +4,7 @@ abstract AdverbSBantu = Cat,CatSBantu ** {
 
     InstrAdv : NP -> Adv ; -- ngokuhlinzwa
     -- InstrAdvNPAdv : Adv -> NP -> Adv ; -- cishe ngehora
+    AgentAdv : NP -> Adv ;
 
     AssocAdv : NP -> Adv ;
     ComparAdv :	NP -> Adv ; -- N/A
