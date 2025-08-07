@@ -48,6 +48,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- how_many_R = mkA "kae" ;
     spotted_R = mkA "mebalabala" ;
     blue_R = mkA "tala" ;
+    classical_R = mkA "klasiki" ;
 
     -- -- enumerative stems
     -- some_A = mkA "nye" ;
@@ -68,6 +69,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     much_Adv = { s = "kudu" } ; 
     night_Adv = { s = "bošego" } ; 
     tomorrow_Adv = { s = "bosasa" } ; 
+    tomorrow_2_Adv = { s = "gosasa" } ;
     winter_Adv = { s = "marega" } ; 
     evening_Adv = { s = "mantšiboa" } ; 
     really_Adv = { s = "ruri" } ; 
@@ -91,6 +93,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     only_Adv = { s = "fela" } ;
     quickly_Adv = { s = "ka pela" } ;
     always_Adv = { s = "ka mehla" } ;
+    again_Adv = { s = "gape" } ;
     
     -- here_Adv = { s = "mo" } ; -- mo
     -- here2_Adv = { s = "fa" } ; -- fa
@@ -137,10 +140,12 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     far_LocN = mkLocClassNoun "kgole" C18 ;
     near_LocN = mkLocClassNoun "kgauswi" C18 ;
     long_ago_LocN = mkLocClassNoun "kgale" C18 ;
+    home_LocN = mkLocClassNoun "gae" C18 ;
     -- ahead_LocN 
     -- forever_LocN 
-    -- this_side_LocN : LocN ;
-
+    -- this_side_LocN : LocN ; 
+    ages_ago_LocN = mkLocClassNoun "kgalekgale" C18 ;
+    
     all_QuantPron = { s = all_quantpron } ;
 
     it3_Pron = mkPron "wona" "wona" (Third C3_4 Sg) ;
@@ -168,6 +173,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
     -- conjunctions
     with_ConjN = { s = "le" } ;
+    or_ConjN = { s = "goba" } ;
     -- together_with_Conj : Conj ;
     and_then_Conj = { s = "" ; mood = ConsecMS } ;
     -- but_also_Conj : Conj ;
@@ -177,6 +183,10 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     if_Conj = { s = "ge" ; mood = SitMS } ;
     so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;
     but_Conj = { s = "fela" ; mood = IndicMS } ;
+    then_Conj = { s ="ebile" ; mood = IndicMS } ;
+    because_Conj = { s = "ka gobane" ; mood = SitMS } ;
+    because_2_Conj = { s = "gobane" ; mood = SitMS } ;
+    whereas_Conj = { s = "kganthe" ; mood = SitMS } ;
 
     
     {-Loc = {

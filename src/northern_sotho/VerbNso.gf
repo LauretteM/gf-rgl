@@ -3,6 +3,9 @@ concrete VerbNso of Verb = CatNso ** open ResNso, Prelude, ParamX in {
   flags optimize=all_subs ;
 
   lin
+
+    -- PassV2   : V2 -> VP ;               -- be loved
+
     UseV v = {
       s = table {
           IndicCl => \\a,p,t,l => let

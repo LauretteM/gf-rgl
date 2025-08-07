@@ -2,9 +2,14 @@ concrete AdverbSBantuNso of AdverbSBantu = CatNso,CatSBantuNso ** open ResNso, P
 
   lin
 
-    --  a mmotoro
+    --  ka mmotoro
     InstrAdv np = {
         s = INS_KA ++ np.s!Absolute 
+    } ;
+
+      --  ke mosadi
+    AgentAdv np = {
+        s = "ke" ++ np.s!Absolute 
     } ;
 
     --  le mpša
