@@ -18,6 +18,7 @@ concrete PChunkNso of PChunk = CatNso, CatSBantuNso, SymbolNso [Symb] **
     ChunkPhr c = ss ("*" ++ c.s) | c ;
 
     Phr_Chunker c = c ;
+    AP_Chunker c = c ;
     Adv_Chunker c = c ;
     Imp_Chunker c = c ;
     S_Chunker c = c ;
@@ -33,6 +34,13 @@ concrete PChunkNso of PChunk = CatNso, CatSBantuNso, SymbolNso [Symb] **
     Symb_Chunker c = c ;
 
     Phr_Chunk p = {s = p.s } ;
+    AP_Chunk pron ap = {
+      s = pron.s!Absolute ++ case pron.a of {
+      Third C9_10 _ => ap.s!AF2 ;
+      Third C7_8 Pl => ap.s!AF2 ;
+      (First _ | Second _ | Third _ _) => ap.s!AF1
+      } 
+    } ;
     Adv_Chunk a = { s = a.s } ;
     Imp_Sg_Pos_Chunk i = { s = i.s!Sg!Pos } ;
     Imp_Sg_Neg_Chunk i = { s = i.s!Sg!Neg } ;
@@ -114,6 +122,11 @@ concrete PChunkNso of PChunk = CatNso, CatSBantuNso, SymbolNso [Symb] **
     in {
       s = pron.s!Absolute ++ (possConc cg num) ++ np.s!Locative
     } ;
+
+    AP_Mod_Chunk pron ap = {
+      s = pron.s!Absolute ++ compl_ap ap pron.a  
+    } ;
+
     Predet_Chunk pron predet = {
       s = pron.s!Absolute ++ predet.s!pron.a
     } ;

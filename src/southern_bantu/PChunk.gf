@@ -26,7 +26,7 @@ fun
   ChunkPhr : Chunks -> Phr ;
 
   Phr_Chunker : Chunk_Phr -> Chunk ;
-  -- AP_Chunker : Chunk_AP -> Chunk ;
+  AP_Chunker : Chunk_AP -> Chunk ;
   Adv_Chunker : Chunk_Adv -> Chunk ;
   Imp_Chunker : Chunk_Imp -> Chunk ;
   S_Chunker : Chunk_S -> Chunk ;
@@ -42,7 +42,7 @@ fun
   Symb_Chunker : Chunk_Symb -> Chunk ;
 
   Phr_Chunk : Phr -> Chunk_Phr ;
-  AP_Chunk  : AP  -> Chunk_AP ;
+  AP_Chunk  : Pron -> AP -> Chunk_AP ;
   Adv_Chunk : Adv -> Chunk_Adv ;
   Imp_Sg_Pos_Chunk : Imp -> Chunk_Imp ;
   Imp_Sg_Neg_Chunk : Imp -> Chunk_Imp ;
@@ -68,7 +68,7 @@ fun
   NP_Loc_Chunk : NP -> Chunk_NP ;
   NP_Gen_Chunk : Pron -> NP -> Chunk_NP ;
   NP_PossLoc_Chunk : Pron -> NP -> Chunk_NP ;
-  -- NP_Gen_Chunk : NP -> Chunk_NP ;
+  AP_Mod_Chunk : Pron -> AP -> Chunk_AP ;
   Predet_Chunk : Pron -> Predet -> Chunk_Predet ;
   Postdet_Chunk : Pron -> Postdet -> Chunk_Postdet ;
   N_Sg_Chunk : N -> Chunk_N ;
