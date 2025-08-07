@@ -240,8 +240,8 @@ resource ResZul = open Prelude,Predef,ParamX in {
         NReduced => pron_stem!agr ;
         NPoss => poss_pron_stem!agr ;
         NLoc => case agr of {
-          First _ | Second Pl => "ki" ++BIND++ pron_stem!agr ;
-          _ => "ku" ++BIND++ pron_stem!agr
+          First _ | Second Pl => "ki[PronStem]" ++BIND++ pron_stem!agr ;
+          _ => "ku[PronStem]" ++BIND++ pron_stem!agr
         }
       } ;
       agr = agr ;
@@ -250,29 +250,29 @@ resource ResZul = open Prelude,Predef,ParamX in {
     } ;
 
     full_pron_stem : Agr => Str = table {
-      First Sg => "mina[PronStem][1ps]" ;
-      First Pl => "thina[PronStem][1pp]" ;
-      Second Sg => "wena[PronStem][2ps]" ;
-      Second Pl => "nina[PronStem][2pp]" ;
-      Third C1_2 Sg => "yena[PronStem][1]" ;
-      Third C1_2 Pl => "bona[PronStem][2]" ;
-      Third C1a_2a Sg => "yena[PronStem][1a]" ;
-      Third C1a_2a Pl => "bona[PronStem][2a]" ;
-      Third C3_4 Sg  => "wona[PronStem][3]" ;
-      Third C3_4 Pl => "yona[PronStem][4]" ;
-      Third C5_6 Sg => "lona[PronStem][5]" ;
-      Third C5_6 Pl => "wona[PronStem][6]" ;
-      Third C7_8 Sg => "sona[PronStem][7]" ;
-      Third C7_8 Pl => "zona[PronStem][8]" ;
-      Third C9_10 Sg => "yona[PronStem][9]" ;
-      Third C9_10 Pl => "zona[PronStem][10]" ;
-      Third C11_10 Sg => "lona[PronStem][11]" ;
-      Third C11_10 Pl => "zona[PronStem][10]" ;
-      Third C9_6 Sg => "yona[PronStem][9]" ;
-      Third C9_6 Pl => "wona[PronStem][6]" ;
-      Third C14 _ => "bona[PronStem][14]" ;
-      Third C15 _ => "khona[PronStem][15]" ;
-      Third C17 _ => "khona[PronStem][17]"
+      First Sg => "mi[PronStem][1ps]na[PronSuf]" ;
+      First Pl => "thi[PronStem][1pp]na[PronSuf]" ;
+      Second Sg => "we[PronStem][2ps]na[PronSuf]" ;
+      Second Pl => "ni[PronStem][2pp]na[PronSuf]" ;
+      Third C1_2 Sg => "ye[PronStem][1]na[PronSuf]" ;
+      Third C1_2 Pl => "bo[PronStem][2]na[PronSuf]" ;
+      Third C1a_2a Sg => "ye[PronStem][1a]na[PronSuf]" ;
+      Third C1a_2a Pl => "bo[PronStem][2a]na[PronSuf]" ;
+      Third C3_4 Sg  => "wo[PronStem][3]na[PronSuf]" ;
+      Third C3_4 Pl => "yo[PronStem][4]na[PronSuf]" ;
+      Third C5_6 Sg => "lo[PronStem][5]na[PronSuf]" ;
+      Third C5_6 Pl => "wo[PronStem][6]na[PronSuf]" ;
+      Third C7_8 Sg => "so[PronStem][7]na[PronSuf]" ;
+      Third C7_8 Pl => "zo[PronStem][8]na[PronSuf]" ;
+      Third C9_10 Sg => "yo[PronStem][9]na[PronSuf]" ;
+      Third C9_10 Pl => "zo[PronStem][10]na[PronSuf]" ;
+      Third C11_10 Sg => "lo[PronStem][11]na[PronSuf]" ;
+      Third C11_10 Pl => "zo[PronStem][10]na[PronSuf]" ;
+      Third C9_6 Sg => "yo[PronStem][9]na[PronSuf]" ;
+      Third C9_6 Pl => "wo[PronStem][6]na[PronSuf]" ;
+      Third C14 _ => "bo[PronStem][14]na[PronSuf]" ;
+      Third C15 _ => "kho[PronStem][15]na[PronSuf]" ;
+      Third C17 _ => "kho[PronStem][17]na[PronSuf]"
     } ;
 
     pron_stem : Agr => Str = table {
