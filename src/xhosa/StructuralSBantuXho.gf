@@ -3,58 +3,10 @@ concrete StructuralSBantuXho of StructuralSBantu = CatXho,CatSBantuXho ** open R
   lin
 
     only_QuantPron = {
-      s = table {
-        Third C1_2 Sg => "yedwa" ;
-        Third C1_2 Pl => "bodwa" ;
-        Third C1a_2a Sg => "yedwa" ;
-        Third C1a_2a Pl => "bodwa" ;
-        Third C3_4 Sg  => "wodwa" ;
-        Third C3_4 Pl => "yodwa" ;
-        Third C5_6 Sg => "lodwa" ;
-        Third C5_6 Pl => "odwa" ;
-        Third C7_8 Sg => "sodwa" ;
-        Third C7_8 Pl => "zodwa" ;
-        Third C9_10 Sg => "yodwa" ;
-        Third C9_10 Pl => "zodwa" ;
-        Third C11_10 Sg => "lodwa" ;
-        Third C11_10 Pl => "zodwa" ;
-        Third C9_6 Sg => "yodwa" ;
-        Third C9_6 Pl => "odwa" ;
-        Third C14 _ => "bodwa" ;
-        Third C15 _ => "kodwa" ;
-        Third C17 _ => "kodwa" ;
-        First Sg => "ngedwa" ;
-        First Pl => "sodwa" ;
-        Second Sg  => "wedwa" ;
-        Second Pl => "nodwa"
-      }
+      s = only_QuantPron_table
     } ;
     all_QuantPron = {
-      s = table {
-        Third C1_2 Sg => "wonke" ;
-        Third C1_2 Pl => "bonke" ;
-        Third C1a_2a Sg => "wonke" ;
-        Third C1a_2a Pl => "bonke" ;
-        Third C3_4 Sg  => "wonke" ;
-        Third C3_4 Pl => "yonke" ;
-        Third C5_6 Sg => "lonke" ;
-        Third C5_6 Pl => "onke" ;
-        Third C7_8 Sg => "sonke" ;
-        Third C7_8 Pl => "zonke" ;
-        Third C9_10 Sg => "yonke" ;
-        Third C9_10 Pl => "zonke" ;
-        Third C11_10 Sg => "lonke" ;
-        Third C11_10 Pl => "zonke" ;
-        Third C9_6 Sg => "yonke" ;
-        Third C9_6 Pl => "onke" ;
-        Third C14 _ => "bonke" ;
-        Third C15 _ => "konke" ;
-        Third C17 _ => "konke" ;
-        First Sg => "ngenke" ;
-        First Pl => "sonke" ;
-        Second Sg  => "wenke" ;
-        Second Pl => "nonke"
-      }
+      s = all_QuantPron_table
     } ;
 
     it3_Pron = mkPron (Third C3_4 Sg) ;
@@ -207,6 +159,11 @@ concrete StructuralSBantuXho of StructuralSBantu = CatXho,CatSBantuXho ** open R
 
     with_Conj = {
       s = \\r => withPref!r ++BIND
+    } ;
+
+    with_ConjN = {
+      s = \\r => withPref!r ++BIND ;
+      fix = True
     } ;
 
     together_with_Conj = {
