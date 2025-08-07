@@ -25,6 +25,8 @@ abstract LexiconSBantu = Cat ** {
    cleverness_N : N ;
    cloud_N : N ;
    cow_N : N ; -- komo_9_10
+   creature_N : N ;
+   crime_N : N ;
    danger_N : N ;
    day_N : N ;
    doctor_N : N ;
@@ -126,7 +128,11 @@ abstract LexiconSBantu = Cat ** {
    ask_V3 : V3 ;
    ask_V : V ;
    bark_V : V ;
+   bear_fruit_V : V ;
+   bear_fruit_V2 : V2 ;
    be_broken_V : V ;
+   become_rich_V : V ;
+   become_ripe_V : V ;
    be_fast_V : V ;
    be_healthy_V : V ;
    be_hot_V : V ;
@@ -135,6 +141,8 @@ abstract LexiconSBantu = Cat ** {
    bite_V2 : V2 ; --loma
    boil_V2 : V2 ;
    boil_V : V ;
+   borrow_V2 : V2 ;
+   break_V2 : V2 ;
    build_for_V2 : V2 ; --agela
    build_V2 : V2 ;
    burn_2_V : V ; -- sh
@@ -142,19 +150,30 @@ abstract LexiconSBantu = Cat ** {
    buy_for_V2 : V2 ; --rekela
    buy_V2 : V2 ; 
    call_V2 : V2 ;
+   carry_V2 : V2 ;
+   chase_V2 : V2 ;
    cheat_V2 : V2 ; --fora
    come_V : V ; 
    conquer_V2 : V2 ; --palela
    cook_V2 : V2 ; 
    cook_V3 : V3 ;
    cook_V : V ; 
+   come_from_V2 : V2 ;
    cross_over_V2 : V2 ;
    cross_over_V : V ;
+   crouch_V : V ;
+   cry_V : V ;
+   dawn_V : V ;
+   defeat_V2 : V2 ;
    defend_V2 : V2 ; --emela
+   depart_V : V ;
    descend_V : V ; -- ehl
+   destroy_V2 : V2 ;
    die_V : V ; -- f
    donate_V2 : V2 ;
    do_V2 : V2 ;
+   draw_V2 : V2 ; --draw water
+   dress_V : V ;
    drink_V2 : V2 ; 
    drink_V : V ; 
    dry_V2 : V2 ; 
@@ -162,38 +181,60 @@ abstract LexiconSBantu = Cat ** {
    earn_V2 : V2 ;
    eat_V2 : V2 ;
    eat_V : V ; 
-   emela_V2 : V2 ; --defend
    enrich_V2 : V2 ; --humiša
+   enter_V2 : V2 ;
    exhaust_V2 : V2 ; 
    exhaust_V : V ; 
    fall_towards_V2 : V2 ;
    fall_V : V ;
    feed_V2 : V2 ; --ješa
+   fight_V : V ;
+   finish_V2 : V2 ;
+   fit_badly_V : V ;
    flee_V : V ;
    fly_V : V ; 
+   forget_V2 : V2 ;
+   get_lost_V : V ;
    get_thin_V : V ;
    give_V2 : V2 ; 
    give_V3 : V3 ;
    go_2_V : V ;
    go_to_V2 : V2 ; --yela
    go_V : V ;
+   grow_V : V ;
+   grow_up_V : V ;
    happen_V : V ;
+   hear_V2 : V2 ;
+   hear_VV : VV ;
+   hear_V2V : V2V ;
    help_V2 : V2 ;
    insert_V2 : V2 ;
    insert_V2 : V2 ; 
+   instruct_V2 : V2 ;
    jump_V : V ; -- eq
    kill_V2 : V2 ;
    know_V2 : V2 ;
    know_VS : VS ;
    know_V : V ;
+   leave_V2 : V2 ;
+   let_drink_V2 : V2 ;
+   let_drink_V3 : V3 ;
    let_fall_V2 : V2 ; --wetša
    let_sing_V2 : V2 ; --opediša
    let_walk_V2 : V2 ; --sepediša
    live_V : V ;
    lock_V2 : V2 ;
    love_V2 : V2 ; 
+   mean_V2 : V2 ;
+   milk_V2 : V2 ;
+   miss_V2 : V2 ;
+   mix_V2 : V2 ;
+   nauseate_V : V ;
    pack_V2 : V2 ;
+   pick_V2 : V2 ;
+   pile_up_V2 : V2 ;
    place_V2 : V2 ; 
+   plaster_V2 : V2 ;
    play_V2 : V2 ;
    play_V : V ;
    plough_V2 : V2 ;
@@ -206,21 +247,27 @@ abstract LexiconSBantu = Cat ** {
    read_VS : VS ;
    read_V : V ;
    receive_V2 : V2 ;
+   refuse_VV : VV ;
    remember_V2 : V2 ;
    remind_V2 : V2 ; --gopotša
+   repair_V2 : V2 ;
    respect_V2 : V2 ; --hlompha
    return2_V : V ;
    return_to_V : V ;
    return_V : V ; 
+   roar_V : V ;
    run_V2 : V2 ;
    run_V : V ;
-   say_2_VS : VS ;
+   say_V : V ;
    say_VS : VS ;
+   say_2_VS : VS ;
+   say_3_VS : VS ;
    see_V2 : V2 ; -- bon
    see_VS : VS ;
    sell_to_each_other_V2 : V2 ; 
    sell_V2 : V2 ;
    sell_V : V ;
+   send_V2 : V2 ;
    set_V : V ;
    share_V2 : V2 ;
    share_V : V ; -- ab
@@ -231,18 +278,27 @@ abstract LexiconSBantu = Cat ** {
    sleep_V : V;
    speak_V2 : V2 ;
    speak_V : V ;
+   spit_V : V ;
+   stand_still_V : V ;
    stay_V : V ;
    steal_V : V ;
    steal_V2 : V2 ; --utsw
+   stick_into_V2 : V2 ;
+   surpass_V2 : V2 ;
    surprise_V2 : V2 ;
    surprise_V2 : V2 ; --makatša
+   take_V : V ;
+   take_V2 : V2 ;
    take_away_V2 : V2 ;
+   take_out_V2 : V2 ;
    take_to2_V2 : V2 ; --yiša
    take_to_V2 : V2 ; --iša
    teach_V2 : V2 ;
    teach_V : V ;
    thank_V : V ;
+   tie_up_V2 : V2 ;
    transfer_V2 : V2 ;
+   tremble_V : V ;
    try_V : V ;
    try_VV : VV ;
    turn_back_V : V ;
@@ -265,5 +321,8 @@ abstract LexiconSBantu = Cat ** {
    write_V2 : V2 ;
    write_V3 : V3 ;
    write_V : V ;
+
+   -- -- passive verb roots
+   be_seen_V : V ;
 
 }

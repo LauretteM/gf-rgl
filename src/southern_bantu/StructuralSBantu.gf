@@ -20,7 +20,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     three_A : A ; -- thathu
     four_A : A ; -- ne
     five_A : A ; -- hlanu
-      
+        
     -- relative stems
     black_R : A ; -- mnyama
     few_R : A ; -- mbalwa
@@ -45,6 +45,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     so_big_R : A ;
     spotted_R : A ;
     blue_R : A ;
+    classical_R : A ;
 
    -- enumerative stems
     different_Enum : A ; -- zul: mbe; nso: -šele
@@ -64,6 +65,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     much_Adv : Adv ;
     night_Adv : Adv ;
     tomorrow_Adv : Adv ;
+    tomorrow_2_Adv : Adv ;
     winter_Adv : Adv ;
     evening_Adv : Adv ;
     really_Adv : Adv ;
@@ -87,6 +89,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     like_this_Adv : Adv ;
     only_Adv : Adv ;
     quickly_Adv : Adv ;
+    again_Adv : Adv ;
     
     -- locative adverbs
     where_LocAdv : LocAdv ;
@@ -127,6 +130,8 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     far_LocN : LocN ;
     near_LocN : LocN ;
     long_ago_LocN : LocN ;
+    home_LocN : LocN ;
+    ages_ago_LocN : LocN ;
 
     -- quantitative pronouns 
     only_QuantPron : QuantPron ;
@@ -160,7 +165,8 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     -- conjunctions
     with_ConjN : ConjN ; -- na in Zul; le in Nso
-    together_with_ConjN : Conj ; -- kanye na in Zul
+    or_ConjN : ConjN ;
+    together_with_ConjN : ConjN ; -- kanye na in Zul
     but_also_ConjN : ConjN ;
     with_Conj : Conj ;
     and_then_Conj: Conj ;
@@ -171,6 +177,10 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     if_Conj : Conj ; -- ge
     so_that_Conj : Conj ; -- gore
     but_Conj : Conj ; --fela
+    then_Conj : Conj ; --ebile
+    because_Conj : Conj ; -- ka gobane
+    because_2_Conj : Conj ; -- gobane
+    whereas_Conj : Conj ;
 
     where_ConjAdv : ConjAdv ;
 
