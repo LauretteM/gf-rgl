@@ -60,20 +60,20 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     today_Adv : Adv ;
     yesterday_Adv : Adv ;
-    well_Adv : Adv ;
+    -- well_Adv : Adv ;
     now_Adv : Adv ;
-    much_Adv : Adv ;
+    -- much_Adv : Adv ;
     night_Adv : Adv ;
     tomorrow_Adv : Adv ;
     tomorrow_2_Adv : Adv ;
     winter_Adv : Adv ;
     evening_Adv : Adv ;
     really_Adv : Adv ;
-    often_Adv : Adv ;
-    especially_Adv : Adv ;
-    thrice_Adv : Adv ;
-    somewhat_Adv : Adv ;
-    badly_Adv : Adv ;
+    -- often_Adv : Adv ;
+    -- especially_Adv : Adv ;
+    -- thrice_Adv : Adv ;
+    -- somewhat_Adv : Adv ;
+    -- badly_Adv : Adv ;
     painful_Adv : Adv ;
     ten_times_Adv : Adv ;
     once_Adv : Adv ;
@@ -85,9 +85,12 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     always_Adv : Adv ;
     long_ago_Adv : Adv ;
     twice_Adv : Adv ;
-    in_the_afternoon_Adv : Adv ;
+    far_Adv : Adv ;
+    nearby_Adv : Adv ;
+    across_Adv : Adv ;
     like_this_Adv : Adv ;
     only_Adv : Adv ;
+    in_the_afternoon_Adv : Adv ;
     quickly_Adv : Adv ;
     again_Adv : Adv ;
     

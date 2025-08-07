@@ -146,6 +146,58 @@ resource ResXho = open Prelude,Predef,ParamX in {
     --   proDrop = False
     -- } ;
 
+    only_QuantPron_table  : Agr => Str = table {
+      Third C1_2 Sg => "yedwa" ;
+      Third C1_2 Pl => "bodwa" ;
+      Third C1a_2a Sg => "yedwa" ;
+      Third C1a_2a Pl => "bodwa" ;
+      Third C3_4 Sg  => "wodwa" ;
+      Third C3_4 Pl => "yodwa" ;
+      Third C5_6 Sg => "lodwa" ;
+      Third C5_6 Pl => "odwa" ;
+      Third C7_8 Sg => "sodwa" ;
+      Third C7_8 Pl => "zodwa" ;
+      Third C9_10 Sg => "yodwa" ;
+      Third C9_10 Pl => "zodwa" ;
+      Third C11_10 Sg => "lodwa" ;
+      Third C11_10 Pl => "zodwa" ;
+      Third C9_6 Sg => "yodwa" ;
+      Third C9_6 Pl => "odwa" ;
+      Third C14 _ => "bodwa" ;
+      Third C15 _ => "kodwa" ;
+      Third C17 _ => "kodwa" ;
+      First Sg => "ngedwa" ;
+      First Pl => "sodwa" ;
+      Second Sg  => "wedwa" ;
+      Second Pl => "nodwa"
+    } ;
+
+    all_QuantPron_table : Agr => Str = table {
+      Third C1_2 Sg => "wonke" ;
+      Third C1_2 Pl => "bonke" ;
+      Third C1a_2a Sg => "wonke" ;
+      Third C1a_2a Pl => "bonke" ;
+      Third C3_4 Sg  => "wonke" ;
+      Third C3_4 Pl => "yonke" ;
+      Third C5_6 Sg => "lonke" ;
+      Third C5_6 Pl => "onke" ;
+      Third C7_8 Sg => "sonke" ;
+      Third C7_8 Pl => "zonke" ;
+      Third C9_10 Sg => "yonke" ;
+      Third C9_10 Pl => "zonke" ;
+      Third C11_10 Sg => "lonke" ;
+      Third C11_10 Pl => "zonke" ;
+      Third C9_6 Sg => "yonke" ;
+      Third C9_6 Pl => "onke" ;
+      Third C14 _ => "bonke" ;
+      Third C15 _ => "konke" ;
+      Third C17 _ => "konke" ;
+      First Sg => "ngenke" ;
+      First Pl => "sonke" ;
+      Second Sg  => "wenke" ;
+      Second Pl => "nonke"
+    } ;
+
     mkPron : Agr -> { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \agr -> {
       s = table {
         NFull => pron_stem!agr +"na" ;
@@ -1302,6 +1354,26 @@ resource ResXho = open Prelude,Predef,ParamX in {
       (First _ | Second _ )  => RC
     } ;
 
+    -- Oosthuysen p82
+    prefix_vowels : Agr -> RInit -> Str = \agr,pv -> case <agr,pv> of {
+      <Third C1_2 Sg,RA> => "o" ; -- a + u > o
+      <Third C1_2 Pl,RA> => "a" ; -- a + a > a
+      <Third C1a_2a Pl,RA> => "oo" ; -- a + oo > oo
+      <Third C3_4 Sg,RA> => "o" ; -- a + u > o
+      <Third C3_4 Pl,RI> => "e" ; -- a + i > e
+      <Third C5_6 Sg,RI> => "e" ; -- a + i > e
+      <Third C5_6 Pl,RA> => "a" ; -- a + a > a
+      <Third C7_8 Sg,RI> => "e" ; -- a + i > e
+      <Third C7_8 Sg,RI> => "e" ; -- a + i > e
+      <Third C9_10 Sg,RI> => "e" ; -- a + i > e
+      <Third C9_6 Sg,RI> => "e" ; -- a + i > e
+      <Third C9_10 Pl,RA> => "ee" ; -- a + ii > ee
+      <Third C11_10 Pl,RA> => "ee" ; -- a + ii > ee
+      <Third _ _,_> => "a" ;
+      <First _,_> => "a" ;
+      <Second _,_> => "a" 
+    } ;
+
 
     locinit : Agr => RInit =
     table {
@@ -1329,12 +1401,10 @@ resource ResXho = open Prelude,Predef,ParamX in {
       } ;
       <C3_4,Pl> => "emi"+root ;
       <C5_6,Sg> => case root of {
-        ("i"|"I")+_ => "e" + (last root)  ;
         (#vowel|#vowel_cap)+_ => "el" + root ;
         _ => "e"+root -- ili long form (not used?)
       } ;
       <C5_6,Pl> => case root of {
-        ("i"|"I")+_ => "eme"+ (last root) ;
         (#vowel|#vowel_cap)+_ => "em"+root ;
         _ => "ema"+root
       } ; -- ame for roots starting with i
@@ -1360,30 +1430,32 @@ resource ResXho = open Prelude,Predef,ParamX in {
       } ; -- izim for labial, izin for alveolar, izi(n|m)k for roots starting with kh
       <C9_6,Sg> => "e"+(prefix_nasal root) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
       <C9_6,Pl> => case root of {
-        ("i"|"I")+_ => "eme"+root ;
+        (#vowel|#vowel_cap)+_ => "em"+root ;
         _ => "ema"+root
-      } ; -- ame for roots starting with i
+      } ;
       <C14,_> => "ebu"+root ;
       <C15,_> => case root of {
-        ("a"|"e"|"A"|"E")+_ => "ekw"+root ;
+        ("a"|"e"|"i"|"A"|"E"|"I")+_ => "ekw"+root ;
         (#cons|"y"|#cons_cap|"Y")+_ => "eku"+root ;
         _ => "ek"+root
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
       <C17,_> => "eku"+root  -- sometimes ukw
     } ;
 
-    -- Src: Doke, Linda Hall
+    -- Src: Oosthuysen p75
     addLocSuffix : Str -> Str = \root ->
       case root of
       {
         _+"mbo" => (tk 3 root) + "njeni" ;
         _+"mbu" => (tk 3 root) + "njini" ;
-        _+"pho" => (tk 3 root) + "sheni" ;
+        _+"pho" => (tk 3 root) + "tsheni" ;
         _+"bho" => (tk 3 root) + "jeni" ;
-        _+"phu" => (tk 3 root) + "shini" ;
+        _+"phu" => (tk 3 root) + "tshini" ;
         _+"bhu" => (tk 3 root) + "jini" ;
-        _+"bo" => (tk 2 root) + "tsheni" ;
-        _+"bu" => (tk 2 root) + "tshini" ;
+        _+"bo" => (tk 2 root) + "tyeni" ;
+        _+"bu" => (tk 2 root) + "tyini" ;
+        _+"po" => (tk 2 root) + "ntsheni" ;
+        _+"pu" => (tk 2 root) + "ntshini" ;
         _+"mo" => (tk 2 root) + "nyeni" ;
         _+"mu" => (tk 2 root) + "nyini" ;
         _+("a"|"e") => (init root)+"eni" ;
@@ -1446,10 +1518,9 @@ resource ResXho = open Prelude,Predef,ParamX in {
           _ => "ili"+root  -- monosyllabic
         } ;
         <C5_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame"+(drop 1 root) ;
           (#vowel|#vowel_cap)+_ => "am"+root ;
           _ => "ama"+root
-        } ; -- ame for roots starting with i
+        } ;
         <C7_8,Sg> => case root of {
           (#vowel|#vowel_cap)+_ => "is"+root ;
           _ => "isi"+root
@@ -1475,12 +1546,12 @@ resource ResXho = open Prelude,Predef,ParamX in {
         } ;
         <C9_6,Sg> => "i" + prefix_nasal root ;
         <C9_6,Pl> => case root of {
-          ("i"|"I")+_ => "ame"+root ;
+          (#vowel|#vowel_cap)+_ => "am"+root ;
           _ => "ama"+root
-        } ; -- ame for roots starting with i
+        } ;
         <C14,_> => "ubu"+root ;
         <C15,_> => case root of {
-          ("a"|"e"|"A"|"E")+_ => "ukw"+root ;
+          ("a"|"e"|"i"|"A"|"E"|"I")+_ => "ukw"+root ;
           (#cons|#cons_cap|"y"|"Y")+_ => "uku"+root ;
           _ => "uk"+root
         } ; -- ukw for roots starting with a/e, uk for roots starting with o
@@ -1518,15 +1589,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
           } ;
           <C3_4,Pl> => "emi"+(addLocSuffix root) ;
           <C5_6,Sg> => case root of {
-            ("i"|"I")+_ => "e"+(addLocSuffix (drop 1 root)) ;
             (#vowel|#vowel_cap)+_ => "el"+(addLocSuffix root) ;
             _ => "e"+(addLocSuffix root) -- ili long form (not used?)
           } ;
           <C5_6,Pl> => case root of {
-            ("i"|"I")+_ => "eme"+(addLocSuffix (drop 1 root)) ;
             (#vowel|#vowel_cap)+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
-          } ; -- ame for roots starting with i
+          } ; 
           <C7_8,Sg> => case root of {
             (#vowel|#vowel_cap)+_ => "es"+(addLocSuffix root) ;
             _ => "esi"+(addLocSuffix root)
@@ -1549,12 +1618,12 @@ resource ResXho = open Prelude,Predef,ParamX in {
           } ;
           <C9_6,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
           <C9_6,Pl> => case root of {
-            ("i"|"I")+_ => "eme"+(addLocSuffix root) ;
+            (#vowel|#vowel_cap)+_ => "em"+(addLocSuffix root) ;
             _ => "ema"+(addLocSuffix root)
-          } ; -- ame for roots starting with i
+          } ;
           <C14,_> => "ebu"+(addLocSuffix root) ;
           <C15,_> => case root of {
-            ("a"|"e"|"A"|"E")+_ => "ekw"+(addLocSuffix root) ;
+            ("a"|"e"|"i"|"A"|"E"|"I")+_ => "ekw"+(addLocSuffix root) ;
             (#cons|"y"|#cons_cap|"Y")+_ => "eku"+root ;
             _ => "ek"+(addLocSuffix root)
             } ; -- ukw for roots starting with a/e, uk for roots starting with o
@@ -2026,7 +2095,10 @@ resource ResXho = open Prelude,Predef,ParamX in {
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
 
     poss_concord_agr : Agr => Str =
-      table {
+      \\agr => (poss_concord_agr_cons agr) ++BIND++ (prefix_vowels agr RA) ;
+
+      poss_concord_agr_cons : Agr -> Str = \agr -> case agr of
+      {
         First Sg => "w" ;
         First Pl => "b" ;
         Second Sg => "w" ;

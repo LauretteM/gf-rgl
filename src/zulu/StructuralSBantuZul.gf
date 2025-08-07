@@ -3,97 +3,54 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
   lin
 
     -- adjective stems
-    bad_A = mkA "bi" ;
-    big_A = mkA "khulu" ;
+    bad_A = regAdj "bi" ;
+    big_A = regAdj "khulu" ;
     -- many_A : A ; -- many
     -- old_A : A ; -- dala
-    pretty_A = mkA "hle" ;
+    beautiful_A = regAdj "hle" ;
     -- tall_A : A ; -- de
     -- ugly_A : A ; -- bana
-    small_A = mkA "fuphi" ;
-    how_much_A = mkA "ngaki" ;
+    small_A = regAdj "fuphi" ;
+    how_much_A = regAdj "ngaki" ;
     -- other_A : A ;
-    two_A = mkA "bili" ;
-    three_A = mkA "thathu" ;
-    four_A = mkA "ne" ;
-    five_A = mkA "hlanu" ;
+    two_A = regAdj "bili" ;
+    three_A = regAdj "thathu" ;
+    four_A = regAdj "ne" ;
+    five_A = regAdj "hlanu" ;
       
     -- relative stems
     -- black_R : A ; -- mnyama
-    red_R = mkRelA "bomvu" ;
+    red_R = relAdj "bomvu" ;
     -- few_R : A ; -- mbalwa
     -- heavy_R : A ; -- nzima
-    honest_R = mkRelA "qotho" ;
+    honest_R = relAdj "qotho" ;
     -- tasty_R : A ; -- mnandi
-    nice_R = mkRelA "mnandi" ;
+    nice_R = relAdj "mnandi" ;
     -- white_R : A ; -- mhlophe
     -- green_R : A ;
     -- dangerous_A : A ;
+    spotted_R = relAdj "mabalabala" ;
 
     -- adverbs
-    today_Adv = mkAdv "namuhla" ;
-    always_Adv = mkAdv "njalo" ;
+    today_Adv = regAdv "namuhla" ;
+    always_Adv = regAdv "njalo" ;
     -- yesterday_Adv : Adv ;
     -- well_Adv : Adv ;
-    yesterday_Adv = mkAdv "izolo" ;
+    yesterday_Adv = regAdv "izolo" ;
     -- well_Adv : Adv ;
-    now_Adv = mkAdv "manje" ;
-    when_Adv = mkAdv "nini" ;
+    now_Adv = regAdv "manje" ;
+    when_Adv = regAdv "nini" ;
+    only_Adv = mkAdv "kuphela" ;
+    like_this_Adv = mkAdv "kanje" ;
+    in_the_afternoon_Adv = mkAdv "ntambama" ;
+    quickly_Adv = mkAdv "masinya" ;
 
     only_QuantPron = {
-      s = table {
-        Third C1_2 Sg => "yedwa" ;
-        Third C1_2 Pl => "bodwa" ;
-        Third C1a_2a Sg => "yedwa" ;
-        Third C1a_2a Pl => "bodwa" ;
-        Third C3_4 Sg  => "wodwa" ;
-        Third C3_4 Pl => "yodwa" ;
-        Third C5_6 Sg => "lodwa" ;
-        Third C5_6 Pl => "odwa" ;
-        Third C7_8 Sg => "sodwa" ;
-        Third C7_8 Pl => "zodwa" ;
-        Third C9_10 Sg => "yodwa" ;
-        Third C9_10 Pl => "zodwa" ;
-        Third C11_10 Sg => "lodwa" ;
-        Third C11_10 Pl => "zodwa" ;
-        Third C9_6 Sg => "yodwa" ;
-        Third C9_6 Pl => "odwa" ;
-        Third C14 _ => "bodwa" ;
-        Third C15 _ => "kodwa" ;
-        Third C17 _ => "kodwa" ;
-        First Sg => "ngedwa" ;
-        First Pl => "sodwa" ;
-        Second Sg  => "wedwa" ;
-        Second Pl => "nodwa"
-      } ;
+      s = only_QuantPron_table ;
       lemma = "dwa"
     } ;
     all_QuantPron = {
-      s = table {
-        Third C1_2 Sg => "wonke" ;
-        Third C1_2 Pl => "bonke" ;
-        Third C1a_2a Sg => "wonke" ;
-        Third C1a_2a Pl => "bonke" ;
-        Third C3_4 Sg  => "wonke" ;
-        Third C3_4 Pl => "yonke" ;
-        Third C5_6 Sg => "lonke" ;
-        Third C5_6 Pl => "onke" ;
-        Third C7_8 Sg => "sonke" ;
-        Third C7_8 Pl => "zonke" ;
-        Third C9_10 Sg => "yonke" ;
-        Third C9_10 Pl => "zonke" ;
-        Third C11_10 Sg => "lonke" ;
-        Third C11_10 Pl => "zonke" ;
-        Third C9_6 Sg => "yonke" ;
-        Third C9_6 Pl => "onke" ;
-        Third C14 _ => "bonke" ;
-        Third C15 _ => "konke" ;
-        Third C17 _ => "konke" ;
-        First Sg => "ngenke" ;
-        First Pl => "sonke" ;
-        Second Sg  => "wenke" ;
-        Second Pl => "nonke"
-      } ;
+      s = only_QuantPron_table ;
       lemma = "nke"
     } ;
 
@@ -115,15 +72,15 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
       dist = Dem3
     } ;
 
-    inside_LocN = { s = "phakathi" ; empty = [] } ;
-    below_LocN = { s = "phansi" ; empty = [] } ;
-    on_the_other_side_LocN = { s = "phesheya" ; empty = [] } ;
-    outside_LocN = { s = "phandle" ; empty = [] } ;
-    in_front_LocN = { s = "phambili" ; empty = [] } ;
-    ahead_LocN = { s = "phambi" ; empty = [] } ;
-    forever_LocN = { s = "phakade" ; empty = [] } ;
-    above_LocN = { s = "phezulu" ; empty = [] } ;
-    on_top_LocN = { s = "phezulu" ; empty = [] } ;
+    inside_LocN = regLocN "phakathi" ;
+    below_LocN = regLocN "phansi" ;
+    on_the_other_side_LocN = regLocN "phesheya" ;
+    outside_LocN = regLocN "phandle" ;
+    in_front_LocN = regLocN "phambili" ;
+    ahead_LocN = regLocN "phambi" ;
+    forever_LocN = regLocN "phakade" ;
+    above_LocN = regLocN "phezulu" ;
+    on_top_LocN = regLocN "phezulu" ;
 
     here_Loc = {
       s = table {
@@ -235,15 +192,16 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
 
     how_many_IAdj = regAdj "ngaki" ;
 
-    at_the_back_LocAdv = { s = "ngemuva" ; reqLocS = False } ;
-    behind_LocAdv = { s = "emuva" ; reqLocS = False } ;
-    on_the_side_LocAdv = { s = "ecaleni" ; reqLocS = False } ;
-    above_LocAdv = { s = "ngaphezu" ; reqLocS = False } ;
-    above_2_LocAdv = { s = "ngaphezulu" ; reqLocS = False } ;
-    on_the_outside_LocAdv = { s = "ngaphandle" ; reqLocS = False } ;
-    below_LocAdv = { s = "ngaphansi" ; reqLocS = False } ;
+    at_the_back_LocAdv = regLocAdv "ngemuva" ;
+    behind_LocAdv = regLocAdv "emuva" ;
+    on_the_side_LocAdv = regLocAdv "ecaleni" ;
+    above_LocAdv = regLocAdv "ngaphezu" ;
+    above_2_LocAdv = regLocAdv "ngaphezulu" ;
+    on_the_outside_LocAdv = regLocAdv "ngaphandle" ;
+    below_LocAdv = regLocAdv "ngaphansi" ;
+    yonder_LocAdv = regLocAdv "laphaya" ;
 
-    much_Adv = { s = "kakhulu" ; reqLocS = False } ;
+    -- much_Adv = regAdv "kakhulu" ;
 
     with_ConjN = {
       s = \\r => withPref!r ++BIND ;
@@ -265,10 +223,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
       fix = True
     } ;
 
-    and_then_Conj = {
-      s = \\_ => "bese" ;
-      fix = False
-    } ;
+    and_then_Conj = regConjN "bese" ;
 
     but_also_Conj = {
       s = \\ri => "kodwa" ++ withPref!ri ++BIND ;
@@ -280,15 +235,9 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
       fix = True
     } ;
 
-    while_Conj = {
-      s = \\_ => "kanti" ;
-      fix = False
-    } ;
+    while_Conj = regConjN "kanti" ;
 
-    however_Conj = {
-      s = \\_ => "kodwa" ;
-      fix = False
-    } ;
+    however_Conj = regConjN "kodwa" ;
 
     where_ConjAdv = { s = "lapho" } ;
 
@@ -298,9 +247,5 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
 
     different_Enum = enumAdj "mbe" ;
     some_A = regAdj "nye" ;
-    one_Enum = {
-      s = \\_ => "nye" ;
-      empty = [] ;
-      t = EnumType
-    } ;
+    one_Enum = enumAdj "nye" ;
 }

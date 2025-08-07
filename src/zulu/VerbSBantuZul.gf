@@ -56,13 +56,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         Sg => let
           agr = (Second Sg)
         in table {
-          Pos => COP_YI++BIND++BA ++ ap.s!AF1 ;
+          Pos => IMP_YI++BIND++BA ++ ap.s!AF1 ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ ap.s!AF1
         } ;
         Pl => let
           agr = (Second Pl)
         in table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ ap.s!AF1 ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ ap.s!AF1 ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ ap.s!AF1
         }
       } ;
@@ -132,11 +132,11 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       } ;
       imp_s = table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ (id_cop_pref np.agr) ++ np.s!NFull ;
+          Pos => IMP_YI++BIND++BA ++ (id_cop_pref np.agr) ++ np.s!NFull ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ (id_cop_pref np.agr) ++ np.s!NFull
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ (id_cop_pref np.agr) ++ np.s!NFull ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ (id_cop_pref np.agr) ++ np.s!NFull ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ (id_cop_pref np.agr) ++ np.s!NFull
         }
       } ;
@@ -196,11 +196,11 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         cop = (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
       in table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ cop ;
+          Pos => IMP_YI++BIND++BA ++ cop ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ cop
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ cop ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ cop ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ cop
         }
       } ;
@@ -257,11 +257,11 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         cop = (eq_cop_pref Pos np.agr) ++ np.s!NReduced
       in table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ cop ;
+          Pos => IMP_YI++BIND++BA ++ cop ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ cop
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ cop ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ cop ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ cop
         }
       } ;
@@ -318,11 +318,11 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         cop = (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced
       in table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ cop ;
+          Pos => IMP_YI++BIND++BA ++ cop ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ cop
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ cop ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ cop ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ cop
         }
       } ;
@@ -566,11 +566,11 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       } ;
       imp_s = table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ LOC_S++BIND++ locadv.s ;
+          Pos => IMP_YI++BIND++BA ++ LOC_S++BIND++ locadv.s ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ LOC_S++BIND++ locadv.s
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ LOC_S++BIND++ locadv.s ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ LOC_S++BIND++ locadv.s ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ LOC_S++BIND++ locadv.s
         }
       } ;
@@ -838,11 +838,11 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         cop = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss
       in table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ cop ;
+          Pos => IMP_YI++BIND++BA ++ cop ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ cop
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ cop ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ cop ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ cop
         }
       } ;
@@ -900,13 +900,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         Sg => let
           agr = (Second Sg)
         in table {
-          Pos => COP_YI++BIND++BA ++ qs.s!agr ;
+          Pos => IMP_YI++BIND++BA ++ qs.s!agr ;
           Neg => IMP_NEG_PREF_SG++BIND++BI ++ qs.s!agr
         } ;
         Pl => let
           agr = (Second Pl)
         in table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ qs.s!agr ;
+          Pos => IMP_YI++BIND++BA++BIND++PL_NI ++ qs.s!agr ;
           Neg => IMP_NEG_PREF_PL++BIND++BI ++ qs.s!agr
         }
       } ;

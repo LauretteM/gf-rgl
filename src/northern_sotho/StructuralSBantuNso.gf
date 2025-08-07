@@ -64,20 +64,20 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
     today_Adv = { s = "lehono" } ;
     yesterday_Adv = { s = "maabane" } ;
-    well_Adv = { s = "gabotse" } ;
+    -- well_Adv = { s = "gabotse" } ;
     now_Adv = { s = "bjale"} ;
-    much_Adv = { s = "kudu" } ; 
+    -- much_Adv = { s = "kudu" } ; 
     night_Adv = { s = "bošego" } ; 
     tomorrow_Adv = { s = "bosasa" } ; 
     tomorrow_2_Adv = { s = "gosasa" } ;
     winter_Adv = { s = "marega" } ; 
     evening_Adv = { s = "mantšiboa" } ; 
     really_Adv = { s = "ruri" } ; 
-    often_Adv = { s = "gantši" } ;
-    especially_Adv = { s = "gagolo" } ;
-    thrice_Adv = { s = "gararo" } ;
-    somewhat_Adv = { s = "gannyane" } ;
-    badly_Adv = { s = "gampe" } ;
+    -- often_Adv = { s = "gantši" } ;
+    -- especially_Adv = { s = "gagolo" } ;
+    -- thrice_Adv = { s = "gararo" } ;
+    -- somewhat_Adv = { s = "gannyane" } ;
+    -- badly_Adv = { s = "gampe" } ;
     painful_Adv = { s = "gabohloko" } ;
     ten_times_Adv = { s = "galesome" } ;
     once_Adv = { s = "kgatee" } ;
@@ -87,7 +87,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     simultaneously_Adv = { s = "gotee" } ;
     always_Adv = {s = "ka mehla" } ;
     long_ago_Adv = {s = "kgale" } ;
-    twice_Adv = {s = "gabedi" } ;
+    -- twice_Adv = {s = "gabedi" } ;
     in_the_afternoon_Adv = { s = "ka mathapama" } ;
 	  like_this_Adv = { s = "bjalo" } ;
     only_Adv = { s = "fela" } ;
