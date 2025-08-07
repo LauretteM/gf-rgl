@@ -8,11 +8,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     many_A : A ; -- many
     old_A : A ; -- dala
     beautiful_A : A ; -- hle
-<<<<<<< HEAD
     long_A : A ; -- de
-=======
-    tall_A : A ; -- de
->>>>>>> lin-experiments
     ugly_A : A ; -- bana
     small_A : A ; -- ncane
     how_much_A : A ; --ngaki?
