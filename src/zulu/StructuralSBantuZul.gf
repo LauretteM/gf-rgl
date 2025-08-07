@@ -7,7 +7,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
     big_A = regAdj "khulu" ;
     -- many_A : A ; -- many
     -- old_A : A ; -- dala
-    pretty_A = regAdj "hle" ;
+    beautiful_A = regAdj "hle" ;
     -- tall_A : A ; -- de
     -- ugly_A : A ; -- bana
     small_A = regAdj "fuphi" ;
@@ -29,6 +29,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
     -- white_R : A ; -- mhlophe
     -- green_R : A ;
     -- dangerous_A : A ;
+    spotted_R = relAdj "mabalabala" ;
 
     -- adverbs
     today_Adv = regAdv "namuhla" ;
@@ -39,6 +40,10 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
     -- well_Adv : Adv ;
     now_Adv = regAdv "manje" ;
     when_Adv = regAdv "nini" ;
+    only_Adv = mkAdv "kuphela" ;
+    like_this_Adv = mkAdv "kanje" ;
+    in_the_afternoon_Adv = mkAdv "ntambama" ;
+    quickly_Adv = mkAdv "masinya" ;
 
     only_QuantPron = {
       s = only_QuantPron_table ;
@@ -194,8 +199,9 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
     above_2_LocAdv = regLocAdv "ngaphezulu" ;
     on_the_outside_LocAdv = regLocAdv "ngaphandle" ;
     below_LocAdv = regLocAdv "ngaphansi" ;
+    yonder_LocAdv = regLocAdv "laphaya" ;
 
-    much_Adv = regAdv "kakhulu" ;
+    -- much_Adv = regAdv "kakhulu" ;
 
     with_ConjN = {
       s = \\r => withPref!r ++BIND ;

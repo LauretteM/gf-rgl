@@ -7,7 +7,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     big_A : A ; -- khulu
     many_A : A ; -- many
     old_A : A ; -- dala
-    pretty_A : A ; -- hle
+    beautiful_A : A ; -- hle
     tall_A : A ; -- de
     ugly_A : A ; -- bana
     small_A : A ; -- ncane
@@ -43,6 +43,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     raw_R : A ;
     crooked_R : A ;
     so_big_R : A ;
+    spotted_R : A ;
 
    -- enumerative stems
     different_Enum : A ; -- zul: mbe; nso: -šele
@@ -60,7 +61,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     yesterday_Adv : Adv ;
     well_Adv : Adv ;
     now_Adv : Adv ;
-    much_Adv : Adv ;
+    -- much_Adv : Adv ;
     night_Adv : Adv ;
     tomorrow_Adv : Adv ;
     winter_Adv : Adv ;
@@ -85,6 +86,10 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     far_Adv : Adv ;
     nearby_Adv : Adv ;
     across_Adv : Adv ;
+    like_this_Adv : Adv ;
+    only_Adv : Adv ;
+    in_the_afternoon_Adv : Adv ;
+    quickly_Adv : Adv ;
     
 
     -- lovative adverbs
@@ -95,6 +100,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     above_2_LocAdv : LocAdv ;
     on_the_outside_LocAdv : LocAdv ;
     below_LocAdv : LocAdv ;
+    yonder_LocAdv : LocAdv ;
 
      -- locative class nouns
     below_LocN : LocN ;
