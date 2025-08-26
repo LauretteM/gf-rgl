@@ -15,7 +15,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     other_A : A ; 
     new_A : A ; -- sha
     short_A : A ; --fishane
-    may_A : A ; -- ningi
     two_A : A ; -- bili
     three_A : A ; -- thathu
     four_A : A ; -- ne
@@ -26,7 +25,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     few_R : A ; -- mbalwa
     heavy_R : A ; -- nzima
     honest_R : A ; -- qotho
-    tasty_R : A ; -- mnandi
     nice_R : A ; -- mnandi
     white_R : A ; -- mhlophe
     green_R : A ; -- luhlaza
@@ -46,6 +44,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     spotted_R : A ;
     blue_R : A ;
     classical_R : A ;
+    painful_R : A ;
 
    -- enumerative stems
     different_Enum : A ; -- zul: mbe; nso: -šele
@@ -60,34 +59,16 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
 
     today_Adv : Adv ;
     yesterday_Adv : Adv ;
-    -- well_Adv : Adv ;
     now_Adv : Adv ;
-    -- much_Adv : Adv ;
-    night_Adv : Adv ;
+    at_night_Adv : Adv ;
     tomorrow_Adv : Adv ;
     tomorrow_2_Adv : Adv ;
-    winter_Adv : Adv ;
+    in_winter_Adv : Adv ;
     evening_Adv : Adv ;
     really_Adv : Adv ;
-    -- often_Adv : Adv ;
-    -- especially_Adv : Adv ;
-    -- thrice_Adv : Adv ;
-    -- somewhat_Adv : Adv ;
-    -- badly_Adv : Adv ;
-    painful_Adv : Adv ;
-    ten_times_Adv : Adv ;
-    once_Adv : Adv ;
-    so_Adv : Adv ;
-    how_Adv : Adv ;
     day_before_yesterday_Adv : Adv ;
-    just_Adv : Adv ;
-    simultaneously_Adv : Adv ;
     always_Adv : Adv ;
     long_ago_Adv : Adv ;
-    twice_Adv : Adv ;
-    far_Adv : Adv ;
-    nearby_Adv : Adv ;
-    across_Adv : Adv ;
     like_this_Adv : Adv ;
     only_Adv : Adv ;
     in_the_afternoon_Adv : Adv ;
@@ -95,6 +76,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     again_Adv : Adv ;
     
     -- locative adverbs
+
     where_LocAdv : LocAdv ;
     far_LocAdv : LocAdv ;
     nearby_LocAdv : LocAdv ;
@@ -102,12 +84,11 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     at_the_back_LocAdv : LocAdv ;
     behind_LocAdv : LocAdv ;
     on_the_side_LocAdv : LocAdv ;
+    on_the_outside_LocAdv : LocAdv ;
     above_LocAdv : LocAdv ;
     above_2_LocAdv : LocAdv ;
-    on_the_outside_LocAdv : LocAdv ;
-    below_LocAdv : LocAdv ;
-    down_LocAdv : LocAdv ;
     inside_LocAdv : LocAdv ;
+    below_LocAdv : LocAdv ;
     outside_LocAdv : LocAdv ;
     yonder_LocAdv : LocAdv ;
 
@@ -126,7 +107,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     inside_LocN : LocN ;
     on_top_LocN : LocN ;
     central_LocN : LocN ; -- gare
-    place_LocN : LocN ;
     elsewhere_LocN : LocN ;
     next_to_LocN : LocN ;
     under_LocN : LocN ;

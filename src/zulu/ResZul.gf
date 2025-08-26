@@ -54,6 +54,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     ADV_NGA : Str = "nga" ;
     ADV_KHONA : Str = "khona" ;
     ADV_LAPHA : Str = "lapha" ;
+    ADV_LAPHO : Str = "lapho" ;
     ADV_NI : Str = "ni" ;
     ADV_PHI : Str = "phi" ;
 
