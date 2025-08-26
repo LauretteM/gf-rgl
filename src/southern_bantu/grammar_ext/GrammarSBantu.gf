@@ -1,4 +1,4 @@
--- All functions are explicitly inherited, in order to allow useful probabilities
+-- All functions are explicitly inherited, in order to produce useful probabilities
 
 abstract GrammarSBantu =
   Noun [DetCN, UsePron, DetQuant, NumSg, NumPl, UseN, AdjCN, RelCN, PossNP,UsePN, RelNP, PredetNP,AdvNP], -- MassNP,AdvCN, AdvNP,
@@ -16,7 +16,7 @@ abstract GrammarSBantu =
   -- Idiom,
   Tense [PPos, PNeg],
   -- Transfer ,
-  TempSBantu, -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
+  TempSBantu,
   Backward[ComplV2,ComplV3,ComplV2V],
   AdverbSBantu,
   NounSBantu,

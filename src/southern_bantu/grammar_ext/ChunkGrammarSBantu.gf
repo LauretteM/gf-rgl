@@ -1,15 +1,7 @@
---1 Lang: a Test Module for the Resource Grammar
+-- Chunk: a chunk parsing version of the SBantu Resource Grammar
 
 abstract ChunkGrammarSBantu =
   GrammarSBantu,
-  -- AdverbSBantu,
-  -- Backward[ComplV2,ComplV3,ComplV2V],
-  -- NounSBantu,
-  -- PhraseSBantu,
-  -- RelativeSBantu,
-  -- SentenceSBantu,
-  -- StructuralSBantu,
-  -- VerbSBantu,
   PChunk,
   Symbol - [Symb]
   ** {
