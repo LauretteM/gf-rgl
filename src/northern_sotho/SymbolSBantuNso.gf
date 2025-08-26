@@ -2,13 +2,15 @@ concrete SymbolSBantuNso of SymbolSBantu = CatNso, SymbolNso ** open ResNso, Par
 
     lin
 
-        SymbN s = nonExist_N ;
-        SymbA s = nonExist_A ;
+        SymbN s = variants {} ;
+        SymbA s = variants {} ;
 
-        SymbN_sub10 s = nonExist_N ;
-        SymbN_10 s = nonExist_N ;
-        SymbN_100 s = nonExist_N ;
-        SymbN_1000 s = nonExist_N ;
+        SymbN_sub10 s = variants {} ;
+        SymbN_10 s = variants {} ;
+        SymbN_100 s = variants {} ;
+        SymbN_1000 s = variants {} ;
+
+        SymbLoanPlaceName = variants {} ;
 
         -- SymbN_sub10 symb = mkSymbNumber symb.s C7_8 ;
         -- SymbN_10 symb = mkSymbNumber symb.s C5_6 ;

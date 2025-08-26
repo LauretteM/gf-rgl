@@ -148,28 +148,28 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             insideLocAdv : NP -> LocAdv = \np -> InsideLocAdv (LocativisedNounAdv np) ;
         } ;
 
-        mkLoanPlaceNameN = overload {
-            mkLoanPlaceNameN : Symb -> N = SymbLoanPlaceName ;
+        loanPlaceNameN = overload {
+            loanPlaceNameN : Symb -> N = SymbLoanPlaceName ;
         } ;
 
-        mkNumA = overload {
-            mkNumA : Symb -> A = SymbA ;
+        symbNumA = overload {
+            symbNumA : Symb -> A = SymbA ;
         } ;
 
-        mkSmallNumN = overload {
-            mkSmallNumN : Symb -> N = SymbN_sub10 ;
+        symbSmallNumN = overload {
+            symbSmallNumN : Symb -> N = SymbN_sub10 ;
         } ;
 
-        mkNumN10 = overload {
-            mkNumN10 : Symb -> N = SymbN_10 ;
+        symbNumN10 = overload {
+            symbNumN10 : Symb -> N = SymbN_10 ;
         } ;
 
-        mkNumN100 = overload {
-            mkNumN100 : Symb -> N = SymbN_100 ;
+        symbNumN100 = overload {
+            symbNumN100 : Symb -> N = SymbN_100 ;
         } ;
 
-        mkNumN1000 = overload {
-            mkNumN1000 : Symb -> N = SymbN_1000 ;
+        symbNumN1000 = overload {
+            symbNumN1000 : Symb -> N = SymbN_1000 ;
         } ;
 
         -- together_with = together_with_ConjN ;

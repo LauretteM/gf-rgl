@@ -96,7 +96,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
     -- ComplN2, ComplN3, UseN2, Use2N3, Use3N3 : not implemented
 
     -- AdjCN, RelCN, AdvCN, SentCN, ApposCN : not implemented
-    AdjCN cn ap = nonExist_CN ;
+    AdjCN cn ap = variants {} ;
 
     -- flashing of the lights / ukukhanya kwezibani
     -- TODO: check refactor (no change?)
