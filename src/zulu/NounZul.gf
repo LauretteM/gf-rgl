@@ -3,7 +3,6 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
   flags optimize=all_subs ;
 
   lin
-    -- TODO: check refactor
     DetCN det cn = let
       agr = Third cn.c det.n ;
     in {
@@ -17,11 +16,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       proDrop = False ;
       isPron = False ;
       heavy = True
-      -- reqLocS = True ; -- TODO: change if a Det is ever added that has a non-empty string
-      -- qdef = det.qdef ;
     } ;
 
-    -- TODO: check refactor
     UsePN pn = let
       agr = Third pn.c Sg ;
     in {
@@ -34,18 +30,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       heavy = True
     } ;
 
-    -- TODO: check refactor
     UsePron pron = {
       empty = pron.empty ;
-      -- s = case pron.proDrop of {
-      --   False => pron.s ;
-      --   True => table {
-      --     NFull => pron.empty ;
-      --     NReduced => pron.s!NReduced ;
-      --     NPoss => pron.s!NPoss ;
-      --     NLoc => pron.s!NLoc
-      --   }
-      -- } ;
       s = pron.s ;
       agr = pron.agr ;
       i = RC ;
@@ -69,7 +55,6 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       heavy = True
     } ;
 
-    -- TODO: refactor
     RelNP np rs = {
       empty = np.empty ;
       s = \\nform => np.s!nform ++ rs.s!np.agr ;
@@ -90,16 +75,14 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
 
     -- DefArt, IndefArt, MassNP, PossPron : not implemented
 
-    -- TODO: check refactor (no change?)
     UseN n = n ** { predet = False } ;
 
     -- ComplN2, ComplN3, UseN2, Use2N3, Use3N3 : not implemented
 
-    -- AdjCN, RelCN, AdvCN, SentCN, ApposCN : not implemented
+    -- RelCN, AdvCN, SentCN, ApposCN : not implemented
     AdjCN cn ap = variants {} ;
 
     -- flashing of the lights / ukukhanya kwezibani
-    -- TODO: check refactor (no change?)
     PossNP cn np = {
       empty = cn.empty ;
       s = \\num,nform => case np.agr of {
@@ -107,7 +90,6 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
         (First Pl | Second Pl ) => cn.s!num!nform ++ poss_concord!cn.c!num!RI ++BIND++ np.s!NPoss ;
         (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss
       }  ;
-      -- mod = \\num => cn.mod!num ++ poss_concord!cn.c!num!np.i ++BIND++ (poss_NP np) ;
       c = cn.c ;
       predet = cn.predet
     } ;
