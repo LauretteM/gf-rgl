@@ -69,15 +69,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
         NFull => table {
           Pos => INF_PREF_FULL++BIND++BA ++ ap.s!AF1 ;
-          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ ap.s!AF1
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ ap.s!AF1
         } ;
         NReduced | NPoss => table {
           Pos => INF_PREF_REDUCED++BIND++BA ++ ap.s!AF1 ;
-          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ ap.s!AF1
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ ap.s!AF1
         } ;
         NLoc => table {
           Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ ap.s!AF1 ;
-          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ ap.s!AF1
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ ap.s!AF1
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -143,15 +143,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
           NFull => table {
             Pos => INF_PREF_FULL++BIND++BA ++ np.s!NFull ;
-            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ np.s!NFull
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ np.s!NFull
           } ;
           NReduced | NPoss => table {
             Pos => INF_PREF_REDUCED++BIND++BA ++ np.s!NFull ;
-            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ np.s!NFull
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ np.s!NFull
           } ;
           NLoc => table {
             Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ np.s!NFull ;
-            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ np.s!NFull
+            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ np.s!NFull
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -207,15 +207,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
           NFull => table {
             Pos => INF_PREF_FULL++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NReduced | NPoss => table {
             Pos => INF_PREF_REDUCED++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NLoc => table {
             Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -268,15 +268,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
           NFull => table {
             Pos => INF_PREF_FULL++BIND++BA ++ (eq_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ (eq_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ (eq_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NReduced | NPoss => table {
             Pos => INF_PREF_REDUCED++BIND++BA ++ (eq_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ (eq_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ (eq_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NLoc => table {
             Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -329,15 +329,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
           NFull => table {
             Pos => INF_PREF_FULL++BIND++BA ++ (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NReduced | NPoss => table {
             Pos => INF_PREF_REDUCED++BIND++BA ++ (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ (eq_size_cop_pref Pos np.agr) ++ np.s!NReduced
           } ;
           NLoc => table {
             Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced ;
-            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
+            Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ (assoc_cop_pref Pos np.agr) ++ np.s!NReduced
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -394,7 +394,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         } ;
         NLoc => table {
           Pos => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++v.s!R_e ++BIND++ ADV_NI ;
-          Neg => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++NEG_NGA++BIND++v.s!R_e ++BIND++ ADV_NI
+          Neg => LOC_E ++BIND++ INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BIND++v.s!R_e ++BIND++ ADV_NI
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -491,7 +491,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         } ;
         NLoc => table {
           Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj_full ;
-          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj_red
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++BIND++inf_oc ++ v2.s!R_a ++ obj_red
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -577,15 +577,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
         NFull => table {
           Pos => INF_PREF_FULL++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ LOC_S++BIND++ locadv.s
         } ;
         NReduced | NPoss => table {
           Pos => INF_PREF_REDUCED++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ LOC_S++BIND++ locadv.s
         } ;
         NLoc => table {
           Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++BA ++ LOC_S++BIND++ locadv.s ;
-          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ LOC_S++BIND++ locadv.s
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ LOC_S++BIND++ locadv.s
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -653,7 +653,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         } ;
         NLoc => table {
           Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++REFL_PRON ++BIND ++ v2.s!R_a ;
-          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++REFL_PRON ++BIND ++ v2.s!R_a 
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++BIND++REFL_PRON ++BIND ++ v2.s!R_a 
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -727,7 +727,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         } ;
         NLoc => table {
           Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++inf_oc ++ v2.s!R_a ++ obj ;
-          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++inf_oc ++ v2.s!R_a ++ obj
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++BIND++inf_oc ++ v2.s!R_a ++ obj
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -792,7 +792,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         } ;
         NLoc => table {
           Pos => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++REFL_PRON ++BIND ++ v2.s!R_a ++ obj ;
-          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++REFL_PRON ++BIND ++ v2.s!R_a ++ obj
+          Neg => INF_PREF_REDUCED++BIND++poss_pron_stem!(Third C15 Sg) ++ INF_PREF_FULL++BIND++NEG_NGA++BIND++BIND++REFL_PRON ++BIND ++ v2.s!R_a ++ obj
         }
       } ;
       consubj_s = \\m,a,p => let 
@@ -851,15 +851,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       in table {
           NFull => table {
             Pos => INF_PREF_FULL++BIND++BA ++ cop ;
-            Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ cop
+            Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ cop
           } ;
           NReduced | NPoss => table {
             Pos => INF_PREF_REDUCED++BIND++BA ++ cop ;
-            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ cop
+            Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ cop
           } ;
           NLoc => table {
             Pos => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ cop ;
-            Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ cop
+            Neg => "ku"++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ cop
           }
       } ;
       consubj_s = \\m,a,p => let 
@@ -913,15 +913,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       inf_s = table {
         NFull => table {
           Pos => INF_PREF_FULL++BIND++BA ++ qs.s!(Third C15 Sg) ;
-          Neg => INF_PREF_FULL++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
+          Neg => INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ qs.s!(Third C15 Sg)
         } ;
         NReduced | NPoss => table {
           Pos => INF_PREF_REDUCED++BIND++BA ++ qs.s!(Third C15 Sg) ;
-          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
+          Neg => INF_PREF_REDUCED++BIND++NEG_NGA++BIND++BI ++ qs.s!(Third C15 Sg)
         } ;
         NLoc => table {
           Pos => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++BA ++ qs.s!(Third C15 Sg) ;
-          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BI ++ qs.s!(Third C15 Sg)
+          Neg => LOC_KU++BIND++poss_pron_stem!(Third C15 Sg) ++INF_PREF_FULL++BIND++NEG_NGA++BIND++BI ++ qs.s!(Third C15 Sg)
         }
       } ;
       consubj_s = \\m,a,p => let 
