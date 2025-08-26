@@ -2025,22 +2025,22 @@ resource ResZul = open Prelude,Predef,ParamX in {
 
     adjConcLookup : Agr => RInit => Str =
       table {
-        Third C1_2 Sg => table { RO => "[RC][1]" ; (RA|RE) => "ow[AC][1]"++BIND ; _ => "o[AC][1]"++BIND } ;
+        Third C1_2 Sg => table { RO => "[AC][1]" ; (RA|RE) => "ow[AC][1]"++BIND ; _ => "o[AC][1]"++BIND } ;
         Third C1_2 Pl => table { RC => "aba[AC][2]"++BIND ; _ => "ab[AC][2]"++BIND } ;
-        Third C1a_2a Sg => table { RO => "[RC][1a]" ; (RA|RE) => "ow[AC][1a]"++BIND ; _ => "o[AC][1a]"++BIND } ;
+        Third C1a_2a Sg => table { RO => "[AC][1a]" ; (RA|RE) => "ow[AC][1a]"++BIND ; _ => "o[AC][1a]"++BIND } ;
         Third C1a_2a Pl => table { RC => "aba[AC][2a]"++BIND ; _ => "ab[AC][2a]"++BIND } ;
-        Third C3_4 Sg  => table { RO => "[RC][3]" ; (RA|RE) => "ow[AC][3]"++BIND ; _ => "o[AC][3]"++BIND } ;
+        Third C3_4 Sg  => table { RO => "[AC][3]" ; (RA|RE) => "ow[AC][3]"++BIND ; _ => "o[AC][3]"++BIND } ;
         Third C3_4 Pl => table { RC => "emi[AC][4]"++BIND ; _ => "em[AC][4]"++BIND } ;
         Third C5_6 Sg => table { RC => "eli[AC][5]"++BIND ; _ => "el[AC][5]"++BIND } ;
-        Third C5_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => "[RC][6]" } ;
+        Third C5_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => "[AC][6]" } ;
         Third C7_8 Sg => table { RC => "esi[AC][7]"++BIND ; _ => "es[AC][7]"++BIND } ;
         Third C7_8 Pl => table { RC => "ezi[AC][8]"++BIND ; _ => "ez[AC][8]"++BIND } ;
-        Third C9_10 Sg => table { RE => "[RC][9]" ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
+        Third C9_10 Sg => table { RE => "[AC][9]" ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
         Third C9_10 Pl => table { RC => "ezi[AC][10]"++BIND ; _ => "ez[AC][10]"++BIND } ;
         Third C11_10 Sg => table { RC => "olu[AC][11]"++BIND ; (RA|RE) => "olw[AC][11]"++BIND ; _ => "ol[AC][11]"++BIND } ;
         Third C11_10 Pl => table { RC => "ezi[AC][10]"++BIND ; _ => "ez[AC][10]"++BIND } ;
-        Third C9_6 Sg => table { RE => "[RC][9]" ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
-        Third C9_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => "[RC][6]" } ;
+        Third C9_6 Sg => table { RE => "[AC][9]" ; (RA|RO) => "ey[AC][9]"++BIND ; _ => "e[AC][9]"++BIND } ;
+        Third C9_6 Pl => table { RC => "a[AC][6]"++BIND ; _ => "[AC][6]" } ;
         Third C14 _ => table { RC => "obu[AC][14]"++BIND ; _ => "ob[AC][14]"++BIND } ;
         Third C15 _ => table { RC => "oku[AC][15]"++BIND ; (RA|RE) => "okw[AC][15]" ; _ => "ok[AC][15]"++BIND } ;
         Third C17 _ => table { RC => "oku[AC][17]"++BIND ; (RA|RE) => "okw[AC][17]" ; _ => "ok[AC][17]"++BIND } ;
