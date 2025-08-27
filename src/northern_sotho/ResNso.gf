@@ -14,6 +14,7 @@ resource ResNso = open Prelude,ParamX in {
         UntensedCl = SubjunctCl | ConsecCl ;
         -- Polarity = Pos | Neg ;
         BasicTense = PastTense | PresTense | FutTense ;
+        Voice = Active | Passive ;
                 
         VForm = VFTensed TensedCl Polarity BasicTense | -- Indicative, situative and relative moods
                 VFUntensed UntensedCl Polarity ; -- Subjunctive and consecutive moods
@@ -30,7 +31,7 @@ resource ResNso = open Prelude,ParamX in {
 
     oper
 
-        ADV_GA : Str = "ga" ; 
+        ADV_GA : Str = "ga" ;
         INS_KA : Str = "ka" ;
         ASS_LE : Str = "le" ;
 
@@ -60,7 +61,7 @@ resource ResNso = open Prelude,ParamX in {
         } ;
 
         mkNounExplicit : Str -> Str -> Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
-        = \abssg,locsg,abspl,locpl,cg -> let
+        = \nabssg,nlocsg,nabspl,nlocpl,cg -> let
             ntype = case cg of {
                 (C1_2| C1a_2a) => HumanN ;
                 (C14_6 | C14) => AbstractN ;
@@ -69,14 +70,14 @@ resource ResNso = open Prelude,ParamX in {
         in {
             s = table {
                 Sg => table {
-                    Absolute => abssg ;
-                    Possessive => abssg ;
-                    Locative => locsg
+                    Absolute => nabssg ;
+                    Possessive => nabssg ;
+                    Locative => nlocsg
                 } ;
                 Pl => table {
-                    Absolute => abspl ;
-                    Possessive => abspl ;
-                    Locative => locpl
+                    Absolute => nabspl ;
+                    Possessive => nabspl ;
+                    Locative => nlocpl
                 }
             } ;
             c = cg ;
@@ -84,17 +85,17 @@ resource ResNso = open Prelude,ParamX in {
         } ;
 
         mkNounFull : Str -> Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
-        = \stemsg, stempl, cg, nt -> {
+        = \nounsg, nounpl, cg, nt -> {
             s = table {
                 Sg => table {
-                    Absolute => stemsg ;
-                    Possessive => stemsg ;
-                    Locative => mkLoc nt (stemsg)
+                    Absolute => nounsg ;
+                    Possessive => nounsg ;
+                    Locative => mkLoc nt (nounsg)
                 } ;
                 Pl => table {
-                    Absolute => stempl ;
-                    Possessive => stempl ;
-                    Locative => mkLoc nt (stempl)
+                    Absolute => nounpl ;
+                    Possessive => nounpl ;
+                    Locative => mkLoc nt (nounpl)
                 }
             } ;
             c = cg ;
@@ -102,26 +103,26 @@ resource ResNso = open Prelude,ParamX in {
         } ; 
 
         mkNounIrreg : Str -> Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
-        = \stemsg, stempl, cg -> let
+        = \nounsg, nounpl, cg -> let
             ntype = case cg of {
                 (C1_2| C1a_2a) => HumanN ;
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-            in mkNounFull stemsg stempl cg ntype ;
+            in mkNounFull nounsg nounpl cg ntype ;
 
         mkNounTyped : Str -> ClassGender -> NType -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
-        = \root, cg, nt -> {
+        = \stem, cg, nt -> {
             s = table {
                 Sg => table {
-                    Absolute => (mkNPre cg Sg) + root ;
-                    Possessive => (mkNPre cg Sg) + root ;
-                    Locative => mkLoc nt ((mkNPre cg Sg) + root)
+                    Absolute => (mkNPre cg Sg) + stem ;
+                    Possessive => (mkNPre cg Sg) + stem ;
+                    Locative => mkLoc nt ((mkNPre cg Sg) + stem)
                 } ;
                 Pl => table {
-                    Absolute => (mkNPre cg Pl) + root ;
-                    Possessive => (mkNPre cg Pl) + root ;
-                    Locative => mkLoc nt ((mkNPre cg Pl) + root)
+                    Absolute => (mkNPre cg Pl) + stem ;
+                    Possessive => (mkNPre cg Pl) + stem ;
+                    Locative => mkLoc nt ((mkNPre cg Pl) + stem)
                 }
             } ;
             c = cg ;
@@ -129,13 +130,13 @@ resource ResNso = open Prelude,ParamX in {
         } ; 
 
         mkNoun : Str -> ClassGender -> {s : Number => NPForm => Str ; c : ClassGender ; nt : NType }
-        = \root, cg -> let
+        = \stem, cg -> let
             ntype = case cg of {
                 (C1_2| C1a_2a) => HumanN ;
                 (C14_6 | C14) => AbstractN ;
                 _ => ConcreteN
             }
-        in mkNounTyped root cg ntype ;
+        in mkNounTyped stem cg ntype ;
 
         mkLocClassNoun : Str -> ClassGender -> { s : Str ; c : ClassGender }
         = \n, lcg -> {
@@ -294,12 +295,12 @@ resource ResNso = open Prelude,ParamX in {
                         _+#cons+#vowel+#cons+_ => SylMult ; -- bal
                         _+#cons+#vowel+#vowel+_ => SylMult ; -- neel
                         _+#vowel+#cons+#vowel+_ => SylMult ; -- ape
-                        _+#cons+#vowel+_ => SylMult ; -- bo
+                        --_+#cons+#vowel+_ => SylMult ; -- bo
                         _+#vowel+#cons+_ => SylMult ; -- ag
                         _ => SylMono
                     } ;
         } ;
-        
+
         mkVerb : Str -> {s : VPreForm => VSufForm => Str ; initLet : Let ; syl : Syl }
         = \root -> {s = table {
                         VPreReg => table {
@@ -309,7 +310,7 @@ resource ResNso = open Prelude,ParamX in {
                                 "ngwal" => "ngwadile" ;  
                                 "lwal" => "lwadile" ; 
                                 "gom" => "gomile" ;  
-                                "bolay" => "bolaile" ;
+                                --"bolay" => "bolaile" ;
                                 "y" => "ile" ;                              -- sepetše
                                 p + "n" => p + "ne" ;
                                 p + "m" => p + "me" ;
@@ -318,10 +319,11 @@ resource ResNso = open Prelude,ParamX in {
                                 p + "el" => p + "etše" ;
                                 p + "ul" => p + "utše" ;
                                 p + "ol" => p + "otše" ;
+                                p + "tšh" => p + "tšhitše" ;
                                 p + "tš" => p + "ditše" ;
                                 p + "š" => p + "šitše" ;
-                                p + "ny" => p + "tše" ;
-                                p + "al" => p + "adile" ;
+                                p + "ny" => p + "ntše" ;
+                                p + "y" => p + "ile" ;
                                 p => p + "ile" } 
                         } ;
                           
@@ -338,11 +340,11 @@ resource ResNso = open Prelude,ParamX in {
                                 p + "el" => p + "etše" ;
                                 p + "ul" => p + "utše" ;
                                 p + "ol" => p + "otše" ;
+                                p + "tšh" => p + "tšhitše" ;
                                 p + "tš" => p + "ditše" ;
                                 p + "š" => p + "šitše" ;
-                                p + "ny" => p + "tše" ;
-                                p + "al" => p + "adile" ;
-                                -- monosyllabic verb root : a -> ele
+                                p + "ny" => p + "ntše" ;
+                                p + "y" => p + "ile" ;
                                 p => p + "ile" }               
                         } ;
 
@@ -359,11 +361,11 @@ resource ResNso = open Prelude,ParamX in {
                                 p + "el" => p + "etše" ;
                                 p + "ul" => p + "utše" ;
                                 p + "ol" => p + "otše" ;
+                                p + "tšh" => p + "tšhitše" ;
                                 p + "tš" => p + "ditše" ;
                                 p + "š" => p + "šitše" ;
-                                p + "ny" => p + "tše" ;
-                                p + "al" => p + "adile" ;
-                                -- monosyllabic verb root : a -> ele
+                                p + "ny" => p + "ntše" ;
+                                p + "y" => p + "ile" ;
                                 p => p + "ile" }               
                         } 
                     } ;   
@@ -373,6 +375,105 @@ resource ResNso = open Prelude,ParamX in {
                         #labial_fmp + p => LabFMP ;
                         _ => NotLab
                     }   ;
+
+                    syl = case root of {
+                        _+#cons+#vowel+#cons+_ => SylMult ; -- bal
+                        _+#cons+#vowel+#vowel+_ => SylMult ; -- neel
+                        _+#vowel+#cons+#vowel+_ => SylMult ; -- ape
+                        _+#cons+#vowel+_ => SylMult ; -- bo
+                        _+#vowel+#cons+_ => SylMult ; -- ag
+                        _ => SylMono
+                    } ;
+        } ;
+
+
+        passiveRoot : Str -> Str
+        = \r -> case r of {
+                x + "b" => x + "bj" ;
+                x + "f" => x + "fš" ;
+                x + "m" => x + "ngw" ;
+                x + "p" => x + "pš" ;
+                x + "ph" => x + "pšh" ;
+                _ => r + "w"
+        } ;
+
+        mkVerbT : Str -> {s : VPreForm => VSufForm => Voice => Str ; initLet : Let ; syl : Syl }
+        = \root -> {s = table {
+                        VPreReg => table {
+                            VS_a => table{ Active => root + "a" ; Passive => passiveRoot root + "a" } ; -- sepela sepelwa
+                            VS_e => table{  Active => root + "e" ; Passive => passiveRoot root + "e" } ; -- sepele sepelwe 
+                            VS_ile => case root of {
+                                "ngwal" => table{ Active => "ngwadile" ; Passive => "ngwadilwe" } ;
+                                "lwal" => table{ Active => "lwadile" ; Passive => "lwadilwe" } ;
+                                "gom" => table{ Active => "gomile" ; Passive => "gomilwe" } ;
+                                "bolay" => table{ Active => "bolaile" ; Passive => "bolailwe" } ;
+                                "y" => table{ Active => "ile" ; Passive => "ilwe" } ;
+                                p + "n" => table{ Active => p + "ne" ; Passive => p + "nwe" } ;
+                                p + "m" => table{ Active => p + "me" ; Passive => p + "mwe" } ;
+                                p + "ar" => table{ Active => p + "ere"  ; Passive => p + "erwe" } ;
+                                p + "al" => table{ Active => p + "etše" ; Passive => p + "etšwe" } ;
+                                p + "el" => table{ Active => p + "etše" ; Passive => p + "etšwe" } ;  -- sepetše sepetšwe
+                                p + "ul" => table{ Active => p + "utše" ; Passive => p + "utšwe" } ;
+                                p + "ol" => table{ Active => p + "otše" ; Passive => p + "otšwe" } ;
+                                p + "tšh" => table{Active => p + "tšhitše" ; Passive => p + "tšhitšwe"} ;
+                                p + "tš" => table{ Active => p + "ditše"  ; Passive => p + "ditšwe" } ;
+                                p + "š" => table{ Active => p + "šitše" ; Passive => p + "šitšwe" } ;
+                                p + "ny" => table{ Active => p + "tše" ; Passive => p + "tšwe" } ;
+                                p + "y" => table{ Active => p + "ile" ; Passive => p + "ilwe" } ;
+                                p => table{ Active => p + "ile" ; Passive => p + "ilwe" }
+                            }
+                        } ;
+
+                        VPreAlt1 => let
+                            alt_root = vPreAlt1Root root
+                        in table {
+                            VS_a => table{ Active => alt_root + "a" ; Passive => passiveRoot alt_root + "a" } ;  -- tshepela tshepelwa
+                            VS_e => table{ Active => alt_root + "e" ; Passive => passiveRoot alt_root + "e" } ;  -- tshepele tshepelwe  
+                            VS_ile => case alt_root of {
+                                p + "n" => table{ Active => p + "ne" ; Passive => p + "nwe" } ;
+                                p + "m" => table{ Active => p + "me" ; Passive => p + "mwe" } ;
+                                p + "ar" => table{ Active => p + "ere"  ; Passive => p + "erwe" } ;
+                                p + "al" => table{ Active => p + "etše" ; Passive => p + "etšwe" } ;
+                                p + "el" => table{ Active => p + "etše" ; Passive => p + "etšwe" } ;  -- tshepetše tshepetšwe
+                                p + "ul" => table{ Active => p + "utše" ; Passive => p + "utšwe" } ;
+                                p + "ol" => table{ Active => p + "otše" ; Passive => p + "otšwe" } ;
+                                p + "tšh" => table{Active => p + "tšhitše" ; Passive => p + "tšhitšwe"} ;
+                                p + "tš" => table{ Active => p + "ditše"  ; Passive => p + "ditšwe" } ;
+                                p + "š" => table{ Active => p + "šitše" ; Passive => p + "šitšwe" } ;
+                                p + "ny" => table{ Active => p + "tše" ; Passive => p + "tšwe" } ;
+                                p + "y" => table{ Active => p + "ile" ; Passive => p + "ilwe" } ; 
+                                p => table{ Active => p + "ile" ; Passive => p + "ilwe" }  
+                            }             
+                        } ;
+
+                        VPreAlt2 => let 
+                            alt_root = vPreAlt2Root root
+                        in table {
+                            VS_a => table{ Active => alt_root + "a" ; Passive => passiveRoot alt_root + "a" } ;  
+                            VS_e => table{ Active => alt_root + "e" ; Passive => passiveRoot alt_root + "e" } ;  
+                            VS_ile => case alt_root of {           
+                                p + "n" => table{ Active => p + "ne" ; Passive => p + "nwe" } ;
+                                p + "m" => table{ Active => p + "me" ; Passive => p + "mwe" } ;
+                                p + "ar" => table{ Active => p + "ere"  ; Passive => p + "erwe" } ;
+                                p + "al" => table{ Active => p + "etše" ; Passive => p + "etšwe" } ;
+                                p + "el" => table{ Active => p + "etše" ; Passive => p + "etšwe" } ;  
+                                p + "ul" => table{ Active => p + "utše" ; Passive => p + "utšwe" } ;
+                                p + "ol" => table{ Active => p + "otše" ; Passive => p + "otšwe" } ;
+                                p + "tšh" => table{Active => p + "tšhitše" ; Passive => p + "tšhitšwe"} ;
+                                p + "tš" => table{ Active => p + "ditše"  ; Passive => p + "ditšwe" } ;
+                                p + "š" => table{ Active => p + "šitše" ; Passive => p + "šitšwe" } ;
+                                p + "ny" => table{ Active => p + "tše" ; Passive => p + "tšwe" } ;
+                                p + "y" => table{ Active => p + "ile" ; Passive => p + "ilwe" } ; 
+                                p => table{ Active => p + "ile" ; Passive => p + "ilwe" }          
+                            } 
+                        } 
+                    } ; 
+
+                    initLet = case root of {
+                        #labial_b + p => LabB ;
+                        #labial_fmp + p => LabFMP ;
+                        _ => NotLab
+                    }  ;
 
                     syl = case root of {
                         _+#cons+#vowel+#cons+_ => SylMult ; -- bal
@@ -396,6 +497,7 @@ resource ResNso = open Prelude,ParamX in {
             "d" + p => "t" + p ;
             "f" + p => "ph" + p ;
             "fs" + p => "psh" + p ;
+            "fš" + p => "pšh" + p ;
             "g" + p => "kg" + p ;
             "hl" + p => "tlh" + p ;
             "h" + p => "kh" + p ;
@@ -408,7 +510,6 @@ resource ResNso = open Prelude,ParamX in {
             "y" + p => "k" + p ;
             _ => root
         } ;
-
 
         vPreAlt2Root : Str -> Str 
         = \root -> case root of {

@@ -19,6 +19,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     three_A : A ; -- thathu
     four_A : A ; -- ne
     five_A : A ; -- hlanu
+    very_small_A : A ;
         
     -- relative stems
     black_R : A ; -- mnyama
@@ -31,7 +32,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     dangerous_A : A ;
     red_R : A ; -- bomvu
     yellow_R : A ; -- phuzi
-    thin_R : A ; 
+    thin_R : A ;
     how_R : A ; --njani?
     hard_R : A ;
     thick_R : A ; 
@@ -43,7 +44,8 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     so_big_R : A ;
     spotted_R : A ;
     blue_R : A ;
-    classical_R : A ;
+    better_R : A ;
+    very_thin_R : A ;
     painful_R : A ;
 
    -- enumerative stems
@@ -74,6 +76,9 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     in_the_afternoon_Adv : Adv ;
     quickly_Adv : Adv ;
     again_Adv : Adv ;
+    better_Adv : Adv ;
+    perhaps_Adv : Adv ;
+    peaceful_Adv : Adv ;
     
     -- locative adverbs
 
@@ -95,6 +100,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
      -- locative class nouns
     below_LocN : LocN ;
     place_LocN : LocN ;
+    little_place_LocN : LocN ;
     above_LocN : LocN ;
     behind_LocN : LocN ;
     on_the_other_side_LocN : LocN ;
@@ -115,6 +121,8 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     long_ago_LocN : LocN ;
     home_LocN : LocN ;
     ages_ago_LocN : LocN ;
+    the_whole_LocN : LocN ;
+    after_a_while_LocN : LocN ;
 
     -- quantitative pronouns 
     only_QuantPron : QuantPron ;
@@ -158,12 +166,14 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     while_Conj : Conj ;
     however_Conj : Conj ;
     if_Conj : Conj ; -- ge
+    even_though_Conj : Conj ; -- le ge
     so_that_Conj : Conj ; -- gore
     but_Conj : Conj ; --fela
     then_Conj : Conj ; --ebile
     because_Conj : Conj ; -- ka gobane
     because_2_Conj : Conj ; -- gobane
     whereas_Conj : Conj ;
+    and_2_Conj : Conj ; --le
 
     where_ConjAdv : ConjAdv ;
 
