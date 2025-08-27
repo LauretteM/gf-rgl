@@ -1284,10 +1284,36 @@ resource ResZul = open Prelude,Predef,ParamX in {
     -----------
     -- NOUNS --
     -----------
+
+    guessNoun : Str -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } = \noun -> case noun of {
+      "umu"+stem => regNoun stem C3_4 ;
+      "um"+stem => regNoun stem C3_4 ;
+      "ubu"+stem => regNoun stem C14 ;
+      "ulu"+stem => regNoun stem C11_10 ;
+      "uku"+stem => regNoun stem C15 ;
+      "u"+stem => regNoun stem C1a_2a ;
+      "isi"+stem => regNoun stem C7_8 ;
+      "is"+stem => regNoun stem C7_8 ;
+      "in"+stem => regNoun stem C9_10 ;
+
+      "aba"+stem => regNoun stem C1_2 ;
+      "imi"+stem =>regNoun stem C3_4 ;
+      "izin"+stem => regNoun stem C9_10 ;
+      "izim"+stem => regNoun stem C9_10 ;
+      "izi"+stem => regNoun stem C7_8 ;
+      "iz"+stem => regNoun stem C7_8 ;
+
+      "im"+stem => regNoun stem C9_10 ;
+
+      "i"+stem => regNoun stem C5_6 ;
+
+      _ => regNoun noun C5_6
+    } ;
+
     -- worst case
     mkNoun : (noms,nomp,locs,locp,lemma : Str) -> ClassGender -> { s : Number => NForm => Str ; c : ClassGender ; empty : Str ; lemma : Str } =
       \noms,nomp,locs,locp,lemma,cg ->
-      let
+      let   
         sg_agr = Third cg Sg ;
         pl_agr = Third cg Pl ;
       in

@@ -21,6 +21,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     new_A = mkA "fsa" ; -- sha
     short_A = mkA "kopana" ; --fishane
     many_A = mkA "ntši" ; -- ningi
+    very_small_A = mkA "nyenyane" ;
              
     -- -- relative stems
     black_R = mkA "so" ;
@@ -49,6 +50,8 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     spotted_R = mkA "mebalabala" ;
     blue_R = mkA "tala" ;
     classical_R = mkA "klasiki" ;
+    better_R = mkA "kaone" ;
+    very_thin_R = mkA "sesenyane" ;
 
     -- -- enumerative stems
     -- some_A = mkA "nye" ;
@@ -66,7 +69,6 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     yesterday_Adv = { s = "maabane" } ;
     -- well_Adv = { s = "gabotse" } ;
     now_Adv = { s = "bjale"} ;
-    -- much_Adv = { s = "kudu" } ; 
     night_Adv = { s = "bošego" } ; 
     tomorrow_Adv = { s = "bosasa" } ; 
     tomorrow_2_Adv = { s = "gosasa" } ;
@@ -94,6 +96,9 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     quickly_Adv = { s = "ka pela" } ;
     always_Adv = { s = "ka mehla" } ;
     again_Adv = { s = "gape" } ;
+    better_Adv = { s = "kaone" } ;
+    perhaps_Adv = { s = "mohlomongwe" } ;
+    peaceful_Adv = { s = "šebešebe" } ;
     
     -- here_Adv = { s = "mo" } ; -- mo
     -- here2_Adv = { s = "fa" } ; -- fa
@@ -124,6 +129,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- locative class nouns
     below_LocN = mkLocClassNoun "fase" C16 ;
     place_LocN = mkLocClassNoun "felo" C16 ;
+    little_place_LocN = mkLocClassNoun "felwana" C16 ; 
     above_LocN = mkLocClassNoun "godimo" C17 ;
     on_top_LocN = mkLocClassNoun "godimo" C17 ;
     elsewhere_LocN = mkLocClassNoun "gongwe" C17 ;
@@ -145,6 +151,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- forever_LocN 
     -- this_side_LocN : LocN ; 
     ages_ago_LocN = mkLocClassNoun "kgalekgale" C18 ;
+    the_whole_LocN = mkLocClassNoun "moka" C18 ;
     
     all_QuantPron = { s = all_quantpron } ;
 
@@ -181,12 +188,14 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     while_Conj = { s = "mola" ; mood = SitMS } ;
     however_Conj = { s = "eupša" ; mood = IndicMS } ;
     if_Conj = { s = "ge" ; mood = SitMS } ;
+    even_though_Conj = {s = "le ge" ; mood = SitMS } ;
     so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;
     but_Conj = { s = "fela" ; mood = IndicMS } ;
     then_Conj = { s ="ebile" ; mood = IndicMS } ;
     because_Conj = { s = "ka gobane" ; mood = SitMS } ;
     because_2_Conj = { s = "gobane" ; mood = SitMS } ;
     whereas_Conj = { s = "kganthe" ; mood = SitMS } ;
+    and_2_Conj = { s = "le" ; mood = IndicMS } ;
 
     
     {-Loc = {

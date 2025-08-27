@@ -14,5 +14,4 @@ concrete PhraseSBantuNso of PhraseSBantu = CatNso,CatSBantuNso ** open ResNso, P
     SubjunctS s = {
       s = s.s!SubjunctMS 
     } ;
-
 }
