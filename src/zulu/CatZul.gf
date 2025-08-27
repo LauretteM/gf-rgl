@@ -101,8 +101,8 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     } ;
 
     NP = {
-      empty : Str ;
       s : NForm => Str ;
+      empty : Str ;
       agr : Agr ;
       i : RInit ;
       proDrop : Bool ; -- used when NP is object
@@ -176,5 +176,6 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
   
   linref
     V = \v -> v.lemma ;
+    N = \n -> n.lemma ;
 
 }

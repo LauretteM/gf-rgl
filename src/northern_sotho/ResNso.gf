@@ -1104,47 +1104,6 @@ resource ResNso = open Prelude,ParamX in {
             <Third (C1_2|C1a_2a) _, Third _ _> => Third C1_2 Pl ;
             <Third _ _,Third c _> => Third c Pl
         } ;
-    
-    ---------------------------------------------------------------
-    -- Nonexist lincats
-    ---------------------------------------------------------------
-
-    nonExist_RS : { s : Agr => Str } = {
-        s = \\_ => nonExist
-    } ;
-
-    nonExist_VP : {
-        s : TensedCl => Agr => Polarity => BasicTense => Bool => Str ;
-        inf_s : Polarity => Str ;
-        imp_s : Number => Polarity => Str ;
-        consubj_s : UntensedCl => Agr => Polarity => Str ;
-        hasComp : Bool -- indicates whether to use long form
-    } = {
-        s = \\_,_,_,_,_ => nonExist ;
-        inf_s = \\_ => nonExist ;
-        imp_s = \\_,_ => nonExist ;
-        consubj_s = \\_,_,_ => nonExist ;
-        hasComp = False
-    } ;
-
-    nonExist_RCl : {s : Agr => Polarity => BasicTense => Str } = {
-        s = \\_,_,_ => nonExist
-    } ;
-
-    nonExist_N : {
-        s : Number => NPForm => Str ;
-        c : ClassGender ;
-        nt : NType
-      } = {
-        s = \\_,_ => nonExist ;
-        c = C17 ;
-        nt = ConcreteN
-    } ;
-
-    nonExist_A : { s : AForm => Str ; at : AType } = {
-        s = \\_ => nonExist ;
-        at = AdjA
-    } ;
 
 }
        

@@ -11,7 +11,7 @@ concrete CatSBantuSsw of CatSBantu = open ResSsw,Prelude,ParamX in {
     LocAdv = { s : Str ; reqLocS : Bool } ;
     QuantPron = { s : Agr => Str ; lemma : Str } ;
     VAux = { s : Str ; at : AuxType } ;
-    ConjN = { s : RInit => Str ; fix : Bool } ;
+    ConjN = { s : Agr => Str ; fix : Bool } ;
     ConjAdv = { s : Str } ;
     IAdj = { s : AForm => Str } ;
     -- INAdv = { s : Str ; postIAdv : Bool } ;
@@ -22,7 +22,7 @@ concrete CatSBantuSsw of CatSBantu = open ResSsw,Prelude,ParamX in {
     linref
       Loc = \loc -> loc.s!MainCl!(Third C15 Sg)!Pos!PresTense ;
       QuantPron = \q -> q.lemma ;
-      ConjN = \c -> c.s!RC ;
+      ConjN = \c -> c.s!(Third C17 Sg) ;
       Postdet = \p -> p.s!(Third C15 Sg) ;
 
 }

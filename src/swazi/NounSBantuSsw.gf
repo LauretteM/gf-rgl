@@ -191,10 +191,10 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
 
     SBantuConjNP np1 conj np2 = {
       s = table {
-        NLoc => np1.s!NLoc ++ conj.s!RC++LOC_S++BIND++ np2.s!NLoc ;
+        NLoc => np1.s!NLoc ++ conj.s!np2.agr++LOC_S++BIND++ np2.s!NLoc ;
         nform => case conj.fix of {
-          True => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NReduced ;
-          False => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NFull 
+          True => np1.s!nform ++ conj.s!(np2.agr) ++ np2.s!NReduced ;
+          False => np1.s!nform ++ conj.s!(np2.agr) ++ np2.s!NFull 
         }
       } ;
       agr = compAgr np1.agr np2.agr ;

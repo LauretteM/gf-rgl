@@ -111,6 +111,7 @@ oper
   } ;
 
   mkVS = overload {
+    mkVS : (cel : Str) -> VS = \cel -> lin VS ((regVerb cel) ** { s_type = SInd } ) ;
     mkVS : (cel : Str) -> SType -> VS  = \cel,st -> lin VS ((regVerb cel) ** { s_type = st } ) ;
     mkVS : (az,azi : Str) -> SType -> VS  = \az,azi,st -> lin VS ((th_Verb az azi) ** { s_type = st } ) ;
   } ;

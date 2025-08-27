@@ -16,6 +16,8 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
     when_Adv = mkAdv "nini" ;
     yesterday_Adv = mkAdv "itolo" ;
 
+    only_Adv = mkAdv "kuphela" ;
+
     only_QuantPron = {
       s = table {
         Third C1_2 Sg => "yedvwa" ;

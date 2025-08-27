@@ -26,12 +26,12 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
       reqLocS = False
     } ;
 
-    ComparAdv np = nonExist_Adv ;
-    PlaceNameAdv np = nonExist_LocAdv ;
-    PlaceCapLocAdv np = nonExist_LocAdv ;
-    SurfaceLocAdv adv = nonExist_LocAdv ;
-    InsideLocAdv adv = nonExist_LocAdv ;
-    FarLocAdv adv = nonExist_LocAdv ;
+    ComparAdv np = variants {} ;
+    PlaceNameAdv np = variants {} ;
+    PlaceCapLocAdv np = variants {} ;
+    SurfaceLocAdv adv = variants {} ;
+    InsideLocAdv adv = variants {} ;
+    FarLocAdv adv = variants {} ;
 
     -- locative kwa
     PlaceLocAdv np = {

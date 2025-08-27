@@ -240,7 +240,7 @@ abstract LexiconSBantu = Cat ** {
    plough_V2 : V2 ;
    point_at_V2 : V2 ;
    point_at_V : V ;
-   pour_into_V3 : V3 ;
+   pour_into_V2 : V2 ;
    pour_V2 : V2 ;
    put_into_V2 : V2 ;
    read_V2 : V2 ; 

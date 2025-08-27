@@ -1,4 +1,4 @@
---1 Lang: a Test Module for the Resource Grammar
+-- Chunk: a chunk parsing version of the SBantu Resource Grammar
 
 abstract ChunkSBantu =
   ChunkGrammarSBantu,

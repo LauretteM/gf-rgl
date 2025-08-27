@@ -54,6 +54,7 @@ resource ResZul = open Prelude,Predef,ParamX in {
     ADV_NGA : Str = "nga" ;
     ADV_KHONA : Str = "khona" ;
     ADV_LAPHA : Str = "lapha" ;
+    ADV_LAPHO : Str = "lapho" ;
     ADV_NI : Str = "ni" ;
     ADV_PHI : Str = "phi" ;
 
@@ -2612,46 +2613,4 @@ resource ResZul = open Prelude,Predef,ParamX in {
       <Third _ _,Third c _> => Third c Pl
     } ;
 
-
-    --------------------------------------------
-    --  NONEXIST lincats
-    --------------------------------------------
-
-    nonExist_Adv : { s : Str ; reqLocS : Bool } = {
-      s = nonExist ;
-      reqLocS = False
-    } ;
-
-    nonExist_CN : {
-      s : Number => NForm => Str ;
-      c : ClassGender ;
-      empty : Str ;
-      predet : Bool
-    } = {
-      s = \\_,_ => nonExist ;
-      c = C17 ;
-      empty = nonExist ;
-      predet = False
-    } ;
-
-    nonExist_LocAdv : { s : Str ; reqLocS : Bool } = {
-      s = nonExist ;
-      reqLocS = False
-    } ;
-
-    nonExist_Pron : {
-      s : NForm => Str ;
-      agr : Agr ;
-      empty : Str ;
-      proDrop : Bool
-    } = {
-        s = \\_ => nonExist ;
-        agr = Third C17 Sg ;
-        empty = nonExist ;
-        proDrop = False
-    } ;
-
-    nonExist_LocN : { s : Str } = {
-      s = nonExist
-    } ;
 }
