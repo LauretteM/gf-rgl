@@ -97,13 +97,17 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             mkCN : A -> N -> CN = \a,n -> AdjCN (PositA a) (UseN n) ;
         } ;
 
-        possCN = overload {
-            locCN : N -> NP -> CN = \n,np -> PossNPLoc (UseN n) np ;
-            locCN : CN -> NP -> CN = PossNPLoc ;
+        posslocCN = overload {
+            posslocCN : N -> NP -> CN = \n,np -> PossNPLoc (UseN n) np ;
+            posslocCN : CN -> NP -> CN = PossNPLoc ;
         } ;
 
         emphCN = overload {
             emphCN : CN -> CN = EmphCN
+        } ;
+
+        contrastCN = overload {
+            contrastCN : CN -> CN = ContrastCN 
         } ;
 
         locativisedNoun = overload {
@@ -172,16 +176,9 @@ incomplete resource ConstructorsSBantu = open GrammarSBantu in {
             symbNumN1000 : Symb -> N = SymbN_1000 ;
         } ;
 
-        -- together_with = together_with_ConjN ;
-        -- and_with_N = with_ConjN ;
-        -- and = and_Conj ;
-        -- and_with = with_Conj ;
-
-        -- all = all_QuantPron ;
-        -- only = only_QuantPron ;
-        -- this = this_Quant ;
-
-        -- here = here_Adv ;
+        symbNumN1000_000 = overload {
+            symbNumN1000_000 : Symb -> N = SymbN_1000_000 ;
+        } ;
 
         aSg_Det = DetNum NumSg ;
         aPl_Det = DetNum NumPl ;

@@ -13,21 +13,18 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     small_A = mkA "nyane" ;
     how_much_A = mkA "kae" ;
     other_A = mkA "ngwe" ;
-    -- male_A = mkA "tona" ; -- not in abstract
     two_A = mkA "bedi" ;
     three_A = mkA "raro" ;
     four_A = mkA "ne" ;
     five_A = mkA "hlano" ;
     new_A = mkA "fsa" ; -- sha
     short_A = mkA "kopana" ; --fishane
-    many_A = mkA "ntši" ; -- ningi
              
     -- -- relative stems
     black_R = mkA "so" ;
     few_R = mkA "nyane" ;
     -- heavy_R : A ; -- nzima
     -- honest_R : A ; -- qotho
-    tasty_R = mkA "bose" ;
     nice_R = mkA "bose" ;
     white_R = mkA "šweu" ;
     green_R = mkA "talamerogo" ;
@@ -49,9 +46,9 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     spotted_R = mkA "mebalabala" ;
     blue_R = mkA "tala" ;
     classical_R = mkA "klasiki" ;
+    painful_R = variants {} ;
 
     -- -- enumerative stems
-    -- some_A = mkA "nye" ;
     different_Enum = enum "šele" ;
     which_Enum = enum "&+ fe" ;
     one_Enum = enum "tee" ; 
@@ -59,50 +56,29 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
     -- -- adverbs
     when_Adv = { s = "neng" } ;
-    
     how_Adv = { s = "bjang" } ;
 
     today_Adv = { s = "lehono" } ;
     yesterday_Adv = { s = "maabane" } ;
-    -- well_Adv = { s = "gabotse" } ;
     now_Adv = { s = "bjale"} ;
-    -- much_Adv = { s = "kudu" } ; 
-    night_Adv = { s = "bošego" } ; 
+    at_night_Adv = { s = "bošego" } ; 
     tomorrow_Adv = { s = "bosasa" } ; 
     tomorrow_2_Adv = { s = "gosasa" } ;
-    winter_Adv = { s = "marega" } ; 
+    in_winter_Adv = { s = "marega" } ; 
     evening_Adv = { s = "mantšiboa" } ; 
     really_Adv = { s = "ruri" } ; 
-    -- often_Adv = { s = "gantši" } ;
-    -- especially_Adv = { s = "gagolo" } ;
-    -- thrice_Adv = { s = "gararo" } ;
-    -- somewhat_Adv = { s = "gannyane" } ;
-    -- badly_Adv = { s = "gampe" } ;
-    painful_Adv = { s = "gabohloko" } ;
-    ten_times_Adv = { s = "galesome" } ;
-    once_Adv = { s = "kgatee" } ;
-    so_Adv = { s = "bjalo" } ;
+    -- painful_Adv = { s = "gabohloko" } ;
+    -- ten_times_Adv = { s = "galesome" } ;
+    -- once_Adv = { s = "kgatee" } ;
     day_before_yesterday_Adv = { s = "maloba" } ;
-    just_Adv = { s = "fela" } ;
-    simultaneously_Adv = { s = "gotee" } ;
+    -- simultaneously_Adv = { s = "gotee" } ;
     always_Adv = {s = "ka mehla" } ;
     long_ago_Adv = {s = "kgale" } ;
-    -- twice_Adv = {s = "gabedi" } ;
     in_the_afternoon_Adv = { s = "ka mathapama" } ;
 	  like_this_Adv = { s = "bjalo" } ;
     only_Adv = { s = "fela" } ;
     quickly_Adv = { s = "ka pela" } ;
-    always_Adv = { s = "ka mehla" } ;
     again_Adv = { s = "gape" } ;
-    
-    -- here_Adv = { s = "mo" } ; -- mo
-    -- here2_Adv = { s = "fa" } ; -- fa
-    -- there_Adv = { s = "moo" } ; -- moo
-    -- there2_Adv = { s = "fao" } ; -- fao
-    -- yonder_Adv = { s = "mola" } ; -- mola
-    -- yonder2_Adv = { s = "fale" } ; -- fale
-    -- here3_Adv = { s = "gona" } ; -- gona
-    -- outside_Adv = { s = "ntle" } ;
      
     -- locative adverbs
     where_LocAdv = { s = "kae" } ;
@@ -110,15 +86,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     nearby_LocAdv = {s = "kgauswi" } ;
     across_LocAdv = { s = "putla" } ;
     at_the_back_LocAdv = { s = "morago" } ;
-    -- behind_LocAdv : LocAdv ;
-    -- on_the_side_LocAdv : LocAdv m
-    above_LocAdv = { s = "godimo" } ;
-    -- above_2_LocAdv : LocAdv ;
-    -- on_the_outside_LocAdv : LocAdv ;
-    below_LocAdv  = { s = "fase" } ;
-    down_LocAdv = { s = "fase" } ;
     inside_LocAdv = { s = "ka gare ga" } ;
-    outside_LocAdv = { s = "ntle" } ;
     yonder_LocAdv = { s = "kua" } ;
 
     -- locative class nouns
@@ -131,7 +99,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     on_the_other_side_LocN = mkLocClassNoun "moše" C18 ;
     across_LocN = mkLocClassNoun "mošola" C18 ;
     this_side_LocN = mkLocClassNoun "mošono" C18 ;
-        outside_LocN = mkLocClassNoun "ntle" C18 ;
+    outside_LocN = mkLocClassNoun "ntle" C18 ;
     in_front_LocN = mkLocClassNoun "pele" C18 ;
     inside_LocN = mkLocClassNoun "teng" C18 ;
     central_LocN = mkLocClassNoun "gare" C18 ;

@@ -1,0 +1,1 @@
+instance SyntaxSBantuSsw of SyntaxSBantu = ConstructorsSBantuSsw, CatSsw, SymbolSBantuSsw, StructuralSsw, StructuralSBantuSsw ;

@@ -1,4 +1,4 @@
-concrete SymbolSBantuZul of SymbolSBantu = CatZul, SymbolZul [Symb] ** open ResZul, ParamX, Prelude in {
+concrete SymbolSBantuSsw of SymbolSBantu = CatSsw, SymbolSsw [Symb] ** open ResSsw, ParamX, Prelude in {
 
     lin
         SymbN symb = mkSymbNumber symb.s C5_6;

@@ -1,7 +1,7 @@
-concrete PChunkZul of PChunk = CatZul, CatSBantuZul, SymbolZul [Symb] **
+concrete ChunkSBantuSsw of ChunkSBantu = CatSsw, CatSBantuSsw, SymbolSsw [Symb] **
   open
-    Prelude, ResZul, ParamX,
-    (R = ResZul), (P = ParadigmsZul) in {
+    Prelude, ResSsw, ParamX,
+    (R = ResSsw), (P = ParadigmsSsw) in {
 
   -- Chunks are implemented without variants in order to enable recovery of the linearisation
 
@@ -93,11 +93,11 @@ concrete PChunkZul of PChunk = CatZul, CatSBantuZul, SymbolZul [Symb] **
       (First _ | Second _ | Third _ _ ) => np.i
     }
     in {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!i ++BIND++ np.s!NPoss
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr!np.agr ++BIND++ np.s!NPoss
     } ;
 
     NP_PossLoc_Chunk pron np = {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!RC ++BIND++"s"++BIND++ (loc_NP np)
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr!pron.agr ++BIND++"s"++BIND++ (loc_NP np)
     } ;
     Predet_Chunk pron predet = {
       s = pron.s!NFull ++ predet.s!pron.agr

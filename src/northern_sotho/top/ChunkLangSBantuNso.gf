@@ -1,6 +1,6 @@
 --# -path=.:../abstract:../common:../api:../prelude
 
-concrete ChunkSBantuNso of ChunkSBantu =
+concrete ChunkLangSBantuNso of ChunkLangSBantu =
   ChunkGrammarSBantuNso,
   LexiconSBantuNso
   ** {

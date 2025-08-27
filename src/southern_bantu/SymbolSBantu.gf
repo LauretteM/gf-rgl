@@ -1,4 +1,4 @@
-abstract SymbolSBantu = Cat, Symbol ** {
+abstract SymbolSBantu = Cat, Symbol [Symb] ** {
 
     fun
         SymbN : Symb -> N ;
@@ -9,4 +9,6 @@ abstract SymbolSBantu = Cat, Symbol ** {
         SymbN_10 : Symb -> N ;
         SymbN_100 : Symb -> N ;
         SymbN_1000 : Symb -> N ;
+        SymbN_1000_000 : Symb -> N ;
 }
+

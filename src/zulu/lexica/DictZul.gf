@@ -1,15 +1,9 @@
-concrete MonoLexZul of MonoLex = CatZul, CatSBantuZul ** open ResZul,ParadigmsZul in {
+concrete DictZul of DictZulAbs = CatZul, CatSBantuZul ** open ResZul,ParadigmsZul in {
 
    lin
    -- MANUAL ADDITIONS --
-   gcwele_RelStem = { s = "gcwele" } ;
    ningi_5_N = mkN "ningi" C5_6 ;
    lungu_1a_2a_N = mkN "lungu" "abelungu" "elungwini" "ebelungwini" C1a_2a ;
-   ingabe_Adv = mkAdv "ingabe" ;
-   kakhulu_Adv = mkAdv "kakhulu" ;
-   qotho_R = mkRelA "qotho" ;
-   mnyama_R = mkRelA "mnyama" ;
-   phandle_LocN = {s = "phandle" } ;
 
    -- AUTOMATED ADDITIONS --
 

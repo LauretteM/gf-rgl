@@ -1,26 +1,6 @@
 concrete LexiconSBantuZul of LexiconSBantu = CatZul ** open ResZul,ParadigmsZul in {
 
    lin
-   -- adjective stems
-   ugly_A = mkA "bana" ;
-   bad_A = mkA "bi" ;
-   two_A = mkA "bili" ;
-   old_A = mkA "dala" ;
-   pretty_A = mkA "hle" ;
-   big_A = mkA "khulu" ;
-   many_A = mkA "ningi" ;
-   tall_A = mkA "de" ;
-
-   -- relative stems
-   tasty_R = mkRelA "mnandi" ;
-   heavy_R = mkRelA "nzima" ;
-   few_R = mkRelA "mbalwa" ;
-   honest_R = mkRelA "qotho" ;
-   white_R = mkRelA "mhlophe" ;
-   black_R = mkRelA "mnyama" ;
-
-   -- enumerative stems
-   
 
    animal_N = mkN "lwane" C7_8 ; -- lwane_7_8
    apple_N = mkN "hhabhula" C5_6 ;
@@ -127,6 +107,13 @@ concrete LexiconSBantuZul of LexiconSBantu = CatZul ** open ResZul,ParadigmsZul 
 
    Tatjana_PN = mkPN "Tatjana" C1a_2a ;
    John_PN = mkPN "John" C1a_2a ;
+
+   -- unit_N : N ;
+   eight_N = mkN "shiyagalombili" C7_8 ;
+   -- nine_N : N ;
+   ten_N = mkN "shumi" C5_6 ;
+   hundred_N = mkN "khulu" C5_6 ;
+   thousand_N = mkN "khulungwane" C9_10 ;
 
    -- verb roots
 

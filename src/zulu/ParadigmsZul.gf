@@ -36,6 +36,7 @@ oper
 
   mkLN = overload {
     mkLN : (Mediterranean : Str) -> N = \n -> lin N (mkELocN n C5_6) ;   -- default case, useful for loan words
+    -- mkLN : (UmGungundlovu : Str) -> ClassGender -> N = \n,cg -> lin N (mkELocN n cg) ;   -- towards native place names
   } ;
 
   mkPN = overload {
@@ -112,6 +113,7 @@ oper
   mkVS = overload {
     mkVS : (cel : Str) -> VS = \cel -> lin VS ((regVerb cel) ** { s_type = SInd } ) ;
     mkVS : (cel : Str) -> SType -> VS  = \cel,st -> lin VS ((regVerb cel) ** { s_type = st } ) ;
+    mkVS : (az,azi : Str) -> VS  = \az,azi -> lin VS ((th_Verb az azi) ** { s_type = SInd } ) ;
     mkVS : (az,azi : Str) -> SType -> VS  = \az,azi,st -> lin VS ((th_Verb az azi) ** { s_type = st } ) ;
   } ;
 

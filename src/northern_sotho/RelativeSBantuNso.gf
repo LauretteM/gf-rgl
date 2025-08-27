@@ -2,7 +2,7 @@ concrete RelativeSBantuNso of RelativeSBantu = CatNso ** open ResNso,Prelude,Par
 
 lin
 
-    RelVPShort rp vp = nonExist_RCl ;
+    RelVPShort rp vp = variants {} ;
 
     Dem2RP = {
       s = dem_pron!Dem2 ;
@@ -16,6 +16,6 @@ lin
       s = abs_pron ;
     } ;
 
-    SBantuConjRS rs1 conj rs2 = nonExist_RS ;
+    SBantuConjRS rs1 conj rs2 = variants {} ;
 
 }

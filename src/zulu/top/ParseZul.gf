@@ -1,0 +1,3 @@
+abstract ParseZul = 
+    GrammarSBantuZul,
+    DictZul ;

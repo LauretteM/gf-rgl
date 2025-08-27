@@ -205,9 +205,9 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       empty = np1.empty ++ np2.empty
     } ;
 
-    AdjPron ap pron = nonExist_Pron ;
-    NomRel cn1 cn2 = nonExist_CN ;
-    PossLocN locn np = nonExist_LocN ;
+    AdjPron ap pron = variants {} ;
+    NomRel cn1 cn2 = variants {} ;
+    PossLocN locn np = variants {} ;
 
 
 }

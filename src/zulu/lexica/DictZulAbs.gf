@@ -1,13 +1,9 @@
-abstract MonoLex = Cat,CatSBantu ** {
+abstract DictZulAbs = Cat,CatSBantu ** {
 
    fun
    -- -- MANUAL ADDITIONS --
-   -- gcwele_RelStem : RelStem ;
    ningi_5_N : N ;
    lungu_1a_2a_N : N ;
-   qotho_R : A ;
-   mnyama_R : A ;
-   phandle_LocN : LocN ;
 
    -- adjective stems
    bana_A : A ;
