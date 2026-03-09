@@ -1,7 +1,7 @@
-concrete ChunkSBantuSsw of ChunkSBantu = CatSsw, CatSBantuSsw, SymbolSsw [Symb] **
+concrete ChunkSBantuXho of ChunkSBantu = CatXho, CatSBantuXho, SymbolXho [Symb] **
   open
-    Prelude, ResSsw, ParamX,
-    (R = ResSsw), (P = ParadigmsSsw) in {
+    Prelude, ResXho, ParamX,
+    (R = ResXho), (P = ParadigmsXho) in {
 
   -- Chunks are implemented without variants in order to enable recovery of the linearisation
 
@@ -89,15 +89,15 @@ concrete ChunkSBantuSsw of ChunkSBantu = CatSsw, CatSBantuSsw, SymbolSsw [Symb] 
     } ;
     NP_Gen_Chunk pron np = let
     i = case np.agr of {
-      (First Pl) | (Second Pl) => RI ;
-      (First _ | Second _ | Third _ _ ) => np.i
+      (First Pl) | (Second Pl) => PhonI ;
+      (First _ | Second _ | Third _ _ ) => np.phonInit
     }
     in {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!np.agr ++BIND++ np.s!NPoss
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr ++BIND++ np.s!NPoss
     } ;
 
     NP_PossLoc_Chunk pron np = {
-      s = pron.s!NFull ++ poss_concord_agr!pron.agr!pron.agr ++BIND++"s"++BIND++ (loc_NP np)
+      s = pron.s!NFull ++ poss_concord_agr!pron.agr ++BIND++"s"++BIND++ (loc_NP np)
     } ;
     Predet_Chunk pron predet = {
       s = pron.s!NFull ++ predet.s!pron.agr

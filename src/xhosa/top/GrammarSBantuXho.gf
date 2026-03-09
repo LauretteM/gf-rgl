@@ -17,7 +17,7 @@ concrete GrammarSBantuXho of GrammarSBantu =
   TenseX [PPos,PNeg],
   -- Transfer ,
   TempSBantuXho, -- [TPresTemp, TPerfTemp, TPastTemp, TFutTemp, TPastPresTemp, TFutPresTemp, TPerfPerfTemp, TFutPerfTemp, TPerfPresTemp]
-  BackwardXho[ComplV2,ComplV2V], -- ComplV3,
+  BackwardXho[ComplV2,ComplV3,ComplV2V],
   AdverbSBantuXho,
   NounSBantuXho,
   PhraseSBantuXho,

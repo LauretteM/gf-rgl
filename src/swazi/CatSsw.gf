@@ -19,7 +19,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Cl = {
       s : Polarity => BasicTense => Aspect => Str ;
       consubj_s : DMType => Polarity => Str ;
-      rinit : RInit
+      phonInit : PhonInit
     } ;
 --     ClSlash = {
 --       s : ResSsw.Tense => Anteriority => CPolarity => Order => Str ;
@@ -56,7 +56,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ; -- indicates whether to use long form
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       vptype : VPType 
     } ;
@@ -66,7 +66,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     --   oc : Str ;
     --   comp : Str ;
     --   hasComp : Bool ;
-    --   r : RInit ;
+    --   phonInit : PhonInit ;
     --   syl : Syl ;
     --   asp : Aspect ;
     --   asp_pref : VForm => Str ;
@@ -79,7 +79,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 
     -- Comp = {
     --   s : AForm => Str ;
-    --   r : RInit ;
+    --   phonInit : PhonInit ;
     --   agr : Agr ;
     --   asp : Aspect ;
     --   asp_pref : VForm => Str ;
@@ -104,7 +104,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       empty : Str ;
       s : NForm => Str ;
       agr : Agr ;
-      i : RInit ;
+      phonInit : PhonInit ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
       heavy : Bool -- has object/adv/qword
@@ -137,7 +137,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 -- Open lexical classes, e.g. Lexicon
     V,V2,VA,V3,VV,V2V = {
       s : RForm => Str ;
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       voice : Voice ;
       root : Str ;
@@ -145,7 +145,7 @@ concrete CatSsw of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     } ;
     VS = {
       s : RForm => Str ;
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       voice : Voice ;
       s_type : SType ;

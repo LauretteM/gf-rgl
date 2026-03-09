@@ -1,5 +1,3 @@
---# -path=.:../abstract:../common:../prelude
-
 concrete SymbolZul of Symbol = CatZul ** open Prelude, ResZul in {
 
 -- lin

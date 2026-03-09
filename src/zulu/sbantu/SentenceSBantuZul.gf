@@ -77,7 +77,7 @@ concrete SentenceSBantuZul of SentenceSBantu = CatZul,CatSBantuZul ** open ResZu
     } ;
 
     SConjS s1 conj s2 = {
-      s = \\st => s1.s!st ++ conj.s!RC ++ s2.s!st 
+      s = \\st => s1.s!st ++ conj.s!PhonC ++ s2.s!st 
     } ;
 
     -- IAdvQS np iadv = {

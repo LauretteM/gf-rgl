@@ -21,9 +21,9 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
       in {
         s = \\p,t,s => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
         consubj_s = \\m,p => np.s!NFull ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
-        rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+        phonInit = case np.proDrop of {
+          False => np.phonInit ;
+          True => vp.phonInit
       }
       } ;
       _ => cl_with_verb_predicate np vp 
@@ -92,7 +92,7 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
 
   oper
 
-    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str ; consubj_s : DMType => Polarity => Str ; rinit : RInit } = \np,vp -> {
+    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str ; consubj_s : DMType => Polarity => Str ; phonInit : PhonInit } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull
@@ -106,9 +106,9 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
           subj = np.s!NFull
         in 
           subj ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 
@@ -143,7 +143,7 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
       VP -> {
           s : Polarity => BasicTense => Aspect => Str ;
           consubj_s : DMType => Polarity => Str ;
-          rinit : RInit
+          phonInit : PhonInit
       } = \np,vp -> {
       s = \\p,t,s =>
         let
@@ -174,9 +174,9 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 
@@ -215,7 +215,7 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
       VP -> {
         s : Polarity => BasicTense => Aspect => Str ;
         consubj_s : DMType => Polarity => Str ;
-        rinit : RInit
+        phonInit : PhonInit
       } = \np,vp -> {
       s = \\p,t,s =>
         let
@@ -240,9 +240,9 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
           subj ++
           vp.consubj_s!m!np.agr!p
           ++ vp.comp ++ vp.iadv ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 
@@ -251,14 +251,14 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
       VP -> {
         s : Polarity => BasicTense => Aspect => Str ;
         consubj_s : DMType => Polarity => Str ;
-        rinit : RInit
+        phonInit : PhonInit
       } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
-          vow = case <vp.r,p,t> of {
-            <RC,Pos,PresTense> => False ;
+          vow = case <vp.phonInit,p,t> of {
+            <PhonC,Pos,PresTense> => False ;
             <_,Pos,PresTense> => True ;
             <_,_,_> => False
           } ;
@@ -285,9 +285,9 @@ concrete SentenceXho of Sentence = CatXho ** open Prelude,ResXho,ParamX in {
           subj ++
           vp.consubj_s!m!np.agr!p
           ++ vp.comp ++ vp.iadv ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 

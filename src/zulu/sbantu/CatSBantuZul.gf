@@ -1,4 +1,4 @@
-concrete CatSBantuXho of CatSBantu = open ResXho,Prelude,ParamX in {
+concrete CatSBantuZul of CatSBantu = open ResZul,Prelude,ParamX in {
 
   lincat
     Loc = {
@@ -9,13 +9,20 @@ concrete CatSBantuXho of CatSBantu = open ResXho,Prelude,ParamX in {
     } ;
     LocN = { s : Str } ;
     LocAdv = { s : Str ; reqLocS : Bool } ;
-    QuantPron = { s : Agr => Str } ;
+    QuantPron = { s : Agr => Str ; lemma : Str } ;
     VAux = { s : Str ; at : AuxType } ;
-    ConjN = { s : RInit => Str ; fix : Bool } ;
+    ConjN = { s : PhonInit => Str ; fix : Bool } ;
+    ConjAdv = { s : Str } ;
     IAdj = { s : AForm => Str } ;
     -- INAdv = { s : Str ; postIAdv : Bool } ;
 
     Postdet = { s : Agr => Str } ;
     SubCl = { s : Polarity => BasicTense => Str } ;
+  
+  linref
+    Loc = \loc -> loc.s!MainCl!(Third C15 Sg)!Pos!PresTense ;
+    QuantPron = \q -> q.lemma ;
+    ConjN = \c -> c.s!PhonC ;
+    Postdet = \p -> p.s!(Third C15 Sg) ;
 
 }

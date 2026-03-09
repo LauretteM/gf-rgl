@@ -4,11 +4,11 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
 
     ProDrop pron = {
       s = table {
-        NFull => case pron.proDrop of {
-          True => nonExist ; -- "*" ++ pron.s!NFull ;
+        _ => case pron.proDrop of {
+          True => nonExist ;
           False => pron.empty
-        } ;
-        nform => nonExist -- "*" ++ pron.s!nform
+        } -- ;
+        -- nform => nonExist
       } ;
       agr = pron.agr ;
       empty = pron.empty ;
@@ -28,7 +28,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       in
         pron_str ++ postdet.s!pron.agr ;
       agr = pron.agr ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = False ;
       isPron = True ;
       heavy = True
@@ -141,7 +141,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       empty = pn.empty ;
       s = pn.s!Pl ;
       agr = agr ;
-      i = nominit!agr ;
+      phonInit = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -155,7 +155,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       {
         s = \\nform => vp.inf_s!nform!pol.p ++ pol.s ;
         agr = agr ;
-        i = RU ;
+        phonInit = PhonU ;
         proDrop = False ;
         isPron = False ;
         heavy = True ;
@@ -166,7 +166,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       empty = [] ;
       s = \\_ => locn.s ;
       agr = Third C17 Sg ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -176,7 +176,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
       empty = [] ;
       s = \\_ => ADV_NGA++BIND++locn.s ;
       agr = Third C17 Sg ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -198,7 +198,7 @@ concrete NounSBantuSsw of NounSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelu
         }
       } ;
       agr = compAgr np1.agr np2.agr ;
-      i = np1.i ;
+      phonInit = np1.phonInit ;
       proDrop = andB np1.proDrop np2.proDrop ;
       isPron = np1.isPron ;
       heavy = orB np1.heavy np2.heavy ;

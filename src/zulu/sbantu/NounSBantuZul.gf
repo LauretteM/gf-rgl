@@ -28,7 +28,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       in
         pron_str ++ postdet.s!pron.agr ;
       agr = pron.agr ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = False ;
       isPron = True ;
       heavy = True
@@ -137,7 +137,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       empty = pn.empty ;
       s = pn.s!Pl ;
       agr = agr ;
-      i = nominit!agr ;
+      phonInit = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -151,7 +151,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       {
         s = \\nform => vp.inf_s!nform!pol.p ++ pol.s ;
         agr = agr ;
-        i = RU ;
+        phonInit = PhonU ;
         proDrop = False ;
         isPron = False ;
         heavy = True ;
@@ -162,7 +162,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       empty = [] ;
       s = \\_ => locn.s ;
       agr = Third C17 Sg ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -172,7 +172,7 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       empty = [] ;
       s = \\_ => ADV_NGA++BIND++locn.s ;
       agr = Third C17 Sg ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -180,21 +180,21 @@ concrete NounSBantuZul of NounSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
 
     PossNPLoc cn np = {
       empty = np.empty ;
-      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!RC ++BIND++LOC_S++BIND++ np.s!NLoc;
+      s = \\n,nform => cn.s!n!nform ++ poss_concord!cn.c!n!PhonC ++BIND++LOC_S++BIND++ np.s!NLoc;
       c = cn.c ;
       predet = cn.predet
     } ;
 
     SBantuConjNP np1 conj np2 = {
       s = table {
-        NLoc => np1.s!NLoc ++ conj.s!RC++LOC_S++BIND++ np2.s!NLoc ;
+        NLoc => np1.s!NLoc ++ conj.s!PhonC++LOC_S++BIND++ np2.s!NLoc ;
         nform => case conj.fix of {
           True => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NReduced ;
           False => np1.s!nform ++ conj.s!(initNP np2.isPron np2.agr) ++ np2.s!NFull 
         }
       } ;
       agr = compAgr np1.agr np2.agr ;
-      i = np1.i ;
+      phonInit = np1.phonInit ;
       proDrop = andB np1.proDrop np2.proDrop ;
       isPron = np1.isPron ;
       heavy = orB np1.heavy np2.heavy ;

@@ -1,18 +1,10 @@
-concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelude, ParamX in {
+concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelude, ParamX in {
 
   lin
 
     InstrAdv np =
     let
       pref = instrPref!(initNP np.isPron np.agr)
-    in {
-      s = pref ++BIND++ (np.s!NReduced) ;
-      reqLocS = False
-    } ;
-
-    JustLikeAdv np =
-    let
-      pref = eqPref!(initNP np.isPron np.agr)
     in {
       s = pref ++BIND++ (np.s!NReduced) ;
       reqLocS = False
@@ -26,16 +18,17 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
       reqLocS = False
     } ;
 
-    ComparAdv np = variants {} ;
-    PlaceNameAdv np = variants {} ;
-    PlaceCapLocAdv np = variants {} ;
-    SurfaceLocAdv adv = variants {} ;
-    InsideLocAdv adv = variants {} ;
-    FarLocAdv adv = variants {} ;
+    JustLikeAdv np =
+    let
+      pref = eqPref!(initNP np.isPron np.agr)
+    in {
+      s = pref ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ;
 
     -- locative kwa
     PlaceLocAdv np = {
-      s = (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      s = (poss_concord_agr!(Third C17 Sg)) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
@@ -44,8 +37,8 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
       s = case np.isPron of {
         True => LOC_KI ;
         False => case (initNP np.isPron np.agr) of {
-          RO  => LOC_KO ;
-          RA  => LOC_KW ;
+          PhonO  => LOC_KO ;
+          PhonA  => LOC_KW ;
           _   => LOC_KU
         }
       }
@@ -61,7 +54,7 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
     LocAdvAdv l = l ** { reqLocS = False } ;
 
     LocAdvNP adv np = {
-      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.i) ++BIND++ (np.s!NReduced) ;
+      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ; -- ngaphezu kwamahora amabili adlule
 
@@ -73,7 +66,7 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
     } ;
 
     LocNPJustLikeAdv np = {
-      s = eqPref!RC ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
+      s = eqPref!PhonC ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
       reqLocS = False
     } ;
 
@@ -97,6 +90,11 @@ concrete AdverbSBantuZul of AdverbSBantu = CatZul,CatSBantuZul ** open ResZul, P
         False => np.s!NFull ;
         True => nonExist -- "*" ++ np.s!NFull
       } ;
+      reqLocS = False
+    } ;
+
+    ConjNAdv conj s = {
+      s = conj.s ++ s.s!SInd;
       reqLocS = False
     } ;
 

@@ -19,7 +19,7 @@ concrete CatXho of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Cl = {
       s : Polarity => BasicTense => Aspect => Str ;
       consubj_s : DMType => Polarity => Str ;
-      rinit : RInit
+      phonInit : PhonInit
     } ;
 --     ClSlash = {
 --       s : ResXho.Tense => Anteriority => CPolarity => Order => Str ;
@@ -56,7 +56,7 @@ concrete CatXho of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ; -- indicates whether to use long form
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       vptype : VPType 
     } ;
@@ -104,7 +104,7 @@ concrete CatXho of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       empty : Str ;
       s : NForm => Str ;
       agr : Agr ;
-      i : RInit ;
+      phonInit : PhonInit ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
       heavy : Bool -- has object/adv/qword
@@ -128,7 +128,7 @@ concrete CatXho of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 
 -- Structural
 
-    Conj = { s : RInit => Str } ;
+    Conj = { s : PhonInit => Str } ;
     Subj = { s : SType => Str } ;
     -- Adv = { s : Str ; asp : Aspect ; reqLocS : Bool } ;
 --     Prep = {s : Str; isPre : Bool} ;
@@ -137,14 +137,14 @@ concrete CatXho of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 -- Open lexical classes, e.g. Lexicon
     V,V2,VA,V3,VV,V2V = {
       s : RForm => Str ;
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       voice : Voice ;
       root : Str
     } ;
     VS = {
       s : RForm => Str ;
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       voice : Voice ;
       s_type : SType ;

@@ -19,7 +19,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     Cl = {
       s : Polarity => BasicTense => Aspect => Str ;
       consubj_s : DMType => Polarity => Str ;
-      rinit : RInit
+      phonInit : PhonInit
     } ;
 --     ClSlash = {
 --       s : ResZul.Tense => Anteriority => CPolarity => Order => Str ;
@@ -56,35 +56,10 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       iadv : Str ;
       advs : Str ;
       hasComp : Bool ; -- indicates whether to use long form
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       vptype : VPType 
     } ;
-
-    -- VPSlash = {
-    --   s : RForm => Str ;
-    --   oc : Str ;
-    --   comp : Str ;
-    --   hasComp : Bool ;
-    --   r : RInit ;
-    --   syl : Syl ;
-    --   asp : Aspect ;
-    --   asp_pref : VForm => Str ;
-    --   vptype : VPType ;
-    --   comp_agr : Agr ;
-    --   ap_comp : AForm => Str ;
-    --   aux_root : Str ;
-    --   hasAux : Bool
-    -- } ;
-
-    -- Comp = {
-    --   s : AForm => Str ;
-    --   r : RInit ;
-    --   agr : Agr ;
-    --   asp : Aspect ;
-    --   asp_pref : VForm => Str ;
-    --   comptype : VPType
-    -- } ;
 
 -- Adjective
 
@@ -104,7 +79,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
       s : NForm => Str ;
       empty : Str ;
       agr : Agr ;
-      i : RInit ;
+      phonInit : PhonInit ;
       proDrop : Bool ; -- used when NP is object
       isPron : Bool ; -- used to choose correct between Full/Reduced
       heavy : Bool -- has object/adv/qword
@@ -128,7 +103,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 
 -- Structural
 
-    Conj = { s : RInit => Str ; fix : Bool } ;
+    Conj = { s : PhonInit => Str ; fix : Bool } ;
     Subj = { s : SType => Str } ;
     -- Adv = { s : Str ; asp : Aspect ; reqLocS : Bool } ;
 --     Prep = {s : Str; isPre : Bool} ;
@@ -137,7 +112,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
 -- Open lexical classes, e.g. Lexicon
     V,V2,VA,V3,VV,V2V = {
       s : RForm => Str ;
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       voice : Voice ;
       root : Str ;
@@ -145,7 +120,7 @@ concrete CatZul of Cat = CommonX - [Temp,Tense,Adv,IAdv,SC] **
     } ;
     VS = {
       s : RForm => Str ;
-      r : RInit ;
+      phonInit : PhonInit ;
       syl : Syl ;
       voice : Voice ;
       s_type : SType ;

@@ -47,6 +47,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     better_R : A ;
     very_thin_R : A ;
     painful_R : A ;
+    pointed_R : A ;
 
    -- enumerative stems
     different_Enum : A ; -- zul: mbe; nso: -šele
@@ -58,6 +59,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     -- adverbs
     when_Adv : Adv ;
     how_Adv : Adv ;
+    perhaps_Adv : Adv ;
 
     today_Adv : Adv ;
     yesterday_Adv : Adv ;
@@ -97,11 +99,12 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     outside_LocAdv : LocAdv ;
     yonder_LocAdv : LocAdv ;
 
-     -- locative class nouns
+    -- locative class nouns
     below_LocN : LocN ;
     place_LocN : LocN ;
     little_place_LocN : LocN ;
     above_LocN : LocN ;
+    over_LocN : LocN ;
     behind_LocN : LocN ;
     on_the_other_side_LocN : LocN ;
     across_LocN : LocN ;

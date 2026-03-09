@@ -2,19 +2,120 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
 
   lin
 
-    bad_A = mkA "bi" ;
-    big_A = mkA "khulu" ;
-    how_much_A = mkA "ngakhi" ;
-    small_A = mkA "fishane" ;
-    three_A = mkA "tsatfu" ;
-    honest_R = mkRelA "cotfo" ;
-    nice_R = mkRelA "mnandzi" ;
-    red_R = mkRelA "bovu" ;
     always_Adv = mkAdv "njalo" ;
     now_Adv = mkAdv "manje" ;
-    today_Adv = mkAdv "lamuhla" ;
-    when_Adv = mkAdv "nini" ;
+    -- when_Adv = mkAdv "nini" ;
     yesterday_Adv = mkAdv "itolo" ;
+
+    bad_A = regAdj "bi" ;
+    big_A = regAdj "khulu" ;
+    many_A = regAdj "ningi" ;
+    old_A = regAdj "dala" ;
+    beautiful_A = regAdj "hle" ;
+    long_A = regAdj "de" ;
+    ugly_A = regAdj "bana" ;
+    small_A = mkA "fishane" ;
+    how_much_A = mkA "ngakhi" ;
+    other_A = enumAdj "nye" ;
+    new_A = regAdj "sha" ;
+    short_A = variants {} ;
+    two_A = regAdj "bili" ;
+    three_A = mkA "tsatfu" ;
+    four_A = regAdj "ne" ;
+    five_A = regAdj "hlanu" ;
+      
+    -- relative stems
+    black_R = relAdj "mnyama" ;
+    red_R = mkRelA "bovu" ;
+    -- few_R = relAdj "mbalwa" ;
+    -- heavy_R = relAdj "nzima" ;
+    honest_R = mkRelA "cotfo" ;
+    nice_R = mkRelA "mnandzi" ;
+    white_R = relAdj "mhlophe" ;
+    green_R = relAdj "luhlata" ;
+    dangerous_A = relAdj "nengozi" ;
+    spotted_R = relAdj "mabalabala" ;
+    painful_R = relAdj "buhlungu" ;
+    yellow_R = relAdj "liphuzi" ;
+    -- thin_R = variants {} ;
+    -- how_R = relAdj "njani" ;
+    -- hard_R = relAdj "lukhuni" ;
+    -- thick_R = relAdj "nohlonze" ;
+    -- brown_R = relAdj "nsundu" ;
+    -- grey_R = relAdj "mpungu" ;
+    -- soft_R = relAdj "ntofontofo" ;
+    -- raw_R = relAdj "luhlaza" ;
+    -- crooked_R = variants {} ;
+    -- so_big_R = variants {} ;
+    -- spotted_R = relAdj "mabalabala" ;
+    -- blue_R = relAdj "luhlaza" ;
+    pointed_R =relAdj "bukhali" ;
+
+    -- adverbs
+    when_Adv = regAdv "nini" ;
+    how_Adv = regAdv "njani" ;
+    perhaps_Adv = regAdv "mhlawumbe" ;
+    today_Adv = mkAdv "lamuhla" ;
+    -- yesterday_Adv = regAdv "izolo" ;
+    -- now_Adv = regAdv "manje" ;
+    -- at_night_Adv = regAdv "ebusuku" ;
+    -- tomorrow_Adv = regAdv "ngomuso" ; 
+    -- tomorrow_2_Adv = regAdv "kusasa" ;
+    -- in_winter_Adv = variants {} ; 
+    -- evening_Adv = regAdv "kusihlwa" ; 
+    -- really_Adv = regAdv "bala" ; 
+    -- day_before_yesterday_Adv = regAdv "kuthangi" ;
+    -- always_Adv = regAdv "njalo" ;
+    -- long_ago_Adv = regAdv "kade" ;
+    -- in_the_afternoon_Adv = regAdv "ntambama" ;
+	  like_this_Adv = regAdv "njalo " ;
+    -- only_Adv = regAdv "kuphela" ;
+    -- quickly_Adv = regAdv "masinya" ;
+    -- again_Adv = regAdv "kabusha" ;
+
+    -- -- locative class nouns
+    below_LocN = regLocN "phansi" ;
+    -- place_LocN : LocN ;
+    -- little_place_LocN : LocN ;
+    above_LocN = regLocN "ngetulu" ;
+    over_LocN = regLocN "ngetulu" ;
+    -- behind_LocN : LocN ;
+    -- on_the_other_side_LocN : LocN ;
+    -- across_LocN : LocN ;
+    outside_LocN = regLocN "phandle" ;
+    -- this_side_LocN : LocN ;
+    -- in_front_LocN : LocN ;
+    ahead_LocN = regLocN "phambi" ;
+    -- forever_LocN : LocN ;
+    inside_LocN = regLocN "ngekhatsi" ;
+    -- on_top_LocN : LocN ;
+    -- central_LocN : LocN ; -- gare
+    -- elsewhere_LocN : LocN ;
+    -- next_to_LocN : LocN ;
+    -- under_LocN : LocN ;
+    -- far_LocN : LocN ;
+    -- near_LocN : LocN ;
+    -- long_ago_LocN : LocN ;
+    -- home_LocN : LocN ;
+    -- ages_ago_LocN : LocN ;
+    -- the_whole_LocN : LocN ;
+    -- after_a_while_LocN : LocN ;
+
+    -- -- locative adverbs
+    -- where_LocAdv = regLocAdv "kuphi" ;
+    far_LocAdv = regLocAdv "khashane" ;
+    nearby_LocAdv = regLocAdv "dvutane" ;
+    -- across_LocAdv = variants {} ;
+    -- at_the_back_LocAdv = regLocAdv "ngemuva" ;
+    -- behind_LocAdv = regLocAdv "emuva" ;
+    -- on_the_side_LocAdv = regLocAdv "ecaleni" ;
+    -- on_the_outside_LocAdv = regLocAdv "ngaphandle" ;
+    -- above_LocAdv = regLocAdv "ngaphezu" ;
+    -- above_2_LocAdv = regLocAdv "ngaphezulu" ;
+    -- inside_LocAdv = variants {} ;
+    -- below_LocAdv = regLocAdv "ngaphansi" ;
+    outside_LocAdv = regLocAdv "phandle" ;
+    -- yonder_LocAdv = regLocAdv "laphaya" ;
 
     only_Adv = mkAdv "kuphela" ;
 
@@ -93,16 +194,6 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
       dist = Dem3
     } ;
 
-    inside_LocN = { s = "phakathi" ; empty = [] } ;
-    below_LocN = { s = "phansi" ; empty = [] } ;
-    on_the_other_side_LocN = { s = "phesheya" ; empty = [] } ;
-    outside_LocN = { s = "phandle" ; empty = [] } ;
-    in_front_LocN = { s = "phambili" ; empty = [] } ;
-    ahead_LocN = { s = "phambi" ; empty = [] } ;
-    forever_LocN = { s = "phakade" ; empty = [] } ;
-    above_LocN = { s = "phezulu" ; empty = [] } ;
-    on_top_LocN = { s = "phezulu" ; empty = [] } ;
-
     here_Loc = {
       s = table {
         MainCl => \\a,p,t => let
@@ -118,7 +209,7 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a PhonC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- [] / zoba
           cop_base = ADV_LAPHA -- lapha
         in
@@ -224,6 +315,11 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
     much_Adv = { s = "kakhulu" ; reqLocS = False } ;
 
     with_Conj = {
+      s = \\a => withPref!a ++BIND ;
+      fix = True
+    } ;
+
+    with_ConjN = {
       s = \\a => withPref!a ++BIND ;
       fix = True
     } ;

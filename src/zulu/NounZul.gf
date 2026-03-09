@@ -9,9 +9,9 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = cn.empty ;
       s = \\nform => det.s ++ cn.s ! det.n ! nform ;
       agr = agr ;
-      i = case cn.predet of {
+      phonInit = case cn.predet of {
         False => nominit!agr ;
-        True => RC
+        True => PhonC
       } ;
       proDrop = False ;
       isPron = False ;
@@ -24,7 +24,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = pn.empty ;
       s = pn.s!Sg ;
       agr = agr ;
-      i = nominit!agr ;
+      phonInit = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -34,7 +34,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = pron.empty ;
       s = pron.s ;
       agr = pron.agr ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = pron.proDrop ;
       isPron = True ;
       heavy = case pron.proDrop of {
@@ -49,7 +49,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = np.empty ;
       s = \\nform => np.s!nform ++ adv.s ;
       agr = np.agr ;
-      i = np.i ;
+      phonInit = np.phonInit ;
       proDrop = False ; -- probably right?
       isPron = np.isPron ;
       heavy = True
@@ -59,7 +59,7 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = np.empty ;
       s = \\nform => np.s!nform ++ rs.s!np.agr ;
       agr = np.agr ;
-      i = np.i ;
+      phonInit = np.phonInit ;
       proDrop = False ; -- probably right?
       isPron = np.isPron ;
       heavy = True
@@ -87,8 +87,8 @@ concrete NounZul of Noun = CatZul ** open ResZul, Prelude, ParamX in {
       empty = cn.empty ;
       s = \\num,nform => case np.agr of {
         Third C1a_2a Sg => cn.s!num!nform ++ poss_concord_c1a!cn.c!num ++BIND++ np.s!NPoss ;
-        (First Pl | Second Pl ) => cn.s!num!nform ++ poss_concord!cn.c!num!RI ++BIND++ np.s!NPoss ;
-        (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.i ++BIND++ np.s!NPoss
+        (First Pl | Second Pl ) => cn.s!num!nform ++ poss_concord!cn.c!num!PhonI ++BIND++ np.s!NPoss ;
+        (First _ | Second _ | Third _ _) => cn.s!num!nform ++ poss_concord!cn.c!num!np.phonInit ++BIND++ np.s!NPoss
       }  ;
       c = cn.c ;
       predet = cn.predet

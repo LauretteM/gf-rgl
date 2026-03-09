@@ -7,12 +7,12 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          vpref = verb_prefix_no_oc vform l v.phonInit a s v.syl ;
           r = v.s!(rform vform l) -- hamba
         in vpref ++ r ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          vpref = verb_prefix_no_oc vform l v.phonInit a s v.syl ;
           r = v.s!(rform vform l) ; -- hamba
           suf = case l of {
             True => relSuf vform s ;
@@ -22,24 +22,24 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       imp_s = table {
         Sg => table {
-          Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ;
+          Pos => case <v.syl,v.phonInit> of {
+            <SylMono,PhonC> => IMP_YI++BIND++v.s!R_a ;
             <SylMono,_> => IMP_Y++BIND++v.s!R_a ;
             <SylMult,_> => v.s!R_a
           } ;
-          Neg => case v.r of {
-            RC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ;
+          Neg => case v.phonInit of {
+            PhonC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ;
             _  => IMP_NEG_PREF_SG_REDUCED ++BIND++ v.s!R_i
           }
         } ;
         Pl => table {
-          Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
+          Pos => case <v.syl,v.phonInit> of {
+            <SylMono,PhonC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
             <SylMono,_> => IMP_Y++BIND++v.s!R_a ++BIND++PL_NI ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI
           } ;
-          Neg => case v.r of {
-            RC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ;
+          Neg => case v.phonInit of {
+            PhonC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ;
             _  => IMP_NEG_PREF_PL_REDUCED ++BIND++ v.s!R_i
           }
         }
@@ -63,13 +63,13 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref = verb_prefix_no_oc vform False v.r a Null v.syl ;
+          vpref = verb_prefix_no_oc vform False v.phonInit a Null v.syl ;
           r = v.s!(rform vform False)
         in vpref ++ r ;
       iadv, advs, comp = [] ;
       -- ap_comp = \\_ => [] ;
       hasComp = False ;
-      r = v.r ;
+      phonInit = v.phonInit ;
       syl = v.syl ;
       vptype = NoComp
     } ;
@@ -78,12 +78,12 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          vpref = verb_prefix_no_oc vform l v.phonInit a s v.syl ;
           r = v.s!(rform (VFIndic MainCl p t) l) -- hamba
         in vpref ++ r ++ vp.inf_s!NFull!Pos ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          vpref = verb_prefix_no_oc vform l v.phonInit a s v.syl ;
           r = v.s!(rform vform l) ; -- hamba
           suf = case l of {
             True => relSuf vform s ;
@@ -93,24 +93,24 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       imp_s = table {
         Sg => table {
-          Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
+          Pos => case <v.syl,v.phonInit> of {
+            <SylMono,PhonC> => IMP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
             <SylMono,_> => IMP_Y++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
             <SylMult,_> => v.s!R_a ++ vp.inf_s!NFull!Pos
           } ;
-          Neg => case v.r of {
-            RC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
+          Neg => case v.phonInit of {
+            PhonC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
             _  => IMP_NEG_PREF_SG_REDUCED ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
           }
         } ;
         Pl => table {
-          Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
+          Pos => case <v.syl,v.phonInit> of {
+            <SylMono,PhonC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
             <SylMono,_> => IMP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos
           } ;
-          Neg => case v.r of {
-            RC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
+          Neg => case v.phonInit of {
+            PhonC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
             _  => IMP_NEG_PREF_PL_REDUCED ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
           }
         }
@@ -134,13 +134,13 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref = verb_prefix_no_oc vform False v.r a Null v.syl ;
+          vpref = verb_prefix_no_oc vform False v.phonInit a Null v.syl ;
           r = v.s!(rform vform False)
         in vpref ++ r ++ vp.inf_s!NFull!Pos ;
       iadv, advs, comp = [] ;
       -- ap_comp = \\_ => [] ;
       hasComp = True ;
-      r = v.r ;
+      phonInit = v.phonInit ;
       syl = v.syl ;
       vptype = VNPCompl
     } ;
@@ -149,12 +149,12 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          vpref = verb_prefix_no_oc vform l v.phonInit a s v.syl ;
           r = v.s!(rform vform l) -- hamba
         in vpref ++ r ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          vpref = verb_prefix_no_oc vform l v.r a s v.syl ;
+          vpref = verb_prefix_no_oc vform l v.phonInit a s v.syl ;
           r = v.s!(rform vform l) ; -- hamba
           suf = case l of {
             True => relSuf vform s ;
@@ -164,24 +164,24 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
       } ;
       imp_s = table {
         Sg => table {
-          Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++ s.s!v.s_type ;
+          Pos => case <v.syl,v.phonInit> of {
+            <SylMono,PhonC> => IMP_YI++BIND++v.s!R_a ++ s.s!v.s_type ;
             <SylMono,_> => IMP_Y++BIND++v.s!R_a ++ s.s!v.s_type ;
             <SylMult,_> => v.s!R_a ++ s.s!v.s_type
           } ;
-          Neg => case v.r of {
-            RC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ s.s!v.s_type ;
+          Neg => case v.phonInit of {
+            PhonC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ s.s!v.s_type ;
             _  => IMP_NEG_PREF_SG_REDUCED ++BIND++ v.s!R_i ++ s.s!v.s_type
           }
         } ;
         Pl => table {
-          Pos => case <v.syl,v.r> of {
-            <SylMono,RC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
+          Pos => case <v.syl,v.phonInit> of {
+            <SylMono,PhonC> => IMP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
             <SylMono,_> => IMP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type
           } ;
-          Neg => case v.r of {
-            RC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ s.s!v.s_type ;
+          Neg => case v.phonInit of {
+            PhonC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ s.s!v.s_type ;
             _  => IMP_NEG_PREF_PL_REDUCED ++BIND++ v.s!R_i ++ s.s!v.s_type
           }
         }
@@ -205,13 +205,13 @@ concrete VerbZul of Verb = CatZul ** open ResZul, Prelude, ParamX in {
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref = verb_prefix_no_oc vform False v.r a Null v.syl ;
+          vpref = verb_prefix_no_oc vform False v.phonInit a Null v.syl ;
           r = v.s!(rform vform False)
         in vpref ++ r ;
       iadv, advs = [] ;
       comp = s.s!v.s_type ;
       hasComp = True ;
-      r = v.r ;
+      phonInit = v.phonInit ;
       syl = v.syl ;
       vptype = NoComp
     } ;

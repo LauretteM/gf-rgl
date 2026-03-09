@@ -1,10 +1,10 @@
-concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelude, ParamX in {
+concrete AdverbSBantuSsw of AdverbSBantu = CatSsw,CatSBantuSsw ** open ResSsw, Prelude, ParamX in {
 
   lin
 
     InstrAdv np =
     let
-      pref = instrPref!(initNP np.isPron np.agr)
+      pref = instrPref!np.agr
     in {
       s = pref ++BIND++ (np.s!NReduced) ;
       reqLocS = False
@@ -12,15 +12,30 @@ concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, P
 
     JustLikeAdv np =
     let
-      pref = eqPref!(initNP np.isPron np.agr)
+      pref = eqPref!np.agr
     in {
       s = pref ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
+    WithAdv np =
+    let
+      pref = withPref!np.agr
+    in {
+      s = pref ++BIND++ (np.s!NReduced) ;
+      reqLocS = False
+    } ;
+
+    ComparAdv np = variants {} ;
+    PlaceNameAdv np = variants {} ;
+    PlaceCapLocAdv np = variants {} ;
+    SurfaceLocAdv adv = variants {} ;
+    InsideLocAdv adv = variants {} ;
+    FarLocAdv adv = variants {} ;
+
     -- locative kwa
     PlaceLocAdv np = {
-      s = (poss_concord_agr!(Third C17 Sg)) ++BIND++ (np.s!NReduced) ;
+      s = (poss_concord_agr!(Third C17 Sg)!np.agr) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
@@ -39,14 +54,14 @@ concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, P
     } ;
 
     AssocAdv np = {
-      s = withPref ! (initNP np.isPron np.agr) ++BIND++ (np.s!NReduced) ;
+      s = withPref ! np.agr ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ;
 
     LocAdvAdv l = l ** { reqLocS = False } ;
 
     LocAdvNP adv np = {
-      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)) ++BIND++ (np.s!NReduced) ;
+      s = adv.s ++ (poss_concord_agr!(Third C17 Sg)!np.agr) ++BIND++ (np.s!NReduced) ;
       reqLocS = False
     } ; -- ngaphezu kwamahora amabili adlule
 
@@ -57,8 +72,10 @@ concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, P
       reqLocS = False
     } ;
 
-    LocNPJustLikeAdv np = {
-      s = eqPref!RC ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
+    LocNPJustLikeAdv np = let
+      tmp_agr = Third C1a_2a Sg
+    in {
+      s = eqPref!tmp_agr ++BIND++ LOC_S ++BIND++ np.s!NLoc ;
       reqLocS = False
     } ;
 
@@ -86,6 +103,11 @@ concrete AdverbSBantuXho of AdverbSBantu = CatXho,CatSBantuXho ** open ResXho, P
     } ;
 
     ConjNAdv conj s = {
+      s = conj.s ++ s.s!SInd;
+      reqLocS = False
+    } ;
+
+    ConjAdvS conj s = {
       s = conj.s ++ s.s!SInd;
       reqLocS = False
     } ;

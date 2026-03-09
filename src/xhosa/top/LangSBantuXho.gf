@@ -4,7 +4,4 @@ concrete LangSBantuXho of LangSBantu =
   GrammarSBantuXho,
   LexiconSBantuXho
   ** {
-
-
-
 } ;

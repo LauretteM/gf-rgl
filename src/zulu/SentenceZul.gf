@@ -21,9 +21,9 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       in {
         s = \\p,t,s => np.s!NFull ++ vp.s!MainCl!np.agr!p!t!s!longform_suffix ++ vp.comp ++ vp.iadv ++ vp.advs ;
         consubj_s = \\m,p => np.s!NFull ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
-        rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+        phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
       } ;
       _ => cl_with_verb_predicate np vp 
@@ -92,7 +92,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
 
   oper
 
-    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str ; consubj_s : DMType => Polarity => Str ; rinit : RInit } = \np,vp -> {
+    comp_pred : NP -> VP -> { s : Polarity => BasicTense => Aspect => Str ; consubj_s : DMType => Polarity => Str ; phonInit : PhonInit } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull
@@ -106,44 +106,18 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj = np.s!NFull
         in 
           subj ++ vp.consubj_s!m!np.agr!p ++ vp.comp ++ vp.iadv ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
-
-    -- imp_verb_prefix : VP -> Polarity -> BasicTense -> Agr -> Str = \vp,p,t,agr ->
-    --   let
-    --     -- vow = case <vp.hasComp,vp.r,p,t> of {
-    --     vow = case <vp.hasComp,p,t,vp.r> of {
-    --       <False,Pos,PresTense,RC> => False ; -- force the compiler to understand the table
-    --       <False,Pos,PresTense,_> => False ; -- long form ya
-    --
-    --       <_,_,PresTense,RC> => False ;
-    --       <_,_,PresTense,_> => True ;
-    --       -- <_,Pos,PerfTense,RC> => False ;
-    --       -- <_,Pos,PerfTense,_> => True ;
-    --       <_,_,PastTense,RC> => False ;
-    --       <_,_,PastTense,_> => True ;
-    --       <_,_,RemPastTense,RC> => False ;
-    --       <_,_,RemPastTense,_> => True ;
-    --       <_,_,_,_> => False
-    --     } ;
-    --     vform = VFIndic MainCl p t
-    --   in
-    --       (negPref vform)
-    --    -- ++ (exclSePref vform_main)
-    --    ++ (subjConc vform agr vow)
-    --    -- ++ (negPref2 vform_main)
-    --    -- ++ (tensePref vform)
-    -- ;
 
     cl_with_verb_predicate :
       NP ->
       VP -> {
           s : Polarity => BasicTense => Aspect => Str ;
           consubj_s : DMType => Polarity => Str ;
-          rinit : RInit
+          phonInit : PhonInit
       } = \np,vp -> {
       s = \\p,t,s =>
         let
@@ -174,9 +148,9 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           ++ vp.iadv
           ++ vp.comp
           ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 
@@ -215,7 +189,7 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       VP -> {
         s : Polarity => BasicTense => Aspect => Str ;
         consubj_s : DMType => Polarity => Str ;
-        rinit : RInit
+        phonInit : PhonInit
       } = \np,vp -> {
       s = \\p,t,s =>
         let
@@ -240,9 +214,9 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj ++
           vp.consubj_s!m!np.agr!p
           ++ vp.comp ++ vp.iadv ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 
@@ -251,14 +225,14 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
       VP -> {
         s : Polarity => BasicTense => Aspect => Str ;
         consubj_s : DMType => Polarity => Str ;
-        rinit : RInit
+        phonInit : PhonInit
       } = \np,vp -> {
       s = \\p,t,s =>
         let
           subj = np.s!NFull ;
           vform_main = VFIndic MainCl p t ;
-          vow = case <vp.r,p,t> of {
-            <RC,Pos,PresTense> => False ;
+          vow = case <vp.phonInit,p,t> of {
+            <PhonC,Pos,PresTense> => False ;
             <_,Pos,PresTense> => True ;
             <_,_,_> => False
           } ;
@@ -285,9 +259,9 @@ concrete SentenceZul of Sentence = CatZul ** open Prelude,ResZul,ParamX in {
           subj ++
           vp.consubj_s!m!np.agr!p
           ++ vp.comp ++ vp.iadv ++ vp.advs ;
-      rinit = case np.proDrop of {
-        False => np.i ;
-        True => vp.r
+      phonInit = case np.proDrop of {
+        False => np.phonInit ;
+        True => vp.phonInit
       }
     } ;
 

@@ -1,5 +1,3 @@
---# -path=.:../abstract:../common:../../prelude
-
 resource ResXho = open Prelude,Predef,ParamX in {
 
   param
@@ -39,7 +37,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
     -- verb root characteristics
     RForm = R_a | R_ile | R_e | R_i | R_anga ;
-    RInit = RA | RE | RI | RO | RU | RC ;
+    PhonInit = PhonA | PhonE | PhonI | PhonO | PhonU | PhonC ;
     Syl = SylMono | SylMult ;
     Voice = Active | Passive ;
 
@@ -90,6 +88,10 @@ resource ResXho = open Prelude,Predef,ParamX in {
     NEG_NGA : Str = "nga" ;
     NEG_NG : Str = "ng" ;
 
+    COP_VOWEL_NEG : Str = "o" ; -- xho addition
+    COP_VOWEL_POS_1 : Str = "i" ; -- xho addition
+    COP_VOWEL_POS_2 : Str = "u" ; -- xho addition
+
     PL_NI : Str = "ni" ;
     PRON_NA : Str = "na" ;
 
@@ -103,8 +105,16 @@ resource ResXho = open Prelude,Predef,ParamX in {
     TEMP_PREF_REMFUT : Str = "yo" ;
     TEMP_PREF_FUT_NEG : Str = "zu" ;
     TEMP_PREF_REMFUT_NEG : Str = "yu" ;
+    TEMP_PREF_FUT_NOVOW : Str = "z" ; -- xho addition
+    TEMP_PREF_REMFUT_NOVOW : Str = "y" ; -- xho addition
 
     TEMP_PREF_PAST : Str = "a" ;
+
+    ASPECT_KA = "ka" ;
+    ASPECT_K = "k" ;
+    ASPECT_SE = "se" ;
+    ASPECT_SA = "sa" ;
+    ASPECT_S = "s" ;
 
     prefix_nasal : Str -> Str = \r -> case r of {
       "h"+x => r ;
@@ -139,12 +149,6 @@ resource ResXho = open Prelude,Predef,ParamX in {
     --------------
     -- PRONOUNS --
     --------------
-    -- mkFullPron : Str -> Agr -> { s : NForm => Str ; agr : Agr ; empty : Str ; proDrop : Bool } = \s,agr -> {
-    --   s = s ;
-    --   agr = agr ;
-    --   empty = [] ;
-    --   proDrop = False
-    -- } ;
 
     only_QuantPron_table  : Agr => Str = table {
       Third C1_2 Sg => "yedwa" ;
@@ -213,14 +217,14 @@ resource ResXho = open Prelude,Predef,ParamX in {
       proDrop = False
     } ;
 
-    poss_pron_conc_vowel : Agr -> Str = \agr -> case agr of {
+    poss_pron_conc_vowel : Agr -> Str = \agr -> case agr of { -- xho addition
       (First Pl | Second Pl ) => "e" ;
       (Third _ _ | First Sg | Second Sg) => "a"
     } ;
 
     full_pron : Str -> Str = \s -> s ++BIND++ "na" ;
 
-    pron_stem : Agr => Str = table {
+    pron_stem : Agr => Str = table { -- xho change
       First Sg => "m" ;
       First Pl => "thi" ;
       Second Sg => "we" ;
@@ -246,7 +250,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       Third C17 _ => "kho"
     } ;
 
-    poss_pron_stem : Agr => Str = table {
+    poss_pron_stem : Agr => Str = table { -- xho change
       First Sg => "m" ;
       First Pl => "thu" ;
       Second Sg => "kho" ;
@@ -272,7 +276,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       Third C17 _ => "kho"
     } ;
 
-    dem_pron : Distance => Agr => Str = table {
+    dem_pron : Distance => Agr => Str = table { -- xho change
       Dem1 => table {
         First Sg => "lo" ;
         First Pl => "aba" ;
@@ -380,7 +384,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
     -----------
     -- VERBS --
     -----------
-    regVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
+    regVerb : Str -> { s : RForm => Str ; phonInit : PhonInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
     {
       s = table {
         R_a => root ++BIND++ "a" ;
@@ -410,13 +414,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
           _ => root ++BIND++ "anga"
         }
       } ;
-      r = case root of {
-        "a"+_ => RA ;
-        "e"+_ => RE ;
-        "i"+_ => RI ;
-        "o"+_ => RO ;
-        "u"+_ => RU ;
-        _ => RC
+      phonInit = case root of {
+        "a"+_ => PhonA ;
+        "e"+_ => PhonE ;
+        "i"+_ => PhonI ;
+        "o"+_ => PhonO ;
+        "u"+_ => PhonU ;
+        _ => PhonC
       } ;
       syl = case root of {
         _+#cons+#vowel+#cons+_ => SylMult ;
@@ -426,7 +430,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       root = root
     } ;
 
-    th_Verb : Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \th,thi ->
+    th_Verb : Str -> Str -> { s : RForm => Str ; phonInit : PhonInit ; syl : Syl ; voice : Voice ; root : Str } = \th,thi ->
     {
       s = table {
         R_a => thi ;
@@ -435,13 +439,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
         R_i => th ++BIND++ "i" ;
         R_anga => th ++BIND++ "anga"
       } ;
-      r = case th of {
-        "a"+_ => RA ;
-        "e"+_ => RE ;
-        "i"+_ => RI ;
-        "o"+_ => RO ;
-        "u"+_ => RU ;
-        _ => RC
+      phonInit = case th of {
+        "a"+_ => PhonA ;
+        "e"+_ => PhonE ;
+        "i"+_ => PhonI ;
+        "o"+_ => PhonO ;
+        "u"+_ => PhonU ;
+        _ => PhonC
       } ;
       syl = case th of {
         _+#cons+#vowel+#cons+_ => SylMult ;
@@ -451,7 +455,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       root = th
     } ;
 
-    three_Verb : Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile -> {
+    three_Verb : Str -> Str -> Str -> { s : RForm => Str ; phonInit : PhonInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile -> {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
@@ -459,13 +463,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
         R_i => root ++BIND++ "i" ;
         R_anga => root ++BIND++ "anga"
       } ;
-      r = case root of {
-        "a"+_ => RA ;
-        "e"+_ => RE ;
-        "i"+_ => RI ;
-        "o"+_ => RO ;
-        "u"+_ => RU ;
-        _ => RC
+      phonInit = case root of {
+        "a"+_ => PhonA ;
+        "e"+_ => PhonE ;
+        "i"+_ => PhonI ;
+        "o"+_ => PhonO ;
+        "u"+_ => PhonU ;
+        _ => PhonC
       } ;
       syl = case root of {
         _+#cons+#vowel+#cons+_ => SylMult ;
@@ -475,7 +479,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       root = root
     } ;
 
-    four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile,r_e -> {
+    four_Verb : Str -> Str -> Str -> Str -> { s : RForm => Str ; phonInit : PhonInit ; syl : Syl ; voice : Voice ; root : Str } = \root,r_a,r_ile,r_e -> {
       s = table {
         R_a => r_a ;
         R_ile => r_ile ;
@@ -483,13 +487,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
         R_i => root ++BIND++ "i" ;
         R_anga => root ++BIND++ "anga"
       } ;
-      r = case root of {
-        "a"+_ => RA ;
-        "e"+_ => RE ;
-        "i"+_ => RI ;
-        "o"+_ => RO ;
-        "u"+_ => RU ;
-        _ => RC
+      phonInit = case root of {
+        "a"+_ => PhonA ;
+        "e"+_ => PhonE ;
+        "i"+_ => PhonI ;
+        "o"+_ => PhonO ;
+        "u"+_ => PhonU ;
+        _ => PhonC
       } ;
       syl = case root of {
         _+#cons+#vowel+#cons+_ => SylMult ;
@@ -499,30 +503,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       root = root
     } ;
 
-    -- irregVerb : Str -> Str -> Str -> Str -> Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice } = \hamba,hambile,hambe,hambi,hambanga -> {
-    --   s = table {
-    --     R_a => hamba ;
-    --     R_ile => hambile ;
-    --     R_e => hambe ;
-    --     R_i => hambi ;
-    --     R_anga => hambanga
-    --   } ;
-    --   r = case root of {
-    --     "a"+_ => RA ;
-    --     "e"+_ => RE ;
-    --     "i"+_ => RI ;
-    --     "o"+_ => RO ;
-    --     "u"+_ => RU ;
-    --     _ => RC
-    --   } ;
-    --   syl = case root of {
-    --     _+#cons+#vowel+#cons+_ => SylMult ;
-    --     _ => SylMono
-    --   } ;
-    --   voice = Active
-    -- } ;
-
-    passiveVerb : Str -> { s : RForm => Str ; r : RInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
+    passiveVerb : Str -> { s : RForm => Str ; phonInit : PhonInit ; syl : Syl ; voice : Voice ; root : Str } = \root ->
     {
       s = table {
         R_a => root ++BIND++ "a" ;
@@ -531,13 +512,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
         R_i => root ++BIND++ "i" ;
         R_anga => root ++BIND++ "anga"
       } ;
-      r = case root of {
-        "a"+_ => RA ;
-        "e"+_ => RE ;
-        "i"+_ => RI ;
-        "o"+_ => RO ;
-        "u"+_ => RU ;
-        _ => RC
+      phonInit = case root of {
+        "a"+_ => PhonA ;
+        "e"+_ => PhonE ;
+        "i"+_ => PhonI ;
+        "o"+_ => PhonO ;
+        "u"+_ => PhonU ;
+        _ => PhonC
       } ;
       syl = case root of {
         _+#cons+#vowel+#cons+_ => SylMult ;
@@ -580,24 +561,24 @@ resource ResXho = open Prelude,Predef,ParamX in {
       } 
     } ;
 
-    longform_ya : VForm -> Bool -> RInit -> Aspect -> Str =
+    longform_ya : VForm -> Bool -> PhonInit -> Aspect -> Str =
     \vform,longform,rinit,aspect -> case <vform,longform,rinit,aspect> of {
-      <VFIndic MainCl Pos PresTense,True,RC,(Null|Excl)> => "ya"++BIND ;
+      <VFIndic MainCl Pos PresTense,True,PhonC,(Null|Excl)> => "ya"++BIND ;
       <VFIndic MainCl Pos PresTense,True,_,(Null|Excl)>  => "y"++BIND ;
       <VFIndic _ _ _,_,_,_> => [] ;
       <VFConsec _,_,_,_> => [] ;
       <VFSubjunct _,_,_,_> => [] 
     } ;
 
-    verb_prefix_stative : VForm -> Agr -> RInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
+    verb_prefix_stative : VForm -> Agr -> PhonInit -> Syl -> Str = \vform,agr,rinit,syl -> case vform of {
       VFIndic MainCl Pos PresTense => subjConcLookup!agr!SC ++BIND ;
-      VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
+      VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe  ;
       VFIndic MainCl Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
       VFIndic MainCl Pos FutTense => subjConcLookup!agr!SC ++BIND++ TEMP_PREF_FUT ++BIND ;
       VFIndic MainCl Pos RemFutTense => subjConcLookup!agr!SC ++BIND++ TEMP_PREF_REMFUT ++BIND ;
 
       VFIndic MainCl Neg PresTense => "a" ++BIND++ subjConcLookup!agr!SCVowP ++BIND ;
-      VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++BIND++ NEG_NGA ++BIND ;
+      VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++ NEG_NGA ++BIND ;
       VFIndic MainCl Neg RemPastTense => subjConcLookup!agr!SCRP ++BIND++ NEG_NGA ++BIND ;
       VFIndic MainCl Neg FutTense => "a" ++BIND++ subjConcLookup!agr!SCVowP ++BIND ++ (tensePref vform rinit syl) ;
       VFIndic MainCl Neg RemFutTense => "a" ++BIND++ subjConcLookup!agr!SCVowP ++BIND ++ (tensePref vform rinit syl) ;
@@ -608,11 +589,11 @@ resource ResXho = open Prelude,Predef,ParamX in {
       VFIndic RelCl Pos FutTense => relConcLookup!agr!rinit ++ (tensePref vform rinit syl) ;
       VFIndic RelCl Pos RemFutTense => relConcLookup!agr!rinit ++ (tensePref vform rinit syl) ;
 
-      VFIndic RelCl Neg PresTense => relConcLookup!agr!RC ++ NEG_NGA ++BIND ;
+      VFIndic RelCl Neg PresTense => relConcLookup!agr!PhonC ++ NEG_NGA ++BIND ;
       VFIndic RelCl Neg PastTense => relCopConcBeLookup!agr ++ NEG_NGA ++BIND ;
       VFIndic RelCl Neg RemPastTense => relCopConcRemPastLookup!agr ++ NEG_NGA ++BIND ;
-      VFIndic RelCl Neg FutTense => relConcLookup!agr!RC ++ NEG_NGA ++BIND ++ (tensePref vform rinit syl) ;
-      VFIndic RelCl Neg RemFutTense => relConcLookup!agr!RC ++ NEG_NGA ++BIND ++ (tensePref vform rinit syl) ;
+      VFIndic RelCl Neg FutTense => relConcLookup!agr!PhonC ++ NEG_NGA ++BIND ++ (tensePref vform rinit syl) ;
+      VFIndic RelCl Neg RemFutTense => relConcLookup!agr!PhonC ++ NEG_NGA ++BIND ++ (tensePref vform rinit syl) ;
       VFConsec Pos => nonExist ; -- "*consec" ++ subjConcLookup!agr!SCRP ++BIND ;
       VFConsec Neg => nonExist ; -- "*consec" ++ subjConcLookup!agr!SCRP ++BIND++ "nga" ++BIND ;
       VFSubjunct Pos => nonExist ; -- "*subjunct" ++ subjConcLookup!agr!SC ++BIND ;
@@ -630,25 +611,25 @@ resource ResXho = open Prelude,Predef,ParamX in {
       VFSubjunct Neg => R_i
     } ;
 
-    verb_prefix_no_oc : VForm -> Bool -> RInit -> Agr -> Aspect -> Syl -> Str = \vform,longform,rinit,agr,aspect,syl -> let
+    verb_prefix_no_oc : VForm -> Bool -> PhonInit -> Agr -> Aspect -> Syl -> Str = \vform,longform,rinit,agr,aspect,syl -> let
       sc = case <vform,longform,rinit,aspect> of {
         -- null aspect, main clause
-        <VFIndic MainCl Pos PresTense,False,RC,Null> => subjConcLookup!agr!SC ++BIND ;
+        <VFIndic MainCl Pos PresTense,False,PhonC,Null> => subjConcLookup!agr!SC ++BIND ;
         <VFIndic MainCl Pos PresTense,False,_,Null> => subjConc vform agr True rinit ;
 
         <VFIndic MainCl Pos PresTense,True,_,Null> => subjConcLookup!agr!SC ++BIND ;
-        <VFIndic MainCl Neg PresTense,_,RC,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
+        <VFIndic MainCl Neg PresTense,_,PhonC,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
         <VFIndic MainCl Neg PresTense,_,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNegVow ++BIND ;
 
-        <VFIndic MainCl Pos PastTense,_,RC,Null> => subjConcLookup!agr!SC ++BIND ;
+        <VFIndic MainCl Pos PastTense,_,PhonC,Null> => subjConcLookup!agr!SC ++BIND ;
         <VFIndic MainCl Pos PastTense,_,_,Null> => subjConc vform agr True rinit ;
 
-        <VFIndic MainCl Neg PastTense,_,RC,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
+        <VFIndic MainCl Neg PastTense,_,PhonC,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
         <VFIndic MainCl Neg PastTense,_,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNegVow ++BIND ;
 
         <VFIndic MainCl Pos RemPastTense,_,_,Null> => (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- wahamba
 
-        <VFIndic MainCl Neg RemPastTense,_,RC,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
+        <VFIndic MainCl Neg RemPastTense,_,PhonC,Null> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND ;
         <VFIndic MainCl Neg RemPastTense,_,_,Null> => (negPref vform) ++ subjConcLookup!agr!SCNegVow ++BIND ;
 
         <VFIndic MainCl Pos _,_,_,Null> => subjConcLookup!agr!SC ++BIND ++ (tensePref vform rinit syl) ; -- uzohamba
@@ -661,89 +642,89 @@ resource ResXho = open Prelude,Predef,ParamX in {
         <VFIndic RelCl _ _,_,_,Null> => (relConc vform agr rinit) ;
 
         -- progressive, main clause
-        <VFIndic MainCl Pos PresTense,_,RC,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND ; -- usahamba
+        <VFIndic MainCl Pos PresTense,_,PhonC,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND ; -- usahamba
         <VFIndic MainCl Pos PresTense,_,_,Prog> => subjConcLookup!agr!SC ++BIND++ "s" ++BIND ; -- useqa
         
-        <VFIndic MainCl Neg PresTense,_,RC,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambi
+        <VFIndic MainCl Neg PresTense,_,PhonC,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambi
         <VFIndic MainCl Neg PresTense,_,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "s" ++BIND ; -- akaseqi
 
-        <VFIndic MainCl Pos PastTense,_,RC,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND ; -- usahambile
+        <VFIndic MainCl Pos PastTense,_,PhonC,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND ; -- usahambile
         <VFIndic MainCl Pos PastTense,_,_,Prog> => subjConcLookup!agr!SC ++BIND++ "s" ++BIND ; -- useqile
 
-        <VFIndic MainCl Neg PastTense,_,RC,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambile
+        <VFIndic MainCl Neg PastTense,_,PhonC,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambile
         <VFIndic MainCl Neg PastTense,_,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "s" ++BIND ; -- akaseqile
 
-        <VFIndic MainCl Pos RemPastTense,_,RC,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform RC syl) ++ "sa" ++BIND ; -- wasahamba
-        <VFIndic MainCl Pos RemPastTense,_,_,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform RC syl) ++ "s" ++BIND ; -- waseqa
+        <VFIndic MainCl Pos RemPastTense,_,PhonC,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform PhonC syl) ++ "sa" ++BIND ; -- wasahamba
+        <VFIndic MainCl Pos RemPastTense,_,_,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform PhonC syl) ++ "s" ++BIND ; -- waseqa
 
-        <VFIndic MainCl Neg RemPastTense,_,RC,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambanga
+        <VFIndic MainCl Neg RemPastTense,_,PhonC,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambanga
         <VFIndic MainCl Neg RemPastTense,_,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "s" ++BIND ; -- akaseqanga
 
         <VFIndic MainCl Pos _,_,_,Prog> => subjConcLookup!agr!SC ++BIND++ "sa" ++BIND++ (tensePref vform rinit syl) ; -- usazohamba
         <VFIndic MainCl Neg _,_,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND++ (tensePref vform rinit syl) ; -- akasazuhamba
 
         -- progressive, relative clause
-        <VFIndic RelCl Pos RemPastTense,_,RC,Prog> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ++ "sa" ++BIND ;
+        <VFIndic RelCl Pos RemPastTense,_,PhonC,Prog> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ++ "sa" ++BIND ;
         <VFIndic RelCl Pos RemPastTense,_,_,Prog> => (relConc vform agr rinit) ++ (tensePref vform rinit syl) ++ "s" ++BIND ;
 
         <VFIndic RelCl Pos (FutTense|RemFutTense),_,_,Prog> => (relConc vform agr rinit) ++ "sa" ++BIND++ (tensePref vform rinit syl) ;
 
         <VFIndic RelCl Neg (FutTense|RemFutTense),_,_,Prog> => (relConc vform agr rinit) ++ "se" ++BIND++ (tensePref vform rinit syl) ;
-        <VFIndic RelCl _ _,_,RC,Prog> => (relConc vform agr rinit) ++ "sa" ++BIND ;
+        <VFIndic RelCl _ _,_,PhonC,Prog> => (relConc vform agr rinit) ++ "sa" ++BIND ;
         <VFIndic RelCl _ _,_,_,Prog> => (relConc vform agr rinit) ++ "s" ++BIND ;
 
         -- exclusive, main clause
-        <VFIndic MainCl Pos PresTense,_,RC,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhamba
+        <VFIndic MainCl Pos PresTense,_,PhonC,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhamba
         <VFIndic MainCl Pos PresTense,_,_,Excl> => "se" ++BIND++ (subjConc vform agr True rinit) ; -- seweqa
 
-        <VFIndic MainCl Neg PresTense,_,RC,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ; -- akakahambi
+        <VFIndic MainCl Neg PresTense,_,PhonC,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ; -- akakahambi
         <VFIndic MainCl Neg PresTense,_,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNegVow ++BIND++ "k" ++ BIND ; -- akakeqi
 
-        <VFIndic MainCl Pos PastTense,_,RC,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhambile
+        <VFIndic MainCl Pos PastTense,_,PhonC,Excl> => subjConcLookup!agr!SCSe ++BIND ; -- sewuhambile
         <VFIndic MainCl Pos PastTense,_,_,Excl> => "se" ++BIND++ (subjConc vform agr True rinit) ; -- seweqile
 
-        <VFIndic MainCl Neg PastTense,_,RC,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+        <VFIndic MainCl Neg PastTense,_,PhonC,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
         <VFIndic MainCl Neg PastTense,_,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNegVow ++BIND++ "k" ++ BIND ;
 
-        <VFIndic MainCl Pos RemPastTense,_,RC,Excl> => "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- sewahamba
+        <VFIndic MainCl Pos RemPastTense,_,PhonC,Excl> => "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- sewahamba
         <VFIndic MainCl Pos RemPastTense,_,_,Excl> => "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- seweqa
 
-        <VFIndic MainCl Neg RemPastTense,_,RC,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+        <VFIndic MainCl Neg RemPastTense,_,PhonC,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
         <VFIndic MainCl Neg RemPastTense,_,_,Excl> => nonExist ; -- "*" ++ subjConcLookup!agr!SCNegVow ++BIND++ "k" ++ BIND ;
 
         <VFIndic MainCl Pos _,_,_,Excl> => subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
         <VFIndic MainCl Neg _,_,_,Excl> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++BIND++ (tensePref vform rinit syl) ;
 
         -- exclusive, relative clause
-        <VFIndic RelCl Pos PresTense,_,RC,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND ; -- engiseyahamba
+        <VFIndic RelCl Pos PresTense,_,PhonC,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND ; -- engiseyahamba
         <VFIndic RelCl Pos PresTense,_,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND ; -- engiseyeqa
 
-        <VFIndic RelCl Neg PresTense,_,RC,Excl> => (relConc vform agr rinit) ++ "ka" ++ BIND ; -- engingakahambi
-        <VFIndic RelCl Neg PresTense,_,_,Excl> => (relConc vform agr RC) ++ "k" ++ BIND ; -- engingakeqi
+        <VFIndic RelCl Neg PresTense,_,PhonC,Excl> => (relConc vform agr rinit) ++ "ka" ++ BIND ; -- engingakahambi
+        <VFIndic RelCl Neg PresTense,_,_,Excl> => (relConc vform agr PhonC) ++ "k" ++ BIND ; -- engingakeqi
 
-        <VFIndic RelCl Pos PastTense,_,RC,Excl> => shortRelConc!agr ++ "se" ++BIND++ subjConcLookup!agr!SC ++BIND ; -- esengihambile
+        <VFIndic RelCl Pos PastTense,_,PhonC,Excl> => shortRelConc!agr ++ "se" ++BIND++ subjConcLookup!agr!SC ++BIND ; -- esengihambile
         <VFIndic RelCl Pos PastTense,_,_,Excl> => shortRelConc!agr ++ "se" ++BIND++ (subjConc vform agr True rinit) ; -- esengeqile
 
-        <VFIndic RelCl Neg PastTense,_,RC,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+        <VFIndic RelCl Neg PastTense,_,PhonC,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
         <VFIndic RelCl Neg PastTense,_,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNegVow ++BIND++ "k" ++ BIND ;
 
-        <VFIndic RelCl Pos RemPastTense,_,RC,Excl> => shortRelConc!agr ++ "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- osewahamba
+        <VFIndic RelCl Pos RemPastTense,_,PhonC,Excl> => shortRelConc!agr ++ "se" ++BIND++ (subjConc vform agr True rinit) ++ (tensePref vform rinit syl) ; -- osewahamba
         <VFIndic RelCl Pos RemPastTense,_,_,Excl> => shortRelConc!agr ++ "se" ++BIND++ (subjConc vform agr True rinit) ; -- oseweqa
 
-        <VFIndic RelCl Neg RemPastTense,_,RC,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
+        <VFIndic RelCl Neg RemPastTense,_,PhonC,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNeg ++BIND++ "ka" ++ BIND ;
         <VFIndic RelCl Neg RemPastTense,_,_,Excl> => nonExist ; -- "*" ++ (relConc vform agr rinit) ++ subjConcLookup!agr!SCNegVow ++BIND++ "k" ++ BIND ;
 
         <VFIndic RelCl Pos _,_,_,Excl> => shortRelConc!agr ++ subjConcLookup!agr!SCSe ++BIND++ (tensePref vform rinit syl) ;
         <VFIndic RelCl Neg _,_,_,Excl> => (relConc vform agr rinit) ++ "ka" ++BIND++ (tensePref vform rinit syl) ;
         <VFConsec Pos,_,_,_> => let
           vow = case rinit of {
-            RC => False ;
+            PhonC => False ;
             _ => True
           }
         in (subjConc vform agr vow rinit) ;
-        <VFConsec _,_,RC,_> => (subjConc vform agr False RC) ++ (negPrefNga vform False) ;
+        <VFConsec _,_,PhonC,_> => (subjConc vform agr False PhonC) ++ (negPrefNga vform False) ;
         <VFConsec _,_,r,_> => (subjConc vform agr False r) ++ (negPrefNga vform True) ;
-        <VFSubjunct _,_,RC,_> => (subjConc vform agr False RC) ++ (negPrefNga vform False) ;
+        <VFSubjunct _,_,PhonC,_> => (subjConc vform agr False PhonC) ++ (negPrefNga vform False) ;
         <VFSubjunct _,_,r,_> => (subjConc vform agr True r) ++ (negPrefNga vform True)  
       } ;
       ya = longform_ya vform longform rinit aspect ;
@@ -751,7 +732,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       sc ++
       ya ;
     
-    verb_prefix_with_oc : VForm -> Bool -> RInit -> Agr -> Aspect -> Syl -> Str = \vform,longform,rinit,agr,aspect,syl -> let
+    verb_prefix_with_oc : VForm -> Bool -> PhonInit -> Agr -> Aspect -> Syl -> Str = \vform,longform,rinit,agr,aspect,syl -> let
       sc = case <vform,longform,aspect> of {
         -- null aspect, main clause
         <VFIndic MainCl Pos PresTense,False,Null> => subjConcLookup!agr!SC ++BIND ;
@@ -785,7 +766,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
         <VFIndic MainCl Neg PastTense,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambile
 
-        <VFIndic MainCl Pos RemPastTense,_,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform RC syl) ++ "sa" ++BIND ; -- wasahamba
+        <VFIndic MainCl Pos RemPastTense,_,Prog> => (subjConc vform agr True rinit) ++ (tensePref vform PhonC syl) ++ "sa" ++BIND ; -- wasahamba
 
         <VFIndic MainCl Neg RemPastTense,_,Prog> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ "sa" ++BIND ; -- akasahambanga
 
@@ -833,7 +814,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
         <VFIndic RelCl Neg _,_,Excl> => (relConc vform agr rinit) ++ "ka" ++BIND++ (tensePref vform rinit syl) ;
         <VFConsec Pos,_,_> => let
           vow = case rinit of {
-            RC => False ;
+            PhonC => False ;
             _ => True
           }
         in (subjConc vform agr vow rinit) ;
@@ -861,63 +842,33 @@ resource ResXho = open Prelude,Predef,ParamX in {
         <VFSubjunct _,Prog> => nonExist ;
 
         <VFIndic MainCl Pos PresTense,Null> => (negPref vform) ++ subjConcLookup!agr!SC ++BIND ;
-        <VFIndic MainCl Pos RemPastTense,_> => (negPref vform) ++ (subjConc vform agr True RA)++BIND++ (tensePref vform RC SylMult) ;
-        <VFIndic _ Pos _,_> => (negPref vform) ++ subjConcLookup!agr!SC ++BIND++ (tensePref vform RC SylMult) ;
-        <VFIndic _ Neg _,_> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ (tensePref vform RC SylMult) ;
-        <VFConsec _,_> => (subjConc vform agr False RC) ++ (negPrefNga vform False);
-        <VFSubjunct _,_> => (subjConc vform agr False RC) ++ (negPrefNga vform False)
+        <VFIndic MainCl Pos RemPastTense,_> => (negPref vform) ++ (subjConc vform agr True PhonA)++BIND++ (tensePref vform PhonC SylMult) ;
+        <VFIndic _ Pos _,_> => (negPref vform) ++ subjConcLookup!agr!SC ++BIND++ (tensePref vform PhonC SylMult) ;
+        <VFIndic _ Neg _,_> => (negPref vform) ++ subjConcLookup!agr!SCNeg ++BIND++ (tensePref vform PhonC SylMult) ;
+        <VFConsec _,_> => (subjConc vform agr False PhonC) ++ (negPrefNga vform False);
+        <VFSubjunct _,_> => (subjConc vform agr False PhonC) ++ (negPrefNga vform False)
       } ;
-      ya = longform_ya vform longform RC aspect
+      ya = longform_ya vform longform PhonC aspect
     in
       pre_pref ++
       ya ;
 
-    -- rform : VForm -> Bool -> RInit -> RForm = \vform,longform,rinit -> case longform of {
-    --   True => case vform of {
-    --     VFIndic _ Pos PresTense => case rinit of {
-    --       RC => "ya" ++BIND++ R_a ;
-    --       _  => "y" ++BIND++ R_a
-    --     } ;
-    --     VFIndic MainCl Neg PresTense => R_i ;
-    --     VFIndic RelCl Neg PresTense => R_i ;
-    --     VFIndic _ _ FutTense => R_a ;
-    --     VFIndic _ _ RemFutTense => R_a ;
-    --     VFIndic _ Pos PastTense => R_ile ;
-    --     VFIndic _ Neg PastTense => R_anga ;
-    --     VFIndic _ Pos RemPastTense => R_a ;
-    --     VFIndic _ Neg RemPastTense => R_anga
-    --   } ;
-    --   False => case vform of {
-    --     VFIndic _ Pos PresTense => R_a ;
-    --     VFIndic MainCl Neg PresTense => R_i ;
-    --     VFIndic RelCl Neg PresTense => R_i ;
-    --     VFIndic _ _ FutTense => R_a ;
-    --     VFIndic _ _ RemFutTense => R_a ;
-    --     VFIndic _ Pos PastTense => R_e ;
-    --     VFIndic _ Neg PastTense => R_anga ;
-    --     VFIndic _ Pos RemPastTense => R_a ;
-    --     VFIndic _ Neg RemPastTense => R_anga
-    --   }
-    -- } ;
-
     -- VERB MORPHEMES --
 
     -- tense prefix
-    tensePref : VForm -> RInit -> Syl -> Str = \vform,r,syl ->
+    tensePref : VForm -> PhonInit -> Syl -> Str = \vform,r,syl ->
       case <r,vform,syl> of {
-        <RC,VFIndic _ Pos FutTense,SylMono> => TEMP_PREF_FUT++BIND++"ku" ++BIND ;
-        <RC,VFIndic _ Pos FutTense,_> => TEMP_PREF_FUT ++BIND ;
-        <_,VFIndic _ Pos FutTense,_> => TEMP_PREF_FUT++BIND++"kw" ++BIND ;
-        <RC,VFIndic _ Neg FutTense,_> => TEMP_PREF_FUT_NEG++BIND++"ku" ++BIND ;
-        <_,VFIndic _ Neg FutTense,_> => TEMP_PREF_FUT_NEG++BIND++"kw" ++BIND ;
+        <PhonC,VFIndic _ Pos FutTense,_> => TEMP_PREF_FUT_NOVOW ++BIND++ "a" ++ "ku" ++BIND ;
+        <_,VFIndic _ Pos FutTense,_> => TEMP_PREF_FUT_NOVOW ++BIND++ "a" ++"kw" ++BIND ;
+        <PhonC,VFIndic _ Neg FutTense,_> => TEMP_PREF_FUT_NOVOW ++BIND++ "i" ++ "ku" ++BIND ;
+        <_,VFIndic _ Neg FutTense,_> => TEMP_PREF_FUT_NOVOW ++BIND++ "i" ++ "kw" ++BIND ;
 
-        <RC,VFIndic _ Pos RemFutTense,SylMono> => TEMP_PREF_REMFUT++BIND++"ku" ++BIND ;
-        <RC,VFIndic _ Pos RemFutTense,_> => TEMP_PREF_REMFUT ++BIND ;
-        <_,VFIndic _ Pos RemFutTense,_> => TEMP_PREF_REMFUT++BIND++"kw" ++BIND ;
-        <RC,VFIndic _ Neg RemFutTense,_> => TEMP_PREF_REMFUT_NEG++BIND++"ku" ++BIND ;
-        <_,VFIndic _ Neg RemFutTense,_> => TEMP_PREF_REMFUT_NEG++BIND++"kw" ++BIND ;
+        <PhonC,VFIndic _ Pos RemFutTense,_> => TEMP_PREF_REMFUT_NOVOW ++BIND ;
+        <_,VFIndic _ Pos RemFutTense,_> => TEMP_PREF_REMFUT_NOVOW ++BIND++ "a" ++"kw" ++BIND ;
+        <PhonC,VFIndic _ Neg RemFutTense,_> => TEMP_PREF_REMFUT_NOVOW ++BIND++ "i" ++"ku" ++BIND ;
+        <_,VFIndic _ Neg RemFutTense,_> => TEMP_PREF_REMFUT_NOVOW ++BIND++ "i" ++"kw" ++BIND ;
 
-        <(RA|RE),VFIndic _ _ RemPastTense> => [] ;
+        <(PhonA|PhonE),VFIndic _ _ RemPastTense> => [] ;
         <_,VFIndic _ Pos RemPastTense> => TEMP_PREF_PAST ++BIND ;
         <_,VFIndic _ _ _,_> => [] ;
         <_,VFConsec _,_> => [] ;
@@ -933,18 +884,6 @@ resource ResXho = open Prelude,Predef,ParamX in {
         VFConsec _ => [] ;
         VFSubjunct _ => []
       } ;
-
-      -- TODO : sound rules to choose between nge and nga
-    -- negPref2 : VForm -> Str = \vform ->
-    --   case vform of {
-    --     VFIndic Part Neg FutTense Null => "nga" ++BIND ; -- sometimes nge? p274
-    --     -- VFIndic Part Neg _ _ => pre { "z" => "nge" ; _ => "nga" } ++BIND ;
-    --     VFIndic Part Neg _ _ => "nga" ++BIND ;
-    --     VFIndic _ _ _ _ => [] ;
-    --     VFPot _ _ _ => [] ;
-    --     VFSubj Neg => pre { "z" => "nge" ; _ => "nga" } ++BIND ;
-    --     VFSubj Pos => []
-    --   } ;
 
     negPrefNga : VForm -> Bool -> Str = \vform,vow -> case <vform,vow> of {
       <VFIndic _ Neg _,False> => "nga" ++BIND ;
@@ -1068,36 +1007,39 @@ resource ResXho = open Prelude,Predef,ParamX in {
     } ;
 
     -- together with
-    withPref : RInit => Str = table {
-      RU => "no" ;
-      RI => "ne" ;
-      RO => "no" ;
+    withPref : PhonInit => Str = table {
+      PhonU => "no" ;
+      PhonI => "ne" ;
+      PhonO => "no" ;
       _  => "na"
     } ;
 
     -- just like
-    eqPref : RInit => Str = table {
-      RU => "njengo" ;
-      RI => "njenge" ;
-      RO => "njengo" ;
+    eqPref : PhonInit => Str = table {
+      PhonU => "njengo" ;
+      PhonI => "njenge" ;
+      PhonO => "njengo" ;
       _  => "njenga"
     } ;
 
     -- as big as
-    eqSizePref : RInit => Str = table {
-      RU => "ngango" ;
-      RI => "ngange" ;
-      RO => "ngango" ;
+    eqSizePref : PhonInit => Str = table {
+      PhonU => "ngango" ;
+      PhonI => "ngange" ;
+      PhonO => "ngango" ;
       _  => "nganga"
     } ;
 
     -- with
-    instrPref : RInit => Str = table {
-      RU => "ngo" ;
-      RI => "nge" ;
-      RO => "ngo" ;
+    instrPref : PhonInit => Str = table {
+      PhonU => "ngo" ;
+      PhonI => "nge" ;
+      PhonO => "ngo" ;
       _  => "nga"
     } ;
+
+    regLocN : Str -> { s : Str } = \s -> ss s;
+    regLocAdv : Str -> { s : Str ; reqLocS : Bool } = \s -> ss s ** { reqLocS = False };
 
     --------------------
     -- QUALIFICATIVES --
@@ -1112,11 +1054,6 @@ resource ResXho = open Prelude,Predef,ParamX in {
           _ => a
         }
       } ;
-      -- b = case a of {
-      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
-      --   ("m"|"n")+_ => True ;
-      --   _ => False
-      -- } ;
       empty = [] ;
       t = AdjType
     } ;
@@ -1124,11 +1061,6 @@ resource ResXho = open Prelude,Predef,ParamX in {
     relAdj : Str -> { s : AForm => Str ; empty : Str ; t : AType } = \a ->
     {
       s = \\_ => a ;
-      -- b = case a of {
-      --   ("kh"|"th"|"sh"|"b"|"f"|"hl")+_ => True ;
-      --   ("m"|"n")+_ => True ;
-      --   _ => False
-      -- } ;
       empty = [] ;
       t = RelType
     } ;
@@ -1136,8 +1068,9 @@ resource ResXho = open Prelude,Predef,ParamX in {
     rel_yo_2 : Str = BIND++"yo" ;
 
     relSuf : VForm -> Aspect -> Str = \vform,aspect -> case <vform,aspect> of {
-      <VFIndic RelCl Pos PresTense,(Null|Prog)> => rel_yo_2 ;
-      <VFIndic RelCl Pos PastTense,(Null|Prog)> => rel_yo_2 ;
+      -- <VFIndic RelCl Pos PresTense,(Null|Prog)> => rel_yo_2 ;
+      <VFIndic RelCl Pos PastTense,(Null|Prog)> => rel_yo_2 ; -- xho change
+      <VFIndic RelCl _ PresTense,_> => rel_yo_2 ;
       <VFIndic _ _ _,_> => [] ;
       <VFConsec Neg,_> => [] ;
       <VFConsec Pos,_> => [] ;
@@ -1325,64 +1258,64 @@ resource ResXho = open Prelude,Predef,ParamX in {
     in
       mkNoun noms nomp locs locp cg ;
 
-    initNP : Bool -> Agr -> RInit = \ispron,agr -> case ispron of {
-      True => RC ;
+    initNP : Bool -> Agr -> PhonInit = \ispron,agr -> case ispron of {
+      True => PhonC ;
       False => nominit!agr
     } ;
 
-    nominit : Agr => RInit =
+    nominit : Agr => PhonInit =
     table {
-      Third C1_2 Sg => RU ;
-      Third C1_2 Pl => RA ;
-      Third C1a_2a Sg => RU ;
-      Third C1a_2a Pl => RO ;
-      Third C3_4 Sg  => RU ;
-      Third C3_4 Pl => RI ;
-      Third C5_6 Sg => RI ;
-      Third C5_6 Pl => RA ;
-      Third C7_8 Sg => RI ;
-      Third C7_8 Pl => RI ;
-      Third C9_10 Sg => RI ;
-      Third C9_10 Pl => RI ;
-      Third C11_10 Sg => RU ;
-      Third C11_10 Pl => RI ;
-      Third C9_6 Sg => RI ;
-      Third C9_6 Pl => RA ;
-      Third C14 _ => RU ;
-      Third C15 _ => RU ;
-      Third C17 _ => RU ;
-      (First _ | Second _ )  => RC
+      Third C1_2 Sg => PhonU ;
+      Third C1_2 Pl => PhonA ;
+      Third C1a_2a Sg => PhonU ;
+      Third C1a_2a Pl => PhonO ;
+      Third C3_4 Sg  => PhonU ;
+      Third C3_4 Pl => PhonI ;
+      Third C5_6 Sg => PhonI ;
+      Third C5_6 Pl => PhonA ;
+      Third C7_8 Sg => PhonI ;
+      Third C7_8 Pl => PhonI ;
+      Third C9_10 Sg => PhonI ;
+      Third C9_10 Pl => PhonI ;
+      Third C11_10 Sg => PhonU ;
+      Third C11_10 Pl => PhonI ;
+      Third C9_6 Sg => PhonI ;
+      Third C9_6 Pl => PhonA ;
+      Third C14 _ => PhonU ;
+      Third C15 _ => PhonU ;
+      Third C17 _ => PhonU ;
+      (First _ | Second _ )  => PhonC
     } ;
 
-    -- Oosthuysen p82
-    prefix_vowels : Agr -> RInit -> Str = \agr,pv -> case <agr,pv> of {
-      <Third C1_2 Sg,RA> => "o" ; -- a + u > o
-      <Third C1_2 Pl,RA> => "a" ; -- a + a > a
-      <Third C1a_2a Pl,RA> => "oo" ; -- a + oo > oo
-      <Third C3_4 Sg,RA> => "o" ; -- a + u > o
-      <Third C3_4 Pl,RI> => "e" ; -- a + i > e
-      <Third C5_6 Sg,RI> => "e" ; -- a + i > e
-      <Third C5_6 Pl,RA> => "a" ; -- a + a > a
-      <Third C7_8 Sg,RI> => "e" ; -- a + i > e
-      <Third C7_8 Sg,RI> => "e" ; -- a + i > e
-      <Third C9_10 Sg,RI> => "e" ; -- a + i > e
-      <Third C9_6 Sg,RI> => "e" ; -- a + i > e
-      <Third C9_10 Pl,RA> => "ee" ; -- a + ii > ee
-      <Third C11_10 Pl,RA> => "ee" ; -- a + ii > ee
+    -- Oosthuysen p82 -- xho addition
+    prefix_vowels : Agr -> PhonInit -> Str = \agr,pv -> case <agr,pv> of {
+      <Third C1_2 Sg,PhonA> => "o" ; -- a + u > o
+      <Third C1_2 Pl,PhonA> => "a" ; -- a + a > a
+      <Third C1a_2a Pl,PhonA> => "oo" ; -- a + oo > oo
+      <Third C3_4 Sg,PhonA> => "o" ; -- a + u > o
+      <Third C3_4 Pl,PhonI> => "e" ; -- a + i > e
+      <Third C5_6 Sg,PhonI> => "e" ; -- a + i > e
+      <Third C5_6 Pl,PhonA> => "a" ; -- a + a > a
+      <Third C7_8 Sg,PhonI> => "e" ; -- a + i > e
+      <Third C7_8 Sg,PhonI> => "e" ; -- a + i > e
+      <Third C9_10 Sg,PhonI> => "e" ; -- a + i > e
+      <Third C9_6 Sg,PhonI> => "e" ; -- a + i > e
+      <Third C9_10 Pl,PhonA> => "ee" ; -- a + ii > ee
+      <Third C11_10 Pl,PhonA> => "ee" ; -- a + ii > ee
       <Third _ _,_> => "a" ;
       <First _,_> => "a" ;
       <Second _,_> => "a" 
     } ;
 
 
-    locinit : Agr => RInit =
+    locinit : Agr => PhonInit =
     table {
-      Third C1_2 Sg => RC ;
-      Third C1_2 Pl => RC ;
-      Third C1a_2a Sg => RC ;
-      Third C1a_2a Pl => RC ;
-      Third _ _  => RE ;
-      (First _ | Second _ )  => RC
+      Third C1_2 Sg => PhonC ;
+      Third C1_2 Pl => PhonC ;
+      Third C1a_2a Sg => PhonC ;
+      Third C1a_2a Pl => PhonC ;
+      Third _ _  => PhonE ;
+      (First _ | Second _ )  => PhonC
     } ;
 
     onlyLocPrefix : Str -> Number -> ClassGender -> Str = \root,n,cg ->
@@ -1442,7 +1375,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       <C17,_> => "eku"+root  -- sometimes ukw
     } ;
 
-    -- Src: Oosthuysen p75
+    -- Src: Oosthuysen p75 -- xho change
     addLocSuffix : Str -> Str = \root ->
       case root of
       {
@@ -1492,11 +1425,6 @@ resource ResXho = open Prelude,Predef,ParamX in {
       case <cg,n> of
       {
         <C1_2,Sg> => "um"+root ;
-        -- case root of {
-        --   (#vowel|#vowel_cap)+_ => "um"+root ;
-        --   _+#cons+#vowel+#cons+_+#vowel+_ => "um"+root ;
-        --   _ => "umu"+root
-        -- } ; -- umu for single syllables, um for the rest
         <C1_2,Pl> => case root of {
           (#vowel|#vowel_cap)+_ => "ab"+root ;
           _ => "aba"+root 
@@ -1504,12 +1432,8 @@ resource ResXho = open Prelude,Predef,ParamX in {
         <C1a_2a,Sg> => "u"+root ;
         <C1a_2a,Pl> => "oo"+root ;
         <C3_4,Sg> => case root of {
-          -- ("m"|"M")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
-          -- ("n"|"N")+_+#vowel+#cons+_+#vowel+_ => "u"+root ;
-          -- _+(#cons|"y")+#vowel+#cons+_+#vowel+_ => "um"+root ;
-          -- ("o"|"O")+_ => "um"+root ;
           _ => "um"+root
-        } ; -- umu for single syllables, um for the rest
+        } ;
         <C3_4,Pl> => "imi"+root ;
         <C5_6,Sg> => case root of {
           ("i"|"I")+_ => root ;
@@ -1524,7 +1448,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
         <C7_8,Sg> => case root of {
           (#vowel|#vowel_cap)+_ => "is"+root ;
           _ => "isi"+root
-        } ; -- is for roots starting with vowel
+        } ;
         <C7_8,Pl> => case root of {
           (#vowel|#vowel_cap)+_ => "iz"+root ;
           _ => "izi" + root
@@ -1533,7 +1457,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
         <C9_10,Pl> => case root of {
           _+#cons+#vowel+#cons+_+#vowel+_ => "ii"+ (prefix_nasal root) ;
           _ => "izi"+ (prefix_nasal root)
-        } ; -- umu for single syllables, um for the rest
+        } ;
         <C11_10,Sg> => case root of {
           (#vowel|#vowel_cap)+_ => "ulw"+root ;
           ("w"|"W")+_ => "ul"+root ;
@@ -1554,8 +1478,8 @@ resource ResXho = open Prelude,Predef,ParamX in {
           ("a"|"e"|"i"|"A"|"E"|"I")+_ => "ukw"+root ;
           (#cons|#cons_cap|"y"|"Y")+_ => "uku"+root ;
           _ => "uk"+root
-        } ; -- ukw for roots starting with a/e, uk for roots starting with o
-        <C17,_> => "uku"+root  -- sometimes ukw
+        } ;
+        <C17,_> => "uku"+root
       } ;
     
     possNounForm : Str -> Agr -> Str = \nom,agr -> case agr of {
@@ -1605,7 +1529,10 @@ resource ResXho = open Prelude,Predef,ParamX in {
             _ => "ezi"+(addLocSuffix root)  -- iz for roots starting with vowel
           } ;
           <C9_10,Sg> => "e"+(addLocSuffix (prefix_nasal root)) ; -- em for labial, en for alveolar (TODO: does this correctly split options?)
-          <C9_10,Pl> => "ezi"+(addLocSuffix (prefix_nasal root)) ; -- izim for labial, izin for alveolar (TODO: does this correctly split options?)
+          <C9_10,Pl> => case root of {
+          _+#cons+#vowel+#cons+_+#vowel+_ => "ee"+ (prefix_nasal root) ;
+          _ => "ezi"+ (prefix_nasal root)
+        } ;
           <C11_10,Sg> => case root of {
             (#vowel|#vowel_cap)+_ => "olw"+(addLocSuffix root) ;
             ("w"|"W")+_ => "ol"+(addLocSuffix root) ;
@@ -1642,7 +1569,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
         empty : Str ;
         s : NForm => Str ;
         agr : Agr ;
-        i : RInit ;
+        phonInit : PhonInit ;
         proDrop : Bool ;
         isPron : Bool ;
         } -> VForm -> Str = \np,vform -> case vform of {
@@ -1710,9 +1637,9 @@ resource ResXho = open Prelude,Predef,ParamX in {
         Second Sg =>        table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "wu" ;  SCNegVow => "w" ;  SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ;  SCBe => "ubu" ;   SCRP => "wawu" ; SCSe => "se"++BIND++"wu" } ;
         First Pl =>         table {SC => "si" ;   SCVow => "s"++BIND ;   SCNeg => "si" ;  SCNegVow => "s" ; SCPart => "si" ;  SCPS => "si" ;  SCVowP => "si" ;  SCBe => "besi" ;   SCRP => "sasi" ; SCSe => "se"++BIND++"si" } ;
         Second Pl =>        table {SC => "ni" ;   SCVow => "n"++BIND ;   SCNeg => "ni" ;  SCNegVow => "n" ; SCPart => "ni" ;  SCPS => "ni" ;  SCVowP => "ni" ;  SCBe => "beni" ;   SCRP => "nani" ; SCSe => "se"++BIND++"ni" } ;
-        Third C1_2 Sg =>    table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "ka" ;  SCNegVow => "k" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" ;  SCBe => "ube" ;    SCRP => "waye" ; SCSe => "se"++BIND++"ye" } ;
+        Third C1_2 Sg =>    table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "ka" ;  SCNegVow => "k" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" ;  SCBe => "ebe" ;    SCRP => "waye" ; SCSe => "se"++BIND++"ye" } ;
         Third C1_2 Pl =>    table {SC => "ba" ;   SCVow => "b"++BIND ;   SCNeg => "ba" ;  SCNegVow => "b" ; SCPart => "be" ;  SCPS => "ba" ;  SCVowP => "ba" ;  SCBe => "bebe" ;   SCRP => "babe" ; SCSe => "se"++BIND++"be" } ;
-        Third C1a_2a Sg =>  table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "ka" ;  SCNegVow => "k" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" ;  SCBe => "ube" ;    SCRP => "waye" ; SCSe => "se"++BIND++"ye" } ;
+        Third C1a_2a Sg =>  table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "ka" ;  SCNegVow => "k" ; SCPart => "e" ;   SCPS => "a" ;   SCVowP => "wu" ;  SCBe => "ebe" ;    SCRP => "waye" ; SCSe => "se"++BIND++"ye" } ;
         Third C1a_2a Pl =>  table {SC => "ba" ;   SCVow => "b"++BIND ;   SCNeg => "ba" ;  SCNegVow => "b" ; SCPart => "be" ;  SCPS => "ba" ;  SCVowP => "ba" ;  SCBe => "bebe" ;   SCRP => "babe" ; SCSe => "se"++BIND++"be" } ;
         Third C3_4 Sg =>    table {SC => "u" ;    SCVow => "w"++BIND ;   SCNeg => "wu" ;  SCNegVow => "w" ; SCPart => "u" ;   SCPS => "u" ;   SCVowP => "wu" ;  SCBe => "ubu" ;    SCRP => "wawu" ; SCSe => "se"++BIND++"wu" } ;
         Third C3_4 Pl =>    table {SC => "i" ;    SCVow => "y"++BIND ;   SCNeg => "yi" ;  SCNegVow => "y" ; SCPart => "i" ;   SCPS => "i" ;   SCVowP => "yi" ;  SCBe => "ibi" ;    SCRP => "yayi" ; SCSe => "se"++BIND++"yi" } ;
@@ -1732,16 +1659,16 @@ resource ResXho = open Prelude,Predef,ParamX in {
         Third C17 _ =>      table {SC => "ku" ;   SCVow => "k"++BIND ;  SCNeg => "ku" ;  SCNegVow => "k" ; SCPart => "ku" ;  SCPS => "ku" ;  SCVowP => "ku" ;  SCBe => "beku" ;   SCRP => "kwaku" ; SCSe => "se"++BIND++"ku" }
       } ;
 
-    subjConc : VForm -> Agr -> Bool -> RInit -> Str = \vform,agr,vow,rinit ->
+    subjConc : VForm -> Agr -> Bool -> PhonInit -> Str = \vform,agr,vow,rinit ->
       case <vow,vform,agr,rinit> of {
           <False,VFIndic _ Neg _,_> => subjConcLookup ! agr ! SCNeg ++BIND ;
           <True,VFIndic _ Neg _,_> => subjConcLookup ! agr ! SCNegVow ++BIND ;
-          <True,VFIndic _ _ _,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ++BIND ;
+          <True,VFIndic _ _ _,Third C17 _,(PhonA|PhonE|PhonI)> => subjConcLookup ! agr ! SCVow ++BIND ;
           <True,VFIndic _ _ _,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ RemPastTense,_,_> => subjConcLookup ! agr ! SCVow ;
           <_,VFIndic _ _ _,_,_>   => subjConcLookup ! agr ! SC ++BIND ;
           <False,VFConsec _ ,_,_> => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND ;
-          <True,VFConsec Pos ,Third C17 _,(RA|RE|RI)> => subjConcLookup ! agr ! SCVow ++BIND ;
+          <True,VFConsec Pos ,Third C17 _,(PhonA|PhonE|PhonI)> => subjConcLookup ! agr ! SCVow ++BIND ;
           <True,VFConsec Pos ,_,_> => subjConcLookup ! agr ! SCVow ;
           <True,VFConsec Neg ,_,_> => subjConcLookup ! agr ! SCVow ++BIND++ "a" ++BIND ;
           <False,VFSubjunct _,_,_> => case agr of {
@@ -1749,7 +1676,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
             Third C1a_2a Sg => "a" ++BIND ;
             (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SC ++BIND
           } ;
-          <True,VFSubjunct Pos,Third C17 _,(RA|RE|RI)> => case agr of {
+          <True,VFSubjunct Pos,Third C17 _,(PhonA|PhonE|PhonI)> => case agr of {
             Third C1_2 Sg => [] ;
             Third C1a_2a Sg => [] ;
             (Third _ _ | First _ | Second _ ) => subjConcLookup ! agr ! SCVow ++BIND
@@ -1823,11 +1750,11 @@ resource ResXho = open Prelude,Predef,ParamX in {
       } ;
 
     -- ignoring the thing thing for now, must probably add something like gender to nouns...
-    objConc : Agr -> RInit -> Syl -> Str = \agr,rinit,syl ->
+    objConc : Agr -> PhonInit -> Syl -> Str = \agr,rinit,syl ->
       case rinit of {
-        (RA|RE) => objConcLookup ! agr ! OCAE ++BIND ;
-        (RI|RO|RU) => objConcLookup ! agr ! OCIOU ++BIND ;
-        RC => case syl of {
+        (PhonA|PhonE) => objConcLookup ! agr ! OCAE ++BIND ;
+        (PhonI|PhonO|PhonU) => objConcLookup ! agr ! OCIOU ++BIND ;
+        PhonC => case syl of {
           SylMono => objConcLookup ! agr ! OCMono ++BIND ;
           _ => objConcLookup ! agr ! OC ++BIND
         }
@@ -1861,38 +1788,38 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
     -- RELATIVE ANTECEDENT AGREEMENT MORPHEME --
 
-    relConc : VForm -> Agr -> RInit -> Str = \p,a,r -> case p of {
+    relConc : VForm -> Agr -> PhonInit -> Str = \p,a,r -> case p of {
     --  VFIndic CType Polarity BasicTense
       VFIndic RelCl Pos PresTense => relConcLookup!a!r ;
-      VFIndic RelCl Pos RemPastTense => relConcLookup!a!RA ;
+      VFIndic RelCl Pos RemPastTense => relConcLookup!a!PhonA ;
       VFIndic RelCl Pos PastTense => relConcLookup!a!r ;
-      VFIndic RelCl Pos _ => relConcLookup!a!RC ;
+      VFIndic RelCl Pos _ => relConcLookup!a!PhonC ;
       VFIndic RelCl Neg PresTense => case r of {
-        RC => relConcLookup!a!RC ++ NEG_NGA ++BIND ;
-        _ => relConcLookup!a!RC ++ NEG_NG ++BIND
+        PhonC => relConcLookup!a!PhonC ++ NEG_NGA ++BIND ;
+        _ => relConcLookup!a!PhonC ++ NEG_NG ++BIND
       } ;
       VFIndic RelCl Neg PastTense => case r of {
-        RC => relConcLookup!a!RC ++ NEG_NGA ++BIND ;
-        _ => relConcLookup!a!RC ++ NEG_NG ++BIND
+        PhonC => relConcLookup!a!PhonC ++ NEG_NGA ++BIND ;
+        _ => relConcLookup!a!PhonC ++ NEG_NG ++BIND
       } ;
       VFIndic RelCl Neg RemPastTense => case r of {
-        RC => relConcLookup!a!RC ++ NEG_NGA ++BIND ;
-        _ => relConcLookup!a!RC ++ NEG_NG ++BIND
+        PhonC => relConcLookup!a!PhonC ++ NEG_NGA ++BIND ;
+        _ => relConcLookup!a!PhonC ++ NEG_NG ++BIND
       } ;
-      VFIndic RelCl Neg FutTense => relConcLookup!a!RC ++ NEG_NGA ++BIND ;
-      VFIndic RelCl Neg RemFutTense => relConcLookup!a!RC ++ NEG_NGA ++BIND ;
+      VFIndic RelCl Neg FutTense => relConcLookup!a!PhonC ++ NEG_NGA ++BIND ;
+      VFIndic RelCl Neg RemFutTense => relConcLookup!a!PhonC ++ NEG_NGA ++BIND ;
       VFIndic _ _ _ => [] ;
       VFConsec _ => [] ;
       VFSubjunct _ => []
     } ;
 
-    relConcCop : VForm -> Agr -> RInit ->Str = \vform,a,r -> case vform of {
-      VFIndic _ _ PresTense => relConcLookup!a!RC ;
-      VFIndic _ _ FutTense => relConcLookup!a!RC ;
-      VFIndic _ _ RemFutTense => relConcLookup!a!RC ;
+    relConcCop : VForm -> Agr -> PhonInit ->Str = \vform,a,r -> case vform of {
+      VFIndic _ _ PresTense => relConcLookup!a!PhonC ;
+      VFIndic _ _ FutTense => relConcLookup!a!PhonC ;
+      VFIndic _ _ RemFutTense => relConcLookup!a!PhonC ;
       VFIndic _ _ PastTense => relCopConcBeLookup!a ;
       VFIndic _ _ RemPastTense => case a of {
-        Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
+        Third C5_6 Pl => [] ; -- relConcLookup!a!PhonA ; -- a + aye = aye
         (First _ | Second _ | Third _ _ ) => shortRelConc!a
       } ;
       VFConsec _ => [] ;
@@ -1905,106 +1832,106 @@ resource ResXho = open Prelude,Predef,ParamX in {
       VFIndic _ _ RemFutTense => relConcLookup!a!(quantinit!a) ;
       VFIndic _ _ PastTense => relCopConcBeLookup!a ;
       VFIndic _ _ RemPastTense => case a of {
-        Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
+        Third C5_6 Pl => [] ; -- relConcLookup!a!PhonA ; -- a + aye = aye
         (First _ | Second _ | Third _ _ ) => shortRelConc!a
       } ;
       VFConsec _ => [] ;
       VFSubjunct _ => []
     } ;
 
-    adjConcCop : VForm -> Agr -> RInit ->Str = \vform,a,r -> case vform of {
+    adjConcCop : VForm -> Agr -> PhonInit ->Str = \vform,a,r -> case vform of {
       VFIndic _ Pos PresTense => shortRelConc!a ;
-      VFIndic _ Neg PresTense => adjConcLookup!a!RC ;
-      VFIndic _ _ FutTense => adjConcLookup!a!RC ;
-      VFIndic _ _ RemFutTense => adjConcLookup!a!RC ;
+      VFIndic _ Neg PresTense => adjConcLookup!a!PhonC ;
+      VFIndic _ _ FutTense => adjConcLookup!a!PhonC ;
+      VFIndic _ _ RemFutTense => adjConcLookup!a!PhonC ;
       VFIndic _ _ PastTense => relCopConcBeLookup!a ;
       VFIndic _ _ RemPastTense => case a of {
-        Third C5_6 Pl => [] ; -- relConcLookup!a!RA ; -- a + aye = aye
+        Third C5_6 Pl => [] ; -- relConcLookup!a!PhonA ; -- a + aye = aye
         (First _ | Second _ | Third _ _ ) => shortRelConc!a
       } ;
       VFConsec _ => [] ;
       VFSubjunct _ => []
     } ;
 
-    relConcLookup : Agr => RInit => Str =
+    relConcLookup : Agr => PhonInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1_2 Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C3_4 Pl => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
-        Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Third C7_8 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C9_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C11_10 Sg => table { RC => "olu"++BIND ; (RA|RE) => "olw" ; _ => "ol"++BIND } ;
-        Third C11_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
-        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
-        First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
-        Second Pl => table { RC => "eni"++BIND ; _ => "en"++BIND }
+        Third C1_2 Sg => table { PhonO => [] ; (PhonA|PhonE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1_2 Pl => table { PhonC => "aba"++BIND ; _ => "ab"++BIND } ;
+        Third C1a_2a Sg => table { PhonO => [] ; (PhonA|PhonE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1a_2a Pl => table { PhonC => "aba"++BIND ; _ => "ab"++BIND } ;
+        Third C3_4 Sg  => table { PhonO => [] ; (PhonA|PhonE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C3_4 Pl => table { PhonE => [] ; (PhonA|PhonO) => "ey" ++BIND ; _ => "e"++BIND } ;
+        Third C5_6 Sg => table { PhonC => "eli"++BIND ; _ => "el"++BIND } ;
+        Third C5_6 Pl => table { PhonC => "a"++BIND ; _ => [] } ;
+        Third C7_8 Sg => table { PhonC => "esi"++BIND ; _ => "es"++BIND } ;
+        Third C7_8 Pl => table { PhonC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C9_10 Sg => table { PhonE => [] ; (PhonA|PhonO) => "ey" ++BIND ; _ => "e"++BIND } ;
+        Third C9_10 Pl => table { PhonC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C11_10 Sg => table { PhonC => "olu"++BIND ; (PhonA|PhonE) => "olw" ; _ => "ol"++BIND } ;
+        Third C11_10 Pl => table { PhonC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C9_6 Sg => table { PhonE => [] ; (PhonA|PhonO) => "ey" ++BIND ; _ => "e"++BIND } ;
+        Third C9_6 Pl => table { PhonC => "a"++BIND ; _ => [] } ;
+        Third C14 _ => table { PhonC => "obu"++BIND ; _ => "ob"++BIND } ;
+        Third C15 _ => table { PhonC => "oku"++BIND ; (PhonA|PhonE) => "okw" ; _ => "ok"++BIND } ;
+        Third C17 _ => table { PhonC => "oku"++BIND ; (PhonA|PhonE) => "okw" ; _ => "ok"++BIND } ;
+        First Sg => table { PhonC => "engi"++BIND ; _ => "eng"++BIND } ;
+        First Pl => table { PhonC => "esi"++BIND ; _ => "es"++BIND } ;
+        Second Sg  => table { PhonE => "ow"++BIND ; _ => "o"++BIND } ;
+        Second Pl => table { PhonC => "eni"++BIND ; _ => "en"++BIND }
     } ;
 
-    adjConcLookup : Agr => RInit => Str =
+    adjConcLookup : Agr => PhonInit => Str =
       table {
-        Third C1_2 Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1_2 Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C1a_2a Sg => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C1a_2a Pl => table { RC => "aba"++BIND ; _ => "ab"++BIND } ;
-        Third C3_4 Sg  => table { RO => [] ; (RA|RE) => "ow"++BIND ; _ => "o"++BIND } ;
-        Third C3_4 Pl => table { RC => "emi"++BIND ; _ => "em"++BIND } ;
-        Third C5_6 Sg => table { RC => "eli"++BIND ; _ => "el"++BIND } ;
-        Third C5_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C7_8 Sg => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Third C7_8 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_10 Sg => table { RE => [] ; (RA|RO) => "ey" ++BIND ; _ => "e"++BIND } ;
-        Third C9_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C11_10 Sg => table { RC => "olu"++BIND ; (RA|RE) => "olw" ; _ => "ol"++BIND } ;
-        Third C11_10 Pl => table { RC => "ezi"++BIND ; _ => "ez"++BIND } ;
-        Third C9_6 Sg => table { RE => [] ; (RA|RO) => "ey"++BIND ; _ => "e"++BIND } ;
-        Third C9_6 Pl => table { RC => "a"++BIND ; _ => [] } ;
-        Third C14 _ => table { RC => "obu"++BIND ; _ => "ob"++BIND } ;
-        Third C15 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        Third C17 _ => table { RC => "oku"++BIND ; (RA|RE) => "okw" ; _ => "ok"++BIND } ;
-        First Sg => table { RC => "engi"++BIND ; _ => "eng"++BIND } ;
-        First Pl => table { RC => "esi"++BIND ; _ => "es"++BIND } ;
-        Second Sg  => table { RE => "ow"++BIND ; _ => "o"++BIND } ;
-        Second Pl => table { RC => "eni"++BIND ; _ => "en"++BIND }
+        Third C1_2 Sg => table { PhonO => [] ; (PhonA|PhonE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1_2 Pl => table { PhonC => "aba"++BIND ; _ => "ab"++BIND } ;
+        Third C1a_2a Sg => table { PhonO => [] ; (PhonA|PhonE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C1a_2a Pl => table { PhonC => "aba"++BIND ; _ => "ab"++BIND } ;
+        Third C3_4 Sg  => table { PhonO => [] ; (PhonA|PhonE) => "ow"++BIND ; _ => "o"++BIND } ;
+        Third C3_4 Pl => table { PhonC => "emi"++BIND ; _ => "em"++BIND } ;
+        Third C5_6 Sg => table { PhonC => "eli"++BIND ; _ => "el"++BIND } ;
+        Third C5_6 Pl => table { PhonC => "a"++BIND ; _ => [] } ;
+        Third C7_8 Sg => table { PhonC => "esi"++BIND ; _ => "es"++BIND } ;
+        Third C7_8 Pl => table { PhonC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C9_10 Sg => table { PhonE => [] ; (PhonA|PhonO) => "ey" ++BIND ; _ => "e"++BIND } ;
+        Third C9_10 Pl => table { PhonC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C11_10 Sg => table { PhonC => "olu"++BIND ; (PhonA|PhonE) => "olw" ; _ => "ol"++BIND } ;
+        Third C11_10 Pl => table { PhonC => "ezi"++BIND ; _ => "ez"++BIND } ;
+        Third C9_6 Sg => table { PhonE => [] ; (PhonA|PhonO) => "ey"++BIND ; _ => "e"++BIND } ;
+        Third C9_6 Pl => table { PhonC => "a"++BIND ; _ => [] } ;
+        Third C14 _ => table { PhonC => "obu"++BIND ; _ => "ob"++BIND } ;
+        Third C15 _ => table { PhonC => "oku"++BIND ; (PhonA|PhonE) => "okw" ; _ => "ok"++BIND } ;
+        Third C17 _ => table { PhonC => "oku"++BIND ; (PhonA|PhonE) => "okw" ; _ => "ok"++BIND } ;
+        First Sg => table { PhonC => "engi"++BIND ; _ => "eng"++BIND } ;
+        First Pl => table { PhonC => "esi"++BIND ; _ => "es"++BIND } ;
+        Second Sg  => table { PhonE => "ow"++BIND ; _ => "o"++BIND } ;
+        Second Pl => table { PhonC => "eni"++BIND ; _ => "en"++BIND }
     } ;
 
     relCopConcBeLookup : Agr => Str =
       table {
-        Third C1_2 Sg => "obe"++BIND ;
-        Third C1_2 Pl => "ababe"++BIND ;
-        Third C1a_2a Sg => "obe"++BIND ;
-        Third C1a_2a Pl => "ababe"++BIND ;
-        Third C3_4 Sg  => "obu"++BIND ;
-        Third C3_4 Pl => "ebi"++BIND ;
-        Third C5_6 Sg => "ebeli"++BIND ;
-        Third C5_6 Pl => "abe"++BIND ;
-        Third C7_8 Sg => "ebesi"++BIND ;
-        Third C7_8 Pl => "ebezi"++BIND ;
-        Third C9_10 Sg => "ebi"++BIND ;
-        Third C9_10 Pl => "ebezi"++BIND ;
-        Third C11_10 Sg => "obelu"++BIND ;
-        Third C11_10 Pl => "ebezi"++BIND ;
-        Third C9_6 Sg => "ebi"++BIND ;
-        Third C9_6 Pl => "abe"++BIND ;
-        Third C14 _ => "obebu"++BIND ;
-        Third C15 _ => "obeku"++BIND ;
-        Third C17 _ => "obeku"++BIND ;
-        First Sg => "ebengi"++BIND ;
-        First Pl => "ebesi"++BIND ;
-        Second Sg  => "obu"++BIND ;
-        Second Pl => "ebeni"++BIND
+        Third C1_2 Sg => "ebe" ;
+        Third C1_2 Pl => "ababe" ;
+        Third C1a_2a Sg => "ebe" ;
+        Third C1a_2a Pl => "ababe" ;
+        Third C3_4 Sg  => "obu" ;
+        Third C3_4 Pl => "ebi" ;
+        Third C5_6 Sg => "ebeli" ;
+        Third C5_6 Pl => "abe" ;
+        Third C7_8 Sg => "ebesi" ;
+        Third C7_8 Pl => "ebezi" ;
+        Third C9_10 Sg => "ebi" ;
+        Third C9_10 Pl => "ebezi" ;
+        Third C11_10 Sg => "obelu" ;
+        Third C11_10 Pl => "ebezi" ;
+        Third C9_6 Sg => "ebi" ;
+        Third C9_6 Pl => "abe" ;
+        Third C14 _ => "obebu" ;
+        Third C15 _ => "obeku" ;
+        Third C17 _ => "obeku" ;
+        First Sg => "ebengi" ;
+        First Pl => "ebesi" ;
+        Second Sg  => "obu" ;
+        Second Pl => "ebeni"
     } ;
 
     relCopConcRemPastLookup : Agr => Str =
@@ -2095,7 +2022,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
     -- POSSESSIVE ANTECEDENT AGREEMENT MORPHEME --
 
     poss_concord_agr : Agr => Str =
-      \\agr => (poss_concord_agr_cons agr) ++BIND++ (prefix_vowels agr RA) ;
+      \\agr => (poss_concord_agr_cons agr) ++BIND++ (prefix_vowels agr PhonA) ;
 
       poss_concord_agr_cons : Agr -> Str = \agr -> case agr of
       {
@@ -2217,12 +2144,12 @@ resource ResXho = open Prelude,Predef,ParamX in {
     -- QUANTITATIVE AGREEMENT MORPHEME --
     -- (demonstatives)
 
-    quantinit : Agr => RInit =
+    quantinit : Agr => PhonInit =
     table {
-      Third C5_6 Pl => RO ;
-      Third C9_6 Pl => RO ;
-      Third _ _ => RC ;
-      (First _ | Second _ )  => RC
+      Third C5_6 Pl => PhonO ;
+      Third C9_6 Pl => PhonO ;
+      Third _ _ => PhonC ;
+      (First _ | Second _ )  => PhonC
     } ;
 
     exclQuantConc : Agr => Str = table {
@@ -2259,13 +2186,13 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
     pre_cop_pref : VForm -> Agr -> Str = \vform,agr ->
     let
-      sc = subjConc vform agr False RC 
+      sc = subjConc vform agr False PhonC 
     in
       case vform of {
         VFIndic _ Pos PresTense => sc ;
         VFIndic _ Neg PresTense => "a" ++BIND++ subjConcLookup!agr!SCNeg ++BIND ;
-        VFIndic _ _ FutTense => sc ++ (tensePref vform RC SylMult) ++ "ba" ;
-        VFIndic _ _ RemFutTense => sc ++ (tensePref vform RC SylMult) ++ "ba" ;
+        VFIndic _ _ FutTense => sc ++ (tensePref vform PhonC SylMult) ++ "ba" ;
+        VFIndic _ _ RemFutTense => sc ++ (tensePref vform PhonC SylMult) ++ "ba" ;
         VFIndic _ _ _ => [] ;
         VFConsec _ => [] ;
         VFSubjunct _ => []
@@ -2273,7 +2200,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
     ap_cop_pref : VForm -> Agr -> AType -> Str = \vform,agr,atype ->
     let
-      sc = subjConc vform agr False RC
+      sc = subjConc vform agr False PhonC
     in
     -- TODO:
     -- for positive, present: SC only inserted with class 9
@@ -2291,21 +2218,21 @@ resource ResXho = open Prelude,Predef,ParamX in {
         VFIndic RelCl _ PresTense => (negPrefNge vform False) ;
 
         VFIndic MainCl Pos (FutTense|RemFutTense) => case agr of {
-          -- Third C9_10 Sg | Third C9_6 Sg => sc ++ (tensePref vform RC SylMult) ++ "b" ; -- ++BIND ;
-          Third _ _ | First _ | Second _ => sc ++ (tensePref vform RC SylMult) ++ "ba" -- ++BIND
+          -- Third C9_10 Sg | Third C9_6 Sg => sc ++ (tensePref vform PhonC SylMult) ++ "b" ; -- ++BIND ;
+          Third _ _ | First _ | Second _ => sc ++ (tensePref vform PhonC SylMult) ++ "ba" -- ++BIND
         } ;
         VFIndic RelCl Pos (FutTense|RemFutTense) => case agr of {
-          -- Third C9_10 Sg | Third C9_6 Sg => (tensePref vform RC SylMult) ++ "b" ; -- ++BIND ;
-          Third _ _ | First _ | Second _ => (tensePref vform RC SylMult) ++ "ba" -- ++BIND
+          -- Third C9_10 Sg | Third C9_6 Sg => (tensePref vform PhonC SylMult) ++ "b" ; -- ++BIND ;
+          Third _ _ | First _ | Second _ => (tensePref vform PhonC SylMult) ++ "ba" -- ++BIND
         } ;
         VFIndic MainCl Neg (FutTense|RemFutTense) => case agr of {
-          -- Third C9_10 Sg | Third C9_6 Sg => "a" ++BIND++ sc ++ (tensePref vform RC SylMult) ++ "b" ;
-          Third _ _ | First _ | Second _ => "a" ++BIND++ sc ++ (tensePref vform RC SylMult) ++ "ba"
+          -- Third C9_10 Sg | Third C9_6 Sg => "a" ++BIND++ sc ++ (tensePref vform PhonC SylMult) ++ "b" ;
+          Third _ _ | First _ | Second _ => "a" ++BIND++ sc ++ (tensePref vform PhonC SylMult) ++ "ba"
         } ;
-        VFIndic RelCl Neg (FutTense|RemFutTense) => (negPrefNge vform False) ++ (tensePref vform RC SylMult) ++ "ba" ;
+        VFIndic RelCl Neg (FutTense|RemFutTense) => (negPrefNga vform False) ++ (tensePref vform PhonC SylMult) ++ "ba" ;
 
-        VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ++BIND ;
-        VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++BIND++ (negPrefNge vform False) ;
+        VFIndic MainCl Pos PastTense => subjConcLookup!agr!SCBe ;
+        VFIndic MainCl Neg PastTense => subjConcLookup!agr!SCBe ++ (negPrefNge vform False) ;
         VFIndic RelCl _ PastTense  => (negPrefNge vform False) ;
 
         VFIndic _ Pos RemPastTense => subjConcLookup!agr!SCRP ++BIND ;
@@ -2313,7 +2240,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
         VFConsec _ => subjConcLookup ! agr ! SCRP ++BIND++ (negPrefNge vform False) ;
         VFSubjunct Pos => case agr of {
           Third C1_2 Sg | Third C1a_2a Sg => "abe" ++BIND ;
-          Third _ _ | First _ | Second _ => subjConcLookup!agr!SCBe ++ BIND 
+          Third _ _ | First _ | Second _ => subjConcLookup!agr!SCBe 
         } ;
         VFSubjunct Neg => case agr of {
           Third C1_2 Sg | Third C1a_2a Sg => "a" ++BIND++ (negPrefNga vform False)++ "bi" ;
@@ -2322,57 +2249,57 @@ resource ResXho = open Prelude,Predef,ParamX in {
     } ;
 
       id_pre_cop_pref : VForm -> Agr -> Str = \vform,agr -> let
-        sc = subjConc vform agr False RC
+        sc = subjConc vform agr False PhonC
       in case vform of {
         VFIndic MainCl Pos PresTense => sc ;
         VFIndic MainCl Neg PresTense => "a" ++BIND++ sc ; -- "aku" ++BIND ;
         VFIndic RelCl _ PresTense => (negPrefNge vform False) ;
 
-        VFIndic MainCl Pos FutTense => sc ++ TEMP_PREF_FUT++BIND++"ba" ;
-        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ TEMP_PREF_FUT_NEG++BIND++"kuba" ;
-        VFIndic RelCl Pos FutTense => TEMP_PREF_FUT++BIND++"ba" ;
-        VFIndic RelCl Neg FutTense => (negPrefNge vform False) ++ TEMP_PREF_FUT_NEG++BIND++"kuba" ;
+        VFIndic MainCl Pos FutTense => sc ++ TEMP_PREF_FUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ TEMP_PREF_FUT_NOVOW ++BIND++"i" ++"kuba" ;
+        VFIndic RelCl Pos FutTense => TEMP_PREF_FUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic RelCl Neg FutTense => (negPrefNga vform False) ++ TEMP_PREF_FUT_NOVOW ++BIND++"i" ++"kuba" ;
 
-        VFIndic MainCl Pos RemFutTense => sc ++ TEMP_PREF_REMFUT++BIND++"ba" ;
-        VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ TEMP_PREF_REMFUT_NEG++BIND++"kuba" ;
-        VFIndic RelCl Pos RemFutTense => TEMP_PREF_REMFUT++BIND++"ba" ;
-        VFIndic RelCl Neg RemFutTense => (negPrefNge vform False) ++ TEMP_PREF_REMFUT_NEG++BIND++"kuba" ;
+        VFIndic MainCl Pos RemFutTense => sc ++ TEMP_PREF_REMFUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ TEMP_PREF_REMFUT_NOVOW ++BIND++"i" ++"kuba" ;
+        VFIndic RelCl Pos RemFutTense => TEMP_PREF_REMFUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic RelCl Neg RemFutTense => (negPrefNga vform False) ++ TEMP_PREF_REMFUT_NOVOW ++BIND++"i" ++"kuba" ;
 
-        VFIndic MainCl _ PastTense => subjConcLookup!agr!SCBe ++ BIND ++ (negPrefNge vform False) ;
+        VFIndic MainCl _ PastTense => subjConcLookup!agr!SCBe ++ (negPrefNge vform False) ;
         VFIndic RelCl _ PastTense => (negPrefNge vform False) ;
 
         VFIndic _ _ RemPastTense => subjConcLookup!agr!SCRP ++BIND++ (negPrefNge vform False) ;
-        VFConsec Pos => (subjConc vform agr False RC) ++ "ba" ;
-        VFConsec Neg => (subjConc vform agr False RC) ++ (negPrefNga vform False) ++ "bi" ;
-        VFSubjunct Pos => (subjConc vform agr False RC) ++ "be" ;
-        VFSubjunct Neg => (subjConc vform agr False RC) ++ (negPrefNga vform False) ++ "bi"
+        VFConsec Pos => (subjConc vform agr False PhonC) ++ "ba" ;
+        VFConsec Neg => (subjConc vform agr False PhonC) ++ (negPrefNga vform False) ++ "bi" ;
+        VFSubjunct Pos => (subjConc vform agr False PhonC) ++ "be" ;
+        VFSubjunct Neg => (subjConc vform agr False PhonC) ++ (negPrefNga vform False) ++ "bi"
       } ;
 
       assoc_pre_cop_pref : VForm -> Agr -> Str = \vform,agr -> let
-        sc = subjConc vform agr False RC
+        sc = subjConc vform agr False PhonC
       in case vform of {
         VFIndic MainCl Pos PresTense => sc ;
         VFIndic MainCl Neg PresTense => "a" ++BIND++ sc ;
         VFIndic RelCl _ PresTense => (negPrefNge vform False) ;
 
-        VFIndic MainCl Pos FutTense => sc ++ TEMP_PREF_FUT++BIND++"ba" ;
-        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ TEMP_PREF_FUT_NEG++BIND++"kuba" ;
-        VFIndic RelCl Pos FutTense => TEMP_PREF_FUT++BIND++"ba" ;
-        VFIndic RelCl Neg FutTense => (negPrefNge vform False) ++ TEMP_PREF_FUT_NEG++BIND++"kuba" ;
+        VFIndic MainCl Pos FutTense => sc ++ TEMP_PREF_FUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic MainCl Neg FutTense => "a" ++BIND++ sc ++ TEMP_PREF_FUT_NOVOW ++BIND++"i" ++"kuba" ;
+        VFIndic RelCl Pos FutTense => TEMP_PREF_FUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic RelCl Neg FutTense => (negPrefNga vform False) ++ TEMP_PREF_FUT_NOVOW ++BIND++"i" ++"kuba" ;
 
-        VFIndic MainCl Pos RemFutTense => sc ++ TEMP_PREF_REMFUT++BIND++"ba" ;
-        VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ TEMP_PREF_REMFUT_NEG++BIND++"kuba" ;
-        VFIndic RelCl Pos RemFutTense => TEMP_PREF_REMFUT++BIND++"ba" ;
-        VFIndic RelCl Neg RemFutTense => (negPrefNge vform False) ++ TEMP_PREF_REMFUT_NEG++BIND++"kuba" ;
+        VFIndic MainCl Pos RemFutTense => sc ++ TEMP_PREF_REMFUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic MainCl Neg RemFutTense => "a" ++BIND++ sc ++ TEMP_PREF_REMFUT_NOVOW ++BIND++"i" ++"kuba" ;
+        VFIndic RelCl Pos RemFutTense => TEMP_PREF_REMFUT_NOVOW ++BIND++"a" ++"kuba" ;
+        VFIndic RelCl Neg RemFutTense => (negPrefNga vform False) ++ TEMP_PREF_REMFUT_NOVOW ++BIND++"i" ++"kuba" ;
 
-        VFIndic MainCl _ PastTense => subjConcLookup!agr!SCBe ++BIND++ (negPrefNge vform False) ;
+        VFIndic MainCl _ PastTense => subjConcLookup!agr!SCBe ++ (negPrefNge vform False) ;
         VFIndic RelCl _ PastTense => (negPrefNge vform False) ;
 
         VFIndic _ _ RemPastTense => subjConcLookup!agr!SCRP ++BIND++ (negPrefNge vform False) ;
-        VFConsec Pos => (subjConc vform agr False RC) ++ "ba" ;
-        VFConsec Neg => (subjConc vform agr False RC) ++ (negPrefNga vform False) ++ "bi" ;
-        VFSubjunct Pos => (subjConc vform agr False RC) ++ "be" ;
-        VFSubjunct Neg => (subjConc vform agr False RC) ++ (negPrefNga vform False) ++ "bi"
+        VFConsec Pos => (subjConc vform agr False PhonC) ++ "ba" ;
+        VFConsec Neg => (subjConc vform agr False PhonC) ++ (negPrefNga vform False) ++ "bi" ;
+        VFSubjunct Pos => (subjConc vform agr False PhonC) ++ "be" ;
+        VFSubjunct Neg => (subjConc vform agr False PhonC) ++ (negPrefNga vform False) ++ "bi"
       } ;
 
       -- REF: Poulos & Msimang p355
@@ -2387,31 +2314,37 @@ resource ResXho = open Prelude,Predef,ParamX in {
       --
       -- ngu:
       --     - everything else?
-      id_cop_pref : Agr -> Str = \agr -> case agr of {
-        Third C1_2 Sg => "ng"++BIND ;
-        Third C1_2 Pl => "ng"++BIND ;
-        Third C1a_2a Sg => "ng"++BIND ;
-        Third C1a_2a Pl => "ng"++BIND ;
-        Third C3_4 Sg  => "ng"++BIND ;
-        Third C3_4 Pl => "y"++BIND ;
-        Third C5_6 Sg => "y"++BIND ;
-        Third C5_6 Pl => "ng"++BIND ;
-        Third C7_8 Sg => "y"++BIND ;
-        Third C7_8 Pl => "y"++BIND ;
-        Third C9_10 Sg => "y"++BIND ;
-        Third C9_10 Pl => "y"++BIND ;
-        Third C11_10 Sg => "w"++BIND ;
-        Third C11_10 Pl => "y"++BIND ;
-        Third C9_6 Sg => "y"++BIND ;
-        Third C9_6 Pl => "ng"++BIND ;
-        Third C14 _ => "ng"++BIND ;
-        Third C15 _ => "ng"++BIND ;
-        Third C17 _ => "ng"++BIND ;
-        First Sg => "yi"++BIND ;
-        First Pl => "yi"++BIND ;
-        Second Sg  => "ngu"++BIND ;
-        Second Pl => "yi"++BIND ;
-        LocAgr => "ngu" ++BIND
+      -- id_cop_pref : Agr -> Str = \agr -> case agr of {
+      --   Third C1_2 Sg => "ng"++BIND ;
+      --   Third C1_2 Pl => "ng"++BIND ;
+      --   Third C1a_2a Sg => "ng"++BIND ;
+      --   Third C1a_2a Pl => "ng"++BIND ;
+      --   Third C3_4 Sg  => "ng"++BIND ;
+      --   Third C3_4 Pl => "y"++BIND ;
+      --   Third C5_6 Sg => "y"++BIND ;
+      --   Third C5_6 Pl => "ng"++BIND ;
+      --   Third C7_8 Sg => "y"++BIND ;
+      --   Third C7_8 Pl => "y"++BIND ;
+      --   Third C9_10 Sg => "y"++BIND ;
+      --   Third C9_10 Pl => "y"++BIND ;
+      --   Third C11_10 Sg => "w"++BIND ;
+      --   Third C11_10 Pl => "y"++BIND ;
+      --   Third C9_6 Sg => "y"++BIND ;
+      --   Third C9_6 Pl => "ng"++BIND ;
+      --   Third C14 _ => "ng"++BIND ;
+      --   Third C15 _ => "ng"++BIND ;
+      --   Third C17 _ => "ng"++BIND ;
+      --   First Sg => "yi"++BIND ;
+      --   First Pl => "yi"++BIND ;
+      --   Second Sg  => "ngu"++BIND ;
+      --   Second Pl => "yi"++BIND ;
+      --   LocAgr => "ngu" ++BIND
+      -- } ;
+
+      id_cop_pref : BasicTense -> Polarity -> Str = \tense,pol -> case <tense,pol> of {
+        <_,Pos> => "ngu"++BIND ;
+        <PresTense,Neg> => "ngo"++BIND ;
+        <_,Neg> => "ngu"++BIND
       } ;
 
       assoc_cop_pref : Polarity -> Agr -> Str = \pol,agr -> case pol of {
@@ -2506,8 +2439,8 @@ resource ResXho = open Prelude,Predef,ParamX in {
 
       kho_cop : VForm -> Agr -> Str = \vform,agr -> case vform of {
         VFIndic MainCl Neg PresTense => neg_kho_cop_pref agr ++ "kho";
-        VFIndic RelCl Neg PresTense => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl Neg PresTense) agr RelType) ++ "kho" ;
-        VFIndic RelCl p t => (relConcCop vform agr RC) ++ (ap_cop_pref (VFIndic RelCl p t) agr RelType) ++ "khona" ;
+        VFIndic RelCl Neg PresTense => (relConcCop vform agr PhonC) ++ (ap_cop_pref (VFIndic RelCl Neg PresTense) agr RelType) ++ "kho" ;
+        VFIndic RelCl p t => (relConcCop vform agr PhonC) ++ (ap_cop_pref (VFIndic RelCl p t) agr RelType) ++ "khona" ;
         VFIndic MainCl p t => (ap_cop_pref (VFIndic MainCl p t) agr RelType) ++ "khona" ;
         VFConsec p => (ap_cop_pref (VFIndic MainCl p PastTense) agr RelType) ++ "khona" ;
         VFSubjunct Neg => neg_kho_cop_pref agr ++ "kho" ;
@@ -2548,9 +2481,9 @@ resource ResXho = open Prelude,Predef,ParamX in {
     -- OTHER
     ----------------------------------------
 
-    link_conj : { s: RInit => Str ; fix : Bool } -> RInit -> Str = \conj,rinit -> case conj.fix of {
+    link_conj : { s: PhonInit => Str ; fix : Bool } -> PhonInit -> Str = \conj,rinit -> case conj.fix of {
       True => conj.s!rinit ++BIND ;
-      False => conj.s!RC
+      False => conj.s!PhonC
     } ;
 
     compAgr : Agr -> Agr -> Agr = \a1,a2 -> case <a1,a2> of {

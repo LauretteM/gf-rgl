@@ -16,7 +16,7 @@ concrete NumeralSBantuSsw of NumeralSBantu = CatSsw, CatSBantuZul, ResSsw, Prelu
                 _ => "-" ++BIND++ s.s 
             } ;
             agr = Third C5_6 Sg ;
-            i = RC ;
+            phonInit = PhonC ;
             proDrop = False ; -- used when NP is object
             isPron = False ; -- used to choose correct between Full/Reduced
             heavy = True -- has object/adv/qword

@@ -5,7 +5,7 @@ concrete SentenceSBantuXho of SentenceSBantu = CatXho,CatSBantuXho ** open ResXh
     ExistNP np = {
       s = table {
         SInd => let
-          cp = (id_cop_pref np.agr) ; -- ng-
+          cp = (id_cop_pref PresTense Pos) ; -- ng-
           cop_base = case np.isPron of {
             True => np.s!NReduced ;
             False => np.s!NFull -- umfundi
@@ -22,7 +22,7 @@ concrete SentenceSBantuXho of SentenceSBantu = CatXho,CatSBantuXho ** open ResXh
     ExistAppos np1 np2 = {
       s = table {
         SInd => let
-          cp = (id_cop_pref np1.agr) ; -- ng-
+          cp = (id_cop_pref PresTense Pos) ; -- ng-
           cop_base = np2.s!NFull -- umfundi
         in
           case np2.proDrop of {
@@ -77,7 +77,7 @@ concrete SentenceSBantuXho of SentenceSBantu = CatXho,CatSBantuXho ** open ResXh
     } ;
 
     SConjS s1 conj s2 = {
-      s = \\st => s1.s!st ++ conj.s!RC ++ s2.s!st 
+      s = \\st => s1.s!st ++ conj.s!PhonC ++ s2.s!st 
     } ;
 
     -- IAdvQS np iadv = {

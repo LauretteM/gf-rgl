@@ -10,9 +10,9 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
       empty = cn.empty ;
       s = \\nform => det.s ++ cn.s ! det.n ! nform ;
       agr = agr ;
-      i = case cn.predet of {
+      phonInit = case cn.predet of {
         False => nominit!agr ;
-        True => RC
+        True => PhonC
       } ;
       proDrop = False ;
       isPron = False ;
@@ -28,7 +28,7 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
       empty = pn.empty ;
       s = pn.s!Sg ;
       agr = agr ;
-      i = nominit!agr ;
+      phonInit = nominit!agr ;
       proDrop = False ;
       isPron = False ;
       heavy = True
@@ -48,7 +48,7 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
       -- } ;
       s = pron.s ;
       agr = pron.agr ;
-      i = RC ;
+      phonInit = PhonC ;
       proDrop = pron.proDrop ;
       isPron = True ;
       heavy = case pron.proDrop of {
@@ -63,7 +63,7 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
       empty = np.empty ;
       s = \\nform => np.s!nform ++ adv.s ;
       agr = np.agr ;
-      i = np.i ;
+      phonInit = np.phonInit ;
       proDrop = False ; -- probably right?
       isPron = np.isPron ;
       heavy = True
@@ -74,7 +74,7 @@ concrete NounSsw of Noun = CatSsw ** open ResSsw, Prelude, ParamX in {
       empty = np.empty ;
       s = \\nform => np.s!nform ++ rs.s!np.agr ;
       agr = np.agr ;
-      i = np.i ;
+      phonInit = np.phonInit ;
       proDrop = False ; -- probably right?
       isPron = np.isPron ;
       heavy = True

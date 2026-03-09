@@ -1,6 +1,3 @@
---# -path=.:../abstract:../../prelude:../common
-
-
 resource ParadigmsZul = open
   (Predef=Predef),
   Prelude,

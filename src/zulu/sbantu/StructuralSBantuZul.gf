@@ -171,7 +171,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a PhonC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- [] / zoba
           cop_base = ADV_LAPHA -- lapha
         in
@@ -272,7 +272,7 @@ concrete StructuralSBantuZul of StructuralSBantu = CatZul,CatSBantuZul ** open R
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a PhonC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- [] / zoba
           cop_base = ADV_LAPHO -- lapha
         in

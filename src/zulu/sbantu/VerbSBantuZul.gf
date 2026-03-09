@@ -14,7 +14,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             pcp ++ adjpref ++ cop_base ;
           RelCl => \\a,p,t,s,l => let
             vform = VFIndic RelCl p t ;
-            rcp = (adjConcCop vform a RC) ; -- o-
+            rcp = (adjConcCop vform a PhonC) ; -- o-
             pcp = ap_cop_pref vform a AdjType ; -- [] / -nge- / zoba / -be- / -benge- -waye- / -wayenge-
             adjpref =  adjPref a vform ; -- m-
             cop_base = ap.s!(aformN a) -- khulu
@@ -30,7 +30,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             pcp ++ cop_base ;
           RelCl => \\a,p,t,s,l => let
             vform = VFIndic RelCl p t ;
-            rcp = (relConcCop vform a RC) ; -- o-
+            rcp = (relConcCop vform a PhonC) ; -- o-
             pcp = ap_cop_pref vform a RelType ; -- [] / -nge- / zoba / -benge-
             cop_base = ap.s!AF1 -- qotho
           in
@@ -95,7 +95,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             pcp ++ adjpref ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = True ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopDescr
     } ;
@@ -117,7 +117,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o-
+          rcp = (relConcCop vform a PhonC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
           cp = (id_cop_pref np.agr) ; -- ng-
           cop_base = case np.isPron of {
@@ -169,7 +169,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopIdent
     } ;
@@ -185,7 +185,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o-
+          rcp = (relConcCop vform a PhonC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
           cp = (assoc_cop_pref p np.agr) ; -- ne
           cop_base = np.s!NReduced -- moto
@@ -230,7 +230,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopAssoc
     } ;
@@ -246,7 +246,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o-
+          rcp = (relConcCop vform a PhonC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
           cp = (eq_cop_pref p np.agr) ; -- ne
           cop_base = np.s!NReduced -- moto
@@ -291,7 +291,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopAssoc
     } ;
@@ -307,7 +307,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o-
+          rcp = (relConcCop vform a PhonC) ; -- o-
           pcp = (assoc_pre_cop_pref vform a) ; -- [] / zoba
           cp = (eq_size_cop_pref p np.agr) ; -- ne
           cop_base = np.s!NReduced -- moto
@@ -352,7 +352,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopAssoc
     } ;
@@ -360,7 +360,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
     UseVStative v = {
       s = \\c,a,p,t,s,l => let
           vform = VFIndic c p t ;
-          vpref = verb_prefix_stative vform a v.r v.syl ;
+          vpref = verb_prefix_stative vform a v.phonInit v.syl ;
           r = v.s!(rform_stative vform) ;
           yo = case l of {
             True => relSuf vform s ;
@@ -402,18 +402,18 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref = verb_prefix_stative vform a v.r v.syl ;
+          vpref = verb_prefix_stative vform a v.phonInit v.syl ;
           r = v.s!(rform vform False)
         in vpref ++ r ;
       iadv, advs, comp = [] ;
       hasComp = False ;
-      r = v.r ;
+      phonInit = v.phonInit ;
       syl = v.syl ;
       vptype = NoComp
     } ;
 
     ComplV2Nonspec v2 np = let
-      oc = objConc np.agr v2.r v2.syl ;
+      oc = objConc np.agr v2.phonInit v2.syl ;
       longform = case np.heavy of {
         True => False ;
         False => True
@@ -422,8 +422,8 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
-          vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.phonInit a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.phonInit a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) longform) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -435,8 +435,8 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
         } ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_no_oc = verb_prefix_no_oc vform l v2.r a s v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          vpref_no_oc = verb_prefix_no_oc vform l v2.phonInit a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.phonInit a s v2.syl ;
           r = v2.s!(rform vform longform) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -499,8 +499,8 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.phonInit a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.phonInit a Null v2.syl ;
           r = v2.s!(rform vform False) ;
           obj = case p of {
             Pos => np.s!NFull ;
@@ -513,7 +513,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = np.heavy ;
-      r = v2.r ;
+      phonInit = v2.phonInit ;
       syl = v2.syl ;
       vptype = VNPCompl
     } ;
@@ -525,7 +525,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       consubj_s = loc.consubj_s ;
       comp,advs,iadv = [] ;
       hasComp = True ;
-      r = RC ;
+      phonInit = PhonC ;
       syl = SylMult ;
       vptype = CopLoc
     } ;
@@ -549,7 +549,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           } ;
         RelCl => \\a,p,t => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o- / onge-
+          rcp = (relConcCop vform a PhonC) ; -- o- / onge-
           pcp = ap_cop_pref vform a RelType ; -- u- / uzoba / akazukuba
           s = case locadv.reqLocS of {
             True => LOC_S++BIND ;
@@ -617,13 +617,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform True v2.phonInit a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r  ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform True v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform True v2.phonInit a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
@@ -661,21 +661,21 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.phonInit a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.phonInit a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = False ;
-      r = v2.r ;
+      phonInit = v2.phonInit ;
       syl = v2.syl ;
       vptype = VNPCompl
     } ;
 
     ComplV2Light v2 np = let
-      oc = objConc np.agr v2.r v2.syl ;
+      oc = objConc np.agr v2.phonInit v2.syl ;
       longform = case np.heavy of {
         True => False ;
         False => True
@@ -685,13 +685,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.phonInit a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in vpref_with_oc ++ oc ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
-          oc = objConc np.agr v2.r v2.syl ; -- [] / m -
+          vpref_with_oc = verb_prefix_with_oc vform l v2.phonInit a s v2.syl ;
+          oc = objConc np.agr v2.phonInit v2.syl ; -- [] / m -
           longform = case np.heavy of {
             True => False ;
             False => True
@@ -735,13 +735,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.phonInit a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in vpref_with_oc ++ oc ++ r ++ obj ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = False ;
-      r = v2.r ;
+      phonInit = v2.phonInit ;
       syl = v2.syl ;
       vptype = VNPCompl
     } ;
@@ -756,13 +756,13 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
       s = table {
         MainCl => \\a,p,t,s,l => let
           vform = (VFIndic MainCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.phonInit a s v2.syl ;
           r = v2.s!(rform (VFIndic MainCl p t) l) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ obj ;
         RelCl => \\a,p,t,s,l => let
           vform = (VFIndic RelCl p t) ;
-          vpref_with_oc = verb_prefix_with_oc vform l v2.r a s v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform l v2.phonInit a s v2.syl ;
           r = v2.s!(rform vform l) ; -- bona / boni
           suf = case l of {
             True => relSuf vform s ;
@@ -800,15 +800,15 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             ConsecCl => VFConsec p ;
             SubjCl => VFSubjunct p 
           } ;
-          vpref_no_oc = verb_prefix_no_oc vform False v2.r a Null v2.syl ;
-          vpref_with_oc = verb_prefix_with_oc vform False v2.r a Null v2.syl ;
+          vpref_no_oc = verb_prefix_no_oc vform False v2.phonInit a Null v2.syl ;
+          vpref_with_oc = verb_prefix_with_oc vform False v2.phonInit a Null v2.syl ;
           r = v2.s!(rform vform False) ; -- bona / boni
         in
           vpref_with_oc ++ REFL_PRON ++BIND ++ r ++ obj ;
       iadv, advs, comp = [] ;
       ap_comp = \\_ => [] ;
       hasComp = np.heavy ;
-      r = v2.r ;
+      phonInit = v2.phonInit ;
       syl = v2.syl ;
       vptype = VNPCompl
     } ;
@@ -828,7 +828,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cop_base ;
         RelCl => \\a,p,t,s,l => let
           vform = VFIndic RelCl p t ;
-          rcp = (relConcCop vform a RC) ; -- o-
+          rcp = (relConcCop vform a PhonC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
           cop_base = poss_concord_agr!(Third C17 Sg)!(nominit!np.agr) ++BIND++ np.s!NPoss -- utshani
         in
@@ -873,7 +873,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
           pcp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = np.heavy ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopIdent
     } ;
@@ -935,7 +935,7 @@ concrete VerbSBantuZul of VerbSBantu = CatZul,CatSBantuZul ** open ResZul, Prelu
             pcp ++ cop_base ;
       comp, iadv, advs = [] ;
       hasComp = True ;
-      r = RC ; -- should not be used
+      phonInit = PhonC ; -- should not be used
       syl = SylMult ;
       vptype = CopDescr
     } ;
