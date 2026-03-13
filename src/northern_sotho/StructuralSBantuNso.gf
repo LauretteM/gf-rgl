@@ -45,7 +45,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     so_big_R = mkA "kaaka" ;
     -- how_big_R = mkA "kaakang" ;
     -- how_many_R = mkA "kae" ;
-    spotted_R = mkA "mebalabala" ;
+    spotted_R = variants {} ;
     blue_R = mkA "tala" ;
     painful_R = variants {} ;
     better_R = mkA "kaone" ;
@@ -53,14 +53,32 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
 
     -- -- enumerative stems
     different_Enum = enum "šele" ;
-    which_Enum = enum "&+ fe" ;
+    which_Enum = { s = \\_ => BIND++"fe" ; at = EnumA } ;
     one_Enum = enum "tee" ; 
     cruel_Enum = enum "šoro" ;
 
     -- -- adverbs
+    -- manner
     when_Adv = { s = "neng" } ;
     how_Adv = { s = "bjang" } ;
+    much_Adv = { s = "kudu" } ;
+    really_Adv = { s = "ruri" } ; 
+    -- painful_Adv = { s = "gabohloko" } ;
+    -- ten_times_Adv = { s = "galesome" } ;
+    -- once_Adv = { s = "kgatee" } ;
+    always_Adv = {s = "ka mehla" } ;
+    like_this_Adv = { s = "bjalo" } ;
+    only_Adv = { s = "fela" } ;
+    quickly_Adv = { s = "ka pela" } ;
+    again_Adv = { s = "gape" } ;
+    better_Adv = { s = "kaone" } ;
+    perhaps_Adv = { s = "mohlomongwe" } ;
+    peacefully_Adv = { s = "šebešebe" } ;
+    therefore_Adv = { s = "ka gona" } ;  -- bedink weer. Hierdie moet eintlik deur die InstrAdv konstruksie gedoen word.
+    about_Adv = { s = "ka ga" } ;  -- bedink weer. Hierdie dalk ook.
+    sometimes_Adv = { s = "sewela" } ;
 
+    -- time
     today_Adv = { s = "lehono" } ;
     yesterday_Adv = { s = "maabane" } ;
     now_Adv = { s = "bjale"} ;
@@ -69,33 +87,22 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     tomorrow_2_Adv = { s = "gosasa" } ;
     in_winter_Adv = { s = "marega" } ; 
     evening_Adv = { s = "mantšiboa" } ; 
-    really_Adv = { s = "ruri" } ; 
-    -- painful_Adv = { s = "gabohloko" } ;
-    -- ten_times_Adv = { s = "galesome" } ;
-    -- once_Adv = { s = "kgatee" } ;
     day_before_yesterday_Adv = { s = "maloba" } ;
     -- simultaneously_Adv = { s = "gotee" } ;
-    always_Adv = {s = "ka mehla" } ;
     long_ago_Adv = {s = "kgale" } ;
     in_the_afternoon_Adv = { s = "ka mathapama" } ;
-	  like_this_Adv = { s = "bjalo" } ;
-    only_Adv = { s = "fela" } ;
-    quickly_Adv = { s = "ka pela" } ;
-    again_Adv = { s = "gape" } ;
-    better_Adv = { s = "kaone" } ;
-    perhaps_Adv = { s = "mohlomongwe" } ;
-    peaceful_Adv = { s = "šebešebe" } ;
-         
-    -- locative adverbs
+    at_noon_Adv = { s = "mosegare" } ;
+ 
+	 -- -- locative adverbs
     where_LocAdv = { s = "kae" } ;
-    far_LocAdv = {s = "kgole" } ;
-    nearby_LocAdv = {s = "kgauswi" } ;
+    -- far_LocAdv = {s = "kgole" } ;
+    -- nearby_LocAdv = {s = "kgauswi" } ;
     across_LocAdv = { s = "putla" } ;
-    at_the_back_LocAdv = { s = "morago" } ;
+    -- at_the_back_LocAdv = { s = "morago" } ;
     inside_LocAdv = { s = "ka gare ga" } ;
     yonder_LocAdv = { s = "kua" } ;
 
-    -- locative class nouns
+    -- -- locative class nouns
     below_LocN = mkLocClassNoun "fase" C16 ;
     place_LocN = mkLocClassNoun "felo" C16 ;
     little_place_LocN = mkLocClassNoun "felwana" C16 ; 
@@ -121,6 +128,7 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- this_side_LocN : LocN ; 
     ages_ago_LocN = mkLocClassNoun "kgalekgale" C18 ;
     the_whole_LocN = mkLocClassNoun "moka" C18 ;
+    after_a_while_LocN = mkLocClassNoun "moragonyana" C18 ;
     
     all_QuantPron = { s = all_quantpron } ;
 
@@ -147,25 +155,34 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
       dist = Dem3
     } ;
 
-    -- conjunctions
+    -- -- conjunctions
     with_ConjN = { s = "le" } ;
     or_ConjN = { s = "goba" } ;
     -- together_with_Conj : Conj ;
     and_then_Conj = { s = "" ; mood = ConsecMS } ;
+    and_then_2_Conj = { s = "" ; mood = SubjunctMS } ;
     -- but_also_Conj : Conj ;
     -- in_comparison_with_Conj : Conj ;
     while_Conj = { s = "mola" ; mood = SitMS } ;
+    while_2_Conj = { s = "" ; mood = SitMS } ;
     however_Conj = { s = "eupša" ; mood = IndicMS } ;
+    however_2_Conj = { s = "eupša" ; mood = ConsecMS } ;
     if_Conj = { s = "ge" ; mood = SitMS } ;
     even_though_Conj = {s = "le ge" ; mood = SitMS } ;
     so_that_Conj = { s = "gore" ; mood = SubjunctMS } ;
+    that_Conj = { s = "gore" ; mood = IndicMS } ;
     but_Conj = { s = "fela" ; mood = IndicMS } ;
     then_Conj = { s ="ebile" ; mood = IndicMS } ;
-    because_Conj = { s = "ka gobane" ; mood = SitMS } ;
-    because_2_Conj = { s = "gobane" ; mood = SitMS } ;
+    because_Conj = { s = "ka gobane" ; mood = SubjunctMS } ;
+    because_2_Conj = { s = "gobane" ; mood = SubjunctMS } ;
+    because_4_Conj = { s = "ka gore" ; mood = SubjunctMS } ;
     whereas_Conj = { s = "kganthe" ; mood = SitMS } ;
+    because_3_Conj = { s = "ka ge" ; mood = SitMS } ;
     and_2_Conj = { s = "le" ; mood = IndicMS } ;
-
+    as_if_Conj = {s = "e ke" ; mood = IndicMS } ;
+    even_Conj = { s = "ebile" ; mood = IndicMS } ;
+    and_3_Conj = { s = "mme" ; mood = IndicMS } ;
+    before_Conj = { s = "pele ga ge" ; mood = IndicMS } ;
     
     {-Loc = {
       s : TensedCl => Agr => Polarity => BasicTense => Str ; 

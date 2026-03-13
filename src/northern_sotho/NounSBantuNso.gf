@@ -164,9 +164,9 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
       proDrop = andB np1.proDrop np2.proDrop 
     } ;
    
-    -- AdjPron : AP -> Pron -> Pron ;
+    -- AdjPron : AP -> Pron -> NP 
     
-    AdjPron ap pn = {
+    AdjPron ap pn = { -- big he
       s = table {
         Absolute => case ap.at of {
           EnumA => pn.s!Absolute ++ subjConcLookup!pn.a!SC1 ++ ap.s!AF1 ;
@@ -182,21 +182,38 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
          } 
       } ;
       a = pn.a ;
-      empty = pn.empty ;
+      nt = HumanN ;
       proDrop = pn.proDrop
     } ;
 
     -- CN = {s : Number => NPForm => Str ; c : ClassGender ; nt : NType} ;
+    -- Pron = {s : NPForm => Str ; a : Agr ; empty : Str ; proDrop : Bool } ;
+    -- NP = {s : NPForm => Str ; a : Agr ; nt : NType ; proDrop : Bool } ;
 
-    NomRel cn1 cn2 = {
+    -- NomRel : NP -> CN -> CN
+
+    NomRel cn np = { -- bravery man
         s = \\num, npform => let
-                part1 = cn1.s!num!npform ;
-                rel = dem_pron!Dem1!(Third cn1.c num) ;
-                part2 = cn2.s!num!Absolute ;
+                part1 = cn.s!num!npform ;
+                rel = dem_pron!Dem1!(Third cn.c num) ;
+                part2 = np.s!Absolute ;
                 in
                 part1 ++ rel ++ part2 ;
-        c = cn1.c ;
-        nt = cn1.nt
+        c = cn.c ;
+        nt = cn.nt
     } ;
+    
+    -- NomRelPron : NP -> Pron -> NP
 
-  }
+    NomRelPron np pn = { -- bravery he
+      s = table {
+        Absolute => pn.s!Absolute ++ dem_pron!Dem1!pn.a ++ np.s!Absolute ;
+        Possessive => pn.s!Possessive ++ dem_pron!Dem1!pn.a ++ np.s!Absolute ;
+        Locative => pn.s!Locative ++ dem_pron!Dem1!pn.a ++ np.s!Absolute 
+      } ; 
+      a = pn.a ;
+      nt = HumanN ;
+      proDrop = pn.proDrop
+    } ;
+}
+ 

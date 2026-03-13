@@ -6,6 +6,7 @@ cat
   Chunk_Phr ;
   Chunk_AP ;
   Chunk_Adv ;
+  Chunk_Conj ; -- new
   Chunk_Imp ;
   Chunk_S ;
   Chunk_RS ;
@@ -28,6 +29,7 @@ fun
   Phr_Chunker : Chunk_Phr -> Chunk ;
   AP_Chunker : Chunk_AP -> Chunk ;
   Adv_Chunker : Chunk_Adv -> Chunk ;
+  Conj_Chunker : Chunk_Conj -> Chunk ; -- new
   Imp_Chunker : Chunk_Imp -> Chunk ;
   S_Chunker : Chunk_S -> Chunk ;
   RS_Chunker : Chunk_RS -> Chunk ;
@@ -44,13 +46,18 @@ fun
   Phr_Chunk : Phr -> Chunk_Phr ;
   AP_Chunk  : Pron -> AP -> Chunk_AP ;
   Adv_Chunk : Adv -> Chunk_Adv ;
+  Conj_Chunk : Conj -> Chunk_Conj ; -- new
   Imp_Sg_Pos_Chunk : Imp -> Chunk_Imp ;
   Imp_Sg_Neg_Chunk : Imp -> Chunk_Imp ;
   Imp_Pl_Pos_Chunk : Imp -> Chunk_Imp ;
   Imp_Pl_Neg_Chunk : Imp -> Chunk_Imp ;
   S_Chunk      : S   -> Chunk_S ;
+  S_Sit_Chunk  : S   -> Chunk_S ; -- new
+  S_Subjunct_Chunk  : S   -> Chunk_S ; -- new
+  S_Consec_Chunk  : S   -> Chunk_S ; -- new
   RS_Chunk     : Pron -> RS -> Chunk_RS ;
   QS_Chunk     : QS  -> Chunk_QS ;
+  VP_ExistNP_Chunk : NP -> Chunk_VP ;
   VP_RelYo_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
   VP_Rel_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
   VP_Main_Chunk : Temp -> Pol -> Pron -> VP -> Chunk_VP ;
@@ -73,7 +80,7 @@ fun
   Postdet_Chunk : Pron -> Postdet -> Chunk_Postdet ;
   N_Sg_Chunk : N -> Chunk_N ;
   N_Pl_Chunk : N -> Chunk_N ;
-
+  
 -- for unknown words that are not names
 
   Symb_Chunk : Symb -> Chunk_Symb ;

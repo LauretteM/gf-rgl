@@ -55,11 +55,11 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     SBantuConjNP : NP -> ConjN -> NP -> NP ;
 
-    -- Added November 2024
+    AdjPron : AP -> Pron -> NP ; -- big he
 
-    AdjPron : AP -> Pron -> Pron ;
+    NomRel : CN -> NP -> CN ; -- bravery man
 
-    NomRel : CN -> CN -> CN ;
+    NomRelPron : NP -> Pron -> NP ; -- bravery he
 
 
 }

@@ -2,7 +2,7 @@ concrete SentenceSBantuNso of SentenceSBantu = CatNso,CatSBantuNso ** open ResNs
 
   lin
 
-    ExistNP np = variants {} ; -- {s = \\_ => "ke" ++ np.s!Absolute}
+    ExistNP np = {s = \\_ => "ke" ++ np.s!Absolute}; -- {s = \\_ => "ke" ++ np.s!Absolute} 
 
     ExistAppos np1 np2 = variants {} ; -- {s = \\_ => np1.s!Absolute ++ "ke" ++ np2.s!Absolute}
 

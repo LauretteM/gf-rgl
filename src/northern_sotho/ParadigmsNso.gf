@@ -41,6 +41,7 @@ oper
     mkV2 : (rat : Str) -> V2  = \rat -> lin V2 (mkVerb rat) ;
     --mkV2 : (rat : Str) -> V2  = \rat -> lin V2 (mkVerbT rat) ;
     mkV2 : (bal,badile : Str) -> V2  = \bal,badile -> lin V2 (mkVerbExplicit bal badile) ;
+    mkV2 : (r,re,itse : Str) -> V = \r,re,itse -> lin V2 (mkVerbIrregular re itse) ;
   } ;
 
   mkV3 = overload {

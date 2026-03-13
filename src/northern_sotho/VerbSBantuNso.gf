@@ -352,7 +352,7 @@ concrete VerbSBantuNso of VerbSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
     -- CopQuant : QuantPron -> VP ;
     -- UseVStative : V -> VP ;
 
-    ComplV2Nonspec = variants {} ;
+    ComplV2Nonspec = ComplV2 ;
 
     UseVStative v = variants {} ;
     CopQuant qp = variants {} ;

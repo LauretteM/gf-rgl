@@ -47,7 +47,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     better_R : A ;
     very_thin_R : A ;
     painful_R : A ;
-    pointed_R : A ;
 
    -- enumerative stems
     different_Enum : A ; -- zul: mbe; nso: -šele
@@ -57,9 +56,25 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     cruel_Enum : A ; -- nso: -šoro
 
     -- adverbs
+
+    -- manner
+
     when_Adv : Adv ;
     how_Adv : Adv ;
+    much_Adv : Adv ;
+    really_Adv : Adv ;
+    like_this_Adv : Adv ;
+    only_Adv : Adv ;
+    again_Adv : Adv ;
+    better_Adv : Adv ;
     perhaps_Adv : Adv ;
+    peacefully_Adv : Adv ;
+    therefore_Adv : Adv ;
+    about_Adv : Adv ;
+    always_Adv : Adv ;
+    sometimes_Adv : Adv ;
+
+    -- time
 
     today_Adv : Adv ;
     yesterday_Adv : Adv ;
@@ -69,19 +84,14 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     tomorrow_2_Adv : Adv ;
     in_winter_Adv : Adv ;
     evening_Adv : Adv ;
-    really_Adv : Adv ;
     day_before_yesterday_Adv : Adv ;
-    always_Adv : Adv ;
     long_ago_Adv : Adv ;
-    like_this_Adv : Adv ;
-    only_Adv : Adv ;
     in_the_afternoon_Adv : Adv ;
     quickly_Adv : Adv ;
-    again_Adv : Adv ;
-    better_Adv : Adv ;
-    perhaps_Adv : Adv ;
-    peaceful_Adv : Adv ;
+    at_noon_Adv : Adv ;
+    forever_Adv : Adv ; 
     
+        
     -- locative adverbs
 
     where_LocAdv : LocAdv ;
@@ -99,12 +109,11 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     outside_LocAdv : LocAdv ;
     yonder_LocAdv : LocAdv ;
 
-    -- locative class nouns
+     -- locative class nouns
     below_LocN : LocN ;
     place_LocN : LocN ;
     little_place_LocN : LocN ;
     above_LocN : LocN ;
-    over_LocN : LocN ;
     behind_LocN : LocN ;
     on_the_other_side_LocN : LocN ;
     across_LocN : LocN ;
@@ -164,19 +173,29 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     but_also_ConjN : ConjN ;
     with_Conj : Conj ;
     and_then_Conj: Conj ;
+    and_then_2_Conj : Conj ;
     but_also_Conj : Conj ;
     in_comparison_with_Conj : Conj ;
     while_Conj : Conj ;
+    while_2_Conj : Conj ;
     however_Conj : Conj ;
+    however_2_Conj : Conj ;
     if_Conj : Conj ; -- ge
     even_though_Conj : Conj ; -- le ge
     so_that_Conj : Conj ; -- gore
+    that_Conj : Conj ; -- gore
     but_Conj : Conj ; --fela
     then_Conj : Conj ; --ebile
     because_Conj : Conj ; -- ka gobane
     because_2_Conj : Conj ; -- gobane
+    because_3_Conj : Conj ; -- ka ge
+    because_4_Conj : Conj ; -- ka gore
     whereas_Conj : Conj ;
     and_2_Conj : Conj ; --le
+    as_if_Conj : Conj ; -- e ke
+    even_Conj : Conj ;
+    and_3_Conj : Conj ; --mme
+    before_Conj : Conj ;
 
     where_ConjAdv : ConjAdv ;
 

@@ -22,6 +22,7 @@ abstract LexiconSBantu = Cat ** {
    car_2_N : N ;
    car_N : N ; -- moto_9_10
    child_N : N ;
+   choir_N : N ;
    cleverness_N : N ;
    cloud_N : N ;
    cow_N : N ; -- komo_9_10
@@ -29,6 +30,7 @@ abstract LexiconSBantu = Cat ** {
    crime_N : N ;
    danger_N : N ;
    day_N : N ;
+   dawn_N : N ;
    doctor_N : N ;
    dog_N : N ;
    door_N : N ;
@@ -41,10 +43,13 @@ abstract LexiconSBantu = Cat ** {
    girl_2_N : N ;
    girl_N : N ; -- tombi_9_10
    gold_N : N ;
+   grain_N : N ;
+   grandmother_N : N ;
    greatness_N : N ;
    herdboy_N : N ;
    hill_N : N ;
    home_N : N ; -- khaya_5_6
+   home_2_N : N ;
    horse_N : N ;
    house_N : N ; -- ndlu_9_10
    injury_N : N ;
@@ -60,8 +65,10 @@ abstract LexiconSBantu = Cat ** {
    man_N : N ; -- doda_9_10
    meat_N : N ;
    medal_N : N ;
+   medicine_N : N ;
    milk_N : N ;
    money_N : N ;
+   morning_N : N ;
    mosquito_N : N ;
    mountain_N : N ; -- taba_9_10
    occasion_N : N; 
@@ -76,11 +83,14 @@ abstract LexiconSBantu = Cat ** {
    pocket_N : N ;
    policeman_N : N ; -- phoyisa_5_6
    Polokwane_N : N ;
+   porridge_N : N ;
    possession_N : N ;
    pot_N : N ; 
    power_N : N ;
    Pretoria_N : N ;
    pumpkin_porridge_N : N ;
+   quantity_N : N ;
+   rain_N : N ;
    residence_N : N ; 
    road_N : N ;
    room_N : N ;
@@ -104,6 +114,7 @@ abstract LexiconSBantu = Cat ** {
    vegetable_N : N ;
    vehicle_N : N ;
    village_N : N ;
+   visitor_N : N ;
    water_N : N ;
    weight_N : N ;
    what_N : N ;
@@ -114,6 +125,7 @@ abstract LexiconSBantu = Cat ** {
    work_N : N ;
    world_N : N ;
    young_man_N : N ;
+   your_father_N : N ;
 
    unit_N : N ;
    eight_N : N ;
@@ -124,15 +136,20 @@ abstract LexiconSBantu = Cat ** {
 
    -- -- verb roots
    answer_V2 : V2 ; --araba
+   arrive_V : V ;
    ask_V2 : V2 ;
    ask_V3 : V3 ;
    ask_V : V ;
    bark_V : V ;
    bear_fruit_V : V ;
    bear_fruit_V2 : V2 ;
+   be_able_VV : VV ;
    be_broken_V : V ;
+   become_V2 : V2 ;
    become_rich_V : V ;
    become_ripe_V : V ;
+   be_expensive_V : V ;
+   be_expensive_VV : VV ;   
    be_fast_V : V ;
    be_healthy_V : V ;
    be_hot_V : V ;
@@ -143,17 +160,24 @@ abstract LexiconSBantu = Cat ** {
    boil_V : V ;
    borrow_V2 : V2 ;
    break_V2 : V2 ;
+   bring_V : V ;
+   bring_V2 : V2 ;
+   bring_V3 : V3 ;
    build_for_V2 : V2 ; --agela
    build_V2 : V2 ;
    burn_2_V : V ; -- sh
    burn_V : V ; 
    buy_for_V2 : V2 ; --rekela
-   buy_V2 : V2 ; 
+   buy_V2 : V2 ;
+   buy_V2V : V2V ; 
+   call_V : V ;
    call_V2 : V2 ;
    carry_V2 : V2 ;
+   catch_V2 : V2 ;
    chase_V2 : V2 ;
    cheat_V2 : V2 ; --fora
    come_V : V ; 
+   come_V2 : V2 ;
    conquer_V2 : V2 ; --palela
    cook_V2 : V2 ; 
    cook_V3 : V3 ;
@@ -185,6 +209,7 @@ abstract LexiconSBantu = Cat ** {
    enter_V2 : V2 ;
    exhaust_V2 : V2 ; 
    exhaust_V : V ; 
+   face_V : V ;
    fall_towards_V2 : V2 ;
    fall_V : V ;
    feed_V2 : V2 ; --ješa
@@ -194,8 +219,10 @@ abstract LexiconSBantu = Cat ** {
    flee_V : V ;
    fly_V : V ; 
    forget_V2 : V2 ;
+   forget_VV : VV ;
    get_lost_V : V ;
    get_thin_V : V ;
+   get_tired_V : V ;
    give_V2 : V2 ; 
    give_V3 : V3 ;
    go_2_V : V ;
@@ -243,16 +270,19 @@ abstract LexiconSBantu = Cat ** {
    pour_into_V2 : V2 ;
    pour_V2 : V2 ;
    put_into_V2 : V2 ;
+   rain_V : V ;
    read_V2 : V2 ; 
    read_VS : VS ;
+   read_2_VS : VS ;
    read_V : V ;
    receive_V2 : V2 ;
+   recover_V : V ;
    refuse_VV : VV ;
    remember_V2 : V2 ;
    remind_V2 : V2 ; --gopotša
    repair_V2 : V2 ;
    respect_V2 : V2 ; --hlompha
-   return2_V : V ;
+   return_2_V : V ;
    return_to_V : V ;
    return_V : V ; 
    roar_V : V ;
@@ -264,6 +294,7 @@ abstract LexiconSBantu = Cat ** {
    say_3_VS : VS ;
    see_V2 : V2 ; -- bon
    see_VS : VS ;
+   see_V : V ;
    sell_to_each_other_V2 : V2 ; 
    sell_V2 : V2 ;
    sell_V : V ;
@@ -274,6 +305,8 @@ abstract LexiconSBantu = Cat ** {
    share_with_each_other_V2 : V2 ; --aban
    share_with_each_other_V : V ; -- aban
    show_V2 : V2 ; --šupetša
+   sing_V : V ;
+   sing_V2 : V2 ;
    sit_V : V ;
    sleep_V : V;
    speak_V2 : V2 ;
@@ -284,6 +317,8 @@ abstract LexiconSBantu = Cat ** {
    steal_V : V ;
    steal_V2 : V2 ; --utsw
    stick_into_V2 : V2 ;
+   study_V : V ;
+   study_V2 : V2 ;
    surpass_V2 : V2 ;
    surprise_V2 : V2 ;
    surprise_V2 : V2 ; --makatša
@@ -309,12 +344,16 @@ abstract LexiconSBantu = Cat ** {
    visit_V2 : V2 ;
    visit_V2 : V2 ; --etela
    visit_V : V ;
+   wait_for_V2 : V2 ;
+   wait_for_VV : VV ;
    wake_up_V : V ;
    walk_V : V ; -- hamb
    want_V2 : V2 ;
    want_VS : VS ;
    want_V : V ;
    want_VV : VV ;
+   wash_V : V ;
+   wash_V2 : V2 ;
    win_V2 : V2 ;
    work_for_V2 : V2 ; --direla
    work_V : V ;
@@ -323,6 +362,14 @@ abstract LexiconSBantu = Cat ** {
    write_V : V ;
 
    -- -- passive verb roots
+   be_cooked_V : V ;
+   be_cooked_V2 : V2 ;
+   be_destroyed_V : V ;
+   be_read_V : V ;
+   be_read_V2 : V2 ;
    be_seen_V : V ;
+   be_seen_V2 : V2 ;
+   be_sold_to_each_other_V : V ;
+   be_sold_to_each_other_V2 : V2 ;
 
 }

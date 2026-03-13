@@ -8,7 +8,7 @@ concrete ChunkSBantuNso of ChunkSBantu = CatNso, CatSBantuNso, SymbolNso [Symb] 
   lincat
     Chunks = {s : Str} ;
     Chunk = {s : Str};
-    Chunk_Phr, Chunk_AP, Chunk_Adv, Chunk_Imp, Chunk_S, Chunk_RS, Chunk_QS, Chunk_VP, Chunk_V, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Symb = {s: Str} ;
+    Chunk_Phr, Chunk_AP, Chunk_Adv, Chunk_Imp, Chunk_S, Chunk_RS, Chunk_QS, Chunk_VP, Chunk_V, Chunk_CN, Chunk_NP, Chunk_N, Chunk_Conj, Chunk_Predet, Chunk_Postdet, Chunk_Symb = {s: Str} ;
 
     VC = V ;
 
@@ -20,6 +20,7 @@ concrete ChunkSBantuNso of ChunkSBantu = CatNso, CatSBantuNso, SymbolNso [Symb] 
     Phr_Chunker c = c ;
     AP_Chunker c = c ;
     Adv_Chunker c = c ;
+    Conj_Chunker c = c ; --new
     Imp_Chunker c = c ;
     S_Chunker c = c ;
     RS_Chunker c = c ;
@@ -35,20 +36,27 @@ concrete ChunkSBantuNso of ChunkSBantu = CatNso, CatSBantuNso, SymbolNso [Symb] 
 
     Phr_Chunk p = {s = p.s } ;
     AP_Chunk pron ap = {
-      s = pron.s!Absolute ++ case pron.a of {
-      Third C9_10 _ => ap.s!AF2 ;
-      Third C7_8 Pl => ap.s!AF2 ;
-      (First _ | Second _ | Third _ _) => ap.s!AF1
+      s = case pron.a of {
+      Third C9_10 _ => pron.s!Absolute ++ dem_pron!Dem1!pron.a ++ ap.s!AF2 ;
+      Third C7_8 Pl => pron.s!Absolute ++ dem_pron!Dem1!pron.a ++ ap.s!AF2 ;
+      (First _ | Second _ | Third _ _) => pron.s!Absolute ++ dem_pron!Dem1!pron.a ++ subjConcLookup!pron.a!SC1 ++BIND ++ ap.s!AF1  
       } 
     } ;
     Adv_Chunk a = { s = a.s } ;
+    Conj_Chunk cj = { s = cj.s } ;
     Imp_Sg_Pos_Chunk i = { s = i.s!Sg!Pos } ;
     Imp_Sg_Neg_Chunk i = { s = i.s!Sg!Neg } ;
     Imp_Pl_Pos_Chunk i = { s = i.s!Pl!Pos } ;
     Imp_Pl_Neg_Chunk i = { s = i.s!Pl!Neg } ;
     S_Chunk s = { s = s.s!IndicMS } ;
+    S_Sit_Chunk s = { s = s.s!SitMS } ; -- new
+    S_Subjunct_Chunk s = { s = s.s!SubjunctMS } ; -- new
+    S_Consec_Chunk s = { s = s.s!ConsecMS } ; -- new
     RS_Chunk pron rs = { s = pron.s!Absolute ++ rs.s!pron.a } ;
     QS_Chunk s = { s = nonExist } ;
+    VP_ExistNP_Chunk np = {
+      s = "ke" ++ np.s!Absolute 
+    } ;
     VP_RelYo_Chunk temp pol pron vp = {
       s = temp.s ++ pol.s ++ pron.s!Absolute ++ vp.s!RelCl!pron.a!pol.p!temp.t!True
     } ;
