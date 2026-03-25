@@ -69,7 +69,7 @@ concrete StructuralSBantuSsw of StructuralSBantu = CatSsw,CatSBantuSsw ** open R
     -- long_ago_Adv = regAdv "kade" ;
     -- in_the_afternoon_Adv = regAdv "ntambama" ;
 	  like_this_Adv = regAdv "njalo " ;
-    -- only_Adv = regAdv "kuphela" ;
+    only_Adv = regAdv "kuphela" ;
     -- quickly_Adv = regAdv "masinya" ;
     -- again_Adv = regAdv "kabusha" ;
 

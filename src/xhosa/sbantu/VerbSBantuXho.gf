@@ -105,7 +105,7 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
         MainCl => \\a,p,t,s,l => let
           vform = VFIndic MainCl p t ;
           pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
-          cp = (id_cop_pref t p) ; -- ng-
+          cp = (id_cop_pref np.agr t p) ; -- ng-
           cop_base = case np.isPron of {
             False => np.s!NReduced ; -- umfundi 
             True => case np.proDrop of {
@@ -119,7 +119,7 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
           vform = VFIndic RelCl p t ;
           rcp = (relConcCop vform a PhonC) ; -- o-
           pcp = (id_pre_cop_pref vform a) ; -- [] / zoba / zukuba
-          cp = (id_cop_pref t p) ; -- ng-
+          cp = (id_cop_pref np.agr t p) ; -- ng-
           cop_base = case np.isPron of {
             False => np.s!NReduced ; -- umfundi 
             True => case np.proDrop of {
@@ -132,12 +132,12 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
       } ;
       imp_s = table {
         Sg => table {
-          Pos => COP_YI++BIND++BA ++ (id_cop_pref PresTense Pos) ++ np.s!NReduced ;
-          Neg => IMP_NEG_PREF_SG++BIND++BI ++ (id_cop_pref PresTense Neg) ++ np.s!NReduced
+          Pos => COP_YI++BIND++BA ++ (id_cop_pref np.agr PresTense Pos) ++ np.s!NReduced ;
+          Neg => IMP_NEG_PREF_SG++BIND++BI ++ (id_cop_pref np.agr PresTense Neg) ++ np.s!NReduced
         } ;
         Pl => table {
-          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ (id_cop_pref PresTense Pos) ++ np.s!NReduced ;
-          Neg => IMP_NEG_PREF_PL++BIND++BI ++ (id_cop_pref PresTense Neg) ++ np.s!NReduced
+          Pos => COP_YI++BIND++BA++BIND++PL_NI ++ (id_cop_pref np.agr PresTense Pos) ++ np.s!NReduced ;
+          Neg => IMP_NEG_PREF_PL++BIND++BI ++ (id_cop_pref np.agr PresTense Neg) ++ np.s!NReduced
         }
       } ;
       inf_s = table {
@@ -160,7 +160,7 @@ concrete VerbSBantuXho of VerbSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
             SubjCl => VFSubjunct p 
           } ;
             pcp = (id_pre_cop_pref vform a) ; -- u- / uzoba / akazukuba
-          cp = (id_cop_pref PresTense p) ; -- ng-
+          cp = (id_cop_pref np.agr PresTense p) ; -- ng-
           cop_base = case np.isPron of {
             False => np.s!NFull ; -- umfundi 
             True => nonExist -- "*" ++ np.s!NFull

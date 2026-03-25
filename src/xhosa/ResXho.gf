@@ -1297,7 +1297,7 @@ resource ResXho = open Prelude,Predef,ParamX in {
       <Third C5_6 Sg,PhonI> => "e" ; -- a + i > e
       <Third C5_6 Pl,PhonA> => "a" ; -- a + a > a
       <Third C7_8 Sg,PhonI> => "e" ; -- a + i > e
-      <Third C7_8 Sg,PhonI> => "e" ; -- a + i > e
+      <Third C7_8 Pl,PhonI> => "e" ; -- a + i > e
       <Third C9_10 Sg,PhonI> => "e" ; -- a + i > e
       <Third C9_6 Sg,PhonI> => "e" ; -- a + i > e
       <Third C9_10 Pl,PhonA> => "ee" ; -- a + ii > ee
@@ -2341,10 +2341,42 @@ resource ResXho = open Prelude,Predef,ParamX in {
       --   LocAgr => "ngu" ++BIND
       -- } ;
 
-      id_cop_pref : BasicTense -> Polarity -> Str = \tense,pol -> case <tense,pol> of {
-        <_,Pos> => "ngu"++BIND ;
-        <PresTense,Neg> => "ngo"++BIND ;
-        <_,Neg> => "ngu"++BIND
+      id_cop_pref : Agr -> BasicTense -> Polarity -> Str = \agr,tense,pol -> case agr of {
+        Third C1_2 Sg => case <tense,pol> of {
+          <_,Pos> => "ngu"++BIND ;
+          <PresTense,Neg> => "ngo"++BIND ;
+          <_,Neg> => "ngu"++BIND
+        } ;
+        Third C1_2 Pl => "ngaba"++BIND ;
+        Third C1a_2a Sg => case <tense,pol> of {
+          <_,Pos> => "ngu"++BIND ;
+          <PresTense,Neg> => "ngo"++BIND ;
+          <_,Neg> => "ngu"++BIND
+        } ;
+        Third C1a_2a Pl => "ngoo"++BIND ;
+        Third C3_4 Sg  => case <tense,pol> of {
+          <_,Pos> => "ngu"++BIND ;
+          <PresTense,Neg> => "ngo"++BIND ;
+          <_,Neg> => "ngu"++BIND
+        } ;
+        Third C3_4 Pl => "yimi"++BIND ;
+        Third C5_6 Sg => "li"++BIND ;
+        Third C5_6 Pl => "ngama"++BIND ;
+        Third C7_8 Sg => "si"++BIND ;
+        Third C7_8 Pl => "zi"++BIND ;
+        Third C9_10 Sg => "yi"++BIND ;
+        Third C9_10 Pl => "zi"++BIND ;
+        Third C11_10 Sg => "lu"++BIND ;
+        Third C11_10 Pl => "bu"++BIND ;
+        Third C9_6 Sg => "yi"++BIND ;
+        Third C9_6 Pl => "ngama"++BIND ;
+        Third C14 _ => "bu"++BIND ;
+        Third C15 _ => "ku"++BIND ;
+        Third C17 _ => "nku"++BIND ;
+        First Sg => "nd"++BIND ;
+        First Pl => "si"++BIND ;
+        Second Sg  => "ngu"++BIND ;
+        Second Pl => "ni"++BIND 
       } ;
 
       assoc_cop_pref : Polarity -> Agr -> Str = \pol,agr -> case pol of {
