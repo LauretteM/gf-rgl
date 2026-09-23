@@ -54,7 +54,7 @@ concrete StructuralSBantuXho of StructuralSBantu = CatXho,CatSBantuXho ** open R
 
     today_Adv = regAdv "namhlanje" ;
     -- yesterday_Adv = regAdv "izolo" ;
-    -- now_Adv = regAdv "manje" ;
+    now_Adv = regAdv "ngoku" ;
     -- at_night_Adv = regAdv "ebusuku" ;
     -- tomorrow_Adv = regAdv "ngomuso" ; 
     -- tomorrow_2_Adv = regAdv "kusasa" ;
@@ -66,7 +66,7 @@ concrete StructuralSBantuXho of StructuralSBantu = CatXho,CatSBantuXho ** open R
     -- long_ago_Adv = regAdv "kade" ;
     -- in_the_afternoon_Adv = regAdv "ntambama" ;
 	  like_this_Adv = regAdv "njalo " ;
-    -- only_Adv = regAdv "kuphela" ;
+    only_Adv = regAdv "kuphela" ;
     -- quickly_Adv = regAdv "masinya" ;
     -- again_Adv = regAdv "kabusha" ;
 

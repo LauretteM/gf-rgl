@@ -97,6 +97,13 @@ concrete NounSBantuXho of NounSBantu = CatXho,CatSBantuXho ** open ResXho, Prelu
       predet = False
     } ;
 
+    PostdetCN postdet n = {
+      s = \\num,nform => n.s!num!nform ++ postdet.s!(Third n.c num) ;
+      c = n.c ;
+      empty = n.empty ;
+      predet = False
+    } ;
+
     QuantPredet q = {
       s = \\a => q.s!a ;
       hasDem = False

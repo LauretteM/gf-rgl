@@ -23,23 +23,23 @@ concrete VerbXho of Verb = CatXho ** open ResXho, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case <v.syl,v.phonInit> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ;
+            <SylMono,PhonC> => COP_YI++BIND++v.s!R_a ;
             <SylMono,_> => COP_Y++BIND++v.s!R_a ;
             <SylMult,_> => v.s!R_a
           } ;
           Neg => case v.phonInit of {
-            RC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ;
+            PhonC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ;
             _  => IMP_NEG_PREF_SG_REDUCED ++BIND++ v.s!R_i
           }
         } ;
         Pl => table {
           Pos => case <v.syl,v.phonInit> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
+            <SylMono,PhonC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ;
             <SylMono,_> => COP_Y++BIND++v.s!R_a ++BIND++PL_NI ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI
           } ;
           Neg => case v.phonInit of {
-            RC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ;
+            PhonC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ;
             _  => IMP_NEG_PREF_PL_REDUCED ++BIND++ v.s!R_i
           }
         }
@@ -94,23 +94,23 @@ concrete VerbXho of Verb = CatXho ** open ResXho, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case <v.syl,v.phonInit> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
+            <SylMono,PhonC> => COP_YI++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
             <SylMono,_> => COP_Y++BIND++v.s!R_a ++ vp.inf_s!NFull!Pos ;
             <SylMult,_> => v.s!R_a ++ vp.inf_s!NFull!Pos
           } ;
           Neg => case v.phonInit of {
-            RC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
+            PhonC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
             _  => IMP_NEG_PREF_SG_REDUCED ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
           }
         } ;
         Pl => table {
           Pos => case <v.syl,v.phonInit> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
+            <SylMono,PhonC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
             <SylMono,_> => COP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI ++ vp.inf_s!NFull!Pos
           } ;
           Neg => case v.phonInit of {
-            RC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
+            PhonC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos ;
             _  => IMP_NEG_PREF_PL_REDUCED ++BIND++ v.s!R_i ++ vp.inf_s!NFull!Pos
           }
         }
@@ -165,23 +165,23 @@ concrete VerbXho of Verb = CatXho ** open ResXho, Prelude, ParamX in {
       imp_s = table {
         Sg => table {
           Pos => case <v.syl,v.phonInit> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++ s.s!v.s_type ;
+            <SylMono,PhonC> => COP_YI++BIND++v.s!R_a ++ s.s!v.s_type ;
             <SylMono,_> => COP_Y++BIND++v.s!R_a ++ s.s!v.s_type ;
             <SylMult,_> => v.s!R_a ++ s.s!v.s_type
           } ;
           Neg => case v.phonInit of {
-            RC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ s.s!v.s_type ;
+            PhonC => IMP_NEG_PREF_SG ++BIND++ v.s!R_i ++ s.s!v.s_type ;
             _  => IMP_NEG_PREF_SG_REDUCED ++BIND++ v.s!R_i ++ s.s!v.s_type
           }
         } ;
         Pl => table {
           Pos => case <v.syl,v.phonInit> of {
-            <SylMono,RC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
+            <SylMono,PhonC> => COP_YI++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
             <SylMono,_> => COP_Y++BIND++v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type ;
             <SylMult,_> => v.s!R_a ++BIND++PL_NI ++ s.s!v.s_type
           } ;
           Neg => case v.phonInit of {
-            RC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ s.s!v.s_type ;
+            PhonC => IMP_NEG_PREF_PL ++BIND++ v.s!R_i ++ s.s!v.s_type ;
             _  => IMP_NEG_PREF_PL_REDUCED ++BIND++ v.s!R_i ++ s.s!v.s_type
           }
         }
