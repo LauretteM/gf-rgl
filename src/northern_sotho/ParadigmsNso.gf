@@ -13,7 +13,7 @@ oper
   mkN = overload {
     mkN : (tho : Str) -> ClassGender -> N  = \n,c -> lin N (mkNoun n c) ;
     mkN : (ngwana, bana : Str) -> ClassGender -> N  = \stemsg,stempl,c -> lin N (mkNounIrreg stemsg stempl c) ;
-    mkN : (gare : Str) -> ClassGender -> NType -> N  = \n,c,t -> lin N (mkNounTyped n c t) ;
+    mkN : (ati : Str) -> ClassGender -> NType -> N  = \n,c,t -> lin N (mkNounTyped n c t) ;
     mkN : (ngwana, bana : Str) -> ClassGender -> NType -> N  = \stemsg,stempl,c,nt -> lin N (mkNounFull stemsg stempl c nt) ;
     mkN : (leporogo,leporogong,maporogo,maporogong : Str) -> ClassGender -> N = \abssg,locsg,abspl,locpl,cg -> lin N (mkNounExplicit abssg locsg abspl locpl cg) ;
     mkN : (leporogo,leporogong,maporogo,maporogong : Str) -> ClassGender -> NType -> N = \abssg,locsg,abspl,locpl,cg,nt -> lin N (mkNounWC abssg locsg abspl locpl cg nt) ;

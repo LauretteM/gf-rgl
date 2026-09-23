@@ -27,7 +27,8 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     few_R = mkA "nyane" ;
     -- heavy_R : A ; -- nzima
     -- honest_R : A ; -- qotho
-    nice_R = mkA "bose" ;
+    nice_R = mkA "botse" ;
+    tasty_R = mkA "bose" ;
     white_R = mkA "šweu" ;
     green_R = mkA "talamerogo" ;
     dangerous_A = mkA "kotsi" ;
@@ -75,7 +76,6 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     perhaps_Adv = { s = "mohlomongwe" } ;
     peacefully_Adv = { s = "šebešebe" } ;
     therefore_Adv = { s = "ka gona" } ;  -- bedink weer. Hierdie moet eintlik deur die InstrAdv konstruksie gedoen word.
-    about_Adv = { s = "ka ga" } ;  -- bedink weer. Hierdie dalk ook.
     sometimes_Adv = { s = "sewela" } ;
 
     -- time
@@ -158,11 +158,15 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     -- -- conjunctions
     with_ConjN = { s = "le" } ;
     or_ConjN = { s = "goba" } ;
-    -- together_with_Conj : Conj ;
+    -- together_with_ConjN : ConjN ;
+    -- but_also_ConjN : ConjN ;
+
+    -- in_comparison_with_Conj : Conj ;
+    -- with_Conj : Conj ;
+    -- but_also_Conj : Conj ;
+
     and_then_Conj = { s = "" ; mood = ConsecMS } ;
     and_then_2_Conj = { s = "" ; mood = SubjunctMS } ;
-    -- but_also_Conj : Conj ;
-    -- in_comparison_with_Conj : Conj ;
     while_Conj = { s = "mola" ; mood = SitMS } ;
     while_2_Conj = { s = "" ; mood = SitMS } ;
     however_Conj = { s = "eupša" ; mood = IndicMS } ;
@@ -173,17 +177,40 @@ concrete StructuralSBantuNso of StructuralSBantu = CatNso,CatSBantuNso ** open R
     that_Conj = { s = "gore" ; mood = IndicMS } ;
     but_Conj = { s = "fela" ; mood = IndicMS } ;
     then_Conj = { s ="ebile" ; mood = IndicMS } ;
-    because_Conj = { s = "ka gobane" ; mood = SubjunctMS } ;
+    because_Conj = { s = "ka gobane" ; mood = IndicMS } ;
     because_2_Conj = { s = "gobane" ; mood = SubjunctMS } ;
     because_4_Conj = { s = "ka gore" ; mood = SubjunctMS } ;
     whereas_Conj = { s = "kganthe" ; mood = SitMS } ;
     because_3_Conj = { s = "ka ge" ; mood = SitMS } ;
+    because_5_Conj = { s = "ka gore" ; mood = IndicMS } ;
     and_2_Conj = { s = "le" ; mood = IndicMS } ;
     as_if_Conj = {s = "e ke" ; mood = IndicMS } ;
-    even_Conj = { s = "ebile" ; mood = IndicMS } ;
     and_3_Conj = { s = "mme" ; mood = IndicMS } ;
     before_Conj = { s = "pele ga ge" ; mood = IndicMS } ;
+    then_when_Conj = { s = "ke ge" ; mood = SitMS } ;
+
+    -- 04-05-2026
+    and_yet_Conj = { s = "anthe" ; mood = IndicMS } ;
+    but_2_Conj = { s = "efela" ; mood = IndicMS } ;
+    as_Conj = { s = "eitše" ; mood = IndicMS } ;
+    as_if_2_Conj = { s = "eka" ; mood = IndicMS } ;
+    as_if_3_Conj = { s = "eke" ; mood = IndicMS } ;
+    but_3_Conj = { s = "empa" ; mood = IndicMS } ;
+    when_Conj = { s = "erile" ; mood = IndicMS } ;
+    even_Conj = { s = "ešita" ; mood = IndicMS } ;
+    by_the_way_Conj = { s = "etse" ; mood = IndicMS } ;
+    although_Conj = { s = "etšwe" ; mood = IndicMS } ;
+    therefore_Conj = { s = "ka fao" ; mood = IndicMS } ;
+    therefore_2_Conj = { s = "ka gona" ; mood = IndicMS } ;
+    perhaps_Conj = { s = "kgane" ; mood = IndicMS } ;
+    maybe_Conj = { s = "mogongwe" ; mood = IndicMS } ;
+    while_3_Conj = { s = "mohla" ; mood = IndicMS } ;
+    maybe_2_Conj = { s = "mohlamong" ; mood = IndicMS } ;
+    why_Conj = { s = "nkane" ; mood = IndicMS } ;
+    as_if_4_Conj = { s = "nke" ; mood = IndicMS } ;
+    then_2_Conj = { s = "ya ba" ; mood = IndicMS } ;
     
+
     {-Loc = {
       s : TensedCl => Agr => Polarity => BasicTense => Str ; 
       inf_s : Polarity => Str  ;

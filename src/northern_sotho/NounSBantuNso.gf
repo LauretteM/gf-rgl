@@ -90,10 +90,9 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
       s = \\a => q.s!a ++ d.s!a ;
     } ;
 
-    -- DemQuantPredet?
-    -- DemQuantPredet d q = { -- ntlo ye yohle
-    --   s = \\a => d.s!a ++ q.s!a ;
-    -- } ;
+    DemQuantPredet d q = { -- ntlo ye yohle
+      s = \\a => d.s!a ++ q.s!a ;
+    } ;
 
     EmphCN cn = {
       s = \\num => table {
@@ -190,9 +189,9 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
     -- Pron = {s : NPForm => Str ; a : Agr ; empty : Str ; proDrop : Bool } ;
     -- NP = {s : NPForm => Str ; a : Agr ; nt : NType ; proDrop : Bool } ;
 
-    -- NomRel : NP -> CN -> CN
+    -- NomRel : CN -> NP -> CN ; --man bravery
 
-    NomRel cn np = { -- bravery man
+    NomRel cn np = { -- man bravery
         s = \\num, npform => let
                 part1 = cn.s!num!npform ;
                 rel = dem_pron!Dem1!(Third cn.c num) ;
@@ -203,9 +202,9 @@ concrete NounSBantuNso of NounSBantu = CatNso,CatSBantuNso ** open ResNso, Prelu
         nt = cn.nt
     } ;
     
-    -- NomRelPron : NP -> Pron -> NP
+    -- NomRelPron : Pron -> NP -> NP ; -- he bravery
 
-    NomRelPron np pn = { -- bravery he
+    NomRelPron pn np  = { -- he bravery
       s = table {
         Absolute => pn.s!Absolute ++ dem_pron!Dem1!pn.a ++ np.s!Absolute ;
         Possessive => pn.s!Possessive ++ dem_pron!Dem1!pn.a ++ np.s!Absolute ;

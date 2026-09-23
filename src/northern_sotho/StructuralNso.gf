@@ -39,6 +39,7 @@ concrete StructuralNso of Structural = CatNso **
   -- Conj
   -- and_Conj = { s = \\_ => "futhi" ; fix = False } ;
   and_Conj = {s = "gomme" ; mood = IndicMS } ;
+  or_Conj = { s = "kapa" ; mood = IndicMS } ;
   --   both7and_DConj = mkConj "both" "and";
   --   either7or_DConj = mkConj "either" "or" singular ;
   --   or_Conj = mkConj "or" singular ;

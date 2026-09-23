@@ -34,6 +34,8 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     QuantDemPredet : QuantPron -> Quant -> Predet ;
 
+    DemQuantPredet : Quant -> QuantPron -> Predet ;
+
     EmphCN : CN -> CN ; -- prepends emphatic pronoun
 
     ContrastCN : CN -> CN ; -- inserts contrastive pronoun
@@ -57,9 +59,9 @@ abstract NounSBantu = Cat,CatSBantu ** {
 
     AdjPron : AP -> Pron -> NP ; -- big he
 
-    NomRel : CN -> NP -> CN ; -- bravery man
+    NomRel : CN -> NP -> CN ; -- man bravery
 
-    NomRelPron : NP -> Pron -> NP ; -- bravery he
+    NomRelPron : Pron -> NP -> NP ; -- he bravery
 
 
 }

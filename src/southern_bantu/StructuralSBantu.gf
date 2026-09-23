@@ -27,6 +27,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     heavy_R : A ; -- nzima
     honest_R : A ; -- qotho
     nice_R : A ; -- mnandi
+    tasty_R : A ;
     white_R : A ; -- mhlophe
     green_R : A ; -- luhlaza
     dangerous_A : A ;
@@ -70,7 +71,6 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     perhaps_Adv : Adv ;
     peacefully_Adv : Adv ;
     therefore_Adv : Adv ;
-    about_Adv : Adv ;
     always_Adv : Adv ;
     sometimes_Adv : Adv ;
 
@@ -171,6 +171,7 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     or_ConjN : ConjN ;
     together_with_ConjN : ConjN ; -- kanye na in Zul
     but_also_ConjN : ConjN ;
+
     with_Conj : Conj ;
     and_then_Conj: Conj ;
     and_then_2_Conj : Conj ;
@@ -190,19 +191,38 @@ abstract StructuralSBantu = Cat, CatSBantu ** {
     because_2_Conj : Conj ; -- gobane
     because_3_Conj : Conj ; -- ka ge
     because_4_Conj : Conj ; -- ka gore
+    because_5_Conj : Conj ; -- ka gore
     whereas_Conj : Conj ;
     and_2_Conj : Conj ; --le
     as_if_Conj : Conj ; -- e ke
-    even_Conj : Conj ;
     and_3_Conj : Conj ; --mme
     before_Conj : Conj ;
+    then_when_Conj : Conj ; -- ke ge
 
+    -- 04-05-2026
+    and_yet_Conj : Conj ;
+    but_2_Conj : Conj ;
+    as_Conj : Conj ;
+    as_if_2_Conj : Conj ;
+    as_if_3_Conj : Conj ;
+    but_3_Conj : Conj ;
+    when_Conj : Conj ;
+    even_Conj : Conj ;
+    by_the_way_Conj : Conj ;
+    although_Conj : Conj ;
+    therefore_Conj : Conj ;
+    perhaps_Conj : Conj ;
+    maybe_Conj : Conj ;
+    while_3_Conj : Conj ;
+    maybe_2_Conj : Conj ;
+    why_Conj : Conj ;
+    as_if_4_Conj : Conj ;
+    then_2_Conj : Conj ;
+    --
     where_ConjAdv : ConjAdv ;
 
     how_IComp : IComp ; -- -njani
     where_IComp : IComp ; -- -phi
     how_much_IComp : IComp ; -- -ngakanani
-
- 
 
 }

@@ -10,10 +10,26 @@ concrete NounNso of Noun = CatNso ** open ResNso, Prelude, ParamX in {
       proDrop = False
     } ; 
 
+    {-
     UsePron pron = { 
       s = pron.s ; 
       a = pron.a ; 
       nt = HumanN ;
+      proDrop = pron.proDrop
+    } ;
+    -}
+
+     UsePron pron = { -- default values for NType. See Locative trigrams in Northern Sotho p.163
+      s = pron.s ;
+      a = pron.a ;
+      nt = case pron.a of {
+        Third C16 _ => PlaceN ;
+        Third C17 _ => PlaceN ;
+        Third C18 _ => PlaceN ;
+        First _ => HumanN ;
+        Second _ => HumanN ;
+        Third _ _ => HumanN
+      } ;
       proDrop = pron.proDrop
     } ;
 
